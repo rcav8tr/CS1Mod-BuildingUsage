@@ -1,0 +1,447 @@
+Display how much a building is being used as a percent of its capacity.
+
+[h1]Detailed Description[/h1]
+The building usage is integrated into the Levels info view.
+Therefore, this mod is normally not available until the Levels info view becomes available in the game at milestone Tiny Town.
+The Levels info view is available earlier if you use another mod to unlock milestones
+(e.g. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=458519223]Unlock All + Wonders & Landmarks[/url]
+by [url=https://steamcommunity.com/id/bloody_penguin/myworkshopfiles/?appid=255710]BloodyPenguin[/url]).
+
+The Levels info view now has five tabs:
+[b]Levels[/b] - displays the normal Levels info view, which is unchanged by this mod.
+[b]Workers[/b] - displays the worker usage for buildings that have workers.
+[b]Visitors[/b] - displays the visitor usage for buildings that have "visitors".
+[b]Storage[/b] - displays the storage usage for buildings that store things.
+[b]Vehicles[/b] - displays the vehicle usage for buildings that generate vehicles.
+Each tab is described in more detail below.
+
+[h2]Workers[/h2]
+The Workers tab shows the usage of buildings that have workers.
+Usage is the number of workers assigned to the building as a percent of the number of workers the building allows.
+The number of workers that a zoned building allows is affected by the size, level, and density of the zoned building.
+The number of workers that a service building allows is determined by the specific building and other factors.
+See the list of buildings below in Building Details for Worker Types.
+
+[h2]Visitors[/h2]
+The Visitors tab shows the usage of buildings that have "visitors".
+Visitors usage is the number of "visitors" at the building as a percent of the number of "visitors" the building allows.
+The number of visitors that a building allows is determined by the specific building.
+See the list of buildings below in Building Details for Visitor Types.
+
+[h2]Storage[/h2]
+The Storage tab shows the usage of buildings that store things.
+Storage usage is the amount of a thing stored in the building as a percent of the amount of the thing the building allows.
+The number of things that a building allows is determined by the specific building.
+See the list of buildings below in Building Details for Storage Types.
+
+[h2]Vehicles[/h2]
+The Vehicles tab shows the usage of service buildings that generate vehicles.
+Usage is the number of vehicles in use by a building as a percent of the number of vehicles the building allows.
+The number of vehicles that a service building allows is affected by the specific building and the budget selections you make in the Economy view.
+See the list of buildings below in Building Details for Vehicle Types.
+
+[h2]Usage Percent[/h2]
+The usage percent for each building is displayed on the building as a color gradient indicating zero to 100 percent.
+The color gradients are shown on each tab for each worker, visitor, storage, and vehicle type.
+Only completed buildings are shown in color.  Buildings being constructed, leveling up, abandoned, collapsed, etc. are not shown in color.
+Specialized zoned buildings and ploppable buildings are shown in color.
+On the Vehicles tab, the vehicles are also shown in color.  Vehicles are shown using a fixed color, not a gradient.
+
+Each tab shows the overall usage percent for each usage type.
+If there are no buildings for a type, the overall usage is grayed out.
+The overall usage percent includes specialized zoned buildings and ploppable buildings.
+The overall usage percent includes service buildings that have been deactivated (i.e. the building has been turned off).
+A deactivated service building has workers and maintains its storage.
+A deactivated service building does not have visitors and has zero vehicles in use (once all the vehicles return).
+
+To show the number used versus the number allowed for that usage type, hover the pointer over the legend or the overall usage percent value.
+The number used vs allowed does not update automatically.  To show updated numbers, move the pointer off and then over again.
+
+[h2]Filters[/h2]
+There is a check mark next to each usage type to indicate whether or not corresponding buildings are shown in color.
+Clicking on the Select All or Deselect All buttons will select or deselect all the types on that tab.
+Your filter selections are saved and used as the default the next time a game is played.
+The overall usage percent for all types are computed and displayed regardless of whether or not the buildings are shown in color.
+On the Vehicles tab, only vehicles for the selected vehicle types are shown in color.
+The following Storage filters cannot be selected at the same time because they are for the same buildings:
+    Unsorted Mail and Sorted Mail
+    Processor Input and Processor Output (Forestry, Farming, Ore, Oil, Fishing)
+    Unique Factory Input and Unique Factory Output
+
+[h2]Detailed Usage[/h2]
+Some usage types have an information symbol "i".
+Click on the information symbol to show a more detailed breakdown of that usage type.
+On the detail view, click on the Return button to return to the previous usage view.
+
+[h1]Options[/h1]
+To enable this mod, subscribe to it and turn it on in the Content Manager.
+To disable this mod, unsubscribe from it or turn it off in the Content Manager.
+
+This mod has no other options besides the Filters described above.
+
+[h1]Compatibility, Limitations, and Known Issues[/h1]
+This mod has been updated for and tested with all Down Loadable Content (DLC) packages thru Sunset Harbor.
+This mod has been updated for and tested with all Content Creator Packs (CCP) thru Modern Japan.
+Usage types for buildings specific to a DLC package or CCP will be displayed only if that DLC package or CCP is installed and active.
+This mod does not require any DLC package or CCP to work properly.
+
+This mod does not alter game save files in any way and can be disabled or unsubscribed safely at any time.
+
+This mod does not alter the game mechanics in any way.  This mod only displays information already in the game.
+
+This mod has been tested only on Windows.
+
+When this mod is used with the [url=TBD]Real Time mod[/url], worker usage is still the number of workers assigned to the building, not the number of workers currently at the building.
+
+This mod may not work correctly if another mod is enabled that alters any of the following:
+   The Levels info view panel.
+   The logic that gets building or vehicle color.
+   The number of households, workers, visitors, storage, or vehicles a building allows.
+
+[h1]Source Code[/h1]
+The source code is available [url=https://github.com/rcav8tr/BuildingUsage]here[/url].
+
+[h1]Acknowledgments[/h1]
+This mod uses the Harmony Library (version 1.2.0.1) to patch the logic that determines building and vehicle color and to patch the logic that updates the Levels info view panel.
+The Harmony Library DLL file (0Harmony.dll) is downloaded automatically when you subscribe to this mod.
+Special thanks to Andreas Pardeike for the [url=https://github.com/pardeike/Harmony/wiki]Harmony Library[/url].
+
+The development of this mod relied heavily on the ModTools mod to view the internal workings of buildings.
+You do NOT need the ModTools mod enabled to use this mod.
+Special thanks to [url=https://steamcommunity.com/id/bloody_penguin/myworkshopfiles/?appid=255710]BloodyPenguin[/url]
+for the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=450877484]ModTools mod[/url].
+
+[h1]Revision History[/h1]
+[b]Version 1.0, TBD TBD, 2020[/b] - Original.
+
+
+[h1]Building Details for Worker Types[/h1]
+The logic of the game grows a new zoned building when there is enough demand for a building of that zone type and there is empty zone of that type.
+Because there is already demand, a newly grown zoned building will fill very quickly to near 100 percent usage.
+
+Even though it is on the Workers tab, Residential Zone usage is the number of households in the building, not the number of workers.  A household may have more than one citizen.
+
+Residential Zone:  Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Self-Sufficient Buildings)
+Commercial Zone:   Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Tourism, Leisure, Organic and Local Produce)
+Office Zone:       Zoned Generic, Zoned Specialized (IT Cluster)
+Industrial Zone:   Zoned Generic, Zoned Specialized (Forest, Farming, Ore, Oil)
+Maintenance:       Road Maintenance Depot, Snow Dump, Park Maintenance Building
+Power Plant:       Coal Power Plant, Oil Power Plant, Solar Power Plant, Nuclear Power Plant,
+                   Geothermal Power Plant, Solar Updraft Tower, Ocean Thermal Energy Conversion Plant, Fusion Power Plant (monument)
+Heating Plant:     Boiler Station, Geothermal Heating Plant
+Garbage:           Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP),
+                   Ultimate Recycling Plant (monument)
+Industry:          all buildings listed below in Building Details for Industry Worker Types
+Medical:           Medical Clinic, Hospital, Child Health Center, Eldercare, Sauna, Medical Helicopter Depot, Sports Hall and Gymnasium, Community Pool, Yoga Garden,
+                   General Hospital (CCP), Medical Laboratory (CCP), Medical Center (monument)
+Cemetery:          Cemetery, Crematorium, Cryopreservatory (CCP)
+Fire Station:      Fire House, Fire Station, Fire Helicopter Depot
+Disaster:          Disaster Response Unit, Small Emergency Shelter, Large Emergency Shelter, Weather Radar, Deep Space Radar, Doomsday Vault (monument)
+Police Station:    Police Station, Police Headquarters, Prison, Police Helicopter Depot, Intelligence Agency (CCP)
+Education:         all buildings listed below in Building Details for Education Worker Types
+Transportation:    all buildings listed below in Building Details for Transportation Worker Types
+Post:              Post Office, Post Sorting Facility
+Amusement Park:    Amusement Park Main Gate, Small Amusement Park Main Gate, Amusement Park Side Gate, Amusement Park Plaza, Amusement Park Souvenir Shop #1, 
+                   Carousel, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Ferris Wheel, Rollercoaster
+Zoo:               Zoo Main Gate, Zoo Plaza, Moose And Reindeer Enclosure, Bird House, Antelope Enclosure, Bison Enclosure,
+                   Flamingo Enclosure, Elephant Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure
+                   (for unknown reasons, the Small Zoo Main Gate and Zoo Side Gate do not allow workers)
+Unique Buildings:  all buildings listed below in Building Details for Unique Building Worker Types
+
+[h2]Building Details for Industry Worker Types[/h2]
+
+Forestry Industry:
+    Main & Aux:  Forestry Main Building, Forestry Workers’ Barracks, Forestry Maintenance Building
+    Extractor:   Small Tree Plantation, Medium Tree Plantation, Large Tree Plantation, Small Tree Sapling Greenhouse, Large Tree Sapling Greenhouse
+    Processor:   Sawmill, Biomass Pellet Plant, Engineered Wood Plant, Pulp Mill
+    Storage:     Small Log Yard, Saw Dust Storage, Large Log Yard, Wood Chip Storage
+Farming Industry:
+    Main & Aux:  Farm Main Building, Farm Workers’ Barracks, Farm Maintenance Building
+    Extractor:   Small Crops Greenhouse, Medium Crops Greenhouse, Large Crops Greenhouse, Small Fruit Greenhouse, Medium Fruit Greenhouse, Large Fruit Greenhouse
+    Processor:   Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor, Slaughterhouse
+    Storage:     Small Grain Silo, Large Grain Silo, Small Barn, Large Barn
+Ore Industry:
+    Main & Aux:  Ore Industry Main Building, Ore Industry Workers’ Barracks, Ore Industry Maintenance Building
+    Extractor:   Small Ore Mine, Medium Ore Mine, Large Ore Mine, Small Ore Mine Underground, Large Ore Mine Underground, Seabed Mining Vessel
+    Processor:   Ore Grinding Mill, Glass Manufacturing Plant, Rotary Kiln Plant, Fiberglass Plant
+    Storage:     Sand Storage, Ore Storage, Ore Industry Storage, Raw Mineral Storage
+Oil Industry:
+    Main & Aux:  Oil Industry Main Building, Oil Industry Workers’ Barracks, Oil Industry Maintenance Building
+    Extractor:   Small Oil Pump, Large Oil Pump, Small Oil Drilling Rig, Large Oil Drilling Rig, Offshore Oil Drilling Platform
+    Processor:   Oil Sludge Pyrolysis Plant, Petrochemical Plant, Waste Oil Refining Plant, Naphtha Cracker Plant
+    Storage:     Small Crude Oil Tank Farm, Large Crude Oil Tank Farm, Crude Oil Storage Cavern, Oil Industry Storage
+Fishing Industry:
+    Extractor:   Fishing Harbor, Anchovy Fishing Harbor, Salmon Fishing Harbor, Shellfish Fishing Harbor, Tuna Fishing Harbor, Fish Farm, Algae Farm, Seaweed Farm
+    Processor:   Fish Factory
+    Market:      Fish Market
+Other Industry:
+    Warehouse:       Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse
+    Unique Factory:  Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory,
+                     Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard
+
+[h2]Building Details for Education Worker Types[/h2]
+Basic Education:
+    Elementary School:  Elementary School, Community School
+    High School:        High School, Institute of Creative Arts
+    University:         University, Modern Technology Institute, Faculty (CCP)
+    Library:            Public Library
+    Hadron Collider:    Hadron Collider (monument)
+Trade School:
+    Administration:    Trade School Administration Building
+    Education & Supp:  Trade School Dormitory, Trade School Study Hall, Trade School Groundskeeping, Book Club, Trade School Outdoor Study, Trade School Gymnasium, Trade School Cafeteria,
+                       Trade School Fountain, Trade School Library, IT Club, Trade School Commencement Office, Trade School Academic Statue 1, Trade School Auditorium, Trade School Laboratories,
+                       Trade School Bookstore, Trade School Media Lab, Beach Volleyball Club, Trade School Academic Statue 2
+    Faculties:         Police Academy, School of Tourism And Travel, School of Engineering
+Liberal Arts:
+    Administration:    Liberal Arts Administration Building
+    Education & Supp:  Liberal Arts Dormitory, Liberal Arts Study Hall, Liberal Arts Groundskeeping, Drama Club, Liberal Arts Outdoor Study, Liberal Arts Gymnasium, Liberal Arts Cafeteria,
+                       Liberal Arts Fountain, Liberal Arts Library, Art Club, Liberal Arts Commencement Office, Liberal Arts Academic Statue 1, Liberal Arts Auditorium, Liberal Arts Laboratories,
+                       Liberal Arts Bookstore, Liberal Arts Media Lab, Dance Club, Liberal Arts Academic Statue 2
+    Faculties:         School of Education, School of Environmental Studies, School of Economics
+University:
+    Administration:    University Administration Building
+    Education & Supp:  University Dormitory, University Study Hall, University Groundskeeping, Futsal Club, University Outdoor Study, University Gymnasium, University Cafeteria
+                       University Fountain, University Library, Math Club, University Commencement Office, University Academic Statue 1, University Auditorium, University Laboratories,
+                       University Bookstore, University Media Lab, Chess Club, University Academic Statue 2
+    Faculties:         School of Law, School of Medicine, School of Science
+Other Campus:
+    Museum:            The Technology Museum, The Art Gallery, The Science Center
+    Varsity Sports:    Aquatics Center, Basketball Arena, Track And Field Stadium, Baseball Park, American Football Stadium
+
+[h2]Building Details for Transportation Worker Types[/h2]
+People Transportation:
+    Bus:             Bus Depot, Biofuel Bus Depot, Bus Station
+    Intercity Bus:   Intercity Bus Station, Intercity Bus Terminal
+    Trolleybus:      Trolleybus Depot
+    Tram:            Tram Depot
+    Metro:           Metro Station, Elevated Metro Station, Underground Metro Station
+    Train:           Train Station
+    Ship:            Harbor, Ferry Depot, Ferry Stop, Ferry Pier
+    Air:             Airport, Helicopter Depot, Helicopter Stop, Blimp Depot, Blimp Stop
+    Monorail:        Monorail Station, Monorail Station with Road, Metro-Monorail-Train Hub
+    Cable Car:       Cable Car Stop, End-of-Line Cable Car Stop
+    Taxi:            Taxi Depot
+    Tours:           Sightseeing Bus Depot
+    Hubs:            Bus-Intercity Bus Hub, Bus-Metro Hub, Metro-Intercity Bus Hub, Train-Metro Hub, Multiplatform End Station, Multiplatform Train Station, Ferry and Bus Exchange Stop,
+                     International Airport, Metropolitan Airport, Monorail-Bus Hub, Metro-Monorail-Train Hub
+    Space Elevator:  Space Elevator (monument)
+Cargo Transportation:
+    Train:           Cargo Train Terminal
+    Ship:            Cargo Harbor, Cargo Hub
+    Air:             Cargo Airport, Cargo Airport Hub
+
+[h2]Building Details for Unique Building Worker Types[/h2]
+Basic Unique:
+    Landmarks:          Hypermarket, Government Offices, The Gherkin, London Eye, Sports Arena, Theatre, Shopping Center,
+                        Cathedral, Amsterdam Palace, Winter Market, Department Store, City Hall, Cinema, ChirpX Launch Site,
+                        Panda Sanctuary, Oriental Pearl Tower, Temple Complex,
+                        Traffic Park, Boat Museum, Locomotive Halls,
+                        Statue of Liberty, Eiffel Tower, Grand Central Terminal, Arc de Triomphe, Brandenburg Gate
+    Tourism & Leisure:  Icefishing Pond, Casino, Frozen Fountain, Driving Range, Fantastic Fountain, Luxury Hotel, Zoo
+    Winter Unique:      Ice Hockey Arena, Ski Resort, Snowcastle Restaurant, Spa Hotel, Sleigh Ride, Snowboard Arena, Santa Claus' Workshop, The Christmas Tree, Igloo Hotel
+    Football:           Football Stadium
+    Concerts:           Festival Area, Media Broadcast Building, Music Club, Fan Zone Park
+Level Unique:
+    Level 1 Unique:     Statue of Industry, Statue of Wealth, Lazaret Plaza, Statue of Shopping, Plaza of the Dead, Meteorite Park, Bird and Bee Haven, City Arch
+    Level 2 Unique:     Fountain of Life and Death, Friendly Neighborhood Park, Transport Tower, Mall of Moderation, Posh Mall, Disaster Memorial, Climate Research Station, Clock Tower
+    Level 3 Unique:     Colossal Order Offices, Official Park, Court House, Grand Mall, Tax Office, Helicopter Park, Lungs of the City, Old Market Street
+    Level 4 Unique:     Business Park, Grand Library, Observatory, Opera House, Oppression Office, Pyramid Of Safety, Floating Gardens, Sea Fortress
+    Level 5 Unique:     Servicing Services Offices, Academic Library, Aviation Club, Science Center, Expo Center, High Interest Tower, Aquarium, Sphinx Of Scenarios, Ziggurat Garden, Observation Tower
+    Level 6 Unique:     Cathedral of Plenitude, Stadium, MAM Modern Art Museum, Sea-and-Sky Scraper, Theater of Wonders, Sparkly Unicorn Rainbow Park, Central Park, The Statue of Colossalus
+Other Unique:
+    Content Creator:    Eddie Kovanago, Pinoa Street, The Majesty, Electric Car Factory, Nanotechnology Center, Research Center, Robotics Institute, Semiconductor Plant,
+                        Software Development Studio, Space Shuttle Launch Site, Television Station,
+                        Drive-in Restaurant, Drive-in Oriental Restaurant, Oriental Market, Noodle Restaurant, Ramen Restaurant,
+                        Service Station and Restaurant, Small Office Building, City Office Building, District Office Building,
+                        Local Register Office, Resort Hotel, Downtown Hotel, Temple, High-rise Office Building,
+                        Company Headquarters, Office Skyscraper, The Station Department Store, The Rail Yard Shopping Center
+    Chirpwick Castle:   Castle Of Lord Chirpwick (monument)
+
+
+[h1]Building Details for Visitor Types[/h1]
+Fish Market:       Fish Market
+Medical Patients:  Medical Clinic, Hospital, Child Health Center, Eldercare, General Hospital (CCP), Medical Laboratory (CCP), Medical Center (monument)
+Medical Visitors:  Sauna, Sports Hall and Gymnasium, Community Pool, Yoga Garden
+Deceased:          Cemetery, Crematorium, Cryopreservatory (CCP)
+Sheltered:         Small Emergency Shelter, Large Emergency Shelter
+Criminals:         Police Station, Police Headquarters, Prison, Intelligence Agency (CCP)
+Education:         all buildings listed below in Building Details for Education Visitor Types
+Parks & Plazas:    all buildings listed below in Building Details for Parks & Plazas Visitor Types
+Unique Buildings:  all buildings listed below in Building Details for Unique Building Visitor Types
+
+[h2]Building Details for Education Visitor Types[/h2]
+Hadron Collider is not included because students do not go to the building to get educated.
+
+Basic Education:
+    Elementary School:  Elementary School, Community School
+    High School:        High School, Institute of Creative Arts
+    University:         University, Modern Technology Institute, Faculty (CCP)
+    Library:            Public Library
+Trade School:
+    Education & Supp:  Trade School Dormitory, Trade School Study Hall, Book Club, Trade School Outdoor Study, Trade School Gymnasium, Trade School Library,
+                       IT Club, Trade School Auditorium, Trade School Laboratories, Trade School Media Lab, Beach Volleyball Club
+    Faculties:         Police Academy, School of Tourism And Travel, School of Engineering
+Liberal Arts:
+    Education & Supp:  Liberal Arts Dormitory, Liberal Arts Study Hall, Drama Club, Liberal Arts Outdoor Study, Liberal Arts Gymnasium, Liberal Arts Library,
+                       Art Club, Liberal Arts Auditorium, Liberal Arts Laboratories, Liberal Arts Media Lab, Dance Club
+    Faculties:         School of Education, School of Environmental Studies, School of Economics
+University:
+    Education & Supp:  University Dormitory, University Study Hall, Futsal Club, University Outdoor Study, University Gymnasium, University Library,
+                       Math Club, University Auditorium, University Laboratories, University Media Lab, Chess Club
+    Faculties:         School of Law, School of Medicine, School of Science
+Other Campus:
+    Museum:            The Technology Museum, The Art Gallery, The Science Center
+    Varsity Sports:    Aquatics Center, Basketball Arena, Track And Field Stadium, Baseball Park, American Football Stadium
+
+[h2]Building Details for Parks & Plazas Visitor Types[/h2]
+Basic:
+    Parks:              Small Park, Small Playground, Park With Trees, Large Playground, Bouncy Castle Park, Botanical Garden,
+                        Dog Park, Carousel Park, Japanese Garden, Tropical Garden, Fishing Island, Floating Cafe
+    Plazas:             Plaza with Trees, Plaza with Picnic Tables, Paradox Plaza
+    Other Parks:        Basketball Court, Tennis Court
+    Tourism & Leisure:  Fishing Pier, Fishing Tours, Jet Ski Rental, Marina, Restaurant Pier, Beach Volleyball Court, Riding Stable, Skatepark,
+                        Snowmobile Track, Winter Fishing Pier, Ice Hockey Rink
+    Winter Parks:       Snowman Park, Ice Sculpture Park, Sledding Hill, Curling Park, Skating Rink, Ski Lodge, Cross-Country Skiing Park, Firepit Park
+Parklife:
+    City Park:          Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2
+    Amusement Park:     Amusement Park Plaza, Amusement Park Cafe #1, Amusement Park Souvenir Shop #1, Amusement Park Restrooms #1, Game Booth #1, Game Booth #2,
+                        Carousel, Piggy Train, Rotating Tea Cups, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Ferris Wheel, Rollercoaster
+    Zoo:                Zoo Plaza, Zoo Cafe #1, Zoo Souvenir Shop #1, Zoo Restrooms #1, Moose And Reindeer Enclosure, Bird House, Antelope Enclosure, Bison Enclosure,
+                        "Insect, Amphibian and Reptile House", Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure
+    Nature Reserve:     Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2,
+                        Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1
+    Tours:              Hot Air Balloon Tours
+Other:
+    Content Creator:    Biodome, Vertical Farm
+    Eden Project:       Eden Project (monument)
+
+[h2]Building Details for Unique Building Visitor Types[/h2]
+Same as Building Details for Unique Building Worker Types.
+
+
+[h1]Building Details for Storage Types[/h1]
+Unsorted Mail and Sorted Mail cannot be selected at the same time because they are stored in the same building.
+
+Snow:              Snow Dump
+Water:             Tank Reservoir, Pumping Service
+Garbage:           Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP),
+                   Ultimate Recycling Plant (monument)
+Industry:          all buildings listed below in Building Details for Industry Storage Types
+Unsorted Mail:     Post Office, Post Sorting Facility
+Sorted Mail:       (same buildings as Unsorted Mail)
+
+[h2]Building Details for Industry Storage Types[/h2]
+Processor Input and Processor Output cannot be selected at the same time because they are stored in the same building.
+Unique Factory Input and Unique Factory Output cannot be selected at the same time because they are stored in the same building.
+
+Forestry Industry:
+    Extractor Output:  Small Tree Plantation, Medium Tree Plantation, Large Tree Plantation, Small Tree Sapling Greenhouse, Large Tree Sapling Greenhouse
+    Processor Input:   Sawmill, Biomass Pellet Plant, Engineered Wood Plant, Pulp Mill
+    Processor Output:  (same buildings as Forestry Industry Processor Input)
+    Warehouse:         Small Log Yard, Saw Dust Storage, Large Log Yard, Wood Chip Storage
+Farming Industry:
+    Extractor Output:  Small Crops Greenhouse, Medium Crops Greenhouse, Large Crops Greenhouse, Small Fruit Greenhouse, Medium Fruit Greenhouse, Large Fruit Greenhouse
+    Processor Input:   Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor, Slaughterhouse
+    Processor Output:  (same buildings as Farming Industry Processor Input)
+    Warehouse:         Small Grain Silo, Large Grain Silo, Small Barn, Large Barn
+Ore Industry:
+    Extractor Output:  Small Ore Mine, Medium Ore Mine, Large Ore Mine, Small Ore Mine Underground, Large Ore Mine Underground, Seabed Mining Vessel
+    Processor Input:   Ore Grinding Mill, Glass Manufacturing Plant, Rotary Kiln Plant, Fiberglass Plant
+    Processor Output:  (same buildings as Ore Industry Processor Input)
+    Warehouse:         Sand Storage, Ore Storage, Ore Industry Storage, Raw Mineral Storage
+Oil Industry:
+    Extractor Output:  Small Oil Pump, Large Oil Pump, Small Oil Drilling Rig, Large Oil Drilling Rig, Offshore Oil Drilling Platform
+    Processor Input:   Oil Sludge Pyrolysis Plant, Petrochemical Plant, Waste Oil Refining Plant, Naphtha Cracker Plant
+    Processor Output:  (same buildings as Oil Industry Processor Input)
+    Warehouse:         Small Crude Oil Tank Farm, Large Crude Oil Tank Farm, Crude Oil Storage Cavern, Oil Industry Storage
+Fishing Industry:
+    Extractor Output:  Fishing Harbor, Anchovy Fishing Harbor, Salmon Fishing Harbor, Shellfish Fishing Harbor, Tuna Fishing Harbor, Fish Farm, Algae Farm, Seaweed Farm
+    Processor Input:   Fish Factory
+    Processor Output:  (same buildings as Fishing Industry Processor Input)
+Unique Factory:
+    Input:             Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory,
+                       Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard
+    Output:            (same buildings as Unique Factory Input)
+Warehouse:
+    Generic:           Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse
+
+
+[h1]Building Details for Vehicle Types[/h1]
+Industrial Trucks have an unlimited number of vehicles allowed, see the description below in Building Details for Transportation Vehicle Types.
+Disaster Response vehicles and helicopters are combined into one vehicle type because they come from the same building.
+Postal Vans & Trucks are combined into one vehicle type because they can come from the same building.
+
+Industrial Trucks:    Industrial Zoned Generic, Industrial Zoned Specialized (Forest, Farming, Ore, Oil)
+Maintenance Trucks:   Road Maintenance Depot, Snow Dump, Park Maintenance Building
+Vacuum Trucks:        Pumping Service
+Garbage Trucks:       Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP),
+                      Ultimate Recycling Plant (monument)
+Industry Trucks:      all buildings listed below in Building Details for Industry Vehicle Types
+Ambulances:           Medical Clinic, Hospital, General Hospital (CCP), Medical Center (monument)
+Medical Helicopters:  Medical Helicopter Depot
+Hearses:              Cemetery, Crematorium, Cryopreservatory (CCP)
+Fire Engines:         Fire House, Fire Station
+Fire Helicopters:     Fire Helicopter Depot
+Disaster Response:    Disaster Response Unit (combined vehicles and helis)
+Evacuation Buses:     Small Emergency Shelter, Large Emergency Shelter
+Police Cars:          Police Station, Police Headquarters, Intelligence Agency (CCP)
+Police Helicopters:   Police Helicopter Depot
+Prison Vans:          Prison
+Post Vans & Trucks:   Post Office, Post Sorting Facility
+Private Planes:       Aviation Club
+Rockets:              ChirpX Launch Site (usage is 100% when a rocket is ready to launch)
+Transportation:       all buildings listed below in Building Details for Transportation Vehicle Types
+
+[h2]Building Details for Industry Vehicle Types[/h2]
+Forestry Industry Trucks:
+    Extractor:       Small Tree Plantation, Medium Tree Plantation, Large Tree Plantation, Small Tree Sapling Greenhouse, Large Tree Sapling Greenhouse
+    Processor:       Sawmill, Biomass Pellet Plant, Engineered Wood Plant, Pulp Mill
+    Storage:         Small Log Yard, Saw Dust Storage, Large Log Yard, Wood Chip Storage
+Farming Industry Trucks:
+    Extractor:       Small Crops Greenhouse, Medium Crops Greenhouse, Large Crops Greenhouse, Small Fruit Greenhouse, Medium Fruit Greenhouse, Large Fruit Greenhouse
+    Processor:       Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor, Slaughterhouse
+    Storage:         Small Grain Silo, Large Grain Silo, Small Barn, Large Barn
+Ore Industry Trucks:
+    Extractor:       Small Ore Mine, Medium Ore Mine, Large Ore Mine, Small Ore Mine Underground, Large Ore Mine Underground, Seabed Mining Vessel
+    Processor:       Ore Grinding Mill, Glass Manufacturing Plant, Rotary Kiln Plant, Fiberglass Plant
+    Storage:         Sand Storage, Ore Storage, Ore Industry Storage, Raw Mineral Storage
+Oil Industry Trucks:
+    Extractor:       Small Oil Pump, Large Oil Pump, Small Oil Drilling Rig, Large Oil Drilling Rig, Offshore Oil Drilling Platform
+    Processor:       Oil Sludge Pyrolysis Plant, Petrochemical Plant, Waste Oil Refining Plant, Naphtha Cracker Plant
+    Storage:         Small Crude Oil Tank Farm, Large Crude Oil Tank Farm, Crude Oil Storage Cavern, Oil Industry Storage
+Fishing Industry Trucks:
+    Extractor:       Includes Boat:  Fishing Harbor, Anchovy Fishing Harbor, Salmon Fishing Harbor, Shellfish Fishing Harbor, Tuna Fishing Harbor
+                     Truck Only:  Fish Farm, Algae Farm, Seaweed Farm
+    Processor:       Fish Factory
+Other Industry Trucks:
+    Unique Factory:  Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory,
+                     Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard
+    Warehouse:       Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse
+
+[h2]Building Details for Transportation Vehicle Types[/h2]
+All of the transportation buildings listed below generate vehicles.
+However, vehicle usage percent cannot be computed because the number of vehicles allowed is unlimited.
+The transportation buildings are included so that you can filter on the various buildings and see the vehicles that belong to these buildings.
+Each of these buildings is tracked with the number allowed set to 1, which will cause the building to appear 100% used if any vehicles have been generated.
+Transportation vehicles owned only by buildings in your city are shown in color.  Transportation vehicles owned by outside connections are not shown in color.
+Cargo transportation includes cargo trucks generated by those buildings.
+
+People Transportation:
+    Bus:            Bus Depot, Biofuel Bus Depot
+    Intercity Bus:  Intercity Bus Station, Intercity Bus Terminal
+    Trolleybus:     Trolleybus Depot
+    Tram:           Tram Depot
+    Metro:          Metro Station, Elevated Metro Station, Underground Metro Station
+    Train:          Train Station
+    Ship:           Harbor, Ferry Depot
+    Air:            Airport, Helicopter Depot, Blimp Depot
+    Monorail:       Monorail Station, Monorail Station with Road
+    Cable Car:      Cable Car Stop, End-of-Line Cable Car Stop
+    Taxi:           Taxi Depot (has a defined number of vehicles allowed, but is handled like the other transportation buildings)
+    Tours:          Hot Air Balloon Tours, Sightseeing Bus Depot
+    Hubs:           Bus-Intercity Bus Hub, Bus-Metro Hub, Metro-Intercity Bus Hub, Train-Metro Hub, Multiplatform End Station, Multiplatform Train Station,
+                    International Airport, Metropolitan Airport, Monorail-Bus Hub, Metro-Monorail-Train Hub
+Cargo Transportation (includes trucks):
+    Train:          Cargo Train Terminal
+    Ship:           Cargo Harbor, Cargo Hub
+    Air:            Cargo Airport, Cargo Airport Hub
