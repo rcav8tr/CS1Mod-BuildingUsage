@@ -23,26 +23,27 @@ namespace BuildingUsage
                 name = GetType().ToString();
 
                 // create the usage groups
-                CreateUsageGroup<ResidentialBuildingAI                                  >(UsageType.HouseholdsResidential);
-                CreateUsageGroup<CommercialBuildingAI                                   >(UsageType.WorkersCommercial);
-                CreateUsageGroup<OfficeBuildingAI                                       >(UsageType.WorkersOffice);
-                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI            >(UsageType.WorkersIndustrial);
-                CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                         >(UsageType.WorkersMaintenance);
-                CreateUsageGroup<PowerPlantAI, SolarPowerPlantAI, FusionPowerPlantAI    >(UsageType.WorkersPowerPlant);
-                CreateUsageGroup<HeatingPlantAI                                         >(UsageType.WorkersHeatingPlant);
-                CreateUsageGroup<LandfillSiteAI, UltimateRecyclingPlantAI               >(UsageType.WorkersGarbage);
+                CreateUsageGroup<ResidentialBuildingAI                                              >(UsageType.HouseholdsResidential);
+                CreateUsageGroup<CommercialBuildingAI                                               >(UsageType.WorkersCommercial);
+                CreateUsageGroup<OfficeBuildingAI                                                   >(UsageType.WorkersOffice);
+                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI                        >(UsageType.WorkersIndustrial);
+                CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                                     >(UsageType.WorkersMaintenance);
+                CreateUsageGroup<WindTurbineAI, PowerPlantAI, DamPowerHouseAI, SolarPowerPlantAI, FusionPowerPlantAI                                            >(UsageType.WorkersPowerPlant);
+                CreateUsageGroup<WaterFacilityAI                                                    >(UsageType.WorkersWaterSewage);
+                CreateUsageGroup<HeatingPlantAI                                                     >(UsageType.WorkersHeatingPlant);
+                CreateUsageGroup<LandfillSiteAI, WaterCleanerAI, UltimateRecyclingPlantAI           >(UsageType.WorkersGarbage);
                 CreateUsageGroup<MainIndustryBuildingAI, AuxiliaryBuildingAI, ExtractingFacilityAI, FishingHarborAI, FishFarmAI, MarketAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI>(UsageType.WorkersIndustry);
                 CreateUsageGroup<HospitalAI, ChildcareAI, EldercareAI, MedicalCenterAI, SaunaAI, HelicopterDepotAI                                              >(UsageType.WorkersMedical);
-                CreateUsageGroup<CemeteryAI                                             >(UsageType.WorkersCemetery);
-                CreateUsageGroup<FireStationAI, HelicopterDepotAI                       >(UsageType.WorkersFireStation);
-                CreateUsageGroup<DisasterResponseBuildingAI, ShelterAI, DoomsdayVaultAI, WeatherRadarAI, SpaceRadarAI                                           >(UsageType.WorkersDisaster);
-                CreateUsageGroup<PoliceStationAI, HelicopterDepotAI                     >(UsageType.WorkersPoliceStation);
+                CreateUsageGroup<CemeteryAI                                                         >(UsageType.WorkersCemetery);
+                CreateUsageGroup<FireStationAI, HelicopterDepotAI, FireStationAI                    >(UsageType.WorkersFireStation);
+                CreateUsageGroup<DisasterResponseBuildingAI, ShelterAI, RadioMastAI, EarthquakeSensorAI, DoomsdayVaultAI, WeatherRadarAI, SpaceRadarAI          >(UsageType.WorkersDisaster);
+                CreateUsageGroup<PoliceStationAI, HelicopterDepotAI                                 >(UsageType.WorkersPoliceStation);
                 CreateUsageGroup<SchoolAI, LibraryAI, HadronColliderAI, MainCampusBuildingAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI >(UsageType.WorkersEducation);
                 CreateUsageGroup<CargoStationAI, CargoHarborAI, DepotAI, CableCarStationAI, TransportStationAI, HarborAI, SpaceElevatorAI                       >(UsageType.WorkersTransportation);
-                CreateUsageGroup<PostOfficeAI                                           >(UsageType.WorkersPost);
-                CreateUsageGroup<ParkGateAI, ParkBuildingAI                             >(UsageType.WorkersAmusementPark);
-                CreateUsageGroup<ParkGateAI, ParkBuildingAI                             >(UsageType.WorkersZoo);
-                CreateUsageGroup<MonumentAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI>(UsageType.WorkersUnique);
+                CreateUsageGroup<PostOfficeAI                                                       >(UsageType.WorkersPost);
+                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                         >(UsageType.WorkersAmusementPark);
+                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                         >(UsageType.WorkersZoo);
+                CreateUsageGroup<MonumentAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI  >(UsageType.WorkersUnique);
 
                 // add detail panels
                 AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry,       this);
@@ -59,11 +60,15 @@ namespace BuildingUsage
                 AssociateBuildingAI<IndustrialExtractorAI       >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<MaintenanceDepotAI          >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MaintenanceDepotAI        >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<SnowDumpAI                  >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SnowDumpAI                >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<WindTurbineAI               >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WindTurbineAI             >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<PowerPlantAI                >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<PowerPlantAI              >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<DamPowerHouseAI             >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DamPowerHouseAI           >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<SolarPowerPlantAI           >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SolarPowerPlantAI         >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<FusionPowerPlantAI          >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FusionPowerPlantAI        >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<WaterFacilityAI             >(UsageType.WorkersWaterSewage,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WaterFacilityAI           >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<HeatingPlantAI              >(UsageType.WorkersHeatingPlant,   (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HeatingPlantAI            >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<LandfillSiteAI              >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<LandfillSiteAI            >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<WaterCleanerAI              >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WaterCleanerAI            >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<UltimateRecyclingPlantAI    >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UltimateRecyclingPlantAI  >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<MainIndustryBuildingAI      >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MainIndustryBuildingAI    >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<AuxiliaryBuildingAI         >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<AuxiliaryBuildingAI       >(buildingID, ref data, ref used, ref allowed));
@@ -82,8 +87,11 @@ namespace BuildingUsage
                 AssociateBuildingAI<HelicopterDepotAI           >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HelicopterDepotAI         >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<CemeteryAI                  >(UsageType.WorkersCemetery,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CemeteryAI                >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<FireStationAI               >(UsageType.WorkersFireStation,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FireStationAI             >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<FirewatchTowerAI            >(UsageType.WorkersFireStation,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FirewatchTowerAI          >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<DisasterResponseBuildingAI  >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DisasterResponseBuildingAI>(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<ShelterAI                   >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ShelterAI                 >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<RadioMastAI                 >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<RadioMastAI               >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<EarthquakeSensorAI          >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<EarthquakeSensorAI        >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<DoomsdayVaultAI             >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DoomsdayVaultAI           >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<WeatherRadarAI              >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WeatherRadarAI            >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<SpaceRadarAI                >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SpaceRadarAI              >(buildingID, ref data, ref used, ref allowed));

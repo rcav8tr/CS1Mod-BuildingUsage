@@ -54,12 +54,14 @@ namespace BuildingUsage
 
         // service building AIs are derived from PlayerBuildingAI
         // each building AI is used by panel:  W = Workers, V = Visitors, S = Storage, V = Vehicles, U = Unlimited vehicles, - = not used by that panel
+        // Some of the buildings with the same AI normally have no workers, visitors, storage, or vehicles, but can be made to have them with a mode like Customize It Extended.
+        // Buildings with and without are all listed together and the ones without will simply not be shown in color.
 
         // CargoStationAI              W--U Cargo Train Terminal BG, Cargo Airport IN, Cargo Airport Hub IN
         //    CargoHarborAI            W--U Cargo Harbor BG, Cargo Hub AD
         // CemeteryAI                  WV-V Cemetery BG, Crematorium BG, Cryopreservatory HT (CCP)
         // ChildcareAI                 WV-- Child Health Center BG
-        // DepotAI                     W--V Taxi Depot AD (vehicle count can be deteremined, but treated like it has unlimited)
+        // DepotAI                     W--V Taxi Depot AD (vehicle count can be deteremined, but Taxi Depot is treated like it has unlimited)
         // DepotAI                     W--U Bus Depot BG, Biofuel Bus Depot GC, Trolleybus Depot SH, Tram Depot SF, Ferry Depot MT, Helicopter Depot SH, Blimp Depot MT, Sightseeing Bus Depot PL
         //    CableCarStationAI        W--U Cable Car Stop MT, End-of-Line Cable Car Stop MT
         //    TransportStationAI       W--- Bus Station AD, Helicopter Stop SH, Blimp Stop MT
@@ -72,10 +74,10 @@ namespace BuildingUsage
         //       HarborAI              W--U Harbor BG
         // DisasterResponseBuildingAI  W--V Disaster Response Unit ND
         // DoomsdayVaultAI             W--- Doomsday Vault ND (monument)
-        // EarthquakeSensorAI          ---- Earthquake Sensor ND
+        // EarthquakeSensorAI          W--- Earthquake Sensor ND
         // EldercareAI                 WV-- Eldercare BG
         // FireStationAI               W--V Fire House BG, Fire Station BG
-        // FirewatchTowerAI            ---- Firewatch Tower ND
+        // FirewatchTowerAI            W--- Firewatch Tower ND
         // FishFarmAI                  W-SV Fish Farm SH, Algae Farm SH, Seaweed Farm SH
         // FishingHarborAI             W-SV Fishing Harbor SH, Anchovy Fishing Harbor SH, Salmon Fishing Harbor SH, Shellfish Fishing Harbor SH, Tuna Fishing Harbor SH
         // HadronColliderAI            W--- Hadron Collider BG (monument)
@@ -149,8 +151,7 @@ namespace BuildingUsage
         //                                  Winter Parks:       Snowman Park SF, Ice Sculpture Park SF, Sledding Hill SF, Curling Park SF, Skating Rink SF, Ski Lodge SF, Cross-Country Skiing Park SF, Firepit Park SF
         //                                  Content Creator:    Biodome HT, Vertical Farm HT
         //    EdenProjectAI            -V-- Eden Project BG (monument)
-        // ParkBuildingAI              WV-- (some of the following ParkBuildingAI buildings like restrooms have no workers, but no attempt is made to explicitly exclude them, they are simply not shown in color)
-        //                                  (only Amusement Park and Zoo have workers)
+        // ParkBuildingAI              WV-- Only Amusement Park and Zoo have workers.
         //                                  City Park:       PL: Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2
         //                                  Amusement Park:  PL: Amusement Park Plaza, Amusement Park Cafe #1, Amusement Park Souvenir Shop #1, Amusement Park Restrooms #1, Game Booth #1, Game Booth #2,
         //                                                       Carousel, Piggy Train, Rotating Tea Cups, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Ferris Wheel, Rollercoaster
@@ -158,36 +159,33 @@ namespace BuildingUsage
         //                                                       {Insect, Amphibian and Reptile House}, Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure
         //                                  Nature Reserve:  PL: Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2,
         //                                                       Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1
-        // ParkGateAI                  ---- The following ParkGateAI buildings have no workers, but no attempt is made to explicitly exclude them, they are simply not shown in color:
-        //                                  PL:  Park Main Gate, Small Park Main Gate, Park Side Gate, Small Zoo Main Gate, Zoo Side Gate, Nature Reserve Main Gate, Small Nature Reserve Main Gate, Nature Reserve Side Gate
-        // ParkGateAI                  W--- PL:  Amusement Park Main Gate, Small Amusement Park Main Gate, Amusement Park Side Gate, Zoo Main Gate
+        // ParkGateAI                  W--- City Park:       PL: Park Main Gate, Small Park Main Gate, Park Side Gate
+        //                                  Amusement Park:  PL: Amusement Park Main Gate, Small Amusement Park Main Gate, Amusement Park Side Gate
+        //                                  Zoo:             PL: Zoo Main Gate, Small Zoo Main Gate, Zoo Side Gate
+        //                                  Nature Reserve:  PL: Nature Reserve Main Gate, Small Nature Reserve Main Gate, Nature Reserve Side Gate
         // PoliceStationAI             WV-V Police Station BG, Police Headquarters BG, Prison AD, Intelligence Agency HT (CCP)
         // PostOfficeAI                W-SV Post Office IN, Post Sorting Facility IN
         // PowerPlantAI                W--- Coal Power Plant BG, Oil Power Plant BG, Nuclear Power Plant BG, Geothermal Power Plant GC, Ocean Thermal Energy Conversion Plant GC
         //                                  (unlimited coal/oil reserves so cannot compute storage)
-        //    DamPowerHouseAI          ---- Hydro Power Plant BG
+        //    DamPowerHouseAI          W--- Hydro Power Plant BG
         //    FusionPowerPlantAI       W--- Fusion Power Plant BG (monument)
         //    SolarPowerPlantAI        W--- Solar Power Plant BG, Solar Updraft Tower GC
-        //    WindTurbineAI            ---- Wind Turbine BG, Advanced Wind Turbine BG, Wave Power Plant HT (CCP)
-        // RadioMastAI                 ---- Short Radio Mast ND, Tall Radio Mast ND
+        //    WindTurbineAI            W--- Wind Turbine BG, Advanced Wind Turbine BG, Wave Power Plant HT (CCP)
+        // RadioMastAI                 W--- Short Radio Mast ND, Tall Radio Mast ND
         // SaunaAI                     WV-- Sauna SF, Sports Hall and Gymnasium GC, Community Pool GC, Yoga Garden GC
         // SchoolAI                    WV-- Elementary School BG, High School BG, University BG, Community School GC, Institute of Creative Arts GC, Modern Technology Institute GC, Faculty HT (CCP)
-        //    CampusBuildingAI         W--- The following CampusBuildingAI buildings have no students, but no attempt is made to explicitly exclude them, they are simply not shown in color:
-        //                                  Trade School:  CA: Trade School Groundskeeping, Trade School Cafeteria, Trade School Fountain, Trade School Commencement Office, Trade School Academic Statue 1,
-        //                                                     Trade School Bookstore, Trade School Academic Statue 2
-        //                                  Liberal Arts:  CA: Liberal Arts Groundskeeping, Liberal Arts Cafeteria, Liberal Arts Fountain, Liberal Arts Commencement Office, Liberal Arts Academic Statue 1,
-        //                                                     Liberal Arts Bookstore, Liberal Arts Academic Statue 2
-        //                                  University:    CA: University Groundskeeping, University Cafeteria, University Fountain, University Commencement Office, University Academic Statue 1,
-        //                                                     University Bookstore, University Academic Statue 2
-        //    CampusBuildingAI         WV-- Trade School:  CA: Trade School Dormitory, Trade School Study Hall, Book Club, Trade School Outdoor Study, Trade School Gymnasium, Trade School Library, IT Club,
-        //                                                     Trade School Auditorium, Trade School Laboratories, Trade School Media Lab, Beach Volleyball Club
-        //                                  Liberal Arts:  CA: Liberal Arts Dormitory, Liberal Arts Study Hall, Drama Club, Liberal Arts Outdoor Study, Liberal Arts Gymnasium, Liberal Arts Library, Art Club,
-        //                                                     Liberal Arts Auditorium, Liberal Arts Laboratories, Liberal Arts Media Lab, Dance Club
-        //                                  University:    CA: University Dormitory, University Study Hall, Futsal Club, University Outdoor Study, University Gymnasium, University Library, Math Club,
-        //                                                     University Auditorium, University Laboratories, University Media Lab, Chess Club
-        //       UniqueFacultyAI       WV-- Trade School:  CA: Police Academy, School of Tourism And Travel, School of Engineering
-        //                                  Liberal Arts:  CA: School of Education, School of Environmental Studies, School of Economics
-        //                                  University:    CA: School of Law, School of Medicine, School of Science
+        //    CampusBuildingAI         WV-- Trade School:   CA: Trade School Dormitory, Trade School Study Hall, Trade School Groundskeeping, Book Club, Trade School Outdoor Study, Trade School Gymnasium, Trade School Cafeteria,
+        //                                                      Trade School Fountain, Trade School Library, IT Club, Trade School Commencement Office, Trade School Academic Statue 1, Trade School Auditorium, Trade School Laboratories,
+        //                                                      Trade School Bookstore, Trade School Media Lab, Beach Volleyball Club, Trade School Academic Statue 2
+        //                                  Liberal Arts:   CA: Liberal Arts Dormitory, Liberal Arts Study Hall, Liberal Arts Groundskeeping, Drama Club, Liberal Arts Outdoor Study, Liberal Arts Gymnasium, Liberal Arts Cafeteria,
+        //                                                      Liberal Arts Fountain, Liberal Arts Library, Art Club, Liberal Arts Commencement Office, Liberal Arts Academic Statue 1, Liberal Arts Auditorium, Liberal Arts Laboratories,
+        //                                                      Liberal Arts Bookstore, Liberal Arts Media Lab, Dance Club, Liberal Arts Academic Statue 2
+        //                                  University:     CA: University Dormitory, University Study Hall, University Groundskeeping, Futsal Club, University Outdoor Study, University Gymnasium, University Cafeteria
+        //                                                      University Fountain, University Library, Math Club, University Commencement Office, University Academic Statue 1, University Auditorium, University Laboratories,
+        //                                                      University Bookstore, University Media Lab, Chess Club, University Academic Statue 2
+        //       UniqueFacultyAI       WV-- Trade School:   CA: Police Academy, School of Tourism And Travel, School of Engineering
+        //                                  Liberal Arts:   CA: School of Education, School of Environmental Studies, School of Economics
+        //                                  University:     CA: School of Law, School of Medicine, School of Science
         // ShelterAI                   WV-V Small Emergency Shelter ND, Large Emergency Shelter ND
         // SnowDumpAI                  W-SV Snow Dump SF
         // SpaceElevatorAI             W--- Space Elevator BG (monument)
@@ -201,12 +199,12 @@ namespace BuildingUsage
         //                                  Ore:       IN: Sand Storage, Ore Storage, Ore Industry Storage, Raw Mineral Storage
         //                                  Oil:       IN: Small Crude Oil Tank Farm, Large Crude Oil Tank Farm, Crude Oil Storage Cavern, Oil Industry Storage
         //                                  Generic:   IN: Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse
-        // WaterCleanerAI              ---- Floating Garbage Collector GC
-        // WaterFacilityAI             ---- Water Pumping Station BG, Water Tower BG, Large Water Tower SH, Water Drain Pipe BG, Water Treatment Plant BG,
+        // WaterCleanerAI              W--- Floating Garbage Collector GC
+        // WaterFacilityAI             W--- Water Pumping Station BG, Water Tower BG, Large Water Tower SH, Water Drain Pipe BG, Water Treatment Plant BG,
         //                                  Inland Water Treatment Plant SH, Advanced Inland Water Treatment Plant SH, Eco Water Outlet GC, Eco Water Treatment Plant GC,
         //                                  Eco Inland Water Treatment Plant SH, Eco Advanced Inland Water Treatment Plant SH, Fresh Water Outlet ND
-        // WaterFacilityAI             --S- Tank Reservoir ND
-        // WaterFacilityAI             --SV Pumping Service ND
+        // WaterFacilityAI             W-S- Tank Reservoir ND
+        // WaterFacilityAI             W-SV Pumping Service ND
         // WeatherRadarAI              W--- Weather Radar ND
 
         // building AI types that have been patched in this mod

@@ -25,6 +25,7 @@ namespace BuildingUsage
             WorkersIndustrial,
             WorkersMaintenance,
             WorkersPowerPlant,
+            WorkersWaterSewage,
             WorkersHeatingPlant,
             WorkersGarbage,
             WorkersIndustry,
@@ -382,6 +383,7 @@ namespace BuildingUsage
             { UsageType.WorkersIndustrial,                      new UsageTypeInfo("Industrial Zone",    thumbnailInfoIndustrial         ) },
             { UsageType.WorkersMaintenance,                     new UsageTypeInfo("Maintenance",        thumbnailInfoRoadMaintenance    ) },
             { UsageType.WorkersPowerPlant,                      new UsageTypeInfo("Power Plant",        thumbnailInfoElectricy          ) },
+            { UsageType.WorkersWaterSewage,                     new UsageTypeInfo("Water and Sewage",   thumbnailInfoWater              ) },
             { UsageType.WorkersHeatingPlant,                    new UsageTypeInfo("Heating Plant",      thumbnailInfoWater              ) },
             { UsageType.WorkersGarbage,                         new UsageTypeInfo("Garbage",            thumbnailInfoGarbage            ) },
             { UsageType.WorkersIndustry,                        new UsageTypeInfo("Industry",           thumbnailInfoIndustry           ) },
@@ -1999,7 +2001,7 @@ namespace BuildingUsage
 
             // The number of workers allowed is not displayed.
             // The building AI computes the workers allowed by calling HandleWorkAndVisitPlaces.
-            // HandleWorkAndVisitPlaces summs the allowed workers from each education level.
+            // HandleWorkAndVisitPlaces sums the allowed workers from each education level.
 
             // get the BuildingAI stored with the building
             T buildingAI = data.Info.m_buildingAI as T;
@@ -3580,6 +3582,95 @@ namespace BuildingUsage
             return false;
         }
 
+        #endregion
+
+        #region "Parks Plazas Usage Types"
+
+        /// <summary>
+        /// return the usage type for a ParkAI building
+        /// </summary>
+        protected UsageType GetVisitorsParksPlazasUsageType(string category, string name)
+        {
+            // Building AI                      Building                                    Category                    Usage Type
+            // --------------------------       ------------------------------------------  --------------------------  --------------
+            // ParkAI                      -V-- Parks:
+            //                                      Small Park                              BeautificationParks         Parks
+            //                                      Small Playground                        BeautificationParks         Parks
+            //                                      Park With Trees                         BeautificationParks         Parks
+            //                                      Large Playground                        BeautificationParks         Parks
+            //                                      Bouncy Castle Park                      BeautificationParks         Parks
+            //                                      Botanical Garden                        BeautificationParks         Parks
+            //                                      Dog Park                                BeautificationParks         Parks
+            //                                      Carousel Park                           BeautificationParks         Parks
+            //                                      Japanese Garden                         BeautificationParks         Parks
+            //                                      Tropical Garden                         BeautificationParks         Parks
+            //                                      Fishing Island                          BeautificationParks         Parks
+            //                                      Floating Cafe                           BeautificationParks         Parks
+            //                                  Plazas:
+            //                                      Plaza with Trees                        BeautificationPlazas        Plazas
+            //                                      Plaza with Picnic Tables                BeautificationPlazas        Plazas
+            //                                      Paradox Plaza                           BeautificationPlazas        Plazas
+            //                                  Other Parks:
+            //                                      Basketball Court                        BeautificationOthers        OtherParks
+            //                                      Tennis Court                            BeautificationOthers        OtherParks
+            //                                  Tourism & Leisure:
+            //                                      Fishing Pier                            BeautificationExpansion1    TourismLeisure
+            //                                      Fishing Tours                           BeautificationExpansion1    TourismLeisure
+            //                                      Jet Ski Rental                          BeautificationExpansion1    TourismLeisure
+            //                                      Marina                                  BeautificationExpansion1    TourismLeisure
+            //                                      Restaurant Pier                         BeautificationExpansion1    TourismLeisure
+            //                                      Beach Volleyball Court                  BeautificationExpansion1    TourismLeisure
+            //                                      Riding Stable                           BeautificationExpansion1    TourismLeisure
+            //                                      Skatepark                               BeautificationExpansion1    TourismLeisure
+            //                                      Snowmobile Track                        BeautificationExpansion1    TourismLeisure
+            //                                      Winter Fishing Pier                     BeautificationExpansion1    TourismLeisure
+            //                                      Ice Hockey Rink                         BeautificationExpansion1    TourismLeisure
+            //                                  Winter Parks:
+            //                                      Snowman Park                            BeautificationExpansion2    WinterParks
+            //                                      Ice Sculpture Park                      BeautificationExpansion2    WinterParks
+            //                                      Sledding Hill                           BeautificationExpansion2    WinterParks
+            //                                      Curling Park                            BeautificationExpansion2    WinterParks
+            //                                      Skating Rink                            BeautificationExpansion2    WinterParks
+            //                                      Ski Lodge                               BeautificationExpansion2    WinterParks
+            //                                      Cross-Country Skiing Park               BeautificationExpansion2    WinterParks
+            //                                      Firepit Park                            BeautificationExpansion2    WinterParks
+            //                                  Content Creator:
+            //                                      Biodome                                 MonumentModderPack          ModderPacks
+            //                                      Vertical Farm                           MonumentModderPack          ModderPacks
+
+            // usage type depends on category
+            switch (category)
+            {
+                case "BeautificationParks":         return UsageType.VisitorsParksPlazasParks;
+                case "BeautificationPlazas":        return UsageType.VisitorsParksPlazasPlazas;
+                case "BeautificationOthers":        return UsageType.VisitorsParksPlazasOtherParks;
+                case "BeautificationExpansion1":    return UsageType.VisitorsParksPlazasTourismLeisure;
+                case "BeautificationExpansion2":    return UsageType.VisitorsParksPlazasWinterkParks;
+                case "MonumentModderPack":          return UsageType.VisitorsParksPlazasContentCreator;
+                default:
+                    Debug.LogError($"Unhandled building category [{category}] when determining usage type for building [{name}].");
+                    return UsageType.None;
+            }
+        }
+
+        /// <summary>
+        /// return the usage type for a ParkBuildingAI building
+        /// </summary>
+        protected UsageType GetVisitorsParksPlazasUsageType(ref Building data)
+        {
+            // usage type depends on park type
+            DistrictPark.ParkType parkType = GetParkType(ref data);
+            switch (parkType)
+            {
+                case DistrictPark.ParkType.Generic:         return UsageType.VisitorsParksPlazasCityPark;
+                case DistrictPark.ParkType.AmusementPark:   return UsageType.VisitorsParksPlazasAmusementPark;
+                case DistrictPark.ParkType.Zoo:             return UsageType.VisitorsParksPlazasZoo;
+                case DistrictPark.ParkType.NatureReserve:   return UsageType.VisitorsParksPlazasNatureReserve;
+                default:
+                    Debug.LogError($"Unhandled park type [{parkType.ToString()}] when determining usage type for building [{data.Info.name}].");
+                    return UsageType.None;
+            }
+        }
         #endregion
 
         #region "Unique Building Usage Types"
