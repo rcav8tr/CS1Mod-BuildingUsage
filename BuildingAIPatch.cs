@@ -51,6 +51,13 @@ namespace BuildingUsage
         // IndustrialBuildingAI        W--- Zoned Generic Industrial BG
         // IndustrialExtractorAI       W--- Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
 
+        // the following building AIs from the Ploppable RICO Revisited mod derive from the above zoned building AIs
+        // PloppableRICO.PloppableResidential
+        // PloppableRICO.PloppableCommercial
+        // PloppableRICO.PloppableOffice
+        // PloppableRICO.PloppableIndustrial
+        // PloppableRICO.PloppableExtractor
+
 
         // service building AIs are derived from PlayerBuildingAI
         // each building AI is used by panel:  W = Workers, V = Visitors, S = Storage, V = Vehicles, U = Unlimited vehicles, - = not used by that panel
@@ -213,12 +220,11 @@ namespace BuildingUsage
         /// <summary>
         /// create a patch of the GetColor method for the specified building AI type
         /// </summary>
-        public static void CreateGetColorPatch<T>() where T : CommonBuildingAI
+        public static void CreateGetColorPatch(Type buildingAIType)
         {
             // each building AI type is patched only once
-            // the patch logic determines which panel is displayed and calls GetBuildingColor
-            // this method avoids creating a separate patch for each panel that has the same building AI
-            Type buildingAIType = typeof(T);
+            // the patch logic determines which panel is displayed and calls GetBuildingColor on that panel
+            // this way of doing it avoids creating a separate patch for each panel that has the same building AI
             if (_buildingAITypes.Contains(buildingAIType))
             {
                 return;

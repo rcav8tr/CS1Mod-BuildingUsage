@@ -1730,11 +1730,66 @@ namespace BuildingUsage
         /// </summary>
         protected void AssociateBuildingAI<T>(UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null) where T : CommonBuildingAI
         {
+            AssociateBuildingAI(typeof(T), usageType1, usageCountMethod1, usageType2, usageCountMethod2);
+        }
+
+        /// <summary>
+        /// associate a building AI type (specified as string) with its usage type(s) and usage count method(s)
+        /// </summary>
+        /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
+        protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null)
+        {
+            // loop over all the assemblies
+            foreach (System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                // loop over all the types in the assembly
+                foreach (Type type in assembly.GetTypes())
+                {
+                    // find the specified building AI type
+                    // an AI type will be defined if the mod is subscribed, even if the mod is not enabled
+                    // it is okay to associate the AI if the mod is not enabled, there simply will be no buildings of that type
+                    if ($"{type.Namespace}.{type.Name}" == buildingAI)
+                    {
+                        // check if the type derives from CommonBuildingAI
+                        bool derivesFromCommonBuildingAI = false;
+                        Type baseType = type.BaseType;
+                        while (baseType != null)
+                        {
+                            if (baseType == typeof(CommonBuildingAI))
+                            {
+                                derivesFromCommonBuildingAI = true;
+                                break;
+                            }
+                            baseType = baseType.BaseType;
+                        }
+
+                        // if derived from CommonBuildingAI, then associate it
+                        if (derivesFromCommonBuildingAI)
+                        {
+                            AssociateBuildingAI(type, usageType1, usageCountMethod1, usageType2, usageCountMethod2);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
+                        }
+
+                        // either way, found it
+                        return;
+                    }
+                }
+            }
+
+            // if got here then the building AI was not found
+            // this is not an error, it just means the mod is not subscribed
+        }
+
+        private void AssociateBuildingAI(Type buildingAIType, UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2, UsageCountMethod usageCountMethod2)
+        {
             // associate the building AI type
-            _buildingAIUsages.Add(typeof(T), new UsageTypeMethod { usageType1 = usageType1, usageCountMethod1 = usageCountMethod1, usageType2 = usageType2, usageCountMethod2 = usageCountMethod2 });
+            _buildingAIUsages.Add(buildingAIType, new UsageTypeMethod { usageType1 = usageType1, usageCountMethod1 = usageCountMethod1, usageType2 = usageType2, usageCountMethod2 = usageCountMethod2 });
 
             // create a patch for the GetColor method
-            BuildingAIPatch.CreateGetColorPatch<T>();
+            BuildingAIPatch.CreateGetColorPatch(buildingAIType);
         }
 
         /// <summary>
@@ -3822,9 +3877,9 @@ namespace BuildingUsage
                     return;
                 }
 
-                // update every 2 seconds or if specified for update immediately
+                // update every 1 second or if specified for update immediately
                 long currentTicks = DateTime.Now.Ticks;
-                if (currentTicks - _previousTicks >= 2 * TimeSpan.TicksPerSecond || --_updateImmediateCounter == 0)
+                if (currentTicks - _previousTicks >= 1 * TimeSpan.TicksPerSecond || --_updateImmediateCounter == 0)
                 {
                     // do each usage group
                     foreach (UsageGroup usageGroup in _usageGroups.Values)
