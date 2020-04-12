@@ -8,10 +8,10 @@ namespace BuildingUsage
         {
             // remove the building from the usage counts
             // a building can be in usage counts on more than one panel, so must check all panels
-            BuildingUsage.workersUsagePanel.RemoveUsageCount(id);
-            BuildingUsage.visitorsUsagePanel.RemoveUsageCount(id);
-            BuildingUsage.storageUsagePanel.RemoveUsageCount(id);
-            BuildingUsage.vehiclesUsagePanel.RemoveUsageCount(id);
+            if (BuildingUsage.workersUsagePanel  != null) BuildingUsage.workersUsagePanel.RemoveUsageCount(id);
+            if (BuildingUsage.visitorsUsagePanel != null) BuildingUsage.visitorsUsagePanel.RemoveUsageCount(id);
+            if (BuildingUsage.storageUsagePanel  != null) BuildingUsage.storageUsagePanel.RemoveUsageCount(id);
+            if (BuildingUsage.vehiclesUsagePanel != null) BuildingUsage.vehiclesUsagePanel.RemoveUsageCount(id);
 
             // do base processing
             base.OnBuildingReleased(id);
