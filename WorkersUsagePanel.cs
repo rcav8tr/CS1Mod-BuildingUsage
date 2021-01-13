@@ -26,7 +26,7 @@ namespace BuildingUsage
                 CreateUsageGroup<ResidentialBuildingAI                                              >(UsageType.HouseholdsResidential);
                 CreateUsageGroup<CommercialBuildingAI                                               >(UsageType.WorkersCommercial);
                 CreateUsageGroup<OfficeBuildingAI                                                   >(UsageType.WorkersOffice);
-                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI                        >(UsageType.WorkersIndustrial);
+                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI, LivestockExtractorAI  >(UsageType.WorkersIndustrial);
                 CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                                     >(UsageType.WorkersMaintenance);
                 CreateUsageGroup<WindTurbineAI, PowerPlantAI, DamPowerHouseAI, SolarPowerPlantAI, FusionPowerPlantAI                                            >(UsageType.WorkersPowerPlant);
                 CreateUsageGroup<WaterFacilityAI                                                    >(UsageType.WorkersWaterSewage);
@@ -62,6 +62,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<IndustrialBuildingAI                >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI("PloppableRICO.PloppableIndustrial",  UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<IndustrialExtractorAI               >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<LivestockExtractorAI                >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI("PloppableRICO.PloppableExtractor",   UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<MaintenanceDepotAI                  >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MaintenanceDepotAI        >(buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<SnowDumpAI                          >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SnowDumpAI                >(buildingID, ref data, ref used, ref allowed));

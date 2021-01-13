@@ -24,7 +24,7 @@ namespace BuildingUsage
                 name = GetType().ToString();
 
                 // create the usage groups, one for each vehicle usage type
-                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI    >(UsageType.VehiclesIndustrialTrucks);
+                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI, LivestockExtractorAI>(UsageType.VehiclesIndustrialTrucks);
                 CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                 >(UsageType.VehiclesMaintenanceTrucks);
                 // WaterFacilityAI is in the base game, but VehiclesVacuumTrucks is introduced in NaturalDisastersDLC
                 if (SteamHelper.IsDLCOwned(SteamHelper.DLC.NaturalDisastersDLC))
@@ -64,6 +64,7 @@ namespace BuildingUsage
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
                 AssociateBuildingAI<IndustrialBuildingAI      >(UsageType.VehiclesIndustrialTrucks,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesTransportation                          (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<IndustrialExtractorAI     >(UsageType.VehiclesIndustrialTrucks,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesTransportation                          (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<LivestockExtractorAI      >(UsageType.VehiclesIndustrialTrucks,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesTransportation                          (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<MaintenanceDepotAI        >(UsageType.VehiclesMaintenanceTrucks, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesMaintenanceDepot                        (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<SnowDumpAI                >(UsageType.VehiclesMaintenanceTrucks, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesSnowDump                                (buildingID, ref data, ref used, ref allowed));
                 AssociateBuildingAI<WaterFacilityAI           >(UsageType.UseLogic1,                 (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesWaterFacility                           (buildingID, ref data, ref used, ref allowed));
@@ -272,7 +273,8 @@ namespace BuildingUsage
                     return UsageType.VehiclesIndustryVehicles;
                 }
                 else if (buildingAIType == typeof(IndustrialBuildingAI  ) || 
-                         buildingAIType == typeof(IndustrialExtractorAI ))
+                         buildingAIType == typeof(IndustrialExtractorAI ) ||
+                         buildingAIType == typeof(LivestockExtractorAI  ))
                 {
                     return UsageType.VehiclesIndustrialTrucks;
                 }

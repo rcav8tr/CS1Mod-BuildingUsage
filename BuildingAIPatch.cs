@@ -43,13 +43,14 @@ namespace BuildingUsage
         // MJ = Modern Japan            03/26/20 ModderPack6
 
 
-        // zoned building AIs are derived from PrivateBuildingAI, used by Workers panel only
+        // zoned building AIs are derived from PrivateBuildingAI
 
         // ResidentialBuildingAI       W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Residential (Self-Sufficient Buildings GC)
         // CommercialBuildingAI        W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Commercial (Tourism AD, Leisure AD, Organic and Local Produce GC)
         // OfficeBuildingAI            W--- Zoned Generic Office BG, Zoned Specialized Office (IT Cluster GC)
-        // IndustrialBuildingAI        W--- Zoned Generic Industrial BG
-        // IndustrialExtractorAI       W--- Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
+        // IndustrialBuildingAI        W--V Zoned Generic Industrial BG
+        // IndustrialExtractorAI       W--V Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
+        //    LivestockExtractorAI     W--V Zoned Specialized Industrial (Farming BG)
 
         // the following building AIs from the Ploppable RICO Revisited mod derive from the above zoned building AIs
         // PloppableRICO.PloppableResidential
