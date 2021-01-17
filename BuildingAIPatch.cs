@@ -52,12 +52,15 @@ namespace BuildingUsage
         // IndustrialExtractorAI       W--V Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
         //    LivestockExtractorAI     W--V Zoned Specialized Industrial (Farming BG)
 
-        // the following building AIs from the Ploppable RICO Revisited mod derive from the above zoned building AIs
-        // PloppableRICO.PloppableResidential
-        // PloppableRICO.PloppableCommercial
-        // PloppableRICO.PloppableOffice
-        // PloppableRICO.PloppableIndustrial
-        // PloppableRICO.PloppableExtractor
+        // the following building AIs are from the Ploppable RICO Revisited mod
+        // the growable  building AIs derive from the above zoned building AIs
+        // the ploppable building AIs derive from the growable building AIs
+        // PloppableRICO.GrowableResidentialAI  PloppableRICO.PloppableResidentialAI    W---
+        // PloppableRICO.GrowableCommercialAI   PloppableRICO.PloppableCommercialAI     W---
+        // PloppableRICO.GrowableOfficeAI       PloppableRICO.PloppableOfficeAI         W---
+        // PloppableRICO.GrowableIndustrialAI   PloppableRICO.PloppableIndustrialAI     W--V
+        // PloppableRICO.GrowableExtractorAI    PloppableRICO.PloppableExtractorAI      W--V
+        // the Ploppable RICO Revisited mod does not have building AIs corresponding to LivestockExtractorAI
 
 
         // service building AIs are derived from PlayerBuildingAI
