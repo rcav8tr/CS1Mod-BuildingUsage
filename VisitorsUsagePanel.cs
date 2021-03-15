@@ -34,35 +34,35 @@ namespace BuildingUsage
                 CreateUsageGroup<MonumentAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI                      >(UsageType.VisitorsUnique);
 
                 // add detail panels
-                AddDetailPanel<VisitorsEducationUsagePanel  >(UsageType.VisitorsEducation,   this);
-                AddDetailPanel<VisitorsParksPlazasUsagePanel>(UsageType.VisitorsParksPlazas, this);
-                AddDetailPanel<VisitorsUniqueUsagePanel     >(UsageType.VisitorsUnique,      this);
+                AddDetailPanel<VisitorsEducationUsagePanel  >(UsageType.VisitorsEducation  );
+                AddDetailPanel<VisitorsParksPlazasUsagePanel>(UsageType.VisitorsParksPlazas);
+                AddDetailPanel<VisitorsUniqueUsagePanel     >(UsageType.VisitorsUnique     );
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<MarketAI                >(UsageType.VisitorsFishMarket,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMarket                        (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HospitalAI              >(UsageType.VisitorsMedicalPatients, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsHospital<HospitalAI>          (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MedicalCenterAI         >(UsageType.VisitorsMedicalPatients, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsHospital<MedicalCenterAI>     (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ChildcareAI             >(UsageType.VisitorsMedicalPatients, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsChildcare                     (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<EldercareAI             >(UsageType.VisitorsMedicalPatients, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsEldercare                     (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SaunaAI                 >(UsageType.VisitorsMedicalVisitors, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSauna                         (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CemeteryAI              >(UsageType.VisitorsDeceased,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsCemetery                      (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ShelterAI               >(UsageType.VisitorsShelter,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsShelter                       (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PoliceStationAI         >(UsageType.VisitorsCriminals,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsPoliceStation                 (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SchoolAI                >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<SchoolAI>              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LibraryAI               >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsLibrary                       (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CampusBuildingAI        >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<CampusBuildingAI>      (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFacultyAI         >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<UniqueFacultyAI>       (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MuseumAI                >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<MuseumAI>            (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<VarsitySportsArenaAI    >(UsageType.VisitorsEducation,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsVarsitySportsArena            (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ParkAI                  >(UsageType.VisitorsParksPlazas,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsPark<ParkAI>                  (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<EdenProjectAI           >(UsageType.VisitorsParksPlazas,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsPark<EdenProjectAI>           (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ParkBuildingAI          >(UsageType.VisitorsParksPlazas,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsParkBuilding                  (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<TourBuildingAI          >(UsageType.VisitorsParksPlazas,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsTourBuilding                  (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MonumentAI              >(UsageType.VisitorsUnique,          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<MonumentAI>          (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<AnimalMonumentAI        >(UsageType.VisitorsUnique,          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<AnimalMonumentAI>    (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PrivateAirportAI        >(UsageType.VisitorsUnique,          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<PrivateAirportAI>    (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ChirpwickCastleAI       >(UsageType.VisitorsUnique,          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<ChirpwickCastleAI>   (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<MarketAI                >(UsageType.VisitorsFishMarket,      GetUsageCountVisitorsMarket                        );
+                AssociateBuildingAI<HospitalAI              >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsHospital<HospitalAI>          );
+                AssociateBuildingAI<MedicalCenterAI         >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsHospital<MedicalCenterAI>     );
+                AssociateBuildingAI<ChildcareAI             >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsChildcare                     );
+                AssociateBuildingAI<EldercareAI             >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsEldercare                     );
+                AssociateBuildingAI<SaunaAI                 >(UsageType.VisitorsMedicalVisitors, GetUsageCountVisitorsSauna                         );
+                AssociateBuildingAI<CemeteryAI              >(UsageType.VisitorsDeceased,        GetUsageCountVisitorsCemetery                      );
+                AssociateBuildingAI<ShelterAI               >(UsageType.VisitorsShelter,         GetUsageCountVisitorsShelter                       );
+                AssociateBuildingAI<PoliceStationAI         >(UsageType.VisitorsCriminals,       GetUsageCountVisitorsPoliceStation                 );
+                AssociateBuildingAI<SchoolAI                >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<SchoolAI>              );
+                AssociateBuildingAI<LibraryAI               >(UsageType.VisitorsEducation,       GetUsageCountVisitorsLibrary                       );
+                AssociateBuildingAI<CampusBuildingAI        >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<CampusBuildingAI>      );
+                AssociateBuildingAI<UniqueFacultyAI         >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<UniqueFacultyAI>       );
+                AssociateBuildingAI<MuseumAI                >(UsageType.VisitorsEducation,       GetUsageCountVisitorsMonument<MuseumAI>            );
+                AssociateBuildingAI<VarsitySportsArenaAI    >(UsageType.VisitorsEducation,       GetUsageCountVisitorsVarsitySportsArena            );
+                AssociateBuildingAI<ParkAI                  >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<ParkAI>                  );
+                AssociateBuildingAI<EdenProjectAI           >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<EdenProjectAI>           );
+                AssociateBuildingAI<ParkBuildingAI          >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding                  );
+                AssociateBuildingAI<TourBuildingAI          >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsTourBuilding                  );
+                AssociateBuildingAI<MonumentAI              >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<MonumentAI>          );
+                AssociateBuildingAI<AnimalMonumentAI        >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<AnimalMonumentAI>    );
+                AssociateBuildingAI<PrivateAirportAI        >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<PrivateAirportAI>    );
+                AssociateBuildingAI<ChirpwickCastleAI       >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<ChirpwickCastleAI>   );
             }
             catch (Exception ex)
             {

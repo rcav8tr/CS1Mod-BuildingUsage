@@ -54,14 +54,14 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SchoolAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LibraryAI           >(UsageType.WorkersEducationLibrary,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<LibraryAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HadronColliderAI    >(UsageType.WorkersEducationHadronCollider, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HadronColliderAI    >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MainCampusBuildingAI>(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MainCampusBuildingAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CampusBuildingAI    >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFacultyAI     >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UniqueFacultyAI     >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MuseumAI            >(UsageType.WorkersEducationMuseum,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MuseumAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<VarsitySportsArenaAI>(UsageType.WorkersEducationVarsitySports,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<VarsitySportsArenaAI>(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      GetUsageCountWorkersService<SchoolAI            >);
+                AssociateBuildingAI<LibraryAI           >(UsageType.WorkersEducationLibrary,        GetUsageCountWorkersService<LibraryAI           >);
+                AssociateBuildingAI<HadronColliderAI    >(UsageType.WorkersEducationHadronCollider, GetUsageCountWorkersService<HadronColliderAI    >);
+                AssociateBuildingAI<MainCampusBuildingAI>(UsageType.UseLogic1,                      GetUsageCountWorkersService<MainCampusBuildingAI>);
+                AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      GetUsageCountWorkersService<CampusBuildingAI    >);
+                AssociateBuildingAI<UniqueFacultyAI     >(UsageType.UseLogic1,                      GetUsageCountWorkersService<UniqueFacultyAI     >);
+                AssociateBuildingAI<MuseumAI            >(UsageType.WorkersEducationMuseum,         GetUsageCountWorkersService<MuseumAI            >);
+                AssociateBuildingAI<VarsitySportsArenaAI>(UsageType.WorkersEducationVarsitySports,  GetUsageCountWorkersService<VarsitySportsArenaAI>);
             }
             catch (Exception ex)
             {

@@ -70,15 +70,15 @@ namespace BuildingUsage
                 }
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
-                AssociateBuildingAI<MainIndustryBuildingAI>(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MainIndustryBuildingAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<AuxiliaryBuildingAI   >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<AuxiliaryBuildingAI   >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ExtractingFacilityAI  >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ExtractingFacilityAI  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishingHarborAI       >(UsageType.WorkersIndustryFishingExtractor,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FishingHarborAI       >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishFarmAI            >(UsageType.WorkersIndustryFishingExtractor,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FishFarmAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ProcessingFacilityAI  >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ProcessingFacilityAI  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MarketAI              >(UsageType.WorkersIndustryFishingMarket,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MarketAI              >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WarehouseAI           >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WarehouseAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFactoryAI       >(UsageType.WorkersIndustryUniqueFactory,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UniqueFactoryAI       >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<MainIndustryBuildingAI>(UsageType.UseLogic1,                        GetUsageCountWorkersService<MainIndustryBuildingAI>);
+                AssociateBuildingAI<AuxiliaryBuildingAI   >(UsageType.UseLogic1,                        GetUsageCountWorkersService<AuxiliaryBuildingAI   >);
+                AssociateBuildingAI<ExtractingFacilityAI  >(UsageType.UseLogic1,                        GetUsageCountWorkersService<ExtractingFacilityAI  >);
+                AssociateBuildingAI<FishingHarborAI       >(UsageType.WorkersIndustryFishingExtractor,  GetUsageCountWorkersService<FishingHarborAI       >);
+                AssociateBuildingAI<FishFarmAI            >(UsageType.WorkersIndustryFishingExtractor,  GetUsageCountWorkersService<FishFarmAI            >);
+                AssociateBuildingAI<ProcessingFacilityAI  >(UsageType.UseLogic1,                        GetUsageCountWorkersService<ProcessingFacilityAI  >);
+                AssociateBuildingAI<MarketAI              >(UsageType.WorkersIndustryFishingMarket,     GetUsageCountWorkersService<MarketAI              >);
+                AssociateBuildingAI<WarehouseAI           >(UsageType.UseLogic1,                        GetUsageCountWorkersService<WarehouseAI           >);
+                AssociateBuildingAI<UniqueFactoryAI       >(UsageType.WorkersIndustryUniqueFactory,     GetUsageCountWorkersService<UniqueFactoryAI       >);
             }
             catch (Exception ex)
             {

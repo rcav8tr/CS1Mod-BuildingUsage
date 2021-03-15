@@ -67,12 +67,12 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ExtractingFacilityAI>(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesExtractingFacility                      (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishingHarborAI     >(UsageType.VehiclesIndustryFishingExtractor, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesFishingHarbor                           (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishFarmAI          >(UsageType.VehiclesIndustryFishingExtractor, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesFishFarm                                (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ProcessingFacilityAI>(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesProcessingFacility<ProcessingFacilityAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFactoryAI     >(UsageType.VehiclesIndustryUniqueFactory,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesProcessingFacility<UniqueFactoryAI>     (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WarehouseAI         >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVehiclesWarehouse                               (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<ExtractingFacilityAI>(UsageType.UseLogic1,                        GetUsageCountVehiclesExtractingFacility                      );
+                AssociateBuildingAI<FishingHarborAI     >(UsageType.VehiclesIndustryFishingExtractor, GetUsageCountVehiclesFishingHarbor                           );
+                AssociateBuildingAI<FishFarmAI          >(UsageType.VehiclesIndustryFishingExtractor, GetUsageCountVehiclesFishFarm                                );
+                AssociateBuildingAI<ProcessingFacilityAI>(UsageType.UseLogic1,                        GetUsageCountVehiclesProcessingFacility<ProcessingFacilityAI>);
+                AssociateBuildingAI<UniqueFactoryAI     >(UsageType.VehiclesIndustryUniqueFactory,    GetUsageCountVehiclesProcessingFacility<UniqueFactoryAI>     );
+                AssociateBuildingAI<WarehouseAI         >(UsageType.UseLogic1,                        GetUsageCountVehiclesWarehouse                               );
 
                 // associate each vehicle AI type with its usage type
                 // associate all vehicle AIs even if corresponding DLC is not installed (there will simply be no vehicles with that AI)

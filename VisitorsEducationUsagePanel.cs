@@ -50,12 +50,12 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<SchoolAI>        (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LibraryAI           >(UsageType.VisitorsEducationLibrary,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsLibrary                 (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<CampusBuildingAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFacultyAI     >(UsageType.UseLogic1,                      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsSchool<UniqueFacultyAI> (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MuseumAI            >(UsageType.VisitorsEducationMuseum,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<MuseumAI>      (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<VarsitySportsArenaAI>(UsageType.VisitorsEducationVarsitySports, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsVarsitySportsArena      (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      GetUsageCountVisitorsSchool<SchoolAI>        );
+                AssociateBuildingAI<LibraryAI           >(UsageType.VisitorsEducationLibrary,       GetUsageCountVisitorsLibrary                 );
+                AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      GetUsageCountVisitorsSchool<CampusBuildingAI>);
+                AssociateBuildingAI<UniqueFacultyAI     >(UsageType.UseLogic1,                      GetUsageCountVisitorsSchool<UniqueFacultyAI> );
+                AssociateBuildingAI<MuseumAI            >(UsageType.VisitorsEducationMuseum,        GetUsageCountVisitorsMonument<MuseumAI>      );
+                AssociateBuildingAI<VarsitySportsArenaAI>(UsageType.VisitorsEducationVarsitySports, GetUsageCountVisitorsVarsitySportsArena      );
             }
             catch (Exception ex)
             {

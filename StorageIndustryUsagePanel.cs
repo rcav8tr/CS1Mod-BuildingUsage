@@ -74,14 +74,14 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ExtractingFacilityAI    >(UsageType.UseLogic1,                          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageExtractingFacility      (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishingHarborAI         >(UsageType.StorageIndustryFishingExtractor,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageFishingHarbor           (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishFarmAI              >(UsageType.StorageIndustryFishingExtractor,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageFishFarm                (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ProcessingFacilityAI    >(UsageType.UseLogic1,                          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageProcessingFacilityInput (buildingID, ref data, ref used, ref allowed),
-                                                              UsageType.UseLogic2,                          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageProcessingFacilityOutput(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFactoryAI         >(UsageType.StorageIndustryUniqueFactoryInput,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageUniqueFactoryInput      (buildingID, ref data, ref used, ref allowed),
-                                                              UsageType.StorageIndustryUniqueFactoryOutput, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageUniqueFactoryOutput     (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WarehouseAI             >(UsageType.UseLogic1,                          (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageWarehouse               (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<ExtractingFacilityAI    >(UsageType.UseLogic1,                          GetUsageCountStorageExtractingFacility      );
+                AssociateBuildingAI<FishingHarborAI         >(UsageType.StorageIndustryFishingExtractor,    GetUsageCountStorageFishingHarbor           );
+                AssociateBuildingAI<FishFarmAI              >(UsageType.StorageIndustryFishingExtractor,    GetUsageCountStorageFishFarm                );
+                AssociateBuildingAI<ProcessingFacilityAI    >(UsageType.UseLogic1,                          GetUsageCountStorageProcessingFacilityInput ,
+                                                              UsageType.UseLogic2,                          GetUsageCountStorageProcessingFacilityOutput);
+                AssociateBuildingAI<UniqueFactoryAI         >(UsageType.StorageIndustryUniqueFactoryInput,  GetUsageCountStorageUniqueFactoryInput      ,
+                                                              UsageType.StorageIndustryUniqueFactoryOutput, GetUsageCountStorageUniqueFactoryOutput     );
+                AssociateBuildingAI<WarehouseAI             >(UsageType.UseLogic1,                          GetUsageCountStorageWarehouse               );
 
                 // set mutually exclusive check boxes
                 MakeCheckBoxesMutuallyExclusive(UsageType.StorageIndustryForestryProcessorInput,    UsageType.StorageIndustryForestryProcessorOutput);

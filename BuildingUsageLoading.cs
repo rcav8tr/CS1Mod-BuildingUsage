@@ -2,7 +2,7 @@
 using ColossalFramework;
 using ICities;
 using UnityEngine;
-using Harmony;
+using HarmonyLib;
 using System;
 
 namespace BuildingUsage
@@ -24,7 +24,7 @@ namespace BuildingUsage
                 if (mode == LoadMode.NewGame || mode == LoadMode.NewGameFromScenario || mode == LoadMode.LoadGame)
                 {
                     // initialize Harmony
-                    BuildingUsage.harmony = HarmonyInstance.Create("com.github.rcav8tr.BuildingUsage");
+                    BuildingUsage.harmony = new Harmony("com.github.rcav8tr.BuildingUsage");
                     if (BuildingUsage.harmony == null)
                     {
                         Debug.LogError("Unable to create Harmony instance.");
@@ -93,7 +93,9 @@ namespace BuildingUsage
                     BuildingUsage.storageUsagePanel  = UsagePanel.AddUsagePanel<StorageUsagePanel >();
                     BuildingUsage.vehiclesUsagePanel = UsagePanel.AddUsagePanel<VehiclesUsagePanel>();
 
-                    // create the UpdatePanel patches
+                    // create the Harmony patches
+                    BuildingAIPatch.CreateGetColorPatches();
+                    VehicleAIPatch.CreateGetColorPatches();
                     LevelsInfoViewPanelPatch.CreateUpdatePanelPatch();
                 }
             }
@@ -207,8 +209,6 @@ namespace BuildingUsage
                     BuildingUsage.harmony.UnpatchAll();
                     BuildingUsage.harmony = null;
                 }
-                BuildingAIPatch.ClearPatches();
-                VehicleAIPatch.ClearPatches();
 
                 // destroy the objects added directly to the LevelsInfoViewPanel
                 // must do this explicitly because loading a saved game from the Pause Menu

@@ -289,21 +289,6 @@ namespace BuildingUsage
             }
         }
 
-        // deinfe a class to hold info for a usage type
-        private class UsageTypeInfo
-        {
-            public string descriptionText;
-            public ThumbnailInfo thumbnailInfo;
-
-            private UsageTypeInfo() { }
-
-            public UsageTypeInfo(string descriptionText, ThumbnailInfo thumbnailInfo)
-            {
-                this.descriptionText = descriptionText;
-                this.thumbnailInfo = thumbnailInfo;
-            }
-        }
-
         // define the thumbnail images for usage groups
         private static readonly ThumbnailInfo thumbnailInfoResidential          = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningResidentialLow",                 109f, 75f);
         private static readonly ThumbnailInfo thumbnailInfoCommercial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningCommercialLow",                  109f, 75f);
@@ -373,7 +358,22 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailAviationClub             = new ThumbnailInfo(ThumbnailInfo.AtlasType.Expansion9, "Thumb_Aviation Club",                  109f, 100f);
         private static readonly ThumbnailInfo thumbnailChirpXLaunchSite         = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ThumbChirpX",                          109f, 100f);
 
-        // define the description text and thumbnail image info to use with each usaage type
+        // deinfe a class to hold info for a usage type
+        private class UsageTypeInfo
+        {
+            public string descriptionText;
+            public ThumbnailInfo thumbnailInfo;
+
+            private UsageTypeInfo() { }
+
+            public UsageTypeInfo(string descriptionText, ThumbnailInfo thumbnailInfo)
+            {
+                this.descriptionText = descriptionText;
+                this.thumbnailInfo = thumbnailInfo;
+            }
+        }
+
+        // define the description text and thumbnail image info to use with each usage type
         private static readonly Dictionary<UsageType, UsageTypeInfo> _usageTypeInfos = new Dictionary<UsageType, UsageTypeInfo>
         {
             // workers usage types
@@ -621,40 +621,83 @@ namespace BuildingUsage
             { UsageType.VehiclesTransportationAirCargo,         new UsageTypeInfo("Air",                thumbnailInfoTransportPlane     ) },
         };
 
-        // usage counts for one building
-        private class UsageCount
+        // counts by education level
+        protected class EducationLevelCount
         {
-            public bool include;    // whether or not this building should be included in usage counts
-            public int used;        // number of households/workers/visitors/storage/vehicles used by the building
-            public int allowed;     // number of households/workers/visitors/storage/vehicles allowed by the building
+            public int level0;  // uneducated        - Elementary School not completed
+            public int level1;  // educated          - Elementary School completed
+            public int level2;  // well uneducated   - High School completed
+            public int level3;  // highly uneducated - University completed
+
+            public void Copy(EducationLevelCount value)
+            {
+                level0 = value.level0;
+                level1 = value.level1;
+                level2 = value.level2;
+                level3 = value.level3;
+            }
+
+            public void Add(EducationLevelCount value)
+            {
+                level0 += value.level0;
+                level1 += value.level1;
+                level2 += value.level2;
+                level3 += value.level3;
+            }
+
+            public void Subtract(EducationLevelCount value)
+            {
+                level0 -= value.level0;
+                level1 -= value.level1;
+                level2 -= value.level2;
+                level3 -= value.level3;
+            }
+        }
+
+        // usage counts for one building
+        protected class UsageCount
+        {
+            public bool include;                        // whether or not this building should be included in usage counts
+            public int used;                            // number of households/workers/visitors/storage/vehicles used by the building
+            public int allowed;                         // number of households/workers/visitors/storage/vehicles allowed by the building
+            public EducationLevelCount employed;        // number of employed workers       in the building by education level
+            public EducationLevelCount totalJobs;       // number of total jobs             in the building by education level
+            public EducationLevelCount overEducated;    // number of over educated workers  in the building by education level
+            public EducationLevelCount unemployed;      // number of unemployed             in the building by education level
+            public EducationLevelCount eligible;        // number of eligible workers       in the building by education level
         }
 
         // usage counts for all buildings of one usage type
         // dictionary key is the building ID
-        private class UsageCounts : Dictionary<ushort, UsageCount> { }
+        protected class UsageCounts : Dictionary<ushort, UsageCount> { }
 
         // define a group of items for tracking and showing one usage type
-        private class UsageGroup
+        protected class UsageGroup
         {
-            public UISprite checkBox;           // checkbox to show/hide building colors
-            public UISprite thumbnail;          // graphic image representing usage type
-            public string spriteNameNormal;     // sprite name for normal thumbnail
-            public string spriteNameDisabled;   // sprite name for disabled thumbnail
-            public UILabel description;         // textual description
-            public UISprite detailButton;       // button to show detail panel
-            public UsagePanel detailPanel;      // the detail panel to show when button is clicked
-            public UITextureSprite legend;      // color legend
-            public Color color0;                // color for 0 percent usage
-            public Color color1;                // color for 100 percent usage
-            public UISprite indicator;          // graphical indicator of usage percent
-            public UILabel percent;             // usage percent as text
-            public UsageCounts usageCounts;     // usage counts for all buildings of this type
-            public int usedRunningTotal;        // running total of used count
-            public int allowedRunningTotal;     // running total of allowed count
+            public UISprite checkBox;                           // checkbox to show/hide building colors
+            public UISprite thumbnail;                          // graphic image representing usage type
+            public string spriteNameNormal;                     // sprite name for normal thumbnail
+            public string spriteNameDisabled;                   // sprite name for disabled thumbnail
+            public UILabel description;                         // textual description
+            public UISprite detailButton;                       // button to show detail panel
+            public UsagePanel detailPanel;                      // the detail panel to show when button is clicked
+            public UITextureSprite legend;                      // color legend
+            public Color color0;                                // color for 0 percent usage
+            public Color color1;                                // color for 100 percent usage
+            public UISprite indicator;                          // graphical indicator of usage percent
+            public UILabel percent;                             // usage percent as text
+            public UsageCounts usageCounts;                     // usage counts for all buildings of this type
+            public int usedRunningTotal;                        // running total of used count
+            public int allowedRunningTotal;                     // running total of allowed count
+            public EducationLevelCount employedRunningTotal;    // running total of employed worker counts
+            public EducationLevelCount totalJobsRunningTotal;   // running total of total jobs counts
+            public EducationLevelCount overEdRunningTotal;      // running total of over educated worker counts
+            public EducationLevelCount unemployedRunningTotal;  // running total of unemployed counts
+            public EducationLevelCount eligibleRunningTotal;    // running total of eligible worker counts
         }
 
         // the usage groups, there will be one for each usage type on this panel
-        private Dictionary<UsageType, UsageGroup> _usageGroups = new Dictionary<UsageType, UsageGroup>();
+        protected Dictionary<UsageType, UsageGroup> _usageGroups = new Dictionary<UsageType, UsageGroup>();
 
         // for creating usage groups
         private const int MaxUsageGroups = 29;          // maximum number of usage groups on a panel
@@ -668,15 +711,21 @@ namespace BuildingUsage
         private Dictionary<string, string> _mutuallyExclusiveCheckBoxes = new Dictionary<string, string>();
 
 
-        // define the signature of the methods that calculate usage count
-        protected delegate void UsageCountMethod(ushort buildingID, ref Building data, ref int used, ref int allowed);
+        // define the signature of the methods that calculate usage count, employed/total jobs count, and unemployed/eligible count
+        // the nothing parameter is included to differentiate UnemployedEligibleCountMethod from EmployedTotalJobsCountMethod
+        protected delegate void UsageCountMethod             (ushort buildingID, ref Building data, ref int used, ref int allowed);
+        protected delegate void EmployedTotalJobsCountMethod (ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed,   ref EducationLevelCount totalJobs);
+        protected delegate void UnemployedEligibleCountMethod(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount unemployed, ref EducationLevelCount eligible, ref int nothing);
 
-        // define a class to hold the usage type(s) and usage count method(s)
+        // define a class to hold the usage type(s), usage count method(s), employed/total jobs count method, and unemployed/eligible count method
         // most building AI types have only one usage type and method, but a few have two
+        // can never have two methods for employed or unemployed because that would double count
         private class UsageTypeMethod
         {
             public UsageType usageType1;
             public UsageCountMethod usageCountMethod1;
+            public EmployedTotalJobsCountMethod employedTotalJobsCountMethod1;
+            public UnemployedEligibleCountMethod unemployedEligibleCountMethod1;
             public UsageType usageType2;
             public UsageCountMethod usageCountMethod2;
         }
@@ -699,15 +748,18 @@ namespace BuildingUsage
         private UsagePanel _detailPanel = null;                             // the detail panel current being displayed
         private UsagePanel _mainPanel = null;                               // the main panel to which this detail panel belongs
 
-        // miscellaneous
+        // miscellaneous for this panel
         private bool _initialized = false;
         private long _previousTicks = 0;
         private int _updateImmediateCounter = 0;
-        private static List<Type> _buildingAITypes = null;
 
+        // miscellaneous common to all panels
+        private static List<Type> _buildingAITypes = null;
+        private static bool _hadronColliderBuilt = false;
+        private static bool _hadronColliderDetected = false;
 
         // image atlases
-        private static UITextureAtlas _ingameAtlas = null;
+        protected static UITextureAtlas _ingameAtlas = null;
         private static UITextureAtlas _thumbnailsAtlas = null;
         private static UITextureAtlas _expansion9Atlas = null;
 
@@ -715,13 +767,15 @@ namespace BuildingUsage
         private static Material _gradientMaterial = null;
         private static Texture _gradientTexture = null;
 
-        // text and gradient colors
+        // text
         private const float DisabledTextMultiplier = 0.6f;
         private static readonly Color32 _textColorNormal = new Color32(185, 221, 254, 255);
         private static readonly Color32 _textColorDisabled = new Color32((byte)(_textColorNormal.r * DisabledTextMultiplier), (byte)(_textColorNormal.g * DisabledTextMultiplier), (byte)(_textColorNormal.b * DisabledTextMultiplier), 255);
+        protected static UIFont _textFont;
+
+        // gradient colors
         private static Color _gradientColorDisabled0 = Color.clear;
         private static Color _gradientColorDisabled1 = Color.clear;
-
 
         /// <summary>
         /// add a usage panel to the Levels info view panel
@@ -836,6 +890,18 @@ namespace BuildingUsage
                 _gradientColorDisabled1 = _textColorDisabled; _gradientColorDisabled1 *= 0.5f;
             }
 
+            // get text font from existing residential level label
+            if (_textFont == null)
+            {
+                UILabel fontTemplate = levelsPanel.Find<UILabel>("ResidentialLevel");
+                if (fontTemplate == null)
+                {
+                    Debug.LogError("Unable to find ResidentialLevel.");
+                    return;
+                }
+                _textFont = fontTemplate.font;
+            }
+
             // create buttons to select/deselect all check boxes
             _selectAll = CreateSelectionButton("SelectAll", "Select All", 10f);
             if (_selectAll == null) return;
@@ -843,6 +909,23 @@ namespace BuildingUsage
             _deselectAll = CreateSelectionButton("DeselectAll", "Deselect All", _selectAll.relativePosition.x + _selectAll.size.x + 10f);
             if (_deselectAll == null) return;
             _deselectAll.eventClicked += DeselectAll_eventClicked;
+
+            // determine if Hadron Collider is completed
+            if (!_hadronColliderDetected)
+            {
+                _hadronColliderBuilt = false;
+                Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+                for (ushort buildingID = 1; buildingID < buffer.Length; buildingID++)
+                {
+                    Building building = buffer[buildingID];
+                    if (building.Info != null && building.Info.m_buildingAI != null && building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI) && ((building.m_flags & Building.Flags.Completed) == Building.Flags.Completed))
+                    {
+                        _hadronColliderBuilt = true;
+                        break;
+                    }
+                }
+                _hadronColliderDetected = true;
+            }
         }
 
         /// <summary>
@@ -983,6 +1066,9 @@ namespace BuildingUsage
                 Destroy(detailPanel);
             }
             _detailPanels.Clear();
+
+            // hadron collider is not detected
+            _hadronColliderDetected = false;
         }
         #endregion
 
@@ -1043,8 +1129,8 @@ namespace BuildingUsage
             // save config
             BuildingUsageConfig.Save();
 
-            // update colors on all buildings
-            Singleton<BuildingManager>.instance.UpdateBuildingColors();
+            // update panel immediately
+            UpdatePanelImmediately();
         }
 
         /// <summary>
@@ -1086,8 +1172,8 @@ namespace BuildingUsage
             // save config
             BuildingUsageConfig.Save();
 
-            // update colors on all buildings
-            Singleton<BuildingManager>.instance.UpdateBuildingColors();
+            // update panel immediately
+            UpdatePanelImmediately();
         }
 
         /// <summary>
@@ -1149,7 +1235,7 @@ namespace BuildingUsage
         /// <summary>
         /// return whether or not the check box (i.e. sprite) is checked
         /// </summary>
-        private bool IsCheckBoxChecked(UISprite checkBox)
+        protected bool IsCheckBoxChecked(UISprite checkBox)
         {
             return checkBox.spriteName == "check-checked";
         }
@@ -1306,10 +1392,9 @@ namespace BuildingUsage
             {
                 // show this panel
                 isVisible = true;
-                UpdatePanelImmediately();
 
-                // update colors on all buildings
-                Singleton<BuildingManager>.instance.UpdateBuildingColors();
+                // update panel immediately
+                UpdatePanelImmediately();
             }
         }
 
@@ -1414,6 +1499,7 @@ namespace BuildingUsage
                 return;
             }
             description.name = groupName + "Description";
+            description.font = _textFont;
             description.text = usageTypeInfo.descriptionText;
             description.textAlignment = UIHorizontalAlignment.Left;
             description.verticalAlignment = UIVerticalAlignment.Middle;
@@ -1451,6 +1537,7 @@ namespace BuildingUsage
                 return;
             }
             percent.name = groupName + "Usage";
+            percent.font = _textFont;
             percent.text = "100%";
             percent.tooltip = null;
             percent.textAlignment = UIHorizontalAlignment.Right;
@@ -1509,7 +1596,12 @@ namespace BuildingUsage
                 percent = percent,
                 usageCounts = new UsageCounts(),
                 usedRunningTotal = 0,
-                allowedRunningTotal = 0
+                allowedRunningTotal = 0,
+                employedRunningTotal   = new EducationLevelCount(),
+                totalJobsRunningTotal  = new EducationLevelCount(),
+                overEdRunningTotal     = new EducationLevelCount(),
+                unemployedRunningTotal = new EducationLevelCount(),
+                eligibleRunningTotal   = new EducationLevelCount()
             };
 
             // add the usage group to the list
@@ -1665,6 +1757,7 @@ namespace BuildingUsage
                 return;
             }
             heading.name = groupName + "Heading";
+            heading.font = _textFont;
             heading.text = headingText + "  ";
             heading.textAlignment = UIHorizontalAlignment.Left;
             heading.verticalAlignment = UIVerticalAlignment.Middle;
@@ -1696,7 +1789,7 @@ namespace BuildingUsage
         /// <summary>
         /// add a detail panel to this main panel
         /// </summary>
-        protected void AddDetailPanel<TDetailPanel>(UsageType usageType, UsagePanel mainPanel) where TDetailPanel : UsagePanel
+        protected void AddDetailPanel<TDetailPanel>(UsageType usageType) where TDetailPanel : UsagePanel
         {
             // add the detail panel only if a usage group exists for this usage type
             if (_usageGroups.TryGetValue(usageType, out UsageGroup usageGroup))
@@ -1706,7 +1799,7 @@ namespace BuildingUsage
                 usageGroup.detailButton.eventClicked += DetailButton_eventClicked;
 
                 // create and save the detail panel
-                UsagePanel panel = AddUsagePanel<TDetailPanel>(mainPanel);
+                UsagePanel panel = AddUsagePanel<TDetailPanel>(this);
                 usageGroup.detailPanel = panel;
                 _detailPanels.Add(panel);
             }
@@ -1730,7 +1823,23 @@ namespace BuildingUsage
         /// </summary>
         protected void AssociateBuildingAI<T>(UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null) where T : CommonBuildingAI
         {
-            AssociateBuildingAI(typeof(T), usageType1, usageCountMethod1, usageType2, usageCountMethod2);
+            AssociateBuildingAI(typeof(T), usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
+        }
+
+        /// <summary>
+        /// associate a building AI type with its usage type(s) and employed/total jobs count method
+        /// </summary>
+        protected void AssociateBuildingAI<T>(UsageType usageType1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1) where T : CommonBuildingAI
+        {
+            AssociateBuildingAI(typeof(T), usageType1, null, employedTotalJobsCountMethod1, null, UsageType.None, null);
+        }
+
+        /// <summary>
+        /// associate a building AI type with its usage type(s) and unemployed/eligible count method
+        /// </summary>
+        protected void AssociateBuildingAI<T>(UsageType usageType1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1) where T : CommonBuildingAI
+        {
+            AssociateBuildingAI(typeof(T), usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
         }
 
         /// <summary>
@@ -1739,57 +1848,96 @@ namespace BuildingUsage
         /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
         protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null)
         {
+            // if the building AI is valid, associate it
+            if (BuildingAIIsValid(buildingAI, out Type type))
+            {
+                AssociateBuildingAI(type, usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
+            }
+        }
+
+        /// <summary>
+        /// associate a building AI type (specified as string) with its usage type(s) and employed/total jobs count method
+        /// </summary>
+        /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
+        protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1)
+        {
+            // if the building AI is valid, associate it
+            if (BuildingAIIsValid(buildingAI, out Type type))
+            {
+                AssociateBuildingAI(type, usageType1, null, employedTotalJobsCountMethod1, null, UsageType.None, null);
+            }
+        }
+
+        /// <summary>
+        /// associate a building AI type (specified as string) with its usage type(s) and unemployed/eligible count method
+        /// </summary>
+        /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
+        protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1)
+        {
+            // if the building AI is valid, associate it
+            if (BuildingAIIsValid(buildingAI, out Type type))
+            {
+                AssociateBuildingAI(type, usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
+            }
+        }
+
+        /// <summary>
+        /// return whether or not the building AI is valid, also return the building AI as a Type
+        /// </summary>
+        private bool BuildingAIIsValid(string buildingAI, out Type type)
+        {
+            // initialize output
+            type = null;
+
             // loop over all the assemblies
             foreach (System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 // loop over all the types in the assembly
-                foreach (Type type in assembly.GetTypes())
+                foreach (Type assemblyType in assembly.GetTypes())
                 {
                     // find the specified building AI type
                     // an AI type will be defined if the mod is subscribed, even if the mod is not enabled
                     // it is okay to associate the AI if the mod is not enabled, there simply will be no buildings of that type
-                    if ($"{type.Namespace}.{type.Name}" == buildingAI)
+                    if ($"{assemblyType.Namespace}.{assemblyType.Name}" == buildingAI)
                     {
                         // check if the type derives from CommonBuildingAI
-                        bool derivesFromCommonBuildingAI = false;
-                        Type baseType = type.BaseType;
+                        Type baseType = assemblyType.BaseType;
                         while (baseType != null)
                         {
                             if (baseType == typeof(CommonBuildingAI))
                             {
-                                derivesFromCommonBuildingAI = true;
-                                break;
+                                // derives from CommonBuildingAI, string BuildingAI is valid
+                                type = assemblyType;
+                                return true;
                             }
                             baseType = baseType.BaseType;
                         }
 
-                        // if derived from CommonBuildingAI, then associate it
-                        if (derivesFromCommonBuildingAI)
-                        {
-                            AssociateBuildingAI(type, usageType1, usageCountMethod1, usageType2, usageCountMethod2);
-                        }
-                        else
-                        {
-                            Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
-                        }
-
-                        // either way, found it
-                        return;
+                        // if got here, then string building AI was found, but it is not valid
+                        Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
+                        return false;
                     }
                 }
             }
 
-            // if got here then the building AI was not found
+            // if got here, then the string building AI was not found
             // this is not an error, it just means the mod is not subscribed
+            return false;
         }
 
-        private void AssociateBuildingAI(Type buildingAIType, UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2, UsageCountMethod usageCountMethod2)
+        /// <summary>
+        /// associate a building AI type with its usage count, employed/total jobs count, and unemployed/eligible count method(s)
+        /// </summary>
+        private void AssociateBuildingAI(Type buildingAIType, 
+            UsageType usageType1, UsageCountMethod usageCountMethod1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1,
+            UsageType usageType2, UsageCountMethod usageCountMethod2)
         {
-            // associate the building AI type
-            _buildingAIUsages.Add(buildingAIType, new UsageTypeMethod { usageType1 = usageType1, usageCountMethod1 = usageCountMethod1, usageType2 = usageType2, usageCountMethod2 = usageCountMethod2 });
-
-            // create a patch for the GetColor method
-            BuildingAIPatch.CreateGetColorPatch(buildingAIType);
+            // associate the building AI type with its count method(s)
+            _buildingAIUsages.Add(buildingAIType, new UsageTypeMethod 
+            {
+                usageType1 = usageType1, usageCountMethod1 = usageCountMethod1, employedTotalJobsCountMethod1 = employedTotalJobsCountMethod1, unemployedEligibleCountMethod1 = unemployedEligibleCountMethod1,
+                usageType2 = usageType2, usageCountMethod2 = usageCountMethod2,
+            });
         }
 
         /// <summary>
@@ -1799,9 +1947,6 @@ namespace BuildingUsage
         {
             // associate the vehicle AI type
             _vehicleAIUsages.Add(typeof(T), usageType);
-
-            // create a patch for the GetColor method
-            VehicleAIPatch.CreateGetColorPatch<T>();
         }
         #endregion
 
@@ -1835,9 +1980,14 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// find and update the usage group with the counts
+        /// find and update the usage group with the counts and without education level info
         /// </summary>
-        private void UpdateUsageGroup(UsageType usageType, ushort buildingID, bool include, int used, int allowed)
+        private void UpdateUsageGroup(
+            UsageType usageType,
+            ushort buildingID,
+            bool include,
+            int used,
+            int allowed)
         {
             // get the usage group based on the usage type
             if (_usageGroups.TryGetValue(usageType, out UsageGroup usageGroup))
@@ -1867,7 +2017,90 @@ namespace BuildingUsage
                 else
                 {
                     // create a new usage count for this building
-                    usageGroup.usageCounts.Add(buildingID, new UsageCount() { include = include, used = used, allowed = allowed });
+                    usageGroup.usageCounts.Add(buildingID, new UsageCount()
+                    {
+                        include = include,
+                        used = used,
+                        allowed = allowed,
+                        employed = new EducationLevelCount(),
+                        totalJobs = new EducationLevelCount(),
+                        overEducated = new EducationLevelCount(),
+                        unemployed = new EducationLevelCount(),
+                        eligible = new EducationLevelCount()
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// find and update the usage group with the counts and with education level info
+        /// </summary>
+        private void UpdateUsageGroup(
+            UsageType usageType,
+            ushort buildingID,
+            bool include,
+            int used,
+            int allowed,
+            EducationLevelCount employed,
+            EducationLevelCount totalJobs,
+            EducationLevelCount overEducated,
+            EducationLevelCount unemployed,
+            EducationLevelCount eligible)
+        {
+            // get the usage group based on the usage type
+            if (_usageGroups.TryGetValue(usageType, out UsageGroup usageGroup))
+            {
+                // if included now, add new counts to running totals
+                if (include)
+                {
+                    usageGroup.usedRunningTotal += used;
+                    usageGroup.allowedRunningTotal += allowed;
+                    usageGroup.employedRunningTotal.Add(employed);
+                    usageGroup.totalJobsRunningTotal.Add(totalJobs);
+                    usageGroup.overEdRunningTotal.Add(overEducated);
+                    usageGroup.unemployedRunningTotal.Add(unemployed);
+                    usageGroup.eligibleRunningTotal.Add(eligible);
+                }
+
+                // find the existing usage count, if any
+                if (usageGroup.usageCounts.TryGetValue(buildingID, out UsageCount usageCount))
+                {
+                    // if included before, subtract previous counts from running totals
+                    if (usageCount.include)
+                    {
+                        usageGroup.usedRunningTotal -= usageCount.used;
+                        usageGroup.allowedRunningTotal -= usageCount.allowed;
+                        usageGroup.employedRunningTotal.Subtract(usageCount.employed);
+                        usageGroup.totalJobsRunningTotal.Subtract(usageCount.totalJobs);
+                        usageGroup.overEdRunningTotal.Subtract(usageCount.overEducated);
+                        usageGroup.unemployedRunningTotal.Subtract(usageCount.unemployed);
+                        usageGroup.eligibleRunningTotal.Subtract(usageCount.eligible);
+                    }
+
+                    // update the usage count
+                    usageCount.include = include;
+                    usageCount.used = used;
+                    usageCount.allowed = allowed;
+                    usageCount.employed.Copy(employed);
+                    usageCount.totalJobs.Copy(totalJobs);
+                    usageCount.overEducated.Copy(overEducated);
+                    usageCount.unemployed.Copy(unemployed);
+                    usageCount.eligible.Copy(eligible);
+                }
+                else
+                {
+                    // create a new usage count for this building
+                    usageGroup.usageCounts.Add(buildingID, new UsageCount() 
+                    {
+                        include = include,
+                        used = used,
+                        allowed = allowed,
+                        employed = employed,
+                        totalJobs = totalJobs,
+                        overEducated = overEducated,
+                        unemployed = unemployed,
+                        eligible = eligible
+                    });
                 }
             }
         }
@@ -1888,12 +2121,29 @@ namespace BuildingUsage
                     {
                         usageGroup.usedRunningTotal -= usageCount.used;
                         usageGroup.allowedRunningTotal -= usageCount.allowed;
+                        usageGroup.employedRunningTotal.Subtract(usageCount.employed);
+                        usageGroup.totalJobsRunningTotal.Subtract(usageCount.totalJobs);
+                        usageGroup.overEdRunningTotal.Subtract(usageCount.overEducated);
+                        usageGroup.unemployedRunningTotal.Subtract(usageCount.unemployed);
+                        usageGroup.eligibleRunningTotal.Subtract(usageCount.eligible);
                     }
 
                     // remove the building
                     usageGroup.usageCounts.Remove(buildingID);
 
-                    // found the building
+                    // check if removed building is Hadron Collider
+                    BuildingManager instance = Singleton<BuildingManager>.instance;
+                    Building building = instance.m_buildings.m_buffer[buildingID];
+                    if (building.Info != null && building.Info.m_buildingAI != null && building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI))
+                    {
+                        // not built
+                        _hadronColliderBuilt = false;
+
+                        // update panel immediately
+                        UpdatePanelImmediately();
+                    }
+
+                    // found the usage group
                     break;
                 }
             }
@@ -1910,10 +2160,19 @@ namespace BuildingUsage
         #region "Workers Usage Counts"
 
         /// <summary>
-        /// return the number of households used and the number of households allowed in the zoned residential building
+        /// in the zoned residential building:
+        ///      return the number of households used and allowed
+        ///      return the number of citizens unemployed and eligible
+        /// the nothing parameter exists only to differentiate this method from GetUsageCountWorkersZoned and GetUsageCountWorkersService
         /// </summary>
-        protected void GetUsageCountHouseholds(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        protected void GetUsageCountHouseholds(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount unemployed, ref EducationLevelCount eligible, ref int nothing)
         {
+            // CitizenManager must be initialized
+            if (!Singleton<CitizenManager>.exists)
+            {
+                return;
+            }
+
             // The number of households being used and the number of households allowed are displayed on the ZonedBuildingWorldInfoPanel panel.
             // ZonedBuildingWorldInfoPanel.UpdateBindings gets the household info by calling GetLocalizedStatus method of the building AI associated with the building.
             // Presumably, the buildingAI is of type ResidentialBuildingAI for a residential building.
@@ -1922,29 +2181,76 @@ namespace BuildingUsage
             // Otherwise, PrivateBuildingAI.GetLocalizedStatus will call either GetLocalizedStatusInactive or GetLocalizedStatusActive, which are in ResidentialBuildingAI.
             // Both GetLocalizedStatusInactive and GetLocalizedStatusActive in ResidentialBuildingAI call GetHomeBehaviour to get the household info.
             // ResidentialBuildingAI and PrivateBuildingAI do not have GetHomeBehaviour, so the further base class CommonBuildingAI.GetHomeBehaviour is called.
-            // CommonBuildingAI.GetHomeBehaviour cannot be called from within this PostFix routine because GetHomeBehaviour is not public and is not static.
+            // CommonBuildingAI.GetHomeBehaviour cannot be called because GetHomeBehaviour is not public and is not static.
             // The logic below is a copy (using ILSpy) of CommonBuildingAI.GetHomeBehaviour.
             // The logic was then simplified to include only the parts for computing household info.
+
+            // do each citizen unit in the building
             int unitCounter = 0;
-            Citizen.BehaviourData citizenBehaviourData = default(Citizen.BehaviourData);
             CitizenManager instance = Singleton<CitizenManager>.instance;
-            uint citizenUnit = data.m_citizenUnits;
-            while (citizenUnit != 0)
+            uint citizenUnitID = data.m_citizenUnits;
+            while (citizenUnitID != 0)
             {
-                if ((instance.m_units.m_buffer[citizenUnit].m_flags & CitizenUnit.Flags.Home) != 0)
+                // not sure if Flags will ever be other than Home for ResidentialBuildingAI, but check anyway
+                CitizenUnit citizenUnit = instance.m_units.m_buffer[citizenUnitID];
+                if ((citizenUnit.m_flags & CitizenUnit.Flags.Home) != 0)
                 {
+                    // do each of the up to 5 citizens in the citizen unit
                     int aliveCount = 0;
-                    int totalCount = 0;
-                    instance.m_units.m_buffer[citizenUnit].GetCitizenHomeBehaviour(ref citizenBehaviourData, ref aliveCount, ref totalCount);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        // get the citizen ID
+                        uint citizenID = citizenUnit.GetCitizen(i);
+                        if (citizenID != 0)
+                        {
+                            // citizen must be not dead and not moving in
+                            Citizen citizen = instance.m_citizens.m_buffer[citizenID];
+                            if (!citizen.Dead && (citizen.m_flags & Citizen.Flags.MovingIn) == 0)
+                            {
+                                // count alive
+                                aliveCount++;
+
+                                // count unemployed by education level
+                                if (citizen.Unemployed != 0)
+                                {
+                                    switch (instance.m_citizens.m_buffer[citizenID].EducationLevel)
+                                    {
+                                        case Citizen.Education.Uneducated:   unemployed.level0++; break;
+                                        case Citizen.Education.OneSchool:    unemployed.level1++; break;
+                                        case Citizen.Education.TwoSchools:   unemployed.level2++; break;
+                                        case Citizen.Education.ThreeSchools: unemployed.level3++; break;
+                                    }
+                                }
+
+                                // count eligible to work by education level
+                                // if Hadron Collider is built, then include teens
+                                Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(citizen.Age);
+                                if (ageGroup == Citizen.AgeGroup.Young || ageGroup == Citizen.AgeGroup.Adult || (_hadronColliderBuilt && ageGroup == Citizen.AgeGroup.Teen))
+                                {
+                                    switch (citizen.EducationLevel)
+                                    {
+                                        case Citizen.Education.Uneducated:   eligible.level0++; break;
+                                        case Citizen.Education.OneSchool:    eligible.level1++; break;
+                                        case Citizen.Education.TwoSchools:   eligible.level2++; break;
+                                        case Citizen.Education.ThreeSchools: eligible.level3++; break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // if anyone is alive in the citizen unit, the household is used
                     if (aliveCount != 0)
                     {
                         used++;
                     }
+
+                    // a home citizen unit is an allowed household
                     allowed++;
                 }
 
                 // get the next citizen unit
-                citizenUnit = instance.m_units.m_buffer[citizenUnit].m_nextUnit;
+                citizenUnitID = citizenUnit.m_nextUnit;
 
                 // check for error (e.g. circular reference)
                 if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
@@ -1956,12 +2262,23 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// return the number of workers used and the number of workers allowed in the zoned non-residential building
+        /// in the zoned non-residential building:
+        ///     return the number of workers used and allowed 
+        ///     return the number of citizens employed and the total number of jobs
         /// </summary>
-        protected void GetUsageCountWorkersZoned(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        protected void GetUsageCountWorkersZoned(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
         {
-            // get the workers used
-            GetWorkersUsed(ref data, ref used);
+            // CitizenManager must be initialized
+            if (!Singleton<CitizenManager>.exists)
+            {
+                return;
+            }
+
+            // get the workers employed
+            GetWorkersEmployed(ref data, ref employed);
+
+            // workers used is sum of employed
+            used = employed.level0 + employed.level1 + employed.level2 + employed.level3;
 
             // The number of workers allowed is displayed on the ZonedBuildingWorldInfoPanel panel.
             // For non-residential zoned buildings, ZonedBuildingWorldInfoPanel.UpdatedBindings calls ZonedBuildingWorldInfoPanel.UpdateWorkers.
@@ -1973,24 +2290,29 @@ namespace BuildingUsage
             if (buildingAI != null)
             {
                 // make the calls to get the workers allowed for each education level
-                int level1;
-                int level2;
-                int level3;
-                int level4;
-                buildingAI.CalculateWorkplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length, out level1, out level2, out level3, out level4);
-                buildingAI.AdjustWorkplaceCount(buildingID, ref data, ref level1, ref level2, ref level3, ref level4);
+                buildingAI.CalculateWorkplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), data.Width, data.Length, out totalJobs.level0, out totalJobs.level1, out totalJobs.level2, out totalJobs.level3);
+                buildingAI.AdjustWorkplaceCount(buildingID, ref data, ref totalJobs.level0, ref totalJobs.level1, ref totalJobs.level2, ref totalJobs.level3);
 
                 // the number of workers allowed is the sum of the workers at each education level
-                allowed = level1 + level2 + level3 + level4;
+                allowed = totalJobs.level0 + totalJobs.level1 + totalJobs.level2 + totalJobs.level3;
             }
         }
 
         /// <summary>
-        /// return the number of workers used and the number of workers allowed in the park gate or park building
-        /// logic adapted from ParkGateAI and ParkBuildingAI private methods CountWorkers and TargetWorkers
+        /// in the park gate or park building:
+        ///     return the number of workers used and allowed 
+        ///     return the number of citizens employed and the total number of jobs
         /// </summary>
-        protected void GetUsageCountWorkersPark(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        protected void GetUsageCountWorkersPark(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
         {
+            // CitizenManager must be initialized
+            if (!Singleton<CitizenManager>.exists)
+            {
+                return;
+            }
+
+            // logic adapted from ParkGateAI and ParkBuildingAI private methods CountWorkers and TargetWorkers
+
             // only Amusement Park and Zoo have workers
             DistrictPark.ParkType parkType = GetParkType(ref data);
             if ((data.Info.m_doorMask & PropInfo.DoorType.HangAround) == PropInfo.DoorType.HangAround && (parkType == DistrictPark.ParkType.AmusementPark || parkType == DistrictPark.ParkType.Zoo))
@@ -2005,7 +2327,14 @@ namespace BuildingUsage
                     CitizenInfo info = instance.m_instances.m_buffer[citizen].Info;
                     if (!info.m_citizenAI.IsAnimal() && info.m_class.m_service == ItemClass.Service.Beautification)
                     {
-                        used++;
+                        // count by education level
+                        switch (instance.m_citizens.m_buffer[citizen].EducationLevel)
+                        {
+                            case Citizen.Education.Uneducated:   employed.level0++; break;
+                            case Citizen.Education.OneSchool:    employed.level1++; break;
+                            case Citizen.Education.TwoSchools:   employed.level2++; break;
+                            case Citizen.Education.ThreeSchools: employed.level3++; break;
+                        }
                     }
 
                     // get the next citizen
@@ -2019,9 +2348,15 @@ namespace BuildingUsage
                     }
                 }
 
+                // workers used is sum of employed
+                used = employed.level0 + employed.level1 + employed.level2 + employed.level3;
+
                 // get workers allowed
                 Randomizer randomizer = new Randomizer(buildingID);
                 allowed = (data.Width * data.Length * 5 + randomizer.Int32(100u)) / 100;
+
+                // the game logic does not separate park jobs by education level, so put all jobs in uneducated
+                totalJobs.level0 += allowed;
             }
         }
 
@@ -2047,12 +2382,23 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// return the number of workers used and the number of workers allowed in the non-zoned service building
+        /// in the non-zoned service building:
+        ///     return the number of workers used and allowed 
+        ///     return the number of citizens employed and the total number of jobs
         /// </summary>
-        protected void GetUsageCountWorkersService<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : PlayerBuildingAI
+        protected void GetUsageCountWorkersService<T>(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs) where T : PlayerBuildingAI
         {
-            // get the workers used
-            GetWorkersUsed(ref data, ref used);
+            // CitizenManager must be initialized
+            if (!Singleton<CitizenManager>.exists)
+            {
+                return;
+            }
+
+            // get the workers employed
+            GetWorkersEmployed(ref data, ref employed);
+
+            // workers used is sum of employed
+            used = employed.level0 + employed.level1 + employed.level2 + employed.level3;
 
             // The number of workers allowed is not displayed.
             // The building AI computes the workers allowed by calling HandleWorkAndVisitPlaces.
@@ -2062,23 +2408,39 @@ namespace BuildingUsage
             T buildingAI = data.Info.m_buildingAI as T;
             if (buildingAI != null)
             {
-                // the number of workers allowed is the sum of the workers at each education level
+                // get the number of workers at each education level
                 Type buildingAIType = typeof(T);
-                allowed += (int)buildingAIType.GetField("m_workPlaceCount0").GetValue(buildingAI);
-                allowed += (int)buildingAIType.GetField("m_workPlaceCount1").GetValue(buildingAI);
-                allowed += (int)buildingAIType.GetField("m_workPlaceCount2").GetValue(buildingAI);
-                allowed += (int)buildingAIType.GetField("m_workPlaceCount3").GetValue(buildingAI);
+                totalJobs.level0 = (int)buildingAIType.GetField("m_workPlaceCount0").GetValue(buildingAI);
+                totalJobs.level1 = (int)buildingAIType.GetField("m_workPlaceCount1").GetValue(buildingAI);
+                totalJobs.level2 = (int)buildingAIType.GetField("m_workPlaceCount2").GetValue(buildingAI);
+                totalJobs.level3 = (int)buildingAIType.GetField("m_workPlaceCount3").GetValue(buildingAI);
+
+                // the number of workers allowed is the sum of the workers at each education level
+                allowed = totalJobs.level0 + totalJobs.level1 + totalJobs.level2 + totalJobs.level3;
+
+                // check for Hadron Collider completed
+                if (buildingAI.GetType() == typeof(HadronColliderAI) && ((data.m_flags & Building.Flags.Completed) == Building.Flags.Completed))
+                {
+                    if (!_hadronColliderBuilt)
+                    {
+                        // built
+                        _hadronColliderBuilt = true;
+
+                        // update panel immediately
+                        UpdatePanelImmediately();
+                    }
+                }
             }
         }
 
         /// <summary>
-        /// return the number of workers used in the building
+        /// return the number of workers employed in the building
         /// </summary>
-        private void GetWorkersUsed(ref Building data, ref int used)
+        private void GetWorkersEmployed(ref Building data, ref EducationLevelCount employed)
         {
-            // The number of workers being used in a zoned building is displayed on the ZonedBuildingWorldInfoPanel panel.
+            // The number of workers being employed in a zoned building is displayed on the ZonedBuildingWorldInfoPanel panel.
             // ZonedBuildingWorldInfoPanel.UpdatedBindings calls ZonedBuildingWorldInfoPanel.UpdateWorkers.
-            // The logic below is a copy (using ILSpy) of the portion of UpdateWorkers that computes number of workers being used.
+            // The logic below is a copy (using ILSpy) of the portion of UpdateWorkers that computes number of workers employed.
             // The logic was then simplified to include only the required parts.
 
             // The number of workers in a non-zoned service building is not displayed.
@@ -2086,25 +2448,42 @@ namespace BuildingUsage
             // HandleWorkAndVisitPlaces calls base class CommonBuildingAI.GetWorkBehaviour.
             // The logic in CommonBuildingAI.GetWorkBehaviour has the same result as UpdateWorkers.
 
+            // do each citizen unit in the building
             int unitCounter = 0;
             CitizenManager instance = Singleton<CitizenManager>.instance;
-            uint citizenUnit = data.m_citizenUnits;
-            while (citizenUnit != 0)
+            uint citizenUnitID = data.m_citizenUnits;
+            while (citizenUnitID != 0)
             {
-                if ((instance.m_units.m_buffer[citizenUnit].m_flags & CitizenUnit.Flags.Work) != 0)
+                // do only work citizen units
+                CitizenUnit citizenUnit = instance.m_units.m_buffer[citizenUnitID];
+                if ((citizenUnit.m_flags & CitizenUnit.Flags.Work) != 0)
                 {
+                    // do each of the up to 5 citizens in the citizen unit
                     for (int i = 0; i < 5; i++)
                     {
-                        uint citizen = instance.m_units.m_buffer[citizenUnit].GetCitizen(i);
-                        if (citizen != 0 && !instance.m_citizens.m_buffer[citizen].Dead && (instance.m_citizens.m_buffer[citizen].m_flags & Citizen.Flags.MovingIn) == 0)
+                        // get citizen ID
+                        uint citizenID = citizenUnit.GetCitizen(i);
+                        if (citizenID != 0)
                         {
-                            used++;
+                            // citizen must be not dead and not moving in
+                            Citizen citizen = instance.m_citizens.m_buffer[citizenID];
+                            if (!citizen.Dead && (citizen.m_flags & Citizen.Flags.MovingIn) == 0)
+                            {
+                                // count employed by education level
+                                switch (citizen.EducationLevel)
+                                {
+                                    case Citizen.Education.Uneducated:   employed.level0++; break;
+                                    case Citizen.Education.OneSchool:    employed.level1++; break;
+                                    case Citizen.Education.TwoSchools:   employed.level2++; break;
+                                    case Citizen.Education.ThreeSchools: employed.level3++; break;
+                                }
+                            }
                         }
                     }
                 }
 
                 // get the next citizen unit
-                citizenUnit = instance.m_units.m_buffer[citizenUnit].m_nextUnit;
+                citizenUnitID = citizenUnit.m_nextUnit;
 
                 // check for error (e.g. circular reference)
                 if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
@@ -3236,8 +3615,9 @@ namespace BuildingUsage
                 Type buildingAIType = data.Info.m_buildingAI.GetType();
                 if (_buildingAIUsages.TryGetValue(buildingAIType, out UsageTypeMethod usageTypeMethod))
                 {
-                    // include the building if it is completed and not abandoned or collapsed (collapsed and burned down are the same)
-                    bool include = ((data.m_flags & (Building.Flags.Completed | Building.Flags.Abandoned | Building.Flags.Collapsed)) == Building.Flags.Completed);
+                    // include the building if it is completed or upgrading and not abandoned or collapsed (collapsed and burned down are the same)
+                    bool include = ((data.m_flags & (Building.Flags.Completed | Building.Flags.Upgrading)) != 0) &&
+                                   ((data.m_flags & (Building.Flags.Abandoned | Building.Flags.Collapsed)) == 0);
 
                     // get usage type
                     UsageType usageType1 = usageTypeMethod.usageType1;
@@ -3246,13 +3626,31 @@ namespace BuildingUsage
                         usageType1 = GetUsageType1ForBuilding(buildingID, ref data);
                     }
 
-                    // call the usage count method
+                    // call the usage count method or the employed/total jobs mnethod or the unemployed/eligible count method
                     int used1 = 0;
                     int allowed1 = 0;
-                    usageTypeMethod.usageCountMethod1(buildingID, ref data, ref used1, ref allowed1);
-
-                    // update usage group
-                    UpdateUsageGroup(usageType1, buildingID, include, used1, allowed1);
+                    if (usageTypeMethod.usageCountMethod1 != null)
+                    {
+                        usageTypeMethod.usageCountMethod1(buildingID, ref data, ref used1, ref allowed1);
+                        UpdateUsageGroup(usageType1, buildingID, include, used1, allowed1);
+                    }
+                    else if(usageTypeMethod.employedTotalJobsCountMethod1 != null)
+                    {
+                        EducationLevelCount employed1  = new EducationLevelCount();
+                        EducationLevelCount totalJobs1 = new EducationLevelCount();
+                        EducationLevelCount overEd1    = new EducationLevelCount();
+                        usageTypeMethod.employedTotalJobsCountMethod1(buildingID, ref data, ref used1, ref allowed1, ref employed1, ref totalJobs1);
+                        ComputeOverEducatedWorkers(employed1, totalJobs1, ref overEd1);
+                        UpdateUsageGroup(usageType1, buildingID, include, used1, allowed1, employed1, totalJobs1, overEd1, new EducationLevelCount(), new EducationLevelCount());
+                    }
+                    else if (usageTypeMethod.unemployedEligibleCountMethod1 != null)
+                    {
+                        EducationLevelCount unemployed1 = new EducationLevelCount();
+                        EducationLevelCount eligible1   = new EducationLevelCount();
+                        int nothing1 = 0;
+                        usageTypeMethod.unemployedEligibleCountMethod1(buildingID, ref data, ref used1, ref allowed1, ref unemployed1, ref eligible1, ref nothing1);
+                        UpdateUsageGroup(usageType1, buildingID, include, used1, allowed1, new EducationLevelCount(), new EducationLevelCount(), new EducationLevelCount(), unemployed1, eligible1);
+                    }
 
                     // get the color
                     Color color1 = GetUsageColor(usageType1, include, used1, allowed1);
@@ -3269,12 +3667,14 @@ namespace BuildingUsage
                         }
 
                         // call the usage count method
+                        // usage type 2 does not have employed/total jobs counting or unemployed/eligible counting because it would be a double count
                         int used2 = 0;
                         int allowed2 = 0;
-                        usageTypeMethod.usageCountMethod2(buildingID, ref data, ref used2, ref allowed2);
-
-                        // update usage group
-                        UpdateUsageGroup(usageType2, buildingID, include, used2, allowed2);
+                        if (usageTypeMethod.usageCountMethod2 != null)
+                        {
+                            usageTypeMethod.usageCountMethod2(buildingID, ref data, ref used2, ref allowed2);
+                            UpdateUsageGroup(usageType2, buildingID, include, used2, allowed2);
+                        }
 
                         // get the color
                         color2 = GetUsageColor(usageType2, include, used2, allowed2);
@@ -3298,6 +3698,36 @@ namespace BuildingUsage
 
             // for any building AI type not handled above, use neutral color
             return neutralColor;
+        }
+
+        /// <summary>
+        /// return over educated workers
+        /// logic is copied from ZonedBuildingWorldInfoPanel.UpdateWorkers
+        /// </summary>
+        private void ComputeOverEducatedWorkers(EducationLevelCount employed, EducationLevelCount totalJobs, ref EducationLevelCount overEducated)
+        {
+            // uneducated workers can never be over educated
+
+            // compute educated workers that are over educated
+            int num10 = totalJobs.level0 - employed.level0;
+            if (employed.level1 > totalJobs.level1)
+            {
+                overEducated.level1 = Mathf.Max(0, Mathf.Min(num10, employed.level1 - totalJobs.level1));
+            }
+
+            // compute well educated workers that are over educated
+            num10 += totalJobs.level1 - employed.level1;
+            if (employed.level2 > totalJobs.level2)
+            {
+                overEducated.level2 = Mathf.Max(0, Mathf.Min(num10, employed.level2 - totalJobs.level2));
+            }
+
+            // compute highly educated workers that are over educated
+            num10 += totalJobs.level2 - employed.level2;
+            if (employed.level3 > totalJobs.level3)
+            {
+                overEducated.level3 = Mathf.Max(0, Mathf.Min(num10, employed.level3 - totalJobs.level3));
+            }
         }
         #endregion
 
@@ -3839,24 +4269,27 @@ namespace BuildingUsage
         #region "Update Panel"
 
         /// <summary>
-        /// update the panel immediately (i.e. in 2 frames)
+        /// update the panel immediately
         /// </summary>
         private void UpdatePanelImmediately()
         {
+            // update colors on all buildings to force immediate recompute of employment data
+            Singleton<BuildingManager>.instance.UpdateBuildingColors();
+
+            // set counter to update panel in 2 frames (i.e. immediately)
             _updateImmediateCounter = 2;
         }
 
         /// <summary>
         /// update the panel
         /// </summary>
-        public void UpdatePanel()
+        public virtual bool UpdatePanel()
         {
             // if a detail panel is currently displayed, update the detail panel instead
             if (_detailPanel != null)
             {
                 // this is a recursive call, but to a different panel
-                _detailPanel.UpdatePanel();
-                return;
+                return _detailPanel.UpdatePanel();
             }
 
             try
@@ -3864,17 +4297,17 @@ namespace BuildingUsage
                 // check conditions
                 if (!_initialized)
                 {
-                    return;
+                    return false;
                 }
                 if (!Singleton<InfoManager>.exists)
                 {
-                    return;
+                    return false;
                 }
 
                 // info mode can change, make sure info mode is still BuildingLevel
                 if (Singleton<InfoManager>.instance.CurrentMode != InfoManager.InfoMode.BuildingLevel)
                 {
-                    return;
+                    return false;
                 }
 
                 // update every 1 second or if specified for update immediately
@@ -3923,7 +4356,7 @@ namespace BuildingUsage
                             // set tool tip text
                             toolTipText = $"{usageGroup.usedRunningTotal.ToString("N0", LocaleManager.cultureInfo)} / {usageGroup.allowedRunningTotal.ToString("N0", LocaleManager.cultureInfo)}";
                         }
-                        
+
                         // update tool tip
                         usageGroup.legend.tooltip = toolTipText;
                         usageGroup.percent.tooltip = toolTipText;
@@ -3931,12 +4364,18 @@ namespace BuildingUsage
 
                     // save ticks for next time
                     _previousTicks = currentTicks;
+
+                    // panel was updated
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
+
+            // panel was not updated
+            return false;
         }
 
         /// <summary>

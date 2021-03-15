@@ -87,10 +87,10 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ParkAI        >(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsPark<ParkAI>       (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<EdenProjectAI >(UsageType.VisitorsParksPlazasEdenProject,   (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsPark<EdenProjectAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ParkBuildingAI>(UsageType.UseLogic1,                        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsParkBuilding       (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<TourBuildingAI>(UsageType.VisitorsParksPlazasTours,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsTourBuilding       (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<ParkAI        >(UsageType.UseLogic1,                        GetUsageCountVisitorsPark<ParkAI>       );
+                AssociateBuildingAI<EdenProjectAI >(UsageType.VisitorsParksPlazasEdenProject,   GetUsageCountVisitorsPark<EdenProjectAI>);
+                AssociateBuildingAI<ParkBuildingAI>(UsageType.UseLogic1,                        GetUsageCountVisitorsParkBuilding       );
+                AssociateBuildingAI<TourBuildingAI>(UsageType.VisitorsParksPlazasTours,         GetUsageCountVisitorsTourBuilding       );
             }
             catch (Exception ex)
             {

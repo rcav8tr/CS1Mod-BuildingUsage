@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using ColossalFramework.UI;
+using ColossalFramework.Globalization;
 
 namespace BuildingUsage
 {
@@ -8,6 +10,26 @@ namespace BuildingUsage
     /// </summary>
     public class WorkersUsagePanel : UsagePanel
     {
+        // UI elements unique to Workers
+        private class WorkerDataUI
+        {
+            public UILabel description;
+            public UILabel eduLevel0;
+            public UILabel eduLevel1;
+            public UILabel eduLevel2;
+            public UILabel eduLevel3;
+            public UILabel total;
+        }
+        private WorkerDataUI _employed;
+        private WorkerDataUI _totalJobs;
+        private WorkerDataUI _unfilledJobs;
+        private WorkerDataUI _overEducated;
+        private WorkerDataUI _unemployed;
+        private WorkerDataUI _eligible;
+        private WorkerDataUI _unemploymentRate;
+
+        private readonly Color32 EducationTextColor = new Color32(206, 248, 0, 255);
+
         /// <summary>
         /// Start is called once after the panel is created
         /// set up and populate the panel with UI components
@@ -46,94 +68,356 @@ namespace BuildingUsage
                 CreateUsageGroup<MonumentAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI  >(UsageType.WorkersUnique);
 
                 // add detail panels
-                AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry,       this);
-                AddDetailPanel<WorkersEducationUsagePanel     >(UsageType.WorkersEducation,      this);
-                AddDetailPanel<WorkersTransportationUsagePanel>(UsageType.WorkersTransportation, this);
-                AddDetailPanel<WorkersUniqueUsagePanel        >(UsageType.WorkersUnique,         this);
+                AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry      );
+                AddDetailPanel<WorkersEducationUsagePanel     >(UsageType.WorkersEducation     );
+                AddDetailPanel<WorkersTransportationUsagePanel>(UsageType.WorkersTransportation);
+                AddDetailPanel<WorkersUniqueUsagePanel        >(UsageType.WorkersUnique        );
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ResidentialBuildingAI                 >(UsageType.HouseholdsResidential, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountHouseholds                                (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.GrowableResidentialAI",  UsageType.HouseholdsResidential, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountHouseholds                                (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.PloppableResidentialAI", UsageType.HouseholdsResidential, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountHouseholds                                (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CommercialBuildingAI                  >(UsageType.WorkersCommercial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",   UsageType.WorkersCommercial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",  UsageType.WorkersCommercial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<OfficeBuildingAI                      >(UsageType.WorkersOffice,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.GrowableOfficeAI",       UsageType.WorkersOffice,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.PloppableOfficeAI",      UsageType.WorkersOffice,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<IndustrialBuildingAI                  >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.GrowableIndustrialAI",   UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.PloppableIndustrialAI",  UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<IndustrialExtractorAI                 >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LivestockExtractorAI                  >(UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.GrowableExtractorAI",    UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI("PloppableRICO.PloppableExtractorAI",   UsageType.WorkersIndustrial,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersZoned                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MaintenanceDepotAI                    >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MaintenanceDepotAI        >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SnowDumpAI                            >(UsageType.WorkersMaintenance,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SnowDumpAI                >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WindTurbineAI                         >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WindTurbineAI             >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PowerPlantAI                          >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<PowerPlantAI              >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<DamPowerHouseAI                       >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DamPowerHouseAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SolarPowerPlantAI                     >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SolarPowerPlantAI         >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FusionPowerPlantAI                    >(UsageType.WorkersPowerPlant,     (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FusionPowerPlantAI        >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WaterFacilityAI                       >(UsageType.WorkersWaterSewage,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WaterFacilityAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HeatingPlantAI                        >(UsageType.WorkersHeatingPlant,   (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HeatingPlantAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LandfillSiteAI                        >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<LandfillSiteAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WaterCleanerAI                        >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WaterCleanerAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UltimateRecyclingPlantAI              >(UsageType.WorkersGarbage,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UltimateRecyclingPlantAI  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MainIndustryBuildingAI                >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MainIndustryBuildingAI    >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<AuxiliaryBuildingAI                   >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<AuxiliaryBuildingAI       >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ExtractingFacilityAI                  >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ExtractingFacilityAI      >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishingHarborAI                       >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FishingHarborAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishFarmAI                            >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FishFarmAI                >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MarketAI                              >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MarketAI                  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ProcessingFacilityAI                  >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ProcessingFacilityAI      >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFactoryAI                       >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UniqueFactoryAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WarehouseAI                           >(UsageType.WorkersIndustry,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WarehouseAI               >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HospitalAI                            >(UsageType.WorkersMedical,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HospitalAI                >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ChildcareAI                           >(UsageType.WorkersMedical,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ChildcareAI               >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<EldercareAI                           >(UsageType.WorkersMedical,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<EldercareAI               >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MedicalCenterAI                       >(UsageType.WorkersMedical,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MedicalCenterAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SaunaAI                               >(UsageType.WorkersMedical,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SaunaAI                   >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HelicopterDepotAI                     >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HelicopterDepotAI         >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CemeteryAI                            >(UsageType.WorkersCemetery,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CemeteryAI                >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FireStationAI                         >(UsageType.WorkersFireStation,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FireStationAI             >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FirewatchTowerAI                      >(UsageType.WorkersFireStation,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<FirewatchTowerAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<DisasterResponseBuildingAI            >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DisasterResponseBuildingAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ShelterAI                             >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ShelterAI                 >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<RadioMastAI                           >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<RadioMastAI               >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<EarthquakeSensorAI                    >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<EarthquakeSensorAI        >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<DoomsdayVaultAI                       >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DoomsdayVaultAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WeatherRadarAI                        >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<WeatherRadarAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SpaceRadarAI                          >(UsageType.WorkersDisaster,       (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SpaceRadarAI              >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PoliceStationAI                       >(UsageType.WorkersPoliceStation,  (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<PoliceStationAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SchoolAI                              >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SchoolAI                  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LibraryAI                             >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<LibraryAI                 >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HadronColliderAI                      >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HadronColliderAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MainCampusBuildingAI                  >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MainCampusBuildingAI      >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CampusBuildingAI                      >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CampusBuildingAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFacultyAI                       >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<UniqueFacultyAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MuseumAI                              >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MuseumAI                  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<VarsitySportsArenaAI                  >(UsageType.WorkersEducation,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<VarsitySportsArenaAI      >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CargoStationAI                        >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CargoStationAI            >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CargoHarborAI                         >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CargoHarborAI             >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<DepotAI                               >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DepotAI                   >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CableCarStationAI                     >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CableCarStationAI         >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<TransportStationAI                    >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<TransportStationAI        >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HarborAI                              >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HarborAI                  >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SpaceElevatorAI                       >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SpaceElevatorAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PostOfficeAI                          >(UsageType.WorkersPost,           (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<PostOfficeAI              >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ParkGateAI                            >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersPark                               (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ParkBuildingAI                        >(UsageType.UseLogic1,             (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersPark                               (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<MonumentAI                            >(UsageType.WorkersUnique,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<MonumentAI                >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<AnimalMonumentAI                      >(UsageType.WorkersUnique,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<AnimalMonumentAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PrivateAirportAI                      >(UsageType.WorkersUnique,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<PrivateAirportAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ChirpwickCastleAI                     >(UsageType.WorkersUnique,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<ChirpwickCastleAI         >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<ResidentialBuildingAI                 >(UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
+                AssociateBuildingAI("PloppableRICO.GrowableResidentialAI",  UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
+                AssociateBuildingAI("PloppableRICO.PloppableResidentialAI", UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
+                AssociateBuildingAI<CommercialBuildingAI                  >(UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",   UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",  UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI<OfficeBuildingAI                      >(UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.GrowableOfficeAI",       UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.PloppableOfficeAI",      UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI<IndustrialBuildingAI                  >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.GrowableIndustrialAI",   UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.PloppableIndustrialAI",  UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI<IndustrialExtractorAI                 >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI<LivestockExtractorAI                  >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.GrowableExtractorAI",    UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI("PloppableRICO.PloppableExtractorAI",   UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
+                AssociateBuildingAI<MaintenanceDepotAI                    >(UsageType.WorkersMaintenance,    GetUsageCountWorkersService<MaintenanceDepotAI        >);
+                AssociateBuildingAI<SnowDumpAI                            >(UsageType.WorkersMaintenance,    GetUsageCountWorkersService<SnowDumpAI                >);
+                AssociateBuildingAI<WindTurbineAI                         >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<WindTurbineAI             >);
+                AssociateBuildingAI<PowerPlantAI                          >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<PowerPlantAI              >);
+                AssociateBuildingAI<DamPowerHouseAI                       >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<DamPowerHouseAI           >);
+                AssociateBuildingAI<SolarPowerPlantAI                     >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<SolarPowerPlantAI         >);
+                AssociateBuildingAI<FusionPowerPlantAI                    >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<FusionPowerPlantAI        >);
+                AssociateBuildingAI<WaterFacilityAI                       >(UsageType.WorkersWaterSewage,    GetUsageCountWorkersService<WaterFacilityAI           >);
+                AssociateBuildingAI<HeatingPlantAI                        >(UsageType.WorkersHeatingPlant,   GetUsageCountWorkersService<HeatingPlantAI            >);
+                AssociateBuildingAI<LandfillSiteAI                        >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<LandfillSiteAI            >);
+                AssociateBuildingAI<WaterCleanerAI                        >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<WaterCleanerAI            >);
+                AssociateBuildingAI<UltimateRecyclingPlantAI              >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<UltimateRecyclingPlantAI  >);
+                AssociateBuildingAI<MainIndustryBuildingAI                >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<MainIndustryBuildingAI    >);
+                AssociateBuildingAI<AuxiliaryBuildingAI                   >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<AuxiliaryBuildingAI       >);
+                AssociateBuildingAI<ExtractingFacilityAI                  >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<ExtractingFacilityAI      >);
+                AssociateBuildingAI<FishingHarborAI                       >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<FishingHarborAI           >);
+                AssociateBuildingAI<FishFarmAI                            >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<FishFarmAI                >);
+                AssociateBuildingAI<MarketAI                              >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<MarketAI                  >);
+                AssociateBuildingAI<ProcessingFacilityAI                  >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<ProcessingFacilityAI      >);
+                AssociateBuildingAI<UniqueFactoryAI                       >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<UniqueFactoryAI           >);
+                AssociateBuildingAI<WarehouseAI                           >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<WarehouseAI               >);
+                AssociateBuildingAI<HospitalAI                            >(UsageType.WorkersMedical,        GetUsageCountWorkersService<HospitalAI                >);
+                AssociateBuildingAI<ChildcareAI                           >(UsageType.WorkersMedical,        GetUsageCountWorkersService<ChildcareAI               >);
+                AssociateBuildingAI<EldercareAI                           >(UsageType.WorkersMedical,        GetUsageCountWorkersService<EldercareAI               >);
+                AssociateBuildingAI<MedicalCenterAI                       >(UsageType.WorkersMedical,        GetUsageCountWorkersService<MedicalCenterAI           >);
+                AssociateBuildingAI<SaunaAI                               >(UsageType.WorkersMedical,        GetUsageCountWorkersService<SaunaAI                   >);
+                AssociateBuildingAI<HelicopterDepotAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<HelicopterDepotAI         >);
+                AssociateBuildingAI<CemeteryAI                            >(UsageType.WorkersCemetery,       GetUsageCountWorkersService<CemeteryAI                >);
+                AssociateBuildingAI<FireStationAI                         >(UsageType.WorkersFireStation,    GetUsageCountWorkersService<FireStationAI             >);
+                AssociateBuildingAI<FirewatchTowerAI                      >(UsageType.WorkersFireStation,    GetUsageCountWorkersService<FirewatchTowerAI          >);
+                AssociateBuildingAI<DisasterResponseBuildingAI            >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<DisasterResponseBuildingAI>);
+                AssociateBuildingAI<ShelterAI                             >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<ShelterAI                 >);
+                AssociateBuildingAI<RadioMastAI                           >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<RadioMastAI               >);
+                AssociateBuildingAI<EarthquakeSensorAI                    >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<EarthquakeSensorAI        >);
+                AssociateBuildingAI<DoomsdayVaultAI                       >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<DoomsdayVaultAI           >);
+                AssociateBuildingAI<WeatherRadarAI                        >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<WeatherRadarAI            >);
+                AssociateBuildingAI<SpaceRadarAI                          >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<SpaceRadarAI              >);
+                AssociateBuildingAI<PoliceStationAI                       >(UsageType.WorkersPoliceStation,  GetUsageCountWorkersService<PoliceStationAI           >);
+                AssociateBuildingAI<SchoolAI                              >(UsageType.WorkersEducation,      GetUsageCountWorkersService<SchoolAI                  >);
+                AssociateBuildingAI<LibraryAI                             >(UsageType.WorkersEducation,      GetUsageCountWorkersService<LibraryAI                 >);
+                AssociateBuildingAI<HadronColliderAI                      >(UsageType.WorkersEducation,      GetUsageCountWorkersService<HadronColliderAI          >);
+                AssociateBuildingAI<MainCampusBuildingAI                  >(UsageType.WorkersEducation,      GetUsageCountWorkersService<MainCampusBuildingAI      >);
+                AssociateBuildingAI<CampusBuildingAI                      >(UsageType.WorkersEducation,      GetUsageCountWorkersService<CampusBuildingAI          >);
+                AssociateBuildingAI<UniqueFacultyAI                       >(UsageType.WorkersEducation,      GetUsageCountWorkersService<UniqueFacultyAI           >);
+                AssociateBuildingAI<MuseumAI                              >(UsageType.WorkersEducation,      GetUsageCountWorkersService<MuseumAI                  >);
+                AssociateBuildingAI<VarsitySportsArenaAI                  >(UsageType.WorkersEducation,      GetUsageCountWorkersService<VarsitySportsArenaAI      >);
+                AssociateBuildingAI<CargoStationAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoStationAI            >);
+                AssociateBuildingAI<CargoHarborAI                         >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoHarborAI             >);
+                AssociateBuildingAI<DepotAI                               >(UsageType.UseLogic1,             GetUsageCountWorkersService<DepotAI                   >);
+                AssociateBuildingAI<CableCarStationAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<CableCarStationAI         >);
+                AssociateBuildingAI<TransportStationAI                    >(UsageType.UseLogic1,             GetUsageCountWorkersService<TransportStationAI        >);
+                AssociateBuildingAI<HarborAI                              >(UsageType.UseLogic1,             GetUsageCountWorkersService<HarborAI                  >);
+                AssociateBuildingAI<SpaceElevatorAI                       >(UsageType.UseLogic1,             GetUsageCountWorkersService<SpaceElevatorAI           >);
+                AssociateBuildingAI<PostOfficeAI                          >(UsageType.WorkersPost,           GetUsageCountWorkersService<PostOfficeAI              >);
+                AssociateBuildingAI<ParkGateAI                            >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
+                AssociateBuildingAI<ParkBuildingAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
+                AssociateBuildingAI<MonumentAI                            >(UsageType.WorkersUnique,         GetUsageCountWorkersService<MonumentAI                >);
+                AssociateBuildingAI<AnimalMonumentAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<AnimalMonumentAI          >);
+                AssociateBuildingAI<PrivateAirportAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<PrivateAirportAI          >);
+                AssociateBuildingAI<ChirpwickCastleAI                     >(UsageType.WorkersUnique,         GetUsageCountWorkersService<ChirpwickCastleAI         >);
+
+                // get the last usage group
+                UsageGroup lastUsageGroup = null;
+                foreach (UsageGroup usageGroup in _usageGroups.Values)
+                {
+                    lastUsageGroup = usageGroup;
+                }
+
+                // create the worker summary panel under last usage group
+                UIPanel workerSummaryPanel = AddUIComponent<UIPanel>();
+                if (workerSummaryPanel == null)
+                {
+                    Debug.LogError($"Unable to create worker summary panel.");
+                    return;
+                }
+                workerSummaryPanel.name = "WorkerSummaryPanel";
+                workerSummaryPanel.relativePosition = new Vector3(5f, lastUsageGroup.checkBox.relativePosition.y + lastUsageGroup.checkBox.size.y + 5f);
+                workerSummaryPanel.size = new Vector2(this.width - 10f, 138f);
+                workerSummaryPanel.atlas = _ingameAtlas;
+                workerSummaryPanel.backgroundSprite = "GenericPanel";
+
+                // create employment heading and data rows
+                const float RowHeight = 14f;
+                float top = 2f;
+                if (!CreateHeading(workerSummaryPanel, top, "EmpHeading",   "Employment"                             )) return; top += RowHeight + 2f;
+                if (!CreateDataRow(workerSummaryPanel, top, "Employed",     "Employed",         out _employed        )) return; top += RowHeight;
+                if (!CreateDataRow(workerSummaryPanel, top, "TotalJobs",    "Total Jobs",       out _totalJobs       )) return; top += RowHeight;
+                if (!CreateDataRow(workerSummaryPanel, top, "UnfilledJobs", "Unfilled Jobs",    out _unfilledJobs    )) return; top += RowHeight;
+                if (!CreateDataRow(workerSummaryPanel, top, "OverEducated", "Over Educated",    out _overEducated    )) return; top += RowHeight;
+
+                // create unemployment heading and data rows
+                top += 5f;
+                if (!CreateHeading(workerSummaryPanel, top, "UnempHeading", "Unemployment"                           )) return; top += RowHeight + 2f;
+                if (!CreateDataRow(workerSummaryPanel, top, "Unemployed",   "Unemployed",       out _unemployed      )) return; top += RowHeight;
+                if (!CreateDataRow(workerSummaryPanel, top, "Eligible",     "Eligible Workers", out _eligible        )) return; top += RowHeight;
+                if (!CreateDataRow(workerSummaryPanel, top, "UnemplRate",   "Unemploy Rate",    out _unemploymentRate)) return; top += RowHeight;
+
+                // add tool tips to row descriptions
+                _employed.description.tooltip = "Citizens with a job";
+                _totalJobs.description.tooltip = "Total number of jobs in buildings";
+                _unfilledJobs.description.tooltip = "Total Jobs minus Employed";
+                _overEducated.description.tooltip = "Workers with more education than job requires";
+                
+                _unemployed.description.tooltip = "Workers not in a job";
+                _eligible.description.tooltip = "Citizens eligible to work";
+                _unemploymentRate.description.tooltip = "Unemployment rate (Unemployed divided by Eligible)";
+
+                // uneducated workers can never be over educated, so hide that label
+                _overEducated.eduLevel0.isVisible = false;
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
+        }
+
+
+        /// <summary>
+        /// create a heading row with lines under each heading
+        /// </summary>
+        private bool CreateHeading(UIPanel workerSummaryPanel, float top, string namePrefix, string text)
+        {
+            // create a data row and then adjust properties
+            if (!CreateDataRow(workerSummaryPanel, top, namePrefix, "", out WorkerDataUI heading)) return false;
+
+            // set texts
+            heading.description.text = text;
+            heading.eduLevel0.text = "Unedu";
+            heading.eduLevel1.text = "Educated";
+            heading.eduLevel2.text = "Well Edu";
+            heading.eduLevel3.text = "High Edu";
+            heading.total.text = "Total";
+
+            // set tool tips
+            heading.eduLevel0.tooltip = "Uneducated - Elementary School not completed";
+            heading.eduLevel1.tooltip = "Educated - completed Elementary School";
+            heading.eduLevel2.tooltip = "Well Educated - completed High School";
+            heading.eduLevel3.tooltip = "Highly Educated - completed University";
+            heading.total.tooltip = "Sum of the education levels";
+
+            // set text size
+            heading.description.textScale =
+                heading.eduLevel0.textScale =
+                heading.eduLevel1.textScale =
+                heading.eduLevel2.textScale =
+                heading.eduLevel3.textScale =
+                heading.total.textScale = 0.5625f;
+
+            // set text color
+            heading.description.textColor =
+                heading.eduLevel0.textColor =
+                heading.eduLevel1.textColor =
+                heading.eduLevel2.textColor =
+                heading.eduLevel3.textColor =
+                heading.total.textColor = EducationTextColor;
+
+            // create a line under each heading
+            top += 13f;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.description, out UISprite lineDescription)) return false;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel0,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel1,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel2,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel3,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.total,       out UISprite _              )) return false;
+
+            // adjust description line size and position
+            lineDescription.size = new Vector2(lineDescription.size.x + 4f, lineDescription.size.y);
+            lineDescription.relativePosition = new Vector3(lineDescription.relativePosition.x - 5f, lineDescription.relativePosition.y);
+
+            // success
+            return true;
+        }
+
+        /// <summary>
+        /// create a line under a heading
+        /// </summary>
+        private bool CreateLineUnderHeading(UIPanel workerSummaryPanel, float top, UILabel headingLabel, out UISprite line)
+        {
+            line = workerSummaryPanel.AddUIComponent<UISprite>();
+            if (line == null)
+            {
+                Debug.LogError($"Unable to create line under [{headingLabel.name}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            line.name = headingLabel.name + "Line";
+            line.autoSize = false;
+            line.size = new Vector2(headingLabel.size.x, 1f);
+            line.relativePosition = new Vector3(headingLabel.relativePosition.x + 2f, top);
+            line.atlas = _ingameAtlas;
+            line.spriteName = "EmptySprite";
+            const float ColorMult = 0.8f;
+            line.color = new Color32((byte)(EducationTextColor.r * ColorMult), (byte)(EducationTextColor.g * ColorMult), (byte)(EducationTextColor.b * ColorMult), 255);
+            line.isVisible = true;
+
+            // success
+            return true;
+        }
+
+        /// <summary>
+        /// create a row for displaying data
+        /// </summary>
+        private bool CreateDataRow(UIPanel workerSummaryPanel, float top, string namePrefix, string text, out WorkerDataUI workerData)
+        {
+            // create new worker data
+            workerData = new WorkerDataUI();
+
+            // common attributes
+            const float CountWidth = 50f;
+            const float TextHeight = 14f;
+            const float LabelSpacing = 2f;
+
+            // create label for description
+            workerData.description = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.description == null)
+            {
+                Debug.LogError($"Unable to create description label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.description.name = namePrefix + "Description";
+            workerData.description.font = _textFont;
+            workerData.description.text = text;
+            workerData.description.textAlignment = UIHorizontalAlignment.Left;
+            workerData.description.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.description.textScale = 0.625f;
+            workerData.description.textColor = new Color32(254, 254, 254, 255);
+            workerData.description.autoSize = false;
+            workerData.description.size = new Vector2(105f, TextHeight);
+            workerData.description.relativePosition = new Vector3(5f, top);
+            workerData.description.isVisible = true;
+
+            // create label for education level 0
+            workerData.eduLevel0 = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.eduLevel0 == null)
+            {
+                Debug.LogError($"Unable to create education level 0 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.eduLevel0.name = namePrefix + "Level0";
+            workerData.eduLevel0.font = _textFont;
+            workerData.eduLevel0.text = "000,000";
+            workerData.eduLevel0.textAlignment = UIHorizontalAlignment.Right;
+            workerData.eduLevel0.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.eduLevel0.textScale = 0.625f;
+            workerData.eduLevel0.textColor = new Color32(254, 254, 254, 255);
+            workerData.eduLevel0.autoSize = false;
+            workerData.eduLevel0.size = new Vector2(CountWidth, TextHeight);
+            workerData.eduLevel0.relativePosition = new Vector3(workerData.description.relativePosition.x + workerData.description.size.x + LabelSpacing, top);
+            workerData.eduLevel0.isVisible = true;
+
+            // create label for education level 1
+            workerData.eduLevel1 = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.eduLevel1 == null)
+            {
+                Debug.LogError($"Unable to create education level 1 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.eduLevel1.name = namePrefix + "Level1";
+            workerData.eduLevel1.font = _textFont;
+            workerData.eduLevel1.text = "000,000";
+            workerData.eduLevel1.textAlignment = UIHorizontalAlignment.Right;
+            workerData.eduLevel1.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.eduLevel1.textScale = 0.625f;
+            workerData.eduLevel1.textColor = new Color32(254, 254, 254, 255);
+            workerData.eduLevel1.autoSize = false;
+            workerData.eduLevel1.size = new Vector2(CountWidth, TextHeight);
+            workerData.eduLevel1.relativePosition = new Vector3(workerData.eduLevel0.relativePosition.x + workerData.eduLevel0.size.x + LabelSpacing, top);
+            workerData.eduLevel1.isVisible = true;
+
+            // create label for education level 2
+            workerData.eduLevel2 = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.eduLevel2 == null)
+            {
+                Debug.LogError($"Unable to create education level 2 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.eduLevel2.name = namePrefix + "Level2";
+            workerData.eduLevel2.font = _textFont;
+            workerData.eduLevel2.text = "000,000";
+            workerData.eduLevel2.textAlignment = UIHorizontalAlignment.Right;
+            workerData.eduLevel2.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.eduLevel2.textScale = 0.625f;
+            workerData.eduLevel2.textColor = new Color32(254, 254, 254, 255);
+            workerData.eduLevel2.autoSize = false;
+            workerData.eduLevel2.size = new Vector2(CountWidth, TextHeight);
+            workerData.eduLevel2.relativePosition = new Vector3(workerData.eduLevel1.relativePosition.x + workerData.eduLevel1.size.x + LabelSpacing, top);
+            workerData.eduLevel2.isVisible = true;
+
+            // create label for education level 3
+            workerData.eduLevel3 = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.eduLevel3 == null)
+            {
+                Debug.LogError($"Unable to create education level 3 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.eduLevel3.name = namePrefix + "Level3";
+            workerData.eduLevel3.font = _textFont;
+            workerData.eduLevel3.text = "000,000";
+            workerData.eduLevel3.textAlignment = UIHorizontalAlignment.Right;
+            workerData.eduLevel3.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.eduLevel3.textScale = 0.625f;
+            workerData.eduLevel3.textColor = new Color32(254, 254, 254, 255);
+            workerData.eduLevel3.autoSize = false;
+            workerData.eduLevel3.size = new Vector2(CountWidth, TextHeight);
+            workerData.eduLevel3.relativePosition = new Vector3(workerData.eduLevel2.relativePosition.x + workerData.eduLevel2.size.x + LabelSpacing, top);
+            workerData.eduLevel3.isVisible = true;
+
+            // create label for total
+            workerData.total = workerSummaryPanel.AddUIComponent<UILabel>();
+            if (workerData.total == null)
+            {
+                Debug.LogError($"Unable to create total jobs label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                return false;
+            }
+            workerData.total.name = namePrefix + "Total";
+            workerData.total.font = _textFont;
+            workerData.total.text = "000,000";
+            workerData.total.textAlignment = UIHorizontalAlignment.Right;
+            workerData.total.verticalAlignment = UIVerticalAlignment.Bottom;
+            workerData.total.textScale = 0.625f;
+            workerData.total.textColor = new Color32(254, 254, 254, 255);
+            workerData.total.autoSize = false;
+            workerData.total.size = new Vector2(CountWidth, TextHeight);
+            workerData.total.relativePosition = new Vector3(workerData.eduLevel3.relativePosition.x + workerData.eduLevel3.size.x + LabelSpacing, top);
+            workerData.total.isVisible = true;
+
+            // success
+            return true;
         }
 
         /// <summary>
@@ -219,6 +503,110 @@ namespace BuildingUsage
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
             Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
             return UsageType.None;
+        }
+
+
+        /// <summary>
+        /// update the panel
+        /// </summary>
+        public override bool UpdatePanel()
+        {
+            // do base processing, proceed with processing here only if base was done
+            if (!base.UpdatePanel())
+            {
+                return false;
+            }
+
+            try
+            {
+                // compute the totals by looping over the usage groups
+                EducationLevelCount employed     = new EducationLevelCount();
+                EducationLevelCount totalJobs    = new EducationLevelCount();
+                EducationLevelCount overEducated = new EducationLevelCount();
+                EducationLevelCount unemployed   = new EducationLevelCount();
+                EducationLevelCount eligible     = new EducationLevelCount();
+                foreach (UsageGroup usageGroup in _usageGroups.Values)
+                {
+                    // for each selected usage group, add running total for employed, total jobs, and overeducated
+                    if (IsCheckBoxChecked(usageGroup.checkBox))
+                    {
+                        employed.Add(usageGroup.employedRunningTotal);
+                        totalJobs.Add(usageGroup.totalJobsRunningTotal);
+                        overEducated.Add(usageGroup.overEdRunningTotal);
+                    }
+
+                    // always add running total for unemployed and eligible
+                    unemployed.Add(usageGroup.unemployedRunningTotal);
+                    eligible.Add(usageGroup.eligibleRunningTotal);
+                }
+
+                // unfilled jobs is total jobs minus employed
+                EducationLevelCount unfilledJobs = new EducationLevelCount();
+                unfilledJobs.Copy(totalJobs);
+                unfilledJobs.Subtract(employed);
+
+                // display employed
+                _employed.eduLevel0.text = employed.level0.ToString("N0", LocaleManager.cultureInfo);
+                _employed.eduLevel1.text = employed.level1.ToString("N0", LocaleManager.cultureInfo);
+                _employed.eduLevel2.text = employed.level2.ToString("N0", LocaleManager.cultureInfo);
+                _employed.eduLevel3.text = employed.level3.ToString("N0", LocaleManager.cultureInfo);
+                _employed.total.text = (employed.level0 + employed.level1 + employed.level2 + employed.level3).ToString("N0", LocaleManager.cultureInfo);
+
+                // display total jobs
+                _totalJobs.eduLevel0.text = totalJobs.level0.ToString("N0", LocaleManager.cultureInfo);
+                _totalJobs.eduLevel1.text = totalJobs.level1.ToString("N0", LocaleManager.cultureInfo);
+                _totalJobs.eduLevel2.text = totalJobs.level2.ToString("N0", LocaleManager.cultureInfo);
+                _totalJobs.eduLevel3.text = totalJobs.level3.ToString("N0", LocaleManager.cultureInfo);
+                _totalJobs.total.text = (totalJobs.level0 + totalJobs.level1 + totalJobs.level2 + totalJobs.level3).ToString("N0", LocaleManager.cultureInfo);
+
+                // display unfilled jobs
+                _unfilledJobs.eduLevel0.text = unfilledJobs.level0.ToString("N0", LocaleManager.cultureInfo);
+                _unfilledJobs.eduLevel1.text = unfilledJobs.level1.ToString("N0", LocaleManager.cultureInfo);
+                _unfilledJobs.eduLevel2.text = unfilledJobs.level2.ToString("N0", LocaleManager.cultureInfo);
+                _unfilledJobs.eduLevel3.text = unfilledJobs.level3.ToString("N0", LocaleManager.cultureInfo);
+                _unfilledJobs.total.text = (unfilledJobs.level0 + unfilledJobs.level1 + unfilledJobs.level2 + unfilledJobs.level3).ToString("N0", LocaleManager.cultureInfo);
+
+                // display over educated (education level 0 are never over educated)
+                _overEducated.eduLevel1.text = overEducated.level1.ToString("N0", LocaleManager.cultureInfo);
+                _overEducated.eduLevel2.text = overEducated.level2.ToString("N0", LocaleManager.cultureInfo);
+                _overEducated.eduLevel3.text = overEducated.level3.ToString("N0", LocaleManager.cultureInfo);
+                _overEducated.total.text = (overEducated.level1 + overEducated.level2 + overEducated.level3).ToString("N0", LocaleManager.cultureInfo);
+
+                // display unemployed
+                int unemployedTotal = unemployed.level0 + unemployed.level1 + unemployed.level2 + unemployed.level3;
+                _unemployed.eduLevel0.text = unemployed.level0.ToString("N0", LocaleManager.cultureInfo);
+                _unemployed.eduLevel1.text = unemployed.level1.ToString("N0", LocaleManager.cultureInfo);
+                _unemployed.eduLevel2.text = unemployed.level2.ToString("N0", LocaleManager.cultureInfo);
+                _unemployed.eduLevel3.text = unemployed.level3.ToString("N0", LocaleManager.cultureInfo);
+                _unemployed.total.text = unemployedTotal.ToString("N0", LocaleManager.cultureInfo);
+
+                // display eligible
+                int eligibleTotal = eligible.level0 + eligible.level1 + eligible.level2 + eligible.level3;
+                _eligible.eduLevel0.text = eligible.level0.ToString("N0", LocaleManager.cultureInfo);
+                _eligible.eduLevel1.text = eligible.level1.ToString("N0", LocaleManager.cultureInfo);
+                _eligible.eduLevel2.text = eligible.level2.ToString("N0", LocaleManager.cultureInfo);
+                _eligible.eduLevel3.text = eligible.level3.ToString("N0", LocaleManager.cultureInfo);
+                _eligible.total.text = eligibleTotal.ToString("N0", LocaleManager.cultureInfo);
+
+                // display unemployment rate
+                float unemploymentRate0 = (eligible.level0 == 0 ? 0f : 100f * unemployed.level0 / eligible.level0);
+                float unemploymentRate1 = (eligible.level1 == 0 ? 0f : 100f * unemployed.level1 / eligible.level1);
+                float unemploymentRate2 = (eligible.level2 == 0 ? 0f : 100f * unemployed.level2 / eligible.level2);
+                float unemploymentRate3 = (eligible.level3 == 0 ? 0f : 100f * unemployed.level3 / eligible.level3);
+                float unemploymentRateTotal = (eligibleTotal == 0 ? 0f : 100f * unemployedTotal / eligibleTotal);
+                _unemploymentRate.eduLevel0.text = unemploymentRate0.ToString("F1", LocaleManager.cultureInfo) + "%";
+                _unemploymentRate.eduLevel1.text = unemploymentRate1.ToString("F1", LocaleManager.cultureInfo) + "%";
+                _unemploymentRate.eduLevel2.text = unemploymentRate2.ToString("F1", LocaleManager.cultureInfo) + "%";
+                _unemploymentRate.eduLevel3.text = unemploymentRate3.ToString("F1", LocaleManager.cultureInfo) + "%";
+                _unemploymentRate.total.text = unemploymentRateTotal.ToString("F1", LocaleManager.cultureInfo) + "%";
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+
+            // panel was updated
+            return true;
         }
 
     }

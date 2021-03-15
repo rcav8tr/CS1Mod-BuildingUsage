@@ -1,5 +1,5 @@
 ﻿using ColossalFramework.UI;
-using Harmony;
+using HarmonyLib;
 using ICities;
 
 namespace BuildingUsage
@@ -11,7 +11,7 @@ namespace BuildingUsage
         public string Description => "Display how much a building is being used as a percent of its capacity";
 
         // Harmony instance
-        public static HarmonyInstance harmony;
+        public static Harmony harmony;
 
         // keep track of which tab is selected on the tab strip
         // cannot use visibility of the usage panels because the Levels info view window can be closed (i.e. usage panel is invisible)

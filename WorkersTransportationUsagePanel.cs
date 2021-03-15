@@ -69,13 +69,13 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<DepotAI           >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<DepotAI           >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CableCarStationAI >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CableCarStationAI >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<TransportStationAI>(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<TransportStationAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<HarborAI          >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<HarborAI          >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<SpaceElevatorAI   >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<SpaceElevatorAI   >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CargoStationAI    >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CargoStationAI    >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<CargoHarborAI     >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountWorkersService<CargoHarborAI     >(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<DepotAI           >(UsageType.UseLogic1, GetUsageCountWorkersService<DepotAI           >);
+                AssociateBuildingAI<CableCarStationAI >(UsageType.UseLogic1, GetUsageCountWorkersService<CableCarStationAI >);
+                AssociateBuildingAI<TransportStationAI>(UsageType.UseLogic1, GetUsageCountWorkersService<TransportStationAI>);
+                AssociateBuildingAI<HarborAI          >(UsageType.UseLogic1, GetUsageCountWorkersService<HarborAI          >);
+                AssociateBuildingAI<SpaceElevatorAI   >(UsageType.UseLogic1, GetUsageCountWorkersService<SpaceElevatorAI   >);
+                AssociateBuildingAI<CargoStationAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoStationAI    >);
+                AssociateBuildingAI<CargoHarborAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoHarborAI     >);
             }
             catch (Exception ex)
             {

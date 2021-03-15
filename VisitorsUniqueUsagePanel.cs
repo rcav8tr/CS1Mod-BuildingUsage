@@ -67,10 +67,10 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<MonumentAI       >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<MonumentAI       >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<AnimalMonumentAI >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<AnimalMonumentAI >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PrivateAirportAI >(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<PrivateAirportAI >(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ChirpwickCastleAI>(UsageType.UseLogic1, (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountVisitorsMonument<ChirpwickCastleAI>(buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<MonumentAI       >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<MonumentAI       >);
+                AssociateBuildingAI<AnimalMonumentAI >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<AnimalMonumentAI >);
+                AssociateBuildingAI<PrivateAirportAI >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<PrivateAirportAI >);
+                AssociateBuildingAI<ChirpwickCastleAI>(UsageType.UseLogic1, GetUsageCountVisitorsMonument<ChirpwickCastleAI>);
             }
             catch (Exception ex)
             {

@@ -40,22 +40,22 @@ namespace BuildingUsage
                 CreateUsageGroup<PostOfficeAI                               >(UsageType.StoragePostSorted);
 
                 // add detail panel
-                AddDetailPanel<StorageIndustryUsagePanel>(UsageType.StorageIndustry, this);
+                AddDetailPanel<StorageIndustryUsagePanel>(UsageType.StorageIndustry);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<SnowDumpAI              >(UsageType.StorageSnow,            (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageSnowDump                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WaterFacilityAI         >(UsageType.UseLogic1,              (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageWaterFacility                         (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<LandfillSiteAI          >(UsageType.StorageGarbage,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageLandfillSite<LandfillSiteAI>          (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UltimateRecyclingPlantAI>(UsageType.StorageGarbage,         (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageLandfillSite<UltimateRecyclingPlantAI>(buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ExtractingFacilityAI    >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageExtractingFacility                    (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishingHarborAI         >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageFishingHarbor                         (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<FishFarmAI              >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageFishFarm                              (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<ProcessingFacilityAI    >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageProcessingFacilityTotal               (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<UniqueFactoryAI         >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageUniqueFactoryTotal                    (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<WarehouseAI             >(UsageType.StorageIndustry,        (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStorageWarehouse                             (buildingID, ref data, ref used, ref allowed));
-                AssociateBuildingAI<PostOfficeAI            >(UsageType.StoragePostUnsorted,    (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStoragePostOfficeUnsorted                    (buildingID, ref data, ref used, ref allowed),
-                                                              UsageType.StoragePostSorted,      (ushort buildingID, ref Building data, ref int used, ref int allowed) => GetUsageCountStoragePostOfficeSorted                      (buildingID, ref data, ref used, ref allowed));
+                AssociateBuildingAI<SnowDumpAI              >(UsageType.StorageSnow,            GetUsageCountStorageSnowDump                              );
+                AssociateBuildingAI<WaterFacilityAI         >(UsageType.UseLogic1,              GetUsageCountStorageWaterFacility                         );
+                AssociateBuildingAI<LandfillSiteAI          >(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<LandfillSiteAI>          );
+                AssociateBuildingAI<UltimateRecyclingPlantAI>(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<UltimateRecyclingPlantAI>);
+                AssociateBuildingAI<ExtractingFacilityAI    >(UsageType.StorageIndustry,        GetUsageCountStorageExtractingFacility                    );
+                AssociateBuildingAI<FishingHarborAI         >(UsageType.StorageIndustry,        GetUsageCountStorageFishingHarbor                         );
+                AssociateBuildingAI<FishFarmAI              >(UsageType.StorageIndustry,        GetUsageCountStorageFishFarm                              );
+                AssociateBuildingAI<ProcessingFacilityAI    >(UsageType.StorageIndustry,        GetUsageCountStorageProcessingFacilityTotal               );
+                AssociateBuildingAI<UniqueFactoryAI         >(UsageType.StorageIndustry,        GetUsageCountStorageUniqueFactoryTotal                    );
+                AssociateBuildingAI<WarehouseAI             >(UsageType.StorageIndustry,        GetUsageCountStorageWarehouse                             );
+                AssociateBuildingAI<PostOfficeAI            >(UsageType.StoragePostUnsorted,    GetUsageCountStoragePostOfficeUnsorted                    ,
+                                                              UsageType.StoragePostSorted,      GetUsageCountStoragePostOfficeSorted                      );
 
                 // set mutually exclusive check boxes
                 MakeCheckBoxesMutuallyExclusive(UsageType.StoragePostUnsorted, UsageType.StoragePostSorted);
