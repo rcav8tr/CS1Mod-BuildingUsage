@@ -124,7 +124,7 @@ namespace BuildingUsage
             {
                 if (HarmonyHelper.IsHarmonyInstalled)
                 {
-                    new Harmony(HarmonyId).UnpatchAll();
+                    new Harmony(HarmonyId).UnpatchAll(HarmonyId);
                 }
             }
             catch (Exception ex)
