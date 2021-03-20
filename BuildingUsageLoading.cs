@@ -2,7 +2,6 @@
 using ColossalFramework;
 using ICities;
 using UnityEngine;
-using HarmonyLib;
 using System;
 
 namespace BuildingUsage
@@ -23,14 +22,6 @@ namespace BuildingUsage
                 // check for new or loaded game
                 if (mode == LoadMode.NewGame || mode == LoadMode.NewGameFromScenario || mode == LoadMode.LoadGame)
                 {
-                    // initialize Harmony
-                    BuildingUsage.harmony = new Harmony("com.github.rcav8tr.BuildingUsage");
-                    if (BuildingUsage.harmony == null)
-                    {
-                        Debug.LogError("Unable to create Harmony instance.");
-                        return;
-                    }
-
                     // get the LevelsInfoViewPanel panel (displayed when the user clicks on the Levels info view button)
                     LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
                     if (levelsPanel == null)
@@ -94,9 +85,7 @@ namespace BuildingUsage
                     BuildingUsage.vehiclesUsagePanel = UsagePanel.AddUsagePanel<VehiclesUsagePanel>();
 
                     // create the Harmony patches
-                    BuildingAIPatch.CreateGetColorPatches();
-                    VehicleAIPatch.CreateGetColorPatches();
-                    LevelsInfoViewPanelPatch.CreateUpdatePanelPatch();
+                    if (!HarmonyPatcher.CreatePatches()) return;
                 }
             }
             catch (Exception ex)
@@ -203,11 +192,18 @@ namespace BuildingUsage
 
             try
             {
-                // remove Harmony patches
-                if (BuildingUsage.harmony != null)
+                try
                 {
-                    BuildingUsage.harmony.UnpatchAll();
-                    BuildingUsage.harmony = null;
+                    // remove Harmony patches
+                    HarmonyPatcher.RemovePatches();
+                }
+                catch (System.IO.FileNotFoundException ex)
+                {
+                    // ignore missing Harmony, rethrow all others
+                    if (!ex.FileName.ToUpper().Contains("HARMONY"))
+                    {
+                        throw ex;
+                    }
                 }
 
                 // destroy the objects added directly to the LevelsInfoViewPanel

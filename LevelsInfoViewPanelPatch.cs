@@ -1,6 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace BuildingUsage
 {
@@ -15,36 +13,20 @@ namespace BuildingUsage
         /// <summary>
         /// create patch for LevelsInfoViewPanel.UpdatePanel
         /// </summary>
-        public static void CreateUpdatePanelPatch()
+        public static bool CreateUpdatePanelPatch()
         {
-            // get the original UpdatePanel method
-            MethodInfo original = typeof(LevelsInfoViewPanel).GetMethod("UpdatePanel", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (original == null)
-            {
-                Debug.LogError($"Unable to find LevelsInfoViewPanel.UpdatePanel method.");
-                return;
-            }
-
-            // find the Prefix method
-            MethodInfo prefix = typeof(LevelsInfoViewPanelPatch).GetMethod("Prefix", BindingFlags.Static | BindingFlags.Public);
-            if (prefix == null)
-            {
-                Debug.LogError($"Unable to find LevelsInfoViewPanelPatch.Prefix method.");
-                return;
-            }
-
-            // create the patch
-            BuildingUsage.harmony.Patch(original, new HarmonyMethod(prefix), null, null);
-
             // not initialized
             _usageCountsInitialized = false;
+
+            // patch with the prefix routine
+            return HarmonyPatcher.CreatePrefixPatch<LevelsInfoViewPanel>("UpdatePanel", BindingFlags.Instance | BindingFlags.NonPublic, typeof(LevelsInfoViewPanelPatch), "LevelsInfoViewPanelUpdatePanel");
         }
 
         /// <summary>
         /// update only the currently displayed panel
         /// </summary>
         /// <returns>whether or not to do base processing</returns>
-        public static bool Prefix()
+        public static bool LevelsInfoViewPanelUpdatePanel()
         {
             // check which tab is selected
             bool doBaseProcessing = true;

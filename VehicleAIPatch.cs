@@ -1,8 +1,5 @@
 ﻿using ColossalFramework;
-using HarmonyLib;
 using UnityEngine;
-using System;
-using System.Reflection;
 
 namespace BuildingUsage
 {
@@ -92,82 +89,62 @@ namespace BuildingUsage
         /// create a patch for every vehicle AI that has a GetColor method and that will be used by vehicle usage panels
         /// in the listings above, that is vehicle AIs marked with GC and V
         /// </summary>
-        public static void CreateGetColorPatches()
+        public static bool CreateGetColorPatches()
         {
-            CreateGetColorPatch<CargoPlaneAI                >();
-            CreateGetColorPatch<PassengerPlaneAI            >();
-            CreateGetColorPatch<BalloonAI                   >();
-            CreateGetColorPatch<PassengerBlimpAI            >();
-            CreateGetColorPatch<CableCarAI                  >();
-            CreateGetColorPatch<AmbulanceAI                 >();
-            CreateGetColorPatch<BusAI                       >();
-            CreateGetColorPatch<CargoTruckAI                >();
-            CreateGetColorPatch<DisasterResponseVehicleAI   >();
-            CreateGetColorPatch<FireTruckAI                 >();
-            CreateGetColorPatch<GarbageTruckAI              >();
-            CreateGetColorPatch<HearseAI                    >();
-            CreateGetColorPatch<MaintenanceTruckAI          >();
-            CreateGetColorPatch<ParkMaintenanceVehicleAI    >();
-            CreateGetColorPatch<PoliceCarAI                 >();
-            CreateGetColorPatch<PostVanAI                   >();
-            CreateGetColorPatch<SnowTruckAI                 >();
-            CreateGetColorPatch<TaxiAI                      >();
-            CreateGetColorPatch<TrolleybusAI                >();
-            CreateGetColorPatch<WaterTruckAI                >();
-            CreateGetColorPatch<FishingBoatAI               >();
-            CreateGetColorPatch<PassengerFerryAI            >();
-            CreateGetColorPatch<AmbulanceCopterAI           >();
-            CreateGetColorPatch<DisasterResponseCopterAI    >();
-            CreateGetColorPatch<FireCopterAI                >();
-            CreateGetColorPatch<PoliceCopterAI              >();
-            CreateGetColorPatch<PassengerHelicopterAI       >();
-            CreateGetColorPatch<PrivatePlaneAI              >();
-            CreateGetColorPatch<RocketAI                    >();
-            CreateGetColorPatch<CargoShipAI                 >();
-            CreateGetColorPatch<PassengerShipAI             >();
-            CreateGetColorPatch<CargoTrainAI                >();
-            CreateGetColorPatch<PassengerTrainAI            >();
-            CreateGetColorPatch<TramAI                      >();
+            // patch each vehicle AI
+            if (!CreateGetColorPatch<CargoPlaneAI                >()) return false;
+            if (!CreateGetColorPatch<PassengerPlaneAI            >()) return false;
+            if (!CreateGetColorPatch<BalloonAI                   >()) return false;
+            if (!CreateGetColorPatch<PassengerBlimpAI            >()) return false;
+            if (!CreateGetColorPatch<CableCarAI                  >()) return false;
+            if (!CreateGetColorPatch<AmbulanceAI                 >()) return false;
+            if (!CreateGetColorPatch<BusAI                       >()) return false;
+            if (!CreateGetColorPatch<CargoTruckAI                >()) return false;
+            if (!CreateGetColorPatch<DisasterResponseVehicleAI   >()) return false;
+            if (!CreateGetColorPatch<FireTruckAI                 >()) return false;
+            if (!CreateGetColorPatch<GarbageTruckAI              >()) return false;
+            if (!CreateGetColorPatch<HearseAI                    >()) return false;
+            if (!CreateGetColorPatch<MaintenanceTruckAI          >()) return false;
+            if (!CreateGetColorPatch<ParkMaintenanceVehicleAI    >()) return false;
+            if (!CreateGetColorPatch<PoliceCarAI                 >()) return false;
+            if (!CreateGetColorPatch<PostVanAI                   >()) return false;
+            if (!CreateGetColorPatch<SnowTruckAI                 >()) return false;
+            if (!CreateGetColorPatch<TaxiAI                      >()) return false;
+            if (!CreateGetColorPatch<TrolleybusAI                >()) return false;
+            if (!CreateGetColorPatch<WaterTruckAI                >()) return false;
+            if (!CreateGetColorPatch<FishingBoatAI               >()) return false;
+            if (!CreateGetColorPatch<PassengerFerryAI            >()) return false;
+            if (!CreateGetColorPatch<AmbulanceCopterAI           >()) return false;
+            if (!CreateGetColorPatch<DisasterResponseCopterAI    >()) return false;
+            if (!CreateGetColorPatch<FireCopterAI                >()) return false;
+            if (!CreateGetColorPatch<PoliceCopterAI              >()) return false;
+            if (!CreateGetColorPatch<PassengerHelicopterAI       >()) return false;
+            if (!CreateGetColorPatch<PrivatePlaneAI              >()) return false;
+            if (!CreateGetColorPatch<RocketAI                    >()) return false;
+            if (!CreateGetColorPatch<CargoShipAI                 >()) return false;
+            if (!CreateGetColorPatch<PassengerShipAI             >()) return false;
+            if (!CreateGetColorPatch<CargoTrainAI                >()) return false;
+            if (!CreateGetColorPatch<PassengerTrainAI            >()) return false;
+            if (!CreateGetColorPatch<TramAI                      >()) return false;
+
+            // success
+            return true;
         }
 
         /// <summary>
         /// create a patch of the GetColor method for the specified vehicle AI type
         /// </summary>
-        /// <remarks>
-        /// Cannot use HarmonyPatch attribute because all the specific vehicle AI classes have two GetColor routines:
-        /// There is a GetColor routine in the derived AI classes which has Vehicle as a parameter.
-        /// There is a GetColor routine in the base class VehicleAI which has VehicleParked as a parameter.
-        /// Furthermore, MakeByRefType cannot be specified in the HarmonyPatch attribute (or any attribute) to allow the patch to be created automatically.
-        /// This routine manually finds the GetColor routine with Vehicle as a ref type parameter and creates the patch for it.
-        /// </remarks>
-        private static void CreateGetColorPatch<T>() where T : VehicleAI
+        private static bool CreateGetColorPatch<T>() where T : VehicleAI
         {
-            // get the original GetColor method that takes ref Vehicle parameter
-            MethodInfo original = typeof(T).GetMethod("GetColor", new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode) });
-            if (original == null)
-            {
-                Debug.LogError($"Unable to find GetColor method for vehicle AI type {typeof(T).Name}.");
-                return;
-            }
-
-            // find the Prefix method
-            MethodInfo prefix = typeof(VehicleAIPatch).GetMethod("Prefix", BindingFlags.Static | BindingFlags.Public);
-            if (prefix == null)
-            {
-                Debug.LogError($"Unable to find VehicleAIPatch.Prefix method.");
-                return;
-            }
-
-            // create the patch
-            BuildingUsage.harmony.Patch(original, new HarmonyMethod(prefix), null, null);
+            // same routine is used for all vehicle AI types
+            return HarmonyPatcher.CreatePrefixPatchVehicleAI<T>("GetColor", typeof(VehicleAIPatch), "VehicleAIGetColor");
         }
 
         /// <summary>
         /// return the color of the vehicle
-        /// same Prefix routine is used for all vehicle AI types
         /// </summary>
         /// <returns>whether or not to do base processing</returns>
-        public static bool Prefix(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, ref Color __result)
+        public static bool VehicleAIGetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, ref Color __result)
         {
             // do processing for this mod only for Levels info view
             bool doBaseProcessing = true;

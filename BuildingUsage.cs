@@ -1,5 +1,5 @@
-﻿using ColossalFramework.UI;
-using HarmonyLib;
+﻿using CitiesHarmony.API;
+using ColossalFramework.UI;
 using ICities;
 
 namespace BuildingUsage
@@ -9,9 +9,6 @@ namespace BuildingUsage
         // required name and description of this mod
         public string Name => "Building Usage";
         public string Description => "Display how much a building is being used as a percent of its capacity";
-
-        // Harmony instance
-        public static Harmony harmony;
 
         // keep track of which tab is selected on the tab strip
         // cannot use visibility of the usage panels because the Levels info view window can be closed (i.e. usage panel is invisible)
@@ -34,5 +31,11 @@ namespace BuildingUsage
         public static VisitorsUsagePanel visitorsUsagePanel = null;
         public static StorageUsagePanel  storageUsagePanel  = null;
         public static VehiclesUsagePanel vehiclesUsagePanel = null;
+
+        public void OnEnabled()
+        {
+            // check Harmony
+            HarmonyHelper.EnsureHarmonyInstalled();
+        }
     }
 }

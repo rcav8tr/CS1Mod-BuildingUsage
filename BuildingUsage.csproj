@@ -24,7 +24,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -68,6 +68,7 @@
     <Compile Include="BuildingUsage.cs" />
     <Compile Include="BuildingUsageBuilding.cs" />
     <Compile Include="BuildingUsageConfig.cs" />
+    <Compile Include="HarmonyPatcher.cs" />
     <Compile Include="LevelsInfoViewPanelPatch.cs" />
     <Compile Include="StorageIndustryUsagePanel.cs" />
     <Compile Include="VehiclesIndustryUsagePanel.cs" />

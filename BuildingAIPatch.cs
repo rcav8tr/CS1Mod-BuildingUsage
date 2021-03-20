@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Reflection;
 
 namespace BuildingUsage
@@ -232,96 +231,82 @@ namespace BuildingUsage
         /// create a patch for every building AI that has a GetColor method and that will be used by one of the usage panels
         /// in the listings above, that is building AIs marked with GC and that have at least one of WVSV
         /// </summary>
-        public static void CreateGetColorPatches()
+        public static bool CreateGetColorPatches()
         {
-            // private building AIs (i.e. zoned)
-            CreateGetColorPatch<ResidentialBuildingAI>();
-            CreateGetColorPatch<CommercialBuildingAI >();
-            CreateGetColorPatch<OfficeBuildingAI     >();
-            CreateGetColorPatch<IndustrialBuildingAI >();
-            CreateGetColorPatch<IndustrialExtractorAI>();
+            // patch private building AIs (i.e. zoned)
+            if (!CreateGetColorPatch<ResidentialBuildingAI>()) return false;
+            if (!CreateGetColorPatch<CommercialBuildingAI >()) return false;
+            if (!CreateGetColorPatch<OfficeBuildingAI     >()) return false;
+            if (!CreateGetColorPatch<IndustrialBuildingAI >()) return false;
+            if (!CreateGetColorPatch<IndustrialExtractorAI>()) return false;
 
-            // player building AIs
-            CreateGetColorPatch<CargoStationAI              >();
-            CreateGetColorPatch<CemeteryAI                  >();
-            CreateGetColorPatch<ChildcareAI                 >();
-            CreateGetColorPatch<DepotAI                     >();
-            CreateGetColorPatch<DisasterResponseBuildingAI  >();
-            CreateGetColorPatch<DoomsdayVaultAI             >();
-            CreateGetColorPatch<EarthquakeSensorAI          >();
-            CreateGetColorPatch<EldercareAI                 >();
-            CreateGetColorPatch<FireStationAI               >();
-            CreateGetColorPatch<FirewatchTowerAI            >();
-            CreateGetColorPatch<FishFarmAI                  >();
-            CreateGetColorPatch<FishingHarborAI             >();
-            CreateGetColorPatch<HadronColliderAI            >();
-            CreateGetColorPatch<HeatingPlantAI              >();
-            CreateGetColorPatch<HelicopterDepotAI           >();
-            CreateGetColorPatch<HospitalAI                  >();
-            CreateGetColorPatch<AuxiliaryBuildingAI         >();
-            CreateGetColorPatch<ExtractingFacilityAI        >();
-            CreateGetColorPatch<ProcessingFacilityAI        >();
-            CreateGetColorPatch<LandfillSiteAI              >();
-            CreateGetColorPatch<LibraryAI                   >();
-            CreateGetColorPatch<MainCampusBuildingAI        >();
-            CreateGetColorPatch<MainIndustryBuildingAI      >();
-            CreateGetColorPatch<MaintenanceDepotAI          >();
-            CreateGetColorPatch<MarketAI                    >();
-            CreateGetColorPatch<MonumentAI                  >();
-            CreateGetColorPatch<VarsitySportsArenaAI        >();
-            CreateGetColorPatch<ParkAI                      >();
-            CreateGetColorPatch<ParkBuildingAI              >();
-            CreateGetColorPatch<ParkGateAI                  >();
-            CreateGetColorPatch<PoliceStationAI             >();
-            CreateGetColorPatch<PostOfficeAI                >();
-            CreateGetColorPatch<PowerPlantAI                >();
-            CreateGetColorPatch<WindTurbineAI               >();
-            CreateGetColorPatch<RadioMastAI                 >();
-            CreateGetColorPatch<SaunaAI                     >();
-            CreateGetColorPatch<SchoolAI                    >();
-            CreateGetColorPatch<CampusBuildingAI            >();
-            CreateGetColorPatch<ShelterAI                   >();
-            CreateGetColorPatch<SnowDumpAI                  >();
-            CreateGetColorPatch<SpaceElevatorAI             >();
-            CreateGetColorPatch<SpaceRadarAI                >();
-            CreateGetColorPatch<TourBuildingAI              >();
-            CreateGetColorPatch<WarehouseAI                 >();
-            CreateGetColorPatch<WaterCleanerAI              >();
-            CreateGetColorPatch<WaterFacilityAI             >();
-            CreateGetColorPatch<WeatherRadarAI              >();
+            // patch player building AIs
+            if (!CreateGetColorPatch<CargoStationAI              >()) return false;
+            if (!CreateGetColorPatch<CemeteryAI                  >()) return false;
+            if (!CreateGetColorPatch<ChildcareAI                 >()) return false;
+            if (!CreateGetColorPatch<DepotAI                     >()) return false;
+            if (!CreateGetColorPatch<DisasterResponseBuildingAI  >()) return false;
+            if (!CreateGetColorPatch<DoomsdayVaultAI             >()) return false;
+            if (!CreateGetColorPatch<EarthquakeSensorAI          >()) return false;
+            if (!CreateGetColorPatch<EldercareAI                 >()) return false;
+            if (!CreateGetColorPatch<FireStationAI               >()) return false;
+            if (!CreateGetColorPatch<FirewatchTowerAI            >()) return false;
+            if (!CreateGetColorPatch<FishFarmAI                  >()) return false;
+            if (!CreateGetColorPatch<FishingHarborAI             >()) return false;
+            if (!CreateGetColorPatch<HadronColliderAI            >()) return false;
+            if (!CreateGetColorPatch<HeatingPlantAI              >()) return false;
+            if (!CreateGetColorPatch<HelicopterDepotAI           >()) return false;
+            if (!CreateGetColorPatch<HospitalAI                  >()) return false;
+            if (!CreateGetColorPatch<AuxiliaryBuildingAI         >()) return false;
+            if (!CreateGetColorPatch<ExtractingFacilityAI        >()) return false;
+            if (!CreateGetColorPatch<ProcessingFacilityAI        >()) return false;
+            if (!CreateGetColorPatch<LandfillSiteAI              >()) return false;
+            if (!CreateGetColorPatch<LibraryAI                   >()) return false;
+            if (!CreateGetColorPatch<MainCampusBuildingAI        >()) return false;
+            if (!CreateGetColorPatch<MainIndustryBuildingAI      >()) return false;
+            if (!CreateGetColorPatch<MaintenanceDepotAI          >()) return false;
+            if (!CreateGetColorPatch<MarketAI                    >()) return false;
+            if (!CreateGetColorPatch<MonumentAI                  >()) return false;
+            if (!CreateGetColorPatch<VarsitySportsArenaAI        >()) return false;
+            if (!CreateGetColorPatch<ParkAI                      >()) return false;
+            if (!CreateGetColorPatch<ParkBuildingAI              >()) return false;
+            if (!CreateGetColorPatch<ParkGateAI                  >()) return false;
+            if (!CreateGetColorPatch<PoliceStationAI             >()) return false;
+            if (!CreateGetColorPatch<PostOfficeAI                >()) return false;
+            if (!CreateGetColorPatch<PowerPlantAI                >()) return false;
+            if (!CreateGetColorPatch<WindTurbineAI               >()) return false;
+            if (!CreateGetColorPatch<RadioMastAI                 >()) return false;
+            if (!CreateGetColorPatch<SaunaAI                     >()) return false;
+            if (!CreateGetColorPatch<SchoolAI                    >()) return false;
+            if (!CreateGetColorPatch<CampusBuildingAI            >()) return false;
+            if (!CreateGetColorPatch<ShelterAI                   >()) return false;
+            if (!CreateGetColorPatch<SnowDumpAI                  >()) return false;
+            if (!CreateGetColorPatch<SpaceElevatorAI             >()) return false;
+            if (!CreateGetColorPatch<SpaceRadarAI                >()) return false;
+            if (!CreateGetColorPatch<TourBuildingAI              >()) return false;
+            if (!CreateGetColorPatch<WarehouseAI                 >()) return false;
+            if (!CreateGetColorPatch<WaterCleanerAI              >()) return false;
+            if (!CreateGetColorPatch<WaterFacilityAI             >()) return false;
+            if (!CreateGetColorPatch<WeatherRadarAI              >()) return false;
+
+            // success
+            return true;
         }
 
         /// <summary>
         /// create a patch of the GetColor method for the specified building AI type
         /// </summary>
-        private static void CreateGetColorPatch<T>() where T : CommonBuildingAI
+        private static bool CreateGetColorPatch<T>() where T : CommonBuildingAI
         {
-            // get the original GetColor method
-            MethodInfo original = typeof(T).GetMethod("GetColor");
-            if (original == null)
-            {
-                Debug.LogError($"Unable to find GetColor method for building AI type {typeof(T).Name}.");
-                return;
-            }
-
-            // find the Prefix method
-            MethodInfo prefix = typeof(BuildingAIPatch).GetMethod("Prefix", BindingFlags.Public | BindingFlags.Static);
-            if (prefix == null)
-            {
-                Debug.LogError($"Unable to find BuildingAIPatch.Prefix method.");
-                return;
-            }
-
-            // create the patch
-            BuildingUsage.harmony.Patch(original, new HarmonyMethod(prefix), null, null);
+            // same routine is used for all building AI types
+            return HarmonyPatcher.CreatePrefixPatch<T>("GetColor", BindingFlags.Instance | BindingFlags.Public, typeof(BuildingAIPatch), "BuildingAIGetColor");
         }
 
         /// <summary>
         /// return the color of the building
-        /// same Prefix routine is used for all building AI types
         /// </summary>
         /// <returns>whether or not to do base processing</returns>
-        public static bool Prefix(ushort buildingID, ref Building data, InfoManager.InfoMode infoMode, ref Color __result)
+        public static bool BuildingAIGetColor(ushort buildingID, ref Building data, InfoManager.InfoMode infoMode, ref Color __result)
         {
             // do processing for this mod only for Levels info view
             bool doBaseProcessing = true;
