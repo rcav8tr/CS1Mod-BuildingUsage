@@ -1892,31 +1892,28 @@ namespace BuildingUsage
             // loop over all the assemblies
             foreach (System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                // loop over all the types in the assembly
-                foreach (Type assemblyType in assembly.GetTypes())
+                // check if the string building AI is in the assembly
+                // the AI type will be defined if the mod is subscribed, even if the mod is not enabled
+                // it is okay to associate the AI if the mod is not enabled, there simply will be no buildings of that type
+                Type tempType = assembly.GetType(buildingAI, false);
+                if (tempType != null)
                 {
-                    // find the specified building AI type
-                    // an AI type will be defined if the mod is subscribed, even if the mod is not enabled
-                    // it is okay to associate the AI if the mod is not enabled, there simply will be no buildings of that type
-                    if ($"{assemblyType.Namespace}.{assemblyType.Name}" == buildingAI)
+                    // check if the type derives from CommonBuildingAI
+                    Type baseType = tempType.BaseType;
+                    while (baseType != null)
                     {
-                        // check if the type derives from CommonBuildingAI
-                        Type baseType = assemblyType.BaseType;
-                        while (baseType != null)
+                        if (baseType == typeof(CommonBuildingAI))
                         {
-                            if (baseType == typeof(CommonBuildingAI))
-                            {
-                                // derives from CommonBuildingAI, string BuildingAI is valid
-                                type = assemblyType;
-                                return true;
-                            }
-                            baseType = baseType.BaseType;
+                            // derives from CommonBuildingAI, string BuildingAI is valid
+                            type = tempType;
+                            return true;
                         }
-
-                        // if got here, then string building AI was found, but it is not valid
-                        Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
-                        return false;
+                        baseType = baseType.BaseType;
                     }
+
+                    // if got here, then string building AI was found, but it is not valid
+                    Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
+                    return false;
                 }
             }
 
