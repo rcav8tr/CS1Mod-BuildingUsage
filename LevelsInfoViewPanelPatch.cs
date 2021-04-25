@@ -19,7 +19,7 @@ namespace BuildingUsage
             _usageCountsInitialized = false;
 
             // patch with the prefix routine
-            return HarmonyPatcher.CreatePrefixPatch<LevelsInfoViewPanel>("UpdatePanel", BindingFlags.Instance | BindingFlags.NonPublic, typeof(LevelsInfoViewPanelPatch), "LevelsInfoViewPanelUpdatePanel");
+            return HarmonyPatcher.CreatePrefixPatch(typeof(LevelsInfoViewPanel), "UpdatePanel", BindingFlags.Instance | BindingFlags.NonPublic, typeof(LevelsInfoViewPanelPatch), "LevelsInfoViewPanelUpdatePanel");
         }
 
         /// <summary>

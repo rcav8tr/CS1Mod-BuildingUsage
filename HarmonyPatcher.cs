@@ -46,19 +46,19 @@ namespace BuildingUsage
         /// <summary>
         /// create a prefix patch (i.e. called before the base processing)
         /// </summary>
-        /// <typeparam name="T">type to be patched</typeparam>
+        /// <param name="originalClassType">type of the class to be patched</param>
         /// <param name="originalMethodName">name of the method to be patched</param>
         /// <param name="bindingFlags">bindings flags of the method to be patched</param>
         /// <param name="prefixType">type that contains the prefix method</param>
         /// <param name="prefixMethodName">name of the prefix method</param>
         /// <returns>success status</returns>
-        public static bool CreatePrefixPatch<T>(string originalMethodName, BindingFlags bindingFlags, Type prefixType, string prefixMethodName)
+        public static bool CreatePrefixPatch(Type originalClassType, string originalMethodName, BindingFlags bindingFlags, Type prefixType, string prefixMethodName)
         {
             // get the original method
-            MethodInfo originalMethod = typeof(T).GetMethod(originalMethodName, bindingFlags);
+            MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, bindingFlags);
             if (originalMethod == null)
             {
-                Debug.LogError($"Unable to find original method {typeof(T).Name}.{originalMethodName}.");
+                Debug.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
                 return false;
             }
 
@@ -69,21 +69,21 @@ namespace BuildingUsage
         /// <summary>
         /// create a prefix patch for a vehicle AI (i.e. called before the base processing)
         /// </summary>
-        /// <typeparam name="T">type to be patched</typeparam>
+        /// <param name="originalClassType">type of the class to be patched</param>
         /// <param name="originalMethodName">name of the method to be patched</param>
         /// <param name="prefixType">type that contains the prefix method</param>
         /// <param name="prefixMethodName">name of the prefix method</param>
         /// <returns>success status</returns>
-        public static bool CreatePrefixPatchVehicleAI<T>(string originalMethodName, Type prefixType, string prefixMethodName)
+        public static bool CreatePrefixPatchVehicleAI(Type originalClassType, string originalMethodName, Type prefixType, string prefixMethodName)
         {
             // get the original vehicle AI method
             // There is a GetColor routine in the derived AI classes which has Vehicle as a ref parameter.
             // There is a GetColor routine in the base class VehicleAI which has VehicleParked as a ref parameter.
             // The GetColor in the derived class is the one to be patched, so need to pass type Vehicle as a ref parameter.
-            MethodInfo originalMethod = typeof(T).GetMethod(originalMethodName, new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode) });
+            MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode) });
             if (originalMethod == null)
             {
-                Debug.LogError($"Unable to find original method {typeof(T).Name}.{originalMethodName}.");
+                Debug.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
                 return false;
             }
 

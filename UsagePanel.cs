@@ -1819,31 +1819,31 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// associate a building AI type with its usage type(s) and usage count method(s)
+        /// associate a building AI type with its usage type and usage count method and optional second usage type and usage count method
         /// </summary>
         protected void AssociateBuildingAI<T>(UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null) where T : CommonBuildingAI
         {
-            AssociateBuildingAI(typeof(T), usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
+            AssociateBuildingAICommon(typeof(T), usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
         }
 
         /// <summary>
-        /// associate a building AI type with its usage type(s) and employed/total jobs count method
+        /// associate a building AI type with its usage type and employed/total jobs count method
         /// </summary>
         protected void AssociateBuildingAI<T>(UsageType usageType1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1) where T : CommonBuildingAI
         {
-            AssociateBuildingAI(typeof(T), usageType1, null, employedTotalJobsCountMethod1, null, UsageType.None, null);
+            AssociateBuildingAICommon(typeof(T), usageType1, null, employedTotalJobsCountMethod1, null, UsageType.None, null);
         }
 
         /// <summary>
-        /// associate a building AI type with its usage type(s) and unemployed/eligible count method
+        /// associate a building AI type with its usage type and unemployed/eligible count method
         /// </summary>
         protected void AssociateBuildingAI<T>(UsageType usageType1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1) where T : CommonBuildingAI
         {
-            AssociateBuildingAI(typeof(T), usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
+            AssociateBuildingAICommon(typeof(T), usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
         }
 
         /// <summary>
-        /// associate a building AI type (specified as string) with its usage type(s) and usage count method(s)
+        /// associate a building AI type (specified as string) with its usage type and usage count method and optional second usage type and usage count method
         /// </summary>
         /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
         protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, UsageCountMethod usageCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null)
@@ -1851,25 +1851,25 @@ namespace BuildingUsage
             // if the building AI is valid, associate it
             if (BuildingAIIsValid(buildingAI, out Type type))
             {
-                AssociateBuildingAI(type, usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
+                AssociateBuildingAICommon(type, usageType1, usageCountMethod1, null, null, usageType2, usageCountMethod2);
             }
         }
 
         /// <summary>
-        /// associate a building AI type (specified as string) with its usage type(s) and employed/total jobs count method
+        /// associate a building AI type (specified as string) with its usage type and employed/total jobs count method and optional second usage type and usage count method
         /// </summary>
         /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
-        protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1)
+        protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1, UsageType usageType2 = UsageType.None, UsageCountMethod usageCountMethod2 = null)
         {
             // if the building AI is valid, associate it
             if (BuildingAIIsValid(buildingAI, out Type type))
             {
-                AssociateBuildingAI(type, usageType1, null, employedTotalJobsCountMethod1, null, UsageType.None, null);
+                AssociateBuildingAICommon(type, usageType1, null, employedTotalJobsCountMethod1, null, usageType2, usageCountMethod2);
             }
         }
 
         /// <summary>
-        /// associate a building AI type (specified as string) with its usage type(s) and unemployed/eligible count method
+        /// associate a building AI type (specified as string) with its usage type and unemployed/eligible count method
         /// </summary>
         /// <param name="buildingAI">building AI formatted as:  Namespace.BuildingAIType</param>
         protected void AssociateBuildingAI(string buildingAI, UsageType usageType1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1)
@@ -1877,14 +1877,14 @@ namespace BuildingUsage
             // if the building AI is valid, associate it
             if (BuildingAIIsValid(buildingAI, out Type type))
             {
-                AssociateBuildingAI(type, usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
+                AssociateBuildingAICommon(type, usageType1, null, null, unemployedEligibleCountMethod1, UsageType.None, null);
             }
         }
 
         /// <summary>
         /// return whether or not the building AI is valid, also return the building AI as a Type
         /// </summary>
-        private bool BuildingAIIsValid(string buildingAI, out Type type)
+        public static bool BuildingAIIsValid(string buildingAI, out Type type)
         {
             // initialize output
             type = null;
@@ -1925,7 +1925,7 @@ namespace BuildingUsage
         /// <summary>
         /// associate a building AI type with its usage count, employed/total jobs count, and unemployed/eligible count method(s)
         /// </summary>
-        private void AssociateBuildingAI(Type buildingAIType, 
+        private void AssociateBuildingAICommon(Type buildingAIType, 
             UsageType usageType1, UsageCountMethod usageCountMethod1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1,
             UsageType usageType2, UsageCountMethod usageCountMethod2)
         {
@@ -2182,6 +2182,9 @@ namespace BuildingUsage
             // The logic below is a copy (using ILSpy) of CommonBuildingAI.GetHomeBehaviour.
             // The logic was then simplified to include only the parts for computing household info.
 
+            // determine if this is a nursing home from the Nursing Homes for Senior Citizens mod
+            bool isNursingHome = (data.Info.m_buildingAI.GetType().Name == "NursingHomeAi");
+
             // do each citizen unit in the building
             int unitCounter = 0;
             CitizenManager instance = Singleton<CitizenManager>.instance;
@@ -2208,7 +2211,8 @@ namespace BuildingUsage
                                 aliveCount++;
 
                                 // count unemployed by education level
-                                if (citizen.Unemployed != 0)
+                                // exclude residents of nursing home who should never be unemployed but are sometimes marked as unemployed
+                                if (citizen.Unemployed != 0 && !isNursingHome)
                                 {
                                     switch (instance.m_citizens.m_buffer[citizenID].EducationLevel)
                                     {
@@ -2256,6 +2260,18 @@ namespace BuildingUsage
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// in the nursing home building (from the Nursing Homes for Senior Citizens mod), return the number of households used and allowed
+        /// </summary>
+        protected void GetUsageCountHouseholdsNursingHome(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        {
+            // do normal household count logic, but ignore unemployed and eligible return values
+            EducationLevelCount unemployed = new EducationLevelCount();
+            EducationLevelCount eligible   = new EducationLevelCount();
+            int nothing = 0;
+            GetUsageCountHouseholds(buildingID, ref data, ref used, ref allowed, ref unemployed, ref eligible, ref nothing);
         }
 
         /// <summary>
@@ -2376,6 +2392,41 @@ namespace BuildingUsage
 
             Debug.LogError($"Unhandled building AI type [{data.Info.m_buildingAI.GetType().ToString()}] while trying to get park type.");
             return DistrictPark.ParkType.None;
+        }
+
+        /// <summary>
+        /// in a nursing home building (from the Nursing Homes for Senior Citizens mod):
+        ///     return the number of workers used and allowed 
+        ///     return the number of citizens employed and the total number of jobs
+        /// </summary>
+        protected void GetUsageCountWorkersNursingHome(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
+        {
+            // CitizenManager must be initialized
+            if (!Singleton<CitizenManager>.exists)
+            {
+                return;
+            }
+
+            // get the workers employed
+            GetWorkersEmployed(ref data, ref employed);
+
+            // workers used is sum of employed
+            used = employed.level0 + employed.level1 + employed.level2 + employed.level3;
+
+            // get the BuildingAI stored with the building
+            BuildingAI buildingAI = data.Info.m_buildingAI;
+            if (buildingAI != null)
+            {
+                // get the number of workers at each education level
+                Type buildingAIType = buildingAI.GetType();
+                totalJobs.level0 = (int)buildingAIType.GetField("numUneducatedWorkers"    ).GetValue(buildingAI);
+                totalJobs.level1 = (int)buildingAIType.GetField("numEducatedWorkers"      ).GetValue(buildingAI);
+                totalJobs.level2 = (int)buildingAIType.GetField("numWellEducatedWorkers"  ).GetValue(buildingAI);
+                totalJobs.level3 = (int)buildingAIType.GetField("numHighlyEducatedWorkers").GetValue(buildingAI);
+
+                // the number of workers allowed is the sum of the workers at each education level
+                allowed = totalJobs.level0 + totalJobs.level1 + totalJobs.level2 + totalJobs.level3;
+            }
         }
 
         /// <summary>

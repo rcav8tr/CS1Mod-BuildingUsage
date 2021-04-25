@@ -152,6 +152,11 @@ namespace BuildingUsage
                 AssociateBuildingAI<PrivateAirportAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<PrivateAirportAI          >);
                 AssociateBuildingAI<ChirpwickCastleAI                     >(UsageType.WorkersUnique,         GetUsageCountWorkersService<ChirpwickCastleAI         >);
 
+                // associate nursing home building AI type with its usage type(s) and usage count routine(s)
+                // associate building AI even if corresponding mod is not installed (there will simply be no buildings with that AI)
+                AssociateBuildingAI("SeniorCitizenCenterMod.NursingHomeAi", UsageType.WorkersMedical,        GetUsageCountWorkersNursingHome,
+                                                                            UsageType.HouseholdsResidential, GetUsageCountHouseholdsNursingHome);
+
                 // get the last usage group
                 UsageGroup lastUsageGroup = null;
                 foreach (UsageGroup usageGroup in _usageGroups.Values)

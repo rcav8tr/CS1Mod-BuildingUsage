@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using System;
 
 namespace BuildingUsage
 {
@@ -161,6 +162,7 @@ namespace BuildingUsage
         //    MuseumAI                     WV-- The Technology Museum CA, The Art Gallery CA, The Science Center CA
         //    PrivateAirportAI             WV-V Aviation Club SH (Level 5 Unique)
         //    VarsitySportsArenaAI      GC WV-- Aquatics Center CA, Basketball Arena CA, Track And Field Stadium CA, Baseball Park CA, American Football Stadium CA
+        // NursingHomeAi                GC W--- Nursing Home from the Nursing Homes for Senior Citizens mod has both residents and workers
         // ParkAI                       GC -V-- Parks:  Small Park BG, Small Playground BG, Park With Trees BG, Large Playground BG, Bouncy Castle Park BG, Botanical Garden BG,
         //                                              Dog Park BG, Carousel Park BG, Japanese Garden BG, Tropical Garden BG, Fishing Island BG, Floating Cafe BG,
         //                                              Snowmobile Track AD+SF, Winter Fishing Pier AD+SF, Ice Hockey Rink AD+SF
@@ -289,6 +291,8 @@ namespace BuildingUsage
             if (!CreateGetColorPatch<WaterFacilityAI             >()) return false;
             if (!CreateGetColorPatch<WeatherRadarAI              >()) return false;
 
+            if (!CreateGetColorPatchNursingHome()) return false;
+
             // success
             return true;
         }
@@ -299,7 +303,23 @@ namespace BuildingUsage
         private static bool CreateGetColorPatch<T>() where T : CommonBuildingAI
         {
             // same routine is used for all building AI types
-            return HarmonyPatcher.CreatePrefixPatch<T>("GetColor", BindingFlags.Instance | BindingFlags.Public, typeof(BuildingAIPatch), "BuildingAIGetColor");
+            return HarmonyPatcher.CreatePrefixPatch(typeof(T), "GetColor", BindingFlags.Instance | BindingFlags.Public, typeof(BuildingAIPatch), "BuildingAIGetColor");
+        }
+
+        /// <summary>
+        /// create a patch of the GetColor method for the nursing building AI type from the Nursing Homes for Senior Citizens mod
+        /// </summary>
+        private static bool CreateGetColorPatchNursingHome()
+        {
+            // if the building AI is valid, patch it
+            if (UsagePanel.BuildingAIIsValid("SeniorCitizenCenterMod.NursingHomeAi", out Type type))
+            {
+                // same routine is used for all building AI types
+                return HarmonyPatcher.CreatePrefixPatch(type, "GetColor", BindingFlags.Instance | BindingFlags.Public, typeof(BuildingAIPatch), "BuildingAIGetColorNursingHome");
+            }
+
+            // invalid building AI is not an error, it just means the mod is not subscribed
+            return true;
         }
 
         /// <summary>
@@ -343,6 +363,18 @@ namespace BuildingUsage
 
             // return whether or not to do the base processing
             return doBaseProcessing;
+        }
+
+        /// <summary>
+        /// return the color of the nursing home building
+        /// this separate routine is required because the Harmony patcher requires the capitalization of the parameters to exactly match the original routine
+        /// and the capitalization of "buildingId" in SeniorCitizenCenterMod.NursingHomeAi.GetColor is different than all the other GetColor routines
+        /// </summary>
+        /// <returns>whether or not to do base processing</returns>
+        public static bool BuildingAIGetColorNursingHome(ushort buildingId, ref Building data, InfoManager.InfoMode infoMode, ref Color __result)
+        {
+            // simply call the main routine
+            return BuildingAIGetColor(buildingId, ref data, infoMode, ref __result);
         }
     }
 }

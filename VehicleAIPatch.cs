@@ -137,7 +137,7 @@ namespace BuildingUsage
         private static bool CreateGetColorPatch<T>() where T : VehicleAI
         {
             // same routine is used for all vehicle AI types
-            return HarmonyPatcher.CreatePrefixPatchVehicleAI<T>("GetColor", typeof(VehicleAIPatch), "VehicleAIGetColor");
+            return HarmonyPatcher.CreatePrefixPatchVehicleAI(typeof(T), "GetColor", typeof(VehicleAIPatch), "VehicleAIGetColor");
         }
 
         /// <summary>
