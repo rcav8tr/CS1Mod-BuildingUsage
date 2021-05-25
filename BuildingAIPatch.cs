@@ -39,6 +39,8 @@ namespace BuildingUsage
         // UC = University City         05/21/19 ModderPack4 - no unique buildings, "adds 36 low-density residential buildings, 32 low-density commercial buildings, and 15 props"
         // MC = Modern City Center      11/07/19 ModderPack5 - no unique buildings, new style, "adds 39 unique models featuring new modern commercial wall-to-wall buildings"
         // MJ = Modern Japan            03/26/20 ModderPack6
+        // TS = Train Stations          05/21/21 ModderPack7
+        // BP = Bridges & Piers         05/21/21 ModderPack8
 
 
 
@@ -85,11 +87,18 @@ namespace BuildingUsage
         // DepotAI                      GC W--U Bus Depot BG, Biofuel Bus Depot GC, Trolleybus Depot SH, Tram Depot SF, Ferry Depot MT, Helicopter Depot SH, Blimp Depot MT, Sightseeing Bus Depot PL
         //    CableCarStationAI            W--U Cable Car Stop MT, End-of-Line Cable Car Stop MT
         //    TransportStationAI           W--- Bus Station AD, Helicopter Stop SH, Blimp Stop MT
-        //    TransportStationAI           W--U Intercity Bus Station SH, Intercity Bus Terminal SH, Metro Station BG, Elevated Metro Station BG, Underground Metro Station BG, 
-        //                                      Train Station BG, Airport BG, Monorail Station MT, Monorail Station with Road MT, 
+        //    TransportStationAI           W--U Intercity Bus Station SH, Intercity Bus Terminal SH,
+        //                                      Metro Station BG, Elevated Metro Station BG, Underground Metro Station BG, Metro Plaza Station TS (aka H_Hub02_A),
+        //                                      Sunken Island Platform Metro Station TS, Sunken Dual Island Platform Metro Station TS, Sunken Bypass Metro Station TS,
+        //                                      Elevated Island Platform Metro Station TS, Elevated Dual Island Platform Metro Station TS, Elevated Bypass Metro Station TS,
+        //                                      Train Station BG, Crossover Train Station Hub TS (aka H_Hub03), Old Market Station TS (aka H_Hub04),
+        //                                      Ground Island Platform Train Station TS, Ground Dual Island Platform Train Station TS, Ground Bypass Train Station TS,
+        //                                      Elevated Island Platform Train Station TS, Elevated Dual Island Platform Train Station TS, Elevated Bypass Train Station TS,
+        //                                      Airport BG, Monorail Station MT, Monorail Station with Road MT, 
         //                                      Bus-Intercity Bus Hub SH (aka Transport Hub 02 A), Bus-Metro Hub SH (aka Transport Hub 05 A), Metro-Intercity Bus Hub SH (aka Transport Hub 01 A),
-        //                                      Train-Metro Hub SH (aka Transport Hub 03 A), Multiplatform End Station MT, Multiplatform Train Station MT,
-        //                                      International Airport AD, Metropolitan Airport SH (aka Transport Hub 04 A), Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT
+        //                                      Train-Metro Hub SH (aka Transport Hub 03 A), Glass Box Transport Hub TS (aka H_Hub01), Multiplatform End Station MT, Multiplatform Train Station MT,
+        //                                      International Airport AD, Metropolitan Airport SH (aka Transport Hub 04 A),
+        //                                      Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT,
         //       HarborAI                  W--- Ferry Stop MT, Ferry Pier MT, Ferry and Bus Exchange Stop MT
         //       HarborAI                  W--U Harbor BG
         // DisasterResponseBuildingAI   GC W--V Disaster Response Unit ND
@@ -170,7 +179,7 @@ namespace BuildingUsage
         //                                      Other Parks:        Basketball Court BG, Tennis Court BG
         //                                      Tourism & Leisure:  Fishing Pier AD, Fishing Tours AD, Jet Ski Rental AD, Marina AD, Restaurant Pier AD, Beach Volleyball Court AD, Riding Stable AD, Skatepark AD
         //                                      Winter Parks:       Snowman Park SF, Ice Sculpture Park SF, Sledding Hill SF, Curling Park SF, Skating Rink SF, Ski Lodge SF, Cross-Country Skiing Park SF, Firepit Park SF
-        //                                      Content Creator:    Biodome HT, Vertical Farm HT
+        //                                      Content Creator:    Seine Pier BP, Rhine Pier BP, Biodome HT, Vertical Farm HT
         //    EdenProjectAI                -V-- Eden Project BG (monument)
         // ParkBuildingAI               GC WV-- Only Amusement Park and Zoo have workers.
         //                                      City Park:       PL: Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2

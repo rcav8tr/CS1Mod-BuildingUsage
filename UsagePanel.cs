@@ -1898,22 +1898,19 @@ namespace BuildingUsage
                 Type tempType = assembly.GetType(buildingAI, false);
                 if (tempType != null)
                 {
-                    // check if the type derives from CommonBuildingAI
-                    Type baseType = tempType.BaseType;
-                    while (baseType != null)
+                    // type must derive from CommonBuildingAI
+                    if (tempType.IsSubclassOf(typeof(CommonBuildingAI)))
                     {
-                        if (baseType == typeof(CommonBuildingAI))
-                        {
-                            // derives from CommonBuildingAI, string BuildingAI is valid
-                            type = tempType;
-                            return true;
-                        }
-                        baseType = baseType.BaseType;
+                        // string BuildingAI is valid
+                        type = tempType;
+                        return true;
                     }
-
-                    // if got here, then string building AI was found, but it is not valid
-                    Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
-                    return false;
+                    else
+                    {
+                        // string building AI was found, but it is not valid
+                        Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
+                        return false;
+                    }
                 }
             }
 
@@ -3854,14 +3851,30 @@ namespace BuildingUsage
         //                                  Metro Station                   MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Metro Station          MetroTrain          null                                    Metro                   Metro
         //                                  Underground Metro Station       MetroTrain          null                                    Metro                   Metro
-        //                                  Train Station                   PassengerTrain      null                                    TrainPeople             Train
-        //                                  Airport                         PassengerPlane      null                                    AirPeople               Air
+        //                                  Metro Plaza Station             MetroTrain          null                                    Metro                   Metro
+        //                      Sunken Island Platform Metro Station        MetroTrain          null                                    Metro                   Metro
+        //                      Sunken Dual Island Platform Metro Station   MetroTrain          null                                    Metro                   Metro
+        //                      Sunken Bypass Metro Station                 MetroTrain          null                                    Metro                   Metro
+        //                      Elevated Island Platform Metro Station      MetroTrain          null                                    Metro                   Metro
+        //                      Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
+        //                      Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
+        //                                  Train Station                   PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Crossover Train Station Hub     PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Old Market Station              PassengerTrain      null                No                  TrainPeople             Train
+        //                      Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             Train
+        //                      Ground Dual Island Platform Train Station   PassengerTrain      null                No                  TrainPeople             Train
+        //                      Ground Bypass Train Station                 PassengerTrain      null                No                  TrainPeople             Train
+        //                      Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             Train
+        //                      Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             Train
+        //                      Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Airport                         PassengerPlane      null                No                  AirPeople               Air
         //                                  Monorail Station                Monorail            null                                    Monorail                Monorail
         //                                  Monorail Station with Road      Monorail            null                                    Monorail                Monorail
         //                                  Bus-Intercity Bus Hub           Bus                 IntercityBus                            Hubs                    Hubs
         //                                  Bus-Metro Hub                   Bus                 null                Yes                 Hubs                    Hubs
         //                                  Metro-Intercity Bus Hub         IntercityBus        MetroTrain          Yes                 Hubs                    Hubs
         //                                  Train-Metro Hub                 PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  Glass Box Transport Hub         PassengerTrain      null                Yes                 Hubs                    Hubs
         //                                  Multiplatform End Station       PassengerTrain      null                Yes                 Hubs                    Hubs
         //                                  Multiplatform Train Station     PassengerTrain      null                Yes                 Hubs                    Hubs
         //                                  International Airport           PassengerPlane      null                Yes                 Hubs                    Hubs
@@ -4168,8 +4181,10 @@ namespace BuildingUsage
             //                                      Cross-Country Skiing Park               BeautificationExpansion2    WinterParks
             //                                      Firepit Park                            BeautificationExpansion2    WinterParks
             //                                  Content Creator:
-            //                                      Biodome                                 MonumentModderPack          ModderPacks
-            //                                      Vertical Farm                           MonumentModderPack          ModderPacks
+            //                                      Seine Pier                              MonumentModderPack          ContentCreator
+            //                                      Rhine Pier                              MonumentModderPack          ContentCreator
+            //                                      Biodome                                 MonumentModderPack          ContentCreator
+            //                                      Vertical Farm                           MonumentModderPack          ContentCreator
 
             // usage type depends on category
             switch (category)
@@ -4180,6 +4195,7 @@ namespace BuildingUsage
                 case "BeautificationExpansion1":    return UsageType.VisitorsParksPlazasTourismLeisure;
                 case "BeautificationExpansion2":    return UsageType.VisitorsParksPlazasWinterkParks;
                 case "MonumentModderPack":          return UsageType.VisitorsParksPlazasContentCreator;
+                case "Default":                     return UsageType.None;      // the Train Stations CCP has one subbuilding with this category, so ignore this category
                 default:
                     Debug.LogError($"Unhandled building category [{category}] when determining usage type for building [{name}].");
                     return UsageType.None;
