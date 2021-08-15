@@ -32,6 +32,7 @@ namespace BuildingUsage
                 if (!BuildingAIPatch.CreateGetColorPatches()) return false;
                 if (!VehicleAIPatch.CreateGetColorPatches()) return false;
                 if (!LevelsInfoViewPanelPatch.CreateUpdatePanelPatch()) return false;
+                if (!DistrictPatch.CreateSimulationStepPatch()) return false;
             }
             catch (Exception ex)
             {

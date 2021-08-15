@@ -78,6 +78,14 @@ namespace BuildingUsage
                     // Levels tab is selected by default
                     BuildingUsage.selectedTab = BuildingUsage.LevelsInfoViewTab.Levels;
 
+                    // add the levels detail panel to the Levels panel
+                    BuildingUsage.levelsDetailPanel = (LevelsDetailPanel)levelsPanel.component.AddUIComponent(typeof(LevelsDetailPanel));
+                    if (BuildingUsage.levelsDetailPanel == null)
+                    {
+                        Debug.LogError("Unable to create LevelsDetailPanel.");
+                        return;
+                    }
+
                     // add the main usage panels to the Levels panel
                     BuildingUsage.workersUsagePanel  = UsagePanel.AddUsagePanel<WorkersUsagePanel >();
                     BuildingUsage.visitorsUsagePanel = UsagePanel.AddUsagePanel<VisitorsUsagePanel>();
@@ -171,8 +179,8 @@ namespace BuildingUsage
             // loop thru each component on the Levels panel
             foreach (UIComponent comp in levelsPanel.component.components)
             {
-                // set the visiblity on the four "Panel"s and the "Legend"
-                if (comp.name == "Panel" || comp.name == "Legend")
+                // set the visiblity on the four "Panel"s, the "Legend", and the detail panel
+                if (comp.name == "Panel" || comp.name == "Legend" || comp.name == typeof(LevelsDetailPanel).Name)
                 {
                     comp.isVisible = visible;
                 }
@@ -209,6 +217,11 @@ namespace BuildingUsage
                 // destroy the objects added directly to the LevelsInfoViewPanel
                 // must do this explicitly because loading a saved game from the Pause Menu
                 // does not destroy the objects implicitly like returning to the Main Menu to load a saved game
+                if (BuildingUsage.levelsDetailPanel != null)
+                {
+                    UnityEngine.Object.Destroy(BuildingUsage.levelsDetailPanel);
+                    BuildingUsage.levelsDetailPanel = null;
+                }
                 if (BuildingUsage.workersUsagePanel != null)
                 {
                     UnityEngine.Object.Destroy(BuildingUsage.workersUsagePanel);
@@ -231,7 +244,6 @@ namespace BuildingUsage
                 }
                 if (BuildingUsage.tabStrip != null)
                 {
-                    BuildingUsage.tabStrip.eventSelectedIndexChanged -= TabStrip_eventSelectedIndexChanged;
                     UnityEngine.Object.Destroy(BuildingUsage.tabStrip);
                     BuildingUsage.tabStrip = null;
                 }

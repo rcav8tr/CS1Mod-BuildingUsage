@@ -27,6 +27,7 @@ namespace BuildingUsage
 
         // instances of main display objects
         public static UITabstrip tabStrip = null;
+        public static LevelsDetailPanel  levelsDetailPanel  = null;
         public static WorkersUsagePanel  workersUsagePanel  = null;
         public static VisitorsUsagePanel visitorsUsagePanel = null;
         public static StorageUsagePanel  storageUsagePanel  = null;

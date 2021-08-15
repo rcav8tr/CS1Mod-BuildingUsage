@@ -43,6 +43,7 @@ namespace BuildingUsage
                         _usageCountsInitialized = true;
                     }
                     doBaseProcessing = true;
+                    BuildingUsage.levelsDetailPanel.UpdatePanel();
                     break;
 
                 case BuildingUsage.LevelsInfoViewTab.Workers:

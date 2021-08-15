@@ -68,7 +68,9 @@
     <Compile Include="BuildingUsage.cs" />
     <Compile Include="BuildingUsageBuilding.cs" />
     <Compile Include="BuildingUsageConfig.cs" />
+    <Compile Include="DistrictPatch.cs" />
     <Compile Include="HarmonyPatcher.cs" />
+    <Compile Include="LevelsDetailPanel.cs" />
     <Compile Include="LevelsInfoViewPanelPatch.cs" />
     <Compile Include="StorageIndustryUsagePanel.cs" />
     <Compile Include="VehiclesIndustryUsagePanel.cs" />
