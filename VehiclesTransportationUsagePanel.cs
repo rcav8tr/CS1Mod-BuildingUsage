@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
 
@@ -169,9 +168,9 @@ namespace BuildingUsage
                 }
 
                 // get source building of first vehicle
-                Vehicle firstVehicleData = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[firstVehicle];
+                Vehicle firstVehicleData = VehicleManager.instance.m_vehicles.m_buffer[firstVehicle];
                 ushort buildingID = firstVehicleData.m_sourceBuilding;
-                Building buildingData = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
+                Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
                 Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
 
                 // ignore vehicle from outside connection

@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using ColossalFramework.UI;
+﻿using ColossalFramework.UI;
 using ColossalFramework.Globalization;
 using ColossalFramework.Math;
 using UnityEngine;
@@ -914,7 +913,7 @@ namespace BuildingUsage
             if (!_hadronColliderDetected)
             {
                 _hadronColliderBuilt = false;
-                Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+                Building[] buffer = BuildingManager.instance.m_buildings.m_buffer;
                 for (ushort buildingID = 1; buildingID < buffer.Length; buildingID++)
                 {
                     Building building = buffer[buildingID];
@@ -942,26 +941,15 @@ namespace BuildingUsage
                 // finish the initialization
                 if (!_initialized)
                 {
-                    if (!Singleton<LoadingManager>.exists)
-                    {
-                        return;
-                    }
-                    if (!Singleton<LoadingManager>.instance.m_loadingComplete)
-                    {
-                        return;
-                    }
-                    if (!Singleton<ZoneManager>.exists)
-                    {
-                        return;
-                    }
-                    if (!Singleton<InfoManager>.exists)
+                    // managers ust exist
+                    if (!LoadingManager.exists || !LoadingManager.instance.m_loadingComplete || !ZoneManager.exists || !InfoManager.exists)
                     {
                         return;
                     }
 
                     // do each usage group
-                    Color neutralColor = Singleton<InfoManager>.instance.m_properties.m_neutralColor;
-                    Color[] zoneColors = Singleton<ZoneManager>.instance.m_properties.m_zoneColors;
+                    Color neutralColor = InfoManager.instance.m_properties.m_neutralColor;
+                    Color[] zoneColors = ZoneManager.instance.m_properties.m_zoneColors;
                     foreach (KeyValuePair<UsageType, UsageGroup> entry in _usageGroups)
                     {
                         // get the usage group
@@ -997,7 +985,7 @@ namespace BuildingUsage
                             // 100 percent color is half of the brightness of the garbage info mode active color
                             // 0 percent color is 25% between neutral and the 100 percent color
                             default:
-                                usageGroup.color1 = Singleton<InfoManager>.instance.m_properties.m_modeProperties[(int)InfoManager.InfoMode.Garbage].m_activeColor * 0.5f;
+                                usageGroup.color1 = InfoManager.instance.m_properties.m_modeProperties[(int)InfoManager.InfoMode.Garbage].m_activeColor * 0.5f;
                                 usageGroup.color0 = Color.Lerp(neutralColor, usageGroup.color1, 0.25f);
                                 break;
                         }
@@ -1952,7 +1940,7 @@ namespace BuildingUsage
         public void InitializeBuildingUsageCounts()
         {
             // loop over every building
-            BuildingManager instance = Singleton<BuildingManager>.instance;
+            BuildingManager instance = BuildingManager.instance;
             ushort numBuildings = (ushort)instance.m_buildings.m_buffer.Length;
             for (ushort buildingID = 0; buildingID < numBuildings; buildingID++)
             {
@@ -2126,7 +2114,7 @@ namespace BuildingUsage
                     usageGroup.usageCounts.Remove(buildingID);
 
                     // check if removed building is Hadron Collider
-                    BuildingManager instance = Singleton<BuildingManager>.instance;
+                    BuildingManager instance = BuildingManager.instance;
                     Building building = instance.m_buildings.m_buffer[buildingID];
                     if (building.Info != null && building.Info.m_buildingAI != null && building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI))
                     {
@@ -2162,7 +2150,7 @@ namespace BuildingUsage
         protected void GetUsageCountHouseholds(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount unemployed, ref EducationLevelCount eligible, ref int nothing)
         {
             // CitizenManager must be initialized
-            if (!Singleton<CitizenManager>.exists)
+            if (!CitizenManager.exists)
             {
                 return;
             }
@@ -2184,7 +2172,8 @@ namespace BuildingUsage
 
             // do each citizen unit in the building
             int unitCounter = 0;
-            CitizenManager instance = Singleton<CitizenManager>.instance;
+            CitizenManager instance = CitizenManager.instance;
+            uint maximumCitizenUnits = instance.m_units.m_size;
             uint citizenUnitID = data.m_citizenUnits;
             while (citizenUnitID != 0)
             {
@@ -2251,7 +2240,7 @@ namespace BuildingUsage
                 citizenUnitID = citizenUnit.m_nextUnit;
 
                 // check for error (e.g. circular reference)
-                if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
+                if (++unitCounter > maximumCitizenUnits)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -2279,7 +2268,7 @@ namespace BuildingUsage
         protected void GetUsageCountWorkersZoned(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
         {
             // CitizenManager must be initialized
-            if (!Singleton<CitizenManager>.exists)
+            if (!CitizenManager.exists)
             {
                 return;
             }
@@ -2316,7 +2305,7 @@ namespace BuildingUsage
         protected void GetUsageCountWorkersPark(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
         {
             // CitizenManager must be initialized
-            if (!Singleton<CitizenManager>.exists)
+            if (!CitizenManager.exists)
             {
                 return;
             }
@@ -2329,7 +2318,8 @@ namespace BuildingUsage
             {
                 // get workers used
                 int citizenCounter = 0;
-                CitizenManager instance = Singleton<CitizenManager>.instance;
+                CitizenManager instance = CitizenManager.instance;
+                uint maximumCitizenUnits = instance.m_units.m_size;
                 uint citizen = data.m_sourceCitizens;
                 while (citizen != 0)
                 {
@@ -2351,7 +2341,7 @@ namespace BuildingUsage
                     citizen = instance.m_instances.m_buffer[citizen].m_nextSourceInstance;
 
                     // check for error (e.g. circular reference)
-                    if (++citizenCounter > CitizenManager.MAX_INSTANCE_COUNT)
+                    if (++citizenCounter > maximumCitizenUnits)
                     {
                         Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                         break;
@@ -2399,7 +2389,7 @@ namespace BuildingUsage
         protected void GetUsageCountWorkersNursingHome(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
         {
             // CitizenManager must be initialized
-            if (!Singleton<CitizenManager>.exists)
+            if (!CitizenManager.exists)
             {
                 return;
             }
@@ -2434,7 +2424,7 @@ namespace BuildingUsage
         protected void GetUsageCountWorkersService<T>(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs) where T : PlayerBuildingAI
         {
             // CitizenManager must be initialized
-            if (!Singleton<CitizenManager>.exists)
+            if (!CitizenManager.exists)
             {
                 return;
             }
@@ -2495,7 +2485,8 @@ namespace BuildingUsage
 
             // do each citizen unit in the building
             int unitCounter = 0;
-            CitizenManager instance = Singleton<CitizenManager>.instance;
+            CitizenManager instance = CitizenManager.instance;
+            uint maximumCitizenUnits = instance.m_units.m_size;
             uint citizenUnitID = data.m_citizenUnits;
             while (citizenUnitID != 0)
             {
@@ -2531,7 +2522,7 @@ namespace BuildingUsage
                 citizenUnitID = citizenUnit.m_nextUnit;
 
                 // check for error (e.g. circular reference)
-                if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
+                if (++unitCounter > maximumCitizenUnits)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -2582,7 +2573,7 @@ namespace BuildingUsage
             // logic adapted from ChildcareAI.GetVisitorCount
             used = data.m_customBuffer1;
             ChildcareAI buildingAI = data.Info.m_buildingAI as ChildcareAI;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = Mathf.Min((productionRate * buildingAI.PatientCapacity + 99) / 100, buildingAI.PatientCapacity * 5 / 4);
         }
@@ -2596,7 +2587,7 @@ namespace BuildingUsage
             // logic adapted from EldercareAI.GetVisitorCount
             used = data.m_customBuffer1;
             EldercareAI buildingAI = data.Info.m_buildingAI as EldercareAI;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = Mathf.Min((productionRate * buildingAI.PatientCapacity + 99) / 100, buildingAI.PatientCapacity * 5 / 4);
         }
@@ -2671,7 +2662,7 @@ namespace BuildingUsage
             // logic adapted from SchoolAI.GetStudentCount
             used = data.m_customBuffer1;
             T buildingAI = data.Info.m_buildingAI as T;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = Mathf.Min((productionRate * buildingAI.StudentCount + 99) / 100, buildingAI.StudentCount * 5 / 4);
         }
@@ -2685,7 +2676,7 @@ namespace BuildingUsage
             // logic adapted from LibraryAI.GetVisitorCount
             used = data.m_customBuffer1;
             LibraryAI buildingAI = data.Info.m_buildingAI as LibraryAI;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = Mathf.Min((productionRate * buildingAI.VisitorCount + 99) / 100, buildingAI.VisitorCount * 5 / 4);
         }
@@ -2698,7 +2689,8 @@ namespace BuildingUsage
         {
             // get citizens "visiting" the building
             int unitCounter = 0;
-            CitizenManager instance = Singleton<CitizenManager>.instance;
+            CitizenManager instance = CitizenManager.instance;
+            uint maximumCitizenUnits = instance.m_units.m_size;
             uint citizenUnit = data.m_citizenUnits;
             while (citizenUnit != 0)
             {
@@ -2725,7 +2717,7 @@ namespace BuildingUsage
                 citizenUnit = instance.m_units.m_buffer[citizenUnit].m_nextUnit;
 
                 // check for error (e.g. circular reference)
-                if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
+                if (++unitCounter > maximumCitizenUnits)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -2792,7 +2784,8 @@ namespace BuildingUsage
         {
             // get citizens "visiting" the building
             int unitCounter = 0;
-            CitizenManager instance = Singleton<CitizenManager>.instance;
+            CitizenManager instance = CitizenManager.instance;
+            uint maximumCitizenUnits = instance.m_units.m_size;
             uint citizenUnit = data.m_citizenUnits;
             while (citizenUnit != 0)
             {
@@ -2813,7 +2806,7 @@ namespace BuildingUsage
                 citizenUnit = instance.m_units.m_buffer[citizenUnit].m_nextUnit;
 
                 // check for error (e.g. circular reference)
-                if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
+                if (++unitCounter > maximumCitizenUnits)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -2828,7 +2821,8 @@ namespace BuildingUsage
         {
             // get citizens "visiting" the building
             int unitCounter = 0;
-            CitizenManager instance = Singleton<CitizenManager>.instance;
+            CitizenManager instance = CitizenManager.instance;
+            uint maximumCitizenUnits = instance.m_units.m_size;
             uint citizenUnit = data.m_citizenUnits;
             while (citizenUnit != 0)
             {
@@ -2849,7 +2843,7 @@ namespace BuildingUsage
                 citizenUnit = instance.m_units.m_buffer[citizenUnit].m_nextUnit;
 
                 // check for error (e.g. circular reference)
-                if (++unitCounter > CitizenManager.MAX_UNIT_COUNT)
+                if (++unitCounter > maximumCitizenUnits)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -3136,7 +3130,7 @@ namespace BuildingUsage
             int allowed = buildingAI.m_mailCapacity;
 
             // check for district modifier
-            DistrictManager instance = Singleton<DistrictManager>.instance;
+            DistrictManager instance = DistrictManager.instance;
             byte district = instance.GetDistrict(data.m_position);
             DistrictPolicies.Services servicePolicies = instance.m_districts.m_buffer[district].m_servicePolicies;
             if ((servicePolicies & DistrictPolicies.Services.AutomatedSorting) != 0)
@@ -3180,13 +3174,13 @@ namespace BuildingUsage
 
             // get production rate
             MaintenanceDepotAI buildingAI = data.Info.m_buildingAI as MaintenanceDepotAI;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
             // check for park maintenance boost
             if (transferReason == TransferManager.TransferReason.ParkMaintenance)
             {
-                DistrictManager instance = Singleton<DistrictManager>.instance;
+                DistrictManager instance = DistrictManager.instance;
                 byte district = instance.GetDistrict(data.m_position);
                 DistrictPolicies.Services servicePolicies = instance.m_districts.m_buffer[district].m_servicePolicies;
                 if ((servicePolicies & DistrictPolicies.Services.ParkMaintenanceBoost) != 0)
@@ -3326,7 +3320,7 @@ namespace BuildingUsage
             // compute vehicles allowed
             // cannot use CalculateAllowedVehicles because AmbulanceCount includes a bonus modifier
             T buildingAI = data.Info.m_buildingAI as T;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = (productionRate * buildingAI.AmbulanceCount + 99) / 100;
         }
@@ -3442,7 +3436,7 @@ namespace BuildingUsage
             // compute vehicles allowed
             // cannot use CalculateAllowedVehicles because PoliceCarCount includes a bonus modifier
             PoliceStationAI buildingAI = data.Info.m_buildingAI as PoliceStationAI;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = (productionRate * buildingAI.PoliceCarCount + 99) / 100;
         }
@@ -3480,7 +3474,7 @@ namespace BuildingUsage
             allowed = ((data.m_flags & (Building.Flags.Evacuating | Building.Flags.Active)) == Building.Flags.Active) ? buildingAI.m_vehicleCount : 0;
 
             // check for policy modifier
-            DistrictManager instance = Singleton<DistrictManager>.instance;
+            DistrictManager instance = DistrictManager.instance;
             byte district = instance.GetDistrict(data.m_position);
             DistrictPolicies.CityPlanning cityPlanningPolicies = instance.m_districts.m_buffer[district].m_cityPlanningPolicies;
             if ((cityPlanningPolicies & DistrictPolicies.CityPlanning.AirplaneTours) != 0)
@@ -3527,8 +3521,8 @@ namespace BuildingUsage
             if (buildingAI.m_supportEvents == EventManager.EventType.RocketLaunch)
             {
                 // if rocket is ready to launch, then used is 1
-                ushort currentEventID = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].m_eventIndex;
-                EventData eventData = Singleton<EventManager>.instance.m_events.m_buffer[currentEventID];
+                ushort currentEventID = BuildingManager.instance.m_buildings.m_buffer[buildingID].m_eventIndex;
+                EventData eventData = EventManager.instance.m_events.m_buffer[currentEventID];
                 if ((eventData.m_flags & EventData.Flags.Ready) != 0)
                 {
                     used = 1;
@@ -3562,7 +3556,8 @@ namespace BuildingUsage
 
             // do each vehicle owned by the building
             int vehicleCounter = 0;
-            VehicleManager instance = Singleton<VehicleManager>.instance;
+            VehicleManager instance = VehicleManager.instance;
+            uint maximumVehicles = instance.m_vehicles.m_size;
             ushort vehicleID = data.m_ownVehicles;
             while (vehicleID != 0)
             {
@@ -3573,7 +3568,7 @@ namespace BuildingUsage
                 vehicleID = instance.m_vehicles.m_buffer[vehicleID].m_nextOwnVehicle;
 
                 // check for error (e.g. circular reference)
-                if (++vehicleCounter > VehicleManager.MAX_VEHICLE_COUNT)
+                if (++vehicleCounter > maximumVehicles)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -3591,7 +3586,8 @@ namespace BuildingUsage
 
             // do each vehicle owned by the building
             int vehicleCounter = 0;
-            VehicleManager instance = Singleton<VehicleManager>.instance;
+            VehicleManager instance = VehicleManager.instance;
+            uint maximumVehicles = instance.m_vehicles.m_size;
             ushort vehicleID = data.m_ownVehicles;
             while (vehicleID != 0)
             {
@@ -3605,7 +3601,7 @@ namespace BuildingUsage
                 vehicleID = instance.m_vehicles.m_buffer[vehicleID].m_nextOwnVehicle;
 
                 // check for error (e.g. circular reference)
-                if (++vehicleCounter > VehicleManager.MAX_VEHICLE_COUNT)
+                if (++vehicleCounter > maximumVehicles)
                 {
                     Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
@@ -3625,7 +3621,7 @@ namespace BuildingUsage
 
             // compute vehicles allowed
             T buildingAI = data.Info.m_buildingAI as T;
-            int budget = Singleton<EconomyManager>.instance.GetBudget(buildingAI.m_info.m_class);
+            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed += (productionRate * (int)typeof(T).GetField(vehicleCountFieldName).GetValue(buildingAI) + 99) / 100;
         }
@@ -3652,7 +3648,7 @@ namespace BuildingUsage
             }
 
             // get neutral color
-            Color neutralColor = Singleton<InfoManager>.instance.m_properties.m_neutralColor;
+            Color neutralColor = InfoManager.instance.m_properties.m_neutralColor;
 
             try
             {
@@ -3817,7 +3813,7 @@ namespace BuildingUsage
             }
 
             // for any vehicle AI not handled above, use neutral color
-            return Singleton<InfoManager>.instance.m_properties.m_neutralColor;
+            return InfoManager.instance.m_properties.m_neutralColor;
         }
         #endregion
 
@@ -4338,7 +4334,7 @@ namespace BuildingUsage
         private void UpdatePanelImmediately()
         {
             // update colors on all buildings to force immediate recompute of employment data
-            Singleton<BuildingManager>.instance.UpdateBuildingColors();
+            BuildingManager.instance.UpdateBuildingColors();
 
             // set counter to update panel in 2 frames (i.e. immediately)
             _updateImmediateCounter = 2;
@@ -4363,13 +4359,13 @@ namespace BuildingUsage
                 {
                     return false;
                 }
-                if (!Singleton<InfoManager>.exists)
+                if (!InfoManager.exists)
                 {
                     return false;
                 }
 
                 // info mode can change, make sure info mode is still BuildingLevel
-                if (Singleton<InfoManager>.instance.CurrentMode != InfoManager.InfoMode.BuildingLevel)
+                if (InfoManager.instance.CurrentMode != InfoManager.InfoMode.BuildingLevel)
                 {
                     return false;
                 }
@@ -4488,7 +4484,7 @@ namespace BuildingUsage
             }
 
             // if not handled above, use neutral color
-            return Singleton<InfoManager>.instance.m_properties.m_neutralColor;
+            return InfoManager.instance.m_properties.m_neutralColor;
         }
 
         /// <summary>

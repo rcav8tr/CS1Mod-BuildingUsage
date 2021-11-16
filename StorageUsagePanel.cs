@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 namespace BuildingUsage
@@ -25,7 +24,7 @@ namespace BuildingUsage
 
                 // create the usage groups
                 // StorageSnow should only be included only for a winter map
-                if (Singleton<LoadingManager>.instance.m_loadedEnvironment == "Winter")
+                if (LoadingManager.instance.m_loadedEnvironment == "Winter")
                 {
                     CreateUsageGroup<SnowDumpAI                             >(UsageType.StorageSnow);
                 }

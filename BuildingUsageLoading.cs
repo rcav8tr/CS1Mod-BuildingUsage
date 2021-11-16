@@ -1,5 +1,4 @@
 ﻿using ColossalFramework.UI;
-using ColossalFramework;
 using ICities;
 using UnityEngine;
 using System;
@@ -189,7 +188,7 @@ namespace BuildingUsage
             // update colors on all buildings
             if (visible)
             {
-                Singleton<BuildingManager>.instance.UpdateBuildingColors();
+                BuildingManager.instance.UpdateBuildingColors();
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 namespace BuildingUsage
@@ -259,9 +258,9 @@ namespace BuildingUsage
                 }
 
                 // get source building type
-                Vehicle firstVehicleData = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[firstVehicle];
+                Vehicle firstVehicleData = VehicleManager.instance.m_vehicles.m_buffer[firstVehicle];
                 ushort buildingID = firstVehicleData.m_sourceBuilding;
-                Building buildingData = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
+                Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
 
                 // usage type determined by looking at building AI type of the source building
                 Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
@@ -308,9 +307,9 @@ namespace BuildingUsage
                 }
 
                 // get source building of first vehicle
-                Vehicle firstVehicleData = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[firstVehicle];
+                Vehicle firstVehicleData = VehicleManager.instance.m_vehicles.m_buffer[firstVehicle];
                 ushort buildingID = firstVehicleData.m_sourceBuilding;
-                Building buildingData = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
+                Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
                 Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
 
                 // ignore vehicle from outside connection
@@ -339,7 +338,7 @@ namespace BuildingUsage
             {
                 // get source building type
                 ushort buildingID = data.m_sourceBuilding;
-                Building buildingData = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID];
+                Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
                 Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
 
                 // ignore vehicle from outside connection

@@ -1,5 +1,4 @@
-﻿using ColossalFramework;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BuildingUsage
 {
@@ -161,7 +160,7 @@ namespace BuildingUsage
                     case BuildingUsage.LevelsInfoViewTab.Visitors:
                     case BuildingUsage.LevelsInfoViewTab.Storage:
                         doBaseProcessing = false;
-                        __result = Singleton<InfoManager>.instance.m_properties.m_neutralColor;
+                        __result = InfoManager.instance.m_properties.m_neutralColor;
                         break;
 
                     case BuildingUsage.LevelsInfoViewTab.Vehicles:
