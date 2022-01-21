@@ -1,0 +1,45 @@
+[h1]Visitors Buildings[/h1]
+[table]
+[tr][td]Fish Market     [/td][td]Fish Market[/td][/tr]
+[tr][td]Medical Patients[/td][td]Medical Clinic, Hospital, Child Health Center, Eldercare, General Hospital (CCP), Medical Laboratory (CCP), Medical Center (monument)[/td][/tr]
+[tr][td]Medical Visitors[/td][td]Sauna, Sports Hall and Gymnasium, Community Pool, Yoga Garden[/td][/tr]
+[tr][td]Deceased        [/td][td]Cemetery, Crematorium, Cryopreservatory (CCP)[/td][/tr]
+[tr][td]Sheltered       [/td][td]Small Emergency Shelter, Large Emergency Shelter[/td][/tr]
+[tr][td]Criminals       [/td][td]Police Station, Police Headquarters, Prison, Intelligence Agency (CCP)[/td][/tr]
+[tr][td]Education       [/td][td]all buildings listed below in Visitors Buildings for Education[/td][/tr]
+[tr][td]Parks & Plazas  [/td][td]all buildings listed below in Visitors Buildings for Parks & Plazas[/td][/tr]
+[tr][td]Unique Buildings[/td][td]all buildings listed below in Visitors Buildings for Unique Buildings[/td][/tr]
+[/table]
+
+[h1]Visitors Buildings for Education[/h1]
+Same as Workers Buildings for Education except:
+Hadron Collider is not included because students do not go to the building to get educated.
+Campus administration buildings are not included because the buildings do not have students.
+
+[h1]Visitors Buildings for Parks & Plazas[/h1]
+[b]Basic[/b]
+    [table]
+    [tr][td]Parks            [/td][td]Small Park, Small Playground, Park With Trees, Large Playground, Bouncy Castle Park, Botanical Garden, Dog Park, Carousel Park, Japanese Garden, Tropical Garden, Fishing Island, Floating Cafe[/td][/tr]
+    [tr][td]Plazas           [/td][td]Plaza with Trees, Plaza with Picnic Tables, Paradox Plaza[/td][/tr]
+    [tr][td]Other Parks      [/td][td]Basketball Court, Tennis Court[/td][/tr]
+    [tr][td]Tourism & Leisure[/td][td]Fishing Pier, Fishing Tours, Jet Ski Rental, Marina, Restaurant Pier, Beach Volleyball Court, Riding Stable, Skatepark, Snowmobile Track, Winter Fishing Pier, Ice Hockey Rink[/td][/tr]
+    [tr][td]Winter Parks     [/td][td]Snowman Park, Ice Sculpture Park, Sledding Hill, Curling Park, Skating Rink, Ski Lodge, Cross-Country Skiing Park, Firepit Park[/td][/tr]
+    [/table]
+
+[b]Parklife[/b]
+    [table]
+    [tr][td]City Park     [/td][td]Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2[/td][/tr]
+    [tr][td]Amusement Park[/td][td]Amusement Park Plaza, Amusement Park Cafe #1, Amusement Park Souvenir Shop #1, Amusement Park Restrooms #1, Game Booth #1, Game Booth #2, Carousel, Piggy Train, Rotating Tea Cups, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Ferris Wheel, Rollercoaster[/td][/tr]
+    [tr][td]Zoo           [/td][td]Zoo Plaza, Zoo Cafe #1, Zoo Souvenir Shop #1, Zoo Restrooms #1, Moose And Reindeer Enclosure, Bird House, Antelope Enclosure, Bison Enclosure, "Insect, Amphibian and Reptile House", Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure[/td][/tr]
+    [tr][td]Nature Reserve[/td][td]Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2, Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1[/td][/tr]
+    [tr][td]Tours         [/td][td]Hot Air Balloon Tours[/td][/tr]
+    [/table]
+
+[b]Other[/b]
+    [table]
+    [tr][td]Content Creator[/td][td]Seine Pier, Rhine Pier, Biodome, Vertical Farm[/td][/tr]
+    [tr][td]Eden Project   [/td][td]Eden Project (monument)[/td][/tr]
+    [/table]
+
+[h1]Visitors Buildings for Unique Buildings[/h1]
+Same as Workers Buildings for Unique Buildings.

@@ -24,7 +24,8 @@ namespace BuildingUsage
                 if (!HarmonyHelper.IsHarmonyInstalled)
                 {
                     ColossalFramework.UI.UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage("Missing Dependency",
-                        $"The Bulding Usage mod requires the 'Harmony (Mod Dependency)' mod.  \n\nPlease subscribe to the 'Harmony (Mod Dependency)' mod and restart the game.", error: false);
+                        "The Building Usage mod requires the 'Harmony (Mod Dependency)' mod.  " + Environment.NewLine + Environment.NewLine +
+                        "Please subscribe to the 'Harmony (Mod Dependency)' mod and restart the game.", error: false);
                     return false;
                 }
 

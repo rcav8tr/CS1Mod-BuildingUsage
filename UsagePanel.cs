@@ -472,7 +472,7 @@ namespace BuildingUsage
             { UsageType.WorkersUniqueLevel6,                    new UsageTypeInfo("Level 6 Unique",     thumbnailInfoMonumentCategory6  ) },
             { UsageType.WorkersUniqueContentCreator,            new UsageTypeInfo("Content Creator",    thumbnailInfoMonumentModderPack ) },
             { UsageType.WorkersUniqueCastle,                    new UsageTypeInfo("Chirpwick Castle",   thumbnailInfoWonders            ) },
-            
+
 
             // visitors usage types
             { UsageType.VisitorsFishMarket,                     new UsageTypeInfo("Fish Market",        thumbnailInfoIndustryFishing    ) },
@@ -1536,6 +1536,7 @@ namespace BuildingUsage
             percent.size = new Vector2(40f, CheckBoxHeight);
             percent.relativePosition = new Vector3(size.x - SideSpace - percent.size.x, groupCenter - percent.size.y / 2 + TextVerticalOffset);
             percent.isVisible = true;
+            percent.eventTooltipHover += TooltipHover;
 
             // create the legend, colors get set in Update
             // set position and size to fit between detail button and percent label
@@ -1553,6 +1554,7 @@ namespace BuildingUsage
             legend.material = _gradientMaterial;
             legend.texture = _gradientTexture;
             legend.isVisible = true;
+            legend.eventTooltipHover += TooltipHover;
 
             // create the indicator that goes over the legend
             UISprite indicator = legend.AddUIComponent<UISprite>();
@@ -1910,12 +1912,12 @@ namespace BuildingUsage
         /// <summary>
         /// associate a building AI type with its usage count, employed/total jobs count, and unemployed/eligible count method(s)
         /// </summary>
-        private void AssociateBuildingAICommon(Type buildingAIType, 
+        private void AssociateBuildingAICommon(Type buildingAIType,
             UsageType usageType1, UsageCountMethod usageCountMethod1, EmployedTotalJobsCountMethod employedTotalJobsCountMethod1, UnemployedEligibleCountMethod unemployedEligibleCountMethod1,
             UsageType usageType2, UsageCountMethod usageCountMethod2)
         {
             // associate the building AI type with its count method(s)
-            _buildingAIUsages.Add(buildingAIType, new UsageTypeMethod 
+            _buildingAIUsages.Add(buildingAIType, new UsageTypeMethod
             {
                 usageType1 = usageType1, usageCountMethod1 = usageCountMethod1, employedTotalJobsCountMethod1 = employedTotalJobsCountMethod1, unemployedEligibleCountMethod1 = unemployedEligibleCountMethod1,
                 usageType2 = usageType2, usageCountMethod2 = usageCountMethod2,
@@ -1930,6 +1932,16 @@ namespace BuildingUsage
             // associate the vehicle AI type
             _vehicleAIUsages.Add(typeof(T), usageType);
         }
+
+        /// <summary>
+        /// handle hover on legend or percent
+        /// </summary>
+        private void TooltipHover(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            // the tool tip text gets set in UpdatePanel, just refresh the tool tip
+            component.RefreshTooltip();
+        }
+
         #endregion
 
         #region "Usage Counts"
@@ -2072,7 +2084,7 @@ namespace BuildingUsage
                 else
                 {
                     // create a new usage count for this building
-                    usageGroup.usageCounts.Add(buildingID, new UsageCount() 
+                    usageGroup.usageCounts.Add(buildingID, new UsageCount()
                     {
                         include = include,
                         used = used,
@@ -2262,7 +2274,7 @@ namespace BuildingUsage
 
         /// <summary>
         /// in the zoned non-residential building:
-        ///     return the number of workers used and allowed 
+        ///     return the number of workers used and allowed
         ///     return the number of citizens employed and the total number of jobs
         /// </summary>
         protected void GetUsageCountWorkersZoned(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
@@ -2299,7 +2311,7 @@ namespace BuildingUsage
 
         /// <summary>
         /// in the park gate or park building:
-        ///     return the number of workers used and allowed 
+        ///     return the number of workers used and allowed
         ///     return the number of citizens employed and the total number of jobs
         /// </summary>
         protected void GetUsageCountWorkersPark(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
@@ -2383,7 +2395,7 @@ namespace BuildingUsage
 
         /// <summary>
         /// in a nursing home building (from the Nursing Homes for Senior Citizens mod):
-        ///     return the number of workers used and allowed 
+        ///     return the number of workers used and allowed
         ///     return the number of citizens employed and the total number of jobs
         /// </summary>
         protected void GetUsageCountWorkersNursingHome(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs)
@@ -2418,7 +2430,7 @@ namespace BuildingUsage
 
         /// <summary>
         /// in the non-zoned service building:
-        ///     return the number of workers used and allowed 
+        ///     return the number of workers used and allowed
         ///     return the number of citizens employed and the total number of jobs
         /// </summary>
         protected void GetUsageCountWorkersService<T>(ushort buildingID, ref Building data, ref int used, ref int allowed, ref EducationLevelCount employed, ref EducationLevelCount totalJobs) where T : PlayerBuildingAI
@@ -3821,68 +3833,68 @@ namespace BuildingUsage
 
         // Here are the combinations of building AI and vehicle reason that define the usage type for each transportation building
         //
-        // Building AI                      Building Name                   Vehicle Reason 1    Vehicle Reason 2    Metro Subbuilding   WorkersTransportation   VehiclesTransportation
-        // --------------------------       ------------------------------  ------------------  ------------------  ------------------  ----------------------  ----------------------
-        // CargoStationAI              W--U Cargo Train Terminal            PassengerTrain      null                                    TrainCargo              TrainCargo
-        //                                  Cargo Airport                   PassengerPlane      null                                    AirCargo                AirCargo
-        //                                  Cargo Airport Hub               PassengerPlane      PassengerTrain                          AirCargo                AirCargo
-        //    CargoHarborAI            W--U Cargo Harbor                    PassengerShip       null                                    ShipCargo               ShipCargo
-        //                                  Cargo Hub                       PassengerTrain      PassengerShip                           ShipCargo               ShipCargo
-        // DepotAI                     W--U Bus Depot                       Bus                 null                                    Bus                     Bus
-        //                                  Biofuel Bus Depot               Bus                 null                                    Bus                     Bus
-        //                                  Trolleybus Depot                TrolleyBus          null                                    Trolleybus              TrolleyBus
-        //                                  Tram Depot                      Tram                null                                    Tram                    Tram
-        //                                  Ferry Depot                     Ferry               null                                    ShipPeople              Ship
-        //                                  Helicopter Depot                PassengerHelicopter null                                    AirPeople               Air
-        //                                  Blimp Depot                     Blimp               null                                    AirPeople               Air
-        //                                  Sightseeing Bus Depot           TouristBus          null                                    Tours                   Tours
-        //                                  Taxi Depot                      Taxi                null                                    Taxi                    Taxi
-        //    CableCarStationAI        W--U Cable Car Stop                  CableCar            null                                    CableCar                CableCar
-        //                                  End-of-Line Cable Car Stop      CableCar            null                                    CableCar                CableCar
-        //    TransportStationAI       W--- Bus Station                     Bus                 null                                    Bus                     None
-        //                                  Helicopter Stop                 PassengerHelicopter null                                    AirPeople               None
-        //                                  Blimp Stop                      Blimp               null                                    AirPeople               None
-        //    TransportStationAI       W--U Intercity Bus Station           IntercityBus        null                                    IntercityBus            IntercityBus
-        //                                  Intercity Bus Terminal          IntercityBus        null                                    IntercityBus            IntercityBus
-        //                                  Metro Station                   MetroTrain          null                                    Metro                   Metro
-        //                                  Elevated Metro Station          MetroTrain          null                                    Metro                   Metro
-        //                                  Underground Metro Station       MetroTrain          null                                    Metro                   Metro
-        //                                  Metro Plaza Station             MetroTrain          null                                    Metro                   Metro
-        //                      Sunken Island Platform Metro Station        MetroTrain          null                                    Metro                   Metro
-        //                      Sunken Dual Island Platform Metro Station   MetroTrain          null                                    Metro                   Metro
-        //                      Sunken Bypass Metro Station                 MetroTrain          null                                    Metro                   Metro
-        //                      Elevated Island Platform Metro Station      MetroTrain          null                                    Metro                   Metro
-        //                      Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
-        //                      Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
-        //                                  Train Station                   PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Crossover Train Station Hub     PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Old Market Station              PassengerTrain      null                No                  TrainPeople             Train
-        //                      Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             Train
-        //                      Ground Dual Island Platform Train Station   PassengerTrain      null                No                  TrainPeople             Train
-        //                      Ground Bypass Train Station                 PassengerTrain      null                No                  TrainPeople             Train
-        //                      Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             Train
-        //                      Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             Train
-        //                      Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Airport                         PassengerPlane      null                No                  AirPeople               Air
-        //                                  Monorail Station                Monorail            null                                    Monorail                Monorail
-        //                                  Monorail Station with Road      Monorail            null                                    Monorail                Monorail
-        //                                  Bus-Intercity Bus Hub           Bus                 IntercityBus                            Hubs                    Hubs
-        //                                  Bus-Metro Hub                   Bus                 null                Yes                 Hubs                    Hubs
-        //                                  Metro-Intercity Bus Hub         IntercityBus        MetroTrain          Yes                 Hubs                    Hubs
-        //                                  Train-Metro Hub                 PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Glass Box Transport Hub         PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Multiplatform End Station       PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Multiplatform Train Station     PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  International Airport           PassengerPlane      null                Yes                 Hubs                    Hubs
-        //                                  Metropolitan Airport            PassengerPlane      PassengerHelicopter Yes                 Hubs                    Hubs
-        //                                  Monorail-Bus Hub                Monorail            Bus                                     Hubs                    Hubs
-        //                                  Metro-Monorail-Train Hub        Monorail            PassengerTrain      Yes                 Hubs                    Hubs
-        //       HarborAI              W--- Ferry Stop                      Ferry               null                                    ShipPeople              None
-        //                                  Ferry Pier                      Ferry               null                                    ShipPeople              None
-        //                                  Ferry and Bus Exchange Stop     Ferry               Bus                                     Hubs                    None
-        //       HarborAI              W--U Harbor                          PassengerShip       null                                    ShipPeople              Ship
-        // SpaceElevatorAI             W--- Space Elevator (monument)       ----                ----                                    SpaceElevator           None
-        // TourBuildingAI              -V-U Hot Air Balloon Tours           None                ----                                    None                    Tours
+        // Building AI                      Building Name                               Vehicle Reason 1    Vehicle Reason 2    Metro Subbuilding   WorkersTransportation   VehiclesTransportation
+        // --------------------------       ------------------------------------------  ------------------  ------------------  ------------------  ----------------------  ----------------------
+        // CargoStationAI              W--U Cargo Train Terminal                        PassengerTrain      null                                    TrainCargo              TrainCargo
+        //                                  Cargo Airport                               PassengerPlane      null                                    AirCargo                AirCargo
+        //                                  Cargo Airport Hub                           PassengerPlane      PassengerTrain                          AirCargo                AirCargo
+        //    CargoHarborAI            W--U Cargo Harbor                                PassengerShip       null                                    ShipCargo               ShipCargo
+        //                                  Cargo Hub                                   PassengerTrain      PassengerShip                           ShipCargo               ShipCargo
+        // DepotAI                     W--U Bus Depot                                   Bus                 null                                    Bus                     Bus
+        //                                  Biofuel Bus Depot                           Bus                 null                                    Bus                     Bus
+        //                                  Trolleybus Depot                            TrolleyBus          null                                    Trolleybus              TrolleyBus
+        //                                  Tram Depot                                  Tram                null                                    Tram                    Tram
+        //                                  Ferry Depot                                 Ferry               null                                    ShipPeople              Ship
+        //                                  Helicopter Depot                            PassengerHelicopter null                                    AirPeople               Air
+        //                                  Blimp Depot                                 Blimp               null                                    AirPeople               Air
+        //                                  Sightseeing Bus Depot                       TouristBus          null                                    Tours                   Tours
+        //                                  Taxi Depot                                  Taxi                null                                    Taxi                    Taxi
+        //    CableCarStationAI        W--U Cable Car Stop                              CableCar            null                                    CableCar                CableCar
+        //                                  End-of-Line Cable Car Stop                  CableCar            null                                    CableCar                CableCar
+        //    TransportStationAI       W--- Bus Station                                 Bus                 null                                    Bus                     None
+        //                                  Helicopter Stop                             PassengerHelicopter null                                    AirPeople               None
+        //                                  Blimp Stop                                  Blimp               null                                    AirPeople               None
+        //    TransportStationAI       W--U Intercity Bus Station                       IntercityBus        null                                    IntercityBus            IntercityBus
+        //                                  Intercity Bus Terminal                      IntercityBus        null                                    IntercityBus            IntercityBus
+        //                                  Metro Station                               MetroTrain          null                                    Metro                   Metro
+        //                                  Elevated Metro Station                      MetroTrain          null                                    Metro                   Metro
+        //                                  Underground Metro Station                   MetroTrain          null                                    Metro                   Metro
+        //                                  Metro Plaza Station                         MetroTrain          null                                    Metro                   Metro
+        //                                  Sunken Island Platform Metro Station        MetroTrain          null                                    Metro                   Metro
+        //                                  Sunken Dual Island Platform Metro Station   MetroTrain          null                                    Metro                   Metro
+        //                                  Sunken Bypass Metro Station                 MetroTrain          null                                    Metro                   Metro
+        //                                  Elevated Island Platform Metro Station      MetroTrain          null                                    Metro                   Metro
+        //                                  Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
+        //                                  Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
+        //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Old Market Station                          PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Ground Dual Island Platform Train Station   PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Ground Bypass Train Station                 PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             Train
+        //                                  Airport                                     PassengerPlane      null                No                  AirPeople               Air
+        //                                  Monorail Station                            Monorail            null                                    Monorail                Monorail
+        //                                  Monorail Station with Road                  Monorail            null                                    Monorail                Monorail
+        //                                  Bus-Intercity Bus Hub                       Bus                 IntercityBus                            Hubs                    Hubs
+        //                                  Bus-Metro Hub                               Bus                 null                Yes                 Hubs                    Hubs
+        //                                  Metro-Intercity Bus Hub                     IntercityBus        MetroTrain          Yes                 Hubs                    Hubs
+        //                                  Train-Metro Hub                             PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  Glass Box Transport Hub                     PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  Multiplatform End Station                   PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  Multiplatform Train Station                 PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  International Airport                       PassengerPlane      null                Yes                 Hubs                    Hubs
+        //                                  Metropolitan Airport                        PassengerPlane      PassengerHelicopter Yes                 Hubs                    Hubs
+        //                                  Monorail-Bus Hub                            Monorail            Bus                                     Hubs                    Hubs
+        //                                  Metro-Monorail-Train Hub                    Monorail            PassengerTrain      Yes                 Hubs                    Hubs
+        //       HarborAI              W--- Ferry Stop                                  Ferry               null                                    ShipPeople              None
+        //                                  Ferry Pier                                  Ferry               null                                    ShipPeople              None
+        //                                  Ferry and Bus Exchange Stop                 Ferry               Bus                                     Hubs                    None
+        //       HarborAI              W--U Harbor                                      PassengerShip       null                                    ShipPeople              Ship
+        // SpaceElevatorAI             W--- Space Elevator (monument)                   ----                ----                                    SpaceElevator           None
+        // TourBuildingAI              -V-U Hot Air Balloon Tours                       None                ----                                    None                    Tours
 
 
         /// <summary>
@@ -3894,7 +3906,7 @@ namespace BuildingUsage
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(CargoStationAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationTrainCargo;
                 if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.WorkersTransportationAirCargo;
             }
@@ -3904,8 +3916,8 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(DepotAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
-                if (reason1 == TransferManager.TransferReason.Bus                   ) return UsageType.WorkersTransportationBus; 
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
+                if (reason1 == TransferManager.TransferReason.Bus                   ) return UsageType.WorkersTransportationBus;
                 if (reason1 == TransferManager.TransferReason.Trolleybus            ) return UsageType.WorkersTransportationTrolleybus;
                 if (reason1 == TransferManager.TransferReason.Tram                  ) return UsageType.WorkersTransportationTram;
                 if (reason1 == TransferManager.TransferReason.Ferry                 ) return UsageType.WorkersTransportationShipPeople;
@@ -3929,7 +3941,7 @@ namespace BuildingUsage
                 if (reason1 == TransferManager.TransferReason.IntercityBus)
                 {
                     if (reason2 == TransferManager.TransferReason.MetroTrain) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationIntercityBus; 
+                    return UsageType.WorkersTransportationIntercityBus;
                 }
                 if (reason1 == TransferManager.TransferReason.PassengerHelicopter)
                 {
@@ -3990,7 +4002,7 @@ namespace BuildingUsage
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(CargoStationAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationTrainCargo;
                 if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.VehiclesTransportationAirCargo;
             }
@@ -4000,7 +4012,7 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(DepotAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.Bus                   ) return UsageType.VehiclesTransportationBus;
                 if (reason1 == TransferManager.TransferReason.Trolleybus            ) return UsageType.VehiclesTransportationTrolleybus;
                 if (reason1 == TransferManager.TransferReason.Tram                  ) return UsageType.VehiclesTransportationTram;
@@ -4048,12 +4060,12 @@ namespace BuildingUsage
                 if (reason1 == TransferManager.TransferReason.Monorail)
                 {
                     if (reason2 == TransferManager.TransferReason.Bus || reason2 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.VehiclesTransportationMonorail; 
+                    return UsageType.VehiclesTransportationMonorail;
                 }
             }
             else if (buildingAIType == typeof(HarborAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.PassengerShip) return UsageType.VehiclesTransportationShipPeople;
                 return UsageType.None;
             }
@@ -4108,14 +4120,17 @@ namespace BuildingUsage
         private bool HasMetroSubBuilding(BuildingInfo buildingInfo)
         {
             // check if any sub building is a metro station
-            foreach (var subBuilding in buildingInfo.m_subBuildings)
+            if (buildingInfo != null && buildingInfo.m_subBuildings != null)
             {
-                if (subBuilding.m_buildingInfo.m_buildingAI.GetType() == typeof(TransportStationAI))
+                foreach (var subBuilding in buildingInfo.m_subBuildings)
                 {
-                    GetVehicleReasons(subBuilding.m_buildingInfo, out TransferManager.TransferReason subReason1, out TransferManager.TransferReason subReason2);
-                    if (subReason1 == TransferManager.TransferReason.MetroTrain || subReason2 == TransferManager.TransferReason.MetroTrain)
+                    if (subBuilding.m_buildingInfo != null && subBuilding.m_buildingInfo.m_buildingAI != null && subBuilding.m_buildingInfo.m_buildingAI.GetType() == typeof(TransportStationAI))
                     {
-                        return true;
+                        GetVehicleReasons(subBuilding.m_buildingInfo, out TransferManager.TransferReason subReason1, out TransferManager.TransferReason subReason2);
+                        if (subReason1 == TransferManager.TransferReason.MetroTrain || subReason2 == TransferManager.TransferReason.MetroTrain)
+                        {
+                            return true;
+                        }
                     }
                 }
             }

@@ -1,0 +1,73 @@
+Display how much a building is being used as a percent of its capacity.  Display employment and unemployment data.
+
+[h1]Detailed Description[/h1]
+Building Usage is integrated into the Levels info view, which now has five tabs described below.
+
+[h3]Levels Tab[/h3]
+The Levels tab displays the normal Levels info view and is also enhanced to display details by zone type and level.  The simulation must run for a short time before the details are shown.  Residential is based on the number of households allowed.  Commercial, Offices, and Industrial are based on the number of workers allowed.
+
+[h3]Workers Tab[/h3]
+The Workers tab shows the number of workers assigned to a building as a percent of the number of workers the building allows (e.g. workers at a power plant).
+
+Even though it is on the Workers tab, Residential Zone usage is based on the number of households in the building, not the number of workers.  A household may have more than one citizen.
+
+The bottom of the Workers tab shows employment and unemployment data by education level.  The employment data is for only the selected usage types.  Eligible Workers is normally Young Adults plus Adults, but when the Hadron Collider is built most Teens become highly educated and join the workforce.  The game does not include teens in its unemployed and eligible data, but this mod includes teens when the Hadron Collider is built.
+
+[h3]Visitors Tab[/h3]
+The Visitors tab shows the number of "visitors" at a building as a percent of the number of "visitors" the building allows (e.g. deceased at a cemetery or criminals in jail at a police station).
+
+[h3]Storage Tab[/h3]
+The Storage tab shows the amount of a thing stored in a building as a percent of the amount of the thing the building allows (e.g. garbage stored at a landfill).
+
+[h3]Vehicles Tab[/h3]
+The Vehicles tab shows the number of vehicles in use by a building as a percent of the number of vehicles the building allows (e.g. ambulances in use by a medical clinic).
+
+Usage percent cannot be computed for buildings that generate transportation vehicles (e.g. bus depot) because the number of vehicles allowed is unlimited.  Each transportation building is tracked with the number allowed set to 1, which will cause the building to appear 100% used if any vehicles have been generated.  Transportation vehicles owned by outside connections are not included or shown in color.
+
+[h3]Usage Percent[/h3]
+The usage percent for each completed, upgrading, specialized zoned, and growable/ploppable RICO building is displayed on the building as a color gradient indicating zero to 100 percent.  The color gradients are shown on each tab for each worker, visitor, storage, and vehicle type.  Buildings under construction, abandoned, collapsed, etc. are not shown in color.  On the Vehicles tab, the vehicles owned by the buildings are shown in a fixed color.
+
+Each tab shows the overall usage percent for each usage type.  If there are no buildings for a type, the overall usage is grayed out.  The overall usage percent includes specialized zoned buildings and growable/ploppable RICO buildings.  The overall usage percent includes service buildings that have been deactivated (i.e. the building has been turned off).  A deactivated service building maintains its workers and storage, but does not have visitors or vehicles (once all the vehicles return).
+
+To show the number used versus the number allowed for a usage type, hover the pointer over the legend or the overall usage percent value.
+
+[h3]Filters[/h3]
+There is a check mark next to each usage type to indicate whether or not corresponding buildings are shown in color.  Only selected usage types are included in the Workers Summary employment data on the Workers tab.  Clicking on the Select All or Deselect All buttons will select or deselect all the types on that tab.  Your filter selections are saved and used as the default the next time a game is played.  The overall usage percent for all types are computed and displayed regardless of whether or not the buildings are shown in color.  On the Vehicles tab, only vehicles for the selected vehicle types are shown in color.
+
+The following Storage filters cannot be selected at the same time because they are for the same buildings:
+[list]
+[*]Unsorted Mail and Sorted Mail
+[*]Processor Input and Processor Output (Forestry, Farming, Ore, Oil, Fishing)
+[*]Unique Factory Input and Unique Factory Output
+[/list]
+
+[h3]Detailed Usage[/h3]
+Click on the information symbol "i" to show a more detailed breakdown of that usage type.  On the detail view, click on the Return button to return to the previous usage view.
+
+See [url=https://steamcommunity.com/sharedfiles/filedetails/discussions/2048266761]Discussions[/url] for the buildings that are included in each usage type.
+
+[h1]Compatibility[/h1]
+This mod does not alter game save files in any way and can be safely disabled or unsubscribed at any time.
+
+This mod does not alter the game mechanics in any way.  This mod only displays information already in the game.
+
+This mod has been tested only on Windows.  User comments indicate it should work on Mac.  Should work on Linux.
+
+This mod is compatible with all Down Loadable Content (DLC) packages and all Content Creator Packs (CCP).  This mod does not require any DLC or CCP to work properly.
+
+This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1420955187]Real Time[/url] mod.  Worker usage is still the number of workers assigned to the building, not the number of workers currently at the building.
+
+This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016920607]Ploppable RICO Revisited[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=554232266]Nursing Homes for Senior Citizens[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1764208250]More Vehicles[/url], and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2654364627]More CitizenUnits[/url] mods.
+
+This mod is compatible with mods that alter the number of workers, visitors, storage, or vehicles a building allows (e.g. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1806759255]Customize It Extended[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1562650024]Rebalanced Industries[/url]).
+
+This mod may or may not work correctly if another mod is enabled that alters the Levels info view panel or the logic that gets building or vehicle color.
+
+[h1]Source Code[/h1]
+Available [url=https://github.com/rcav8tr/BuildingUsage]here[/url].
+Change notes [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2048266761]here[/url].
+
+[h1]Acknowledgments[/h1]
+This mod depends on [url=https://github.com/pardeike]Andreas Pardeike's[/url] [url=https://github.com/pardeike/Harmony]Harmony 2 Patching Library[/url] provided as a mod by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2040656402]boformer[/url].
+
+The development of this mod relied on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=450877484]ModTools[/url] mod by [url=https://steamcommunity.com/id/bloody_penguin/myworkshopfiles/?appid=255710]BloodyPenguin[/url] to view the internal workings of buildings.

@@ -1,0 +1,103 @@
+[h1]Vehicles Buildings[/h1]
+Industrial Trucks have an unlimited number of vehicles allowed, see the description below in Vehicles Buildings for Transportation.
+
+Disaster Response vehicles and helicopters are combined into one vehicle type because they come from the same building.
+
+Postal Vans & Trucks are combined into one vehicle type because they can come from the same building.
+
+Although IT Cluster (i.e. High Tech) office buildings produce goods, such goods are not delivered by vehicle.
+
+[table]
+[tr][td]Industrial Trucks  [/td][td]Industrial Zoned Generic, Industrial Zoned Specialized (Forestry, Farming, Ore, Oil)[/td][/tr]
+[tr][td]Maintenance Trucks [/td][td]Road Maintenance Depot, Snow Dump, Park Maintenance Building[/td][/tr]
+[tr][td]Vacuum Trucks      [/td][td]Pumping Service[/td][/tr]
+[tr][td]Garbage Trucks     [/td][td]Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP), Ultimate Recycling Plant (monument)[/td][/tr]
+[tr][td]Industry Trucks    [/td][td]all buildings listed below in Vehicles Buildings for Industry[/td][/tr]
+[tr][td]Ambulances         [/td][td]Medical Clinic, Hospital, General Hospital (CCP), Medical Center (monument)[/td][/tr]
+[tr][td]Medical Helicopters[/td][td]Medical Helicopter Depot[/td][/tr]
+[tr][td]Hearses            [/td][td]Cemetery, Crematorium, Cryopreservatory (CCP)[/td][/tr]
+[tr][td]Fire Engines       [/td][td]Fire House, Fire Station[/td][/tr]
+[tr][td]Fire Helicopters   [/td][td]Fire Helicopter Depot[/td][/tr]
+[tr][td]Disaster Response  [/td][td]Disaster Response Unit (combined vehicles and helis)[/td][/tr]
+[tr][td]Evacuation Buses   [/td][td]Small Emergency Shelter, Large Emergency Shelter[/td][/tr]
+[tr][td]Police Cars        [/td][td]Police Station, Police Headquarters, Intelligence Agency (CCP)[/td][/tr]
+[tr][td]Police Helicopters [/td][td]Police Helicopter Depot[/td][/tr]
+[tr][td]Prison Vans        [/td][td]Prison[/td][/tr]
+[tr][td]Post Vans & Trucks [/td][td]Post Office, Post Sorting Facility[/td][/tr]
+[tr][td]Private Planes     [/td][td]Aviation Club[/td][/tr]
+[tr][td]Rockets            [/td][td]ChirpX Launch Site (usage is 100% when a rocket is ready to launch)[/td][/tr]
+[tr][td]Transportation     [/td][td]all buildings listed below in Vehicles Buildings for Transportation[/td][/tr]
+[/table]
+
+[h1]Vehicles Buildings for Industry[/h1]
+[b]Forestry Industry Trucks[/b]
+    [table]
+    [tr][td]Extractor[/td][td]Small Tree Plantation, Medium Tree Plantation, Large Tree Plantation, Small Tree Sapling Greenhouse, Large Tree Sapling Greenhouse[/td][/tr]
+    [tr][td]Processor[/td][td]Sawmill, Biomass Pellet Plant, Engineered Wood Plant, Pulp Mill[/td][/tr]
+    [tr][td]Storage  [/td][td]Small Log Yard, Saw Dust Storage, Large Log Yard, Wood Chip Storage[/td][/tr]
+    [/table]
+
+[b]Farming Industry Trucks[/b]
+    [table]
+    [tr][td]Extractor[/td][td]Small Crops Greenhouse, Medium Crops Greenhouse, Large Crops Greenhouse, Small Fruit Greenhouse, Medium Fruit Greenhouse, Large Fruit Greenhouse[/td][/tr]
+    [tr][td]Processor[/td][td]Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor, Slaughterhouse[/td][/tr]
+    [tr][td]Storage  [/td][td]Small Grain Silo, Large Grain Silo, Small Barn, Large Barn[/td][/tr]
+    [/table]
+
+[b]Ore Industry Trucks[/b]
+    [table]
+    [tr][td]Extractor[/td][td]Small Ore Mine, Medium Ore Mine, Large Ore Mine, Small Ore Mine Underground, Large Ore Mine Underground, Seabed Mining Vessel[/td][/tr]
+    [tr][td]Processor[/td][td]Ore Grinding Mill, Glass Manufacturing Plant, Rotary Kiln Plant, Fiberglass Plant[/td][/tr]
+    [tr][td]Storage  [/td][td]Sand Storage, Ore Storage, Ore Industry Storage, Raw Mineral Storage[/td][/tr]
+    [/table]
+
+[b]Oil Industry Trucks[/b]
+    [table]
+    [tr][td]Extractor[/td][td]Small Oil Pump, Large Oil Pump, Small Oil Drilling Rig, Large Oil Drilling Rig, Offshore Oil Drilling Platform[/td][/tr]
+    [tr][td]Processor[/td][td]Oil Sludge Pyrolysis Plant, Petrochemical Plant, Waste Oil Refining Plant, Naphtha Cracker Plant[/td][/tr]
+    [tr][td]Storage  [/td][td]Small Crude Oil Tank Farm, Large Crude Oil Tank Farm, Crude Oil Storage Cavern, Oil Industry Storage[/td][/tr]
+    [/table]
+
+[b]Fishing Industry Trucks[/b]
+    [table]
+    [tr][td]Extractor[/td][td]Includes Boat:  Fishing Harbor, Anchovy Fishing Harbor, Salmon Fishing Harbor, Shellfish Fishing Harbor, Tuna Fishing Harbor
+                              Truck Only:  Fish Farm, Algae Farm, Seaweed Farm[/td][/tr]
+    [tr][td]Processor[/td][td]Fish Factory[/td][/tr]
+    [/table]
+
+[b]Other Industry Trucks[/b]
+    [table]
+    [tr][td]Unique Factory[/td][td]Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory, Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard[/td][/tr]
+    [tr][td]Warehouse     [/td][td]Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse[/td][/tr]
+    [/table]
+
+[h1]Vehicles Buildings for Transportation[/h1]
+All of the transportation buildings listed below generate vehicles.  However, vehicle usage percent cannot be computed because the number of vehicles allowed is unlimited.  The transportation buildings are included so that you can filter on the various buildings and see the vehicles that belong to these buildings.  Each of these buildings is tracked with the number allowed set to 1, which will cause the building to appear 100% used if any vehicles have been generated.
+
+Transportation vehicles owned only by buildings in your city are shown in color.  Transportation vehicles owned by outside connections are not shown in color.
+
+Cargo transportation includes cargo trucks generated by those buildings.
+
+[b]People Transportation[/b]
+    [table]
+    [tr][td]Bus          [/td][td]Bus Depot, Biofuel Bus Depot[/td][/tr]
+    [tr][td]Intercity Bus[/td][td]Intercity Bus Station, Intercity Bus Terminal[/td][/tr]
+    [tr][td]Trolleybus   [/td][td]Trolleybus Depot[/td][/tr]
+    [tr][td]Tram         [/td][td]Tram Depot[/td][/tr]
+    [tr][td]Metro         [/td][td]Metro Station, Elevated Metro Station, Underground Metro Station, Metro Plaza Station, Sunken Island Platform Metro Station, Sunken Dual Island Platform Metro Station, Sunken Bypass Metro Station, Elevated Island Platform Metro Station, Elevated Dual Island Platform Metro Station, Elevated Bypass Metro Station[/td][/tr]
+    [tr][td]Train         [/td][td]Train Station, Crossover Train Station Hub, Old Market Station, Ground Island Platform Train Station, Ground Dual Island Platform Train Station, Ground Bypass Train Station, Elevated Island Platform Train Station, Elevated Dual Island Platform Train Station, Elevated Bypass Train Station[/td][/tr]
+    [tr][td]Ship         [/td][td]Harbor, Ferry Depot[/td][/tr]
+    [tr][td]Air          [/td][td]Airport, Helicopter Depot, Blimp Depot[/td][/tr]
+    [tr][td]Monorail     [/td][td]Monorail Station, Monorail Station with Road[/td][/tr]
+    [tr][td]Cable Car    [/td][td]Cable Car Stop, End-of-Line Cable Car Stop[/td][/tr]
+    [tr][td]Taxi         [/td][td]Taxi Depot (has a defined number of vehicles allowed, but is handled like the other transportation buildings)[/td][/tr]
+    [tr][td]Tours        [/td][td]Hot Air Balloon Tours, Sightseeing Bus Depot[/td][/tr]
+    [tr][td]Hubs         [/td][td]Bus-Intercity Bus Hub, Bus-Metro Hub, Metro-Intercity Bus Hub, Train-Metro Hub, Glass Box Transport Hub, Multiplatform End Station, Multiplatform Train Station, International Airport, Metropolitan Airport, Monorail-Bus Hub, Metro-Monorail-Train Hub[/td][/tr]
+    [/table]
+
+[b]Cargo Transportation (includes trucks)[/b]
+    [table]
+    [tr][td]Train[/td][td]Cargo Train Terminal[/td][/tr]
+    [tr][td]Ship [/td][td]Cargo Harbor, Cargo Hub[/td][/tr]
+    [tr][td]Air  [/td][td]Cargo Airport, Cargo Airport Hub[/td][/tr]
+    [/table]
