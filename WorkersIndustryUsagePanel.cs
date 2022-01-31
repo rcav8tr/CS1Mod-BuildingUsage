@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 namespace BuildingUsage
 {
@@ -82,7 +81,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -147,7 +146,7 @@ namespace BuildingUsage
                 }
             }
 
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -158,7 +157,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -168,7 +167,7 @@ namespace BuildingUsage
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

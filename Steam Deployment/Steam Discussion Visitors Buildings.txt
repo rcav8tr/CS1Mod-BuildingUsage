@@ -7,6 +7,7 @@
 [tr][td]Sheltered       [/td][td]Small Emergency Shelter, Large Emergency Shelter[/td][/tr]
 [tr][td]Criminals       [/td][td]Police Station, Police Headquarters, Prison, Intelligence Agency (CCP)[/td][/tr]
 [tr][td]Education       [/td][td]all buildings listed below in Visitors Buildings for Education[/td][/tr]
+[tr][td]Airport Area    [/td][td]Airport Terminal (3 styles), Two-Story Terminal (3 styles), Large Terminal (3 styles), Cargo Airport Terminal, Control Tower (3 styles), Concourse Hub (3 styles), Small Hangar, Large Hangar, Budget Airport Hotel, Luxury Airport Hotel, Airline Lounge, Aviation Fuel Station, Small Parked Plane (3 variations), Medium Parked Plane (3 variations), Large Parked Plane (2 variations)[/td][/tr]
 [tr][td]Parks & Plazas  [/td][td]all buildings listed below in Visitors Buildings for Parks & Plazas[/td][/tr]
 [tr][td]Unique Buildings[/td][td]all buildings listed below in Visitors Buildings for Unique Buildings[/td][/tr]
 [/table]

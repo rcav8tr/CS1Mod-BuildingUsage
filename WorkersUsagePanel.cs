@@ -45,27 +45,32 @@ namespace BuildingUsage
                 name = GetType().ToString();
 
                 // create the usage groups
-                CreateUsageGroup<ResidentialBuildingAI                                              >(UsageType.HouseholdsResidential);     // includes PloppableRICO
-                CreateUsageGroup<CommercialBuildingAI                                               >(UsageType.WorkersCommercial);         // includes PloppableRICO
-                CreateUsageGroup<OfficeBuildingAI                                                   >(UsageType.WorkersOffice);             // includes PloppableRICO
-                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI, LivestockExtractorAI  >(UsageType.WorkersIndustrial);         // includes PloppableRICO
-                CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                                     >(UsageType.WorkersMaintenance);
-                CreateUsageGroup<WindTurbineAI, PowerPlantAI, DamPowerHouseAI, SolarPowerPlantAI, FusionPowerPlantAI                                            >(UsageType.WorkersPowerPlant);
-                CreateUsageGroup<WaterFacilityAI                                                    >(UsageType.WorkersWaterSewage);
-                CreateUsageGroup<HeatingPlantAI                                                     >(UsageType.WorkersHeatingPlant);
-                CreateUsageGroup<LandfillSiteAI, WaterCleanerAI, UltimateRecyclingPlantAI           >(UsageType.WorkersGarbage);
-                CreateUsageGroup<MainIndustryBuildingAI, AuxiliaryBuildingAI, ExtractingFacilityAI, FishingHarborAI, FishFarmAI, MarketAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI>(UsageType.WorkersIndustry);
-                CreateUsageGroup<HospitalAI, ChildcareAI, EldercareAI, MedicalCenterAI, SaunaAI, HelicopterDepotAI                                              >(UsageType.WorkersMedical);
-                CreateUsageGroup<CemeteryAI                                                         >(UsageType.WorkersCemetery);
-                CreateUsageGroup<FireStationAI, HelicopterDepotAI, FireStationAI                    >(UsageType.WorkersFireStation);
-                CreateUsageGroup<DisasterResponseBuildingAI, ShelterAI, RadioMastAI, EarthquakeSensorAI, DoomsdayVaultAI, WeatherRadarAI, SpaceRadarAI          >(UsageType.WorkersDisaster);
-                CreateUsageGroup<PoliceStationAI, HelicopterDepotAI                                 >(UsageType.WorkersPoliceStation);
-                CreateUsageGroup<SchoolAI, LibraryAI, HadronColliderAI, MainCampusBuildingAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI >(UsageType.WorkersEducation);
-                CreateUsageGroup<CargoStationAI, CargoHarborAI, DepotAI, CableCarStationAI, TransportStationAI, HarborAI, SpaceElevatorAI                       >(UsageType.WorkersTransportation);
-                CreateUsageGroup<PostOfficeAI                                                       >(UsageType.WorkersPost);
-                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                         >(UsageType.WorkersAmusementPark);
-                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                         >(UsageType.WorkersZoo);
-                CreateUsageGroup<MonumentAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI  >(UsageType.WorkersUnique);
+                CreateUsageGroup<ResidentialBuildingAI                                                                      >(UsageType.HouseholdsResidential);     // includes PloppableRICO
+                CreateUsageGroup<CommercialBuildingAI                                                                       >(UsageType.WorkersCommercial);         // includes PloppableRICO
+                CreateUsageGroup<OfficeBuildingAI                                                                           >(UsageType.WorkersOffice);             // includes PloppableRICO
+                CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI, LivestockExtractorAI                          >(UsageType.WorkersIndustrial);         // includes PloppableRICO
+                CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                                                             >(UsageType.WorkersMaintenance);
+                CreateUsageGroup<WindTurbineAI, PowerPlantAI, DamPowerHouseAI, SolarPowerPlantAI, FusionPowerPlantAI        >(UsageType.WorkersPowerPlant);
+                CreateUsageGroup<WaterFacilityAI                                                                            >(UsageType.WorkersWaterSewage);
+                CreateUsageGroup<HeatingPlantAI                                                                             >(UsageType.WorkersHeatingPlant);
+                CreateUsageGroup<LandfillSiteAI, WaterCleanerAI, UltimateRecyclingPlantAI                                   >(UsageType.WorkersGarbage);
+                CreateUsageGroup<MainIndustryBuildingAI, AuxiliaryBuildingAI, ExtractingFacilityAI, FishingHarborAI,
+                                 FishFarmAI, MarketAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI                   >(UsageType.WorkersIndustry);
+                CreateUsageGroup<HospitalAI, ChildcareAI, EldercareAI, MedicalCenterAI, SaunaAI, HelicopterDepotAI          >(UsageType.WorkersMedical);
+                CreateUsageGroup<CemeteryAI                                                                                 >(UsageType.WorkersCemetery);
+                CreateUsageGroup<FireStationAI, HelicopterDepotAI, FireStationAI                                            >(UsageType.WorkersFireStation);
+                CreateUsageGroup<DisasterResponseBuildingAI, ShelterAI, RadioMastAI, EarthquakeSensorAI,
+                                 DoomsdayVaultAI, WeatherRadarAI, SpaceRadarAI                                              >(UsageType.WorkersDisaster);
+                CreateUsageGroup<PoliceStationAI, HelicopterDepotAI                                                         >(UsageType.WorkersPoliceStation);
+                CreateUsageGroup<SchoolAI, LibraryAI, HadronColliderAI, MainCampusBuildingAI, CampusBuildingAI,
+                                 UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI                                            >(UsageType.WorkersEducation);
+                CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI, AirportGateAI, AirportCargoGateAI,
+                                 CargoStationAI, CargoHarborAI, DepotAI, CableCarStationAI, TransportStationAI,
+                                 HarborAI, SpaceElevatorAI                                                                  >(UsageType.WorkersTransportation);
+                CreateUsageGroup<PostOfficeAI                                                                               >(UsageType.WorkersPost);
+                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersAmusementPark);
+                CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersZoo);
+                CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI   >(UsageType.WorkersUnique);
 
                 // add detail panels
                 AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry      );
@@ -137,6 +142,10 @@ namespace BuildingUsage
                 AssociateBuildingAI<UniqueFacultyAI                       >(UsageType.WorkersEducation,      GetUsageCountWorkersService<UniqueFacultyAI           >);
                 AssociateBuildingAI<MuseumAI                              >(UsageType.WorkersEducation,      GetUsageCountWorkersService<MuseumAI                  >);
                 AssociateBuildingAI<VarsitySportsArenaAI                  >(UsageType.WorkersEducation,      GetUsageCountWorkersService<VarsitySportsArenaAI      >);
+                AssociateBuildingAI<AirportAuxBuildingAI                  >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportAuxBuildingAI      >);
+                AssociateBuildingAI<AirportEntranceAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportEntranceAI         >);
+                AssociateBuildingAI<AirportGateAI                         >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportGateAI             >);
+                AssociateBuildingAI<AirportCargoGateAI                    >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportCargoGateAI        >);
                 AssociateBuildingAI<CargoStationAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoStationAI            >);
                 AssociateBuildingAI<CargoHarborAI                         >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoHarborAI             >);
                 AssociateBuildingAI<DepotAI                               >(UsageType.UseLogic1,             GetUsageCountWorkersService<DepotAI                   >);
@@ -148,6 +157,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<ParkGateAI                            >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
                 AssociateBuildingAI<ParkBuildingAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
                 AssociateBuildingAI<MonumentAI                            >(UsageType.WorkersUnique,         GetUsageCountWorkersService<MonumentAI                >);
+                AssociateBuildingAI<AirlineHeadquartersAI                 >(UsageType.WorkersUnique,         GetUsageCountWorkersService<AirlineHeadquartersAI     >);
                 AssociateBuildingAI<AnimalMonumentAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<AnimalMonumentAI          >);
                 AssociateBuildingAI<PrivateAirportAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<PrivateAirportAI          >);
                 AssociateBuildingAI<ChirpwickCastleAI                     >(UsageType.WorkersUnique,         GetUsageCountWorkersService<ChirpwickCastleAI         >);
@@ -168,7 +178,7 @@ namespace BuildingUsage
                 UIPanel workerSummaryPanel = AddUIComponent<UIPanel>();
                 if (workerSummaryPanel == null)
                 {
-                    Debug.LogError($"Unable to create worker summary panel.");
+                    LogUtil.LogError($"Unable to create worker summary panel.");
                     return;
                 }
                 workerSummaryPanel.name = "WorkerSummaryPanel";
@@ -198,7 +208,7 @@ namespace BuildingUsage
                 _totalJobs.description.tooltip = "Total number of jobs in buildings";
                 _unfilledJobs.description.tooltip = "Total Jobs minus Employed";
                 _overEducated.description.tooltip = "Workers with more education than job requires";
-                
+
                 _unemployed.description.tooltip = "Workers not in a job";
                 _eligible.description.tooltip = "Citizens eligible to work";
                 _unemploymentRate.description.tooltip = "Unemployment rate (Unemployed divided by Eligible)";
@@ -208,7 +218,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -277,7 +287,7 @@ namespace BuildingUsage
             line = workerSummaryPanel.AddUIComponent<UISprite>();
             if (line == null)
             {
-                Debug.LogError($"Unable to create line under [{headingLabel.name}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create line under [{headingLabel.name}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             line.name = headingLabel.name + "Line";
@@ -311,7 +321,7 @@ namespace BuildingUsage
             workerData.description = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.description == null)
             {
-                Debug.LogError($"Unable to create description label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create description label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.description.name = namePrefix + "Description";
@@ -330,7 +340,7 @@ namespace BuildingUsage
             workerData.eduLevel0 = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel0 == null)
             {
-                Debug.LogError($"Unable to create education level 0 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 0 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel0.name = namePrefix + "Level0";
@@ -349,7 +359,7 @@ namespace BuildingUsage
             workerData.eduLevel1 = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel1 == null)
             {
-                Debug.LogError($"Unable to create education level 1 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 1 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel1.name = namePrefix + "Level1";
@@ -368,7 +378,7 @@ namespace BuildingUsage
             workerData.eduLevel2 = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel2 == null)
             {
-                Debug.LogError($"Unable to create education level 2 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 2 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel2.name = namePrefix + "Level2";
@@ -387,7 +397,7 @@ namespace BuildingUsage
             workerData.eduLevel3 = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel3 == null)
             {
-                Debug.LogError($"Unable to create education level 3 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 3 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel3.name = namePrefix + "Level3";
@@ -406,7 +416,7 @@ namespace BuildingUsage
             workerData.total = workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.total == null)
             {
-                Debug.LogError($"Unable to create total jobs label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create total jobs label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
                 return false;
             }
             workerData.total.name = namePrefix + "Total";
@@ -467,13 +477,17 @@ namespace BuildingUsage
                     return UsageType.None;
                 }
             }
-            else if (buildingAIType == typeof(CargoStationAI    ) ||
-                     buildingAIType == typeof(CargoHarborAI     ) ||
-                     buildingAIType == typeof(DepotAI           ) ||
-                     buildingAIType == typeof(CableCarStationAI ) ||
-                     buildingAIType == typeof(TransportStationAI) ||
-                     buildingAIType == typeof(HarborAI          ) ||
-                     buildingAIType == typeof(SpaceElevatorAI   ))
+            else if (buildingAIType == typeof(AirportAuxBuildingAI) ||
+                     buildingAIType == typeof(AirportEntranceAI   ) ||
+                     buildingAIType == typeof(AirportGateAI       ) ||
+                     buildingAIType == typeof(AirportCargoGateAI  ) ||
+                     buildingAIType == typeof(CargoStationAI      ) ||
+                     buildingAIType == typeof(CargoHarborAI       ) ||
+                     buildingAIType == typeof(DepotAI             ) ||
+                     buildingAIType == typeof(CableCarStationAI   ) ||
+                     buildingAIType == typeof(TransportStationAI  ) ||
+                     buildingAIType == typeof(HarborAI            ) ||
+                     buildingAIType == typeof(SpaceElevatorAI     ))
             {
                 if (GetWorkersTransportationUsageType(data.Info) == UsageType.None)
                 {
@@ -485,7 +499,7 @@ namespace BuildingUsage
                 }
             }
 
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -496,7 +510,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -506,7 +520,7 @@ namespace BuildingUsage
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -607,7 +621,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
 
             // panel was updated

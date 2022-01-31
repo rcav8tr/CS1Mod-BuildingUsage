@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BuildingUsage
 {
-    public abstract partial class UsagePanel : UIPanel
+    public abstract class UsagePanel : UIPanel
     {
         // define the usage types
         public enum UsageType
@@ -106,6 +106,7 @@ namespace BuildingUsage
             WorkersUniqueWinterUnique,
             WorkersUniqueFootball,
             WorkersUniqueConcert,
+            WorkersUniqueAirports,
             WorkersUniqueLevel1,
             WorkersUniqueLevel2,
             WorkersUniqueLevel3,
@@ -124,6 +125,7 @@ namespace BuildingUsage
             VisitorsShelter,
             VisitorsCriminals,
             VisitorsEducation,
+            VisitorsAirportArea,
             VisitorsParksPlazas,
             VisitorsUnique,
 
@@ -161,6 +163,7 @@ namespace BuildingUsage
             VisitorsUniqueWinterUnique,
             VisitorsUniqueFootball,
             VisitorsUniqueConcert,
+            VisitorsUniqueAirports,
             VisitorsUniqueLevel1,
             VisitorsUniqueLevel2,
             VisitorsUniqueLevel3,
@@ -324,6 +327,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoTransportTrain       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTrain",           32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoTransportShip        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportShip",            32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoTransportPlane       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportPlane",           32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportAirports    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportAirportArea",     32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoTransportMonorail    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportMonorail",        32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoTransportCableCar    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportCableCar",        32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoTransportTaxi        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTaxi",            32f, 22f);
@@ -464,6 +468,7 @@ namespace BuildingUsage
             { UsageType.WorkersUniqueWinterUnique,              new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
             { UsageType.WorkersUniqueFootball,                  new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.WorkersUniqueConcert,                   new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
+            { UsageType.WorkersUniqueAirports,                  new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
             { UsageType.WorkersUniqueLevel1,                    new UsageTypeInfo("Level 1 Unique",     thumbnailInfoMonumentCategory1  ) },
             { UsageType.WorkersUniqueLevel2,                    new UsageTypeInfo("Level 2 Unique",     thumbnailInfoMonumentCategory2  ) },
             { UsageType.WorkersUniqueLevel3,                    new UsageTypeInfo("Level 3 Unique",     thumbnailInfoMonumentCategory3  ) },
@@ -482,6 +487,7 @@ namespace BuildingUsage
             { UsageType.VisitorsShelter,                        new UsageTypeInfo("Sheltered",          thumbnailInfoDisaster           ) },
             { UsageType.VisitorsCriminals,                      new UsageTypeInfo("Criminals",          thumbnailInfoPolice             ) },
             { UsageType.VisitorsEducation,                      new UsageTypeInfo("Education",          thumbnailInfoEducation          ) },
+            { UsageType.VisitorsAirportArea,                    new UsageTypeInfo("Airport Area",       thumbnailInfoTransportAirports  ) },
             { UsageType.VisitorsParksPlazas,                    new UsageTypeInfo("Parks & Plazas",     thumbnailInfoBeautification     ) },
             { UsageType.VisitorsUnique,                         new UsageTypeInfo("Unique Buildings",   thumbnailInfoUniqueBuilding     ) },
 
@@ -519,6 +525,7 @@ namespace BuildingUsage
             { UsageType.VisitorsUniqueWinterUnique,             new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
             { UsageType.VisitorsUniqueFootball,                 new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.VisitorsUniqueConcert,                  new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
+            { UsageType.VisitorsUniqueAirports,                 new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
             { UsageType.VisitorsUniqueLevel1,                   new UsageTypeInfo("Level 1 Unique",     thumbnailInfoMonumentCategory1  ) },
             { UsageType.VisitorsUniqueLevel2,                   new UsageTypeInfo("Level 2 Unique",     thumbnailInfoMonumentCategory2  ) },
             { UsageType.VisitorsUniqueLevel3,                   new UsageTypeInfo("Level 3 Unique",     thumbnailInfoMonumentCategory3  ) },
@@ -785,7 +792,7 @@ namespace BuildingUsage
             LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
             if (levelsPanel == null)
             {
-                Debug.LogError($"Unable to find LevelsInfoViewPanel when creating usage panel of type [{typeof(T).Name}].");
+                LogUtil.LogError($"Unable to find LevelsInfoViewPanel when creating usage panel of type [{typeof(T).Name}].");
                 return null;
             }
 
@@ -793,7 +800,7 @@ namespace BuildingUsage
             T usagePanel = (T)levelsPanel.component.AddUIComponent(typeof(T));
             if (usagePanel == null)
             {
-                Debug.LogError($"Unable to create usage panel of type [{typeof(T).Name}].");
+                LogUtil.LogError($"Unable to create usage panel of type [{typeof(T).Name}].");
                 return null;
             }
 
@@ -819,7 +826,7 @@ namespace BuildingUsage
             LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
             if (levelsPanel == null)
             {
-                Debug.LogError("Unable to find LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to find LevelsInfoViewPanel.");
                 return;
             }
 
@@ -854,17 +861,17 @@ namespace BuildingUsage
                 }
                 if (_ingameAtlas == null)
                 {
-                    Debug.LogError("Unable to find Ingame atlas.");
+                    LogUtil.LogError("Unable to find Ingame atlas.");
                     return;
                 }
                 if (_thumbnailsAtlas == null)
                 {
-                    Debug.LogError("Unable to find Thumbnails atlas.");
+                    LogUtil.LogError("Unable to find Thumbnails atlas.");
                     return;
                 }
                 if (_expansion9Atlas == null)
                 {
-                    Debug.LogError("Unable to find ThumbnailsExpansion9 atlas.");
+                    LogUtil.LogError("Unable to find ThumbnailsExpansion9 atlas.");
                     return;
                 }
             }
@@ -875,7 +882,7 @@ namespace BuildingUsage
                 UITextureSprite gradientTemplate = levelsPanel.Find<UITextureSprite>("ResidentialGradient");
                 if (gradientTemplate == null)
                 {
-                    Debug.LogError("Unable to find ResidentialGradient.");
+                    LogUtil.LogError("Unable to find ResidentialGradient.");
                     return;
                 }
                 _gradientMaterial = gradientTemplate.material;
@@ -895,7 +902,7 @@ namespace BuildingUsage
                 UILabel fontTemplate = levelsPanel.Find<UILabel>("ResidentialLevel");
                 if (fontTemplate == null)
                 {
-                    Debug.LogError("Unable to find ResidentialLevel.");
+                    LogUtil.LogError("Unable to find ResidentialLevel.");
                     return;
                 }
                 _textFont = fontTemplate.font;
@@ -1000,7 +1007,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -1071,7 +1078,7 @@ namespace BuildingUsage
             UIButton button = AddUIComponent<UIButton>();
             if (button == null)
             {
-                Debug.LogError($"Unable to create [{buttonText}] button.");
+                LogUtil.LogError($"Unable to create [{buttonText}] button.");
                 return null;
             }
             button.name = buttonName;
@@ -1177,7 +1184,7 @@ namespace BuildingUsage
                     return;
                 }
             }
-            Debug.LogError($"Usage group not found for component [{component.name}].");
+            LogUtil.LogError($"Usage group not found for component [{component.name}].");
         }
 
         /// <summary>
@@ -1193,7 +1200,7 @@ namespace BuildingUsage
                     return;
                 }
             }
-            Debug.LogError($"Usage group not found for component [{component.name}].");
+            LogUtil.LogError($"Usage group not found for component [{component.name}].");
         }
 
         /// <summary>
@@ -1264,7 +1271,7 @@ namespace BuildingUsage
             // check if already defined
             if (_mutuallyExclusiveCheckBoxes.ContainsKey(key1) || _mutuallyExclusiveCheckBoxes.ContainsKey(key2))
             {
-                Debug.LogError($"Mutually exclusive check boxes already contains key [{key1}] or [{key2}].");
+                LogUtil.LogError($"Mutually exclusive check boxes already contains key [{key1}] or [{key2}].");
                 return;
             }
 
@@ -1300,7 +1307,7 @@ namespace BuildingUsage
             _returnFromDetail = AddUIComponent<UIButton>();
             if (_returnFromDetail == null)
             {
-                Debug.LogError($"Unable to create Return From Detail button on [{this.name}] panel.");
+                LogUtil.LogError($"Unable to create Return From Detail button on [{this.name}] panel.");
                 return;
             }
             _returnFromDetail.name = "ReturnFromDetail";
@@ -1359,7 +1366,7 @@ namespace BuildingUsage
                     return;
                 }
             }
-            Debug.LogError($"Usage group not found for component [{component.name}].");
+            LogUtil.LogError($"Usage group not found for component [{component.name}].");
         }
         #endregion
 
@@ -1420,14 +1427,14 @@ namespace BuildingUsage
             // get the usage type info
             if (!_usageTypeInfos.TryGetValue(usageType, out UsageTypeInfo usageTypeInfo))
             {
-                Debug.LogError($"Usage type info not defined for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Usage type info not defined for usage type [{usageType}].");
                 return;
             }
 
             // check counter against the max
             if (_usageGroupCounter >= MaxUsageGroups)
             {
-                Debug.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
+                LogUtil.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
             }
 
             // compute some things
@@ -1441,7 +1448,7 @@ namespace BuildingUsage
             UISprite checkBox = AddUIComponent<UISprite>();
             if (checkBox == null)
             {
-                Debug.LogError($"Unable to create check box sprite for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create check box sprite for usage type [{usageType}].");
                 return;
             }
             checkBox.name = groupName + CheckBoxNameSuffix;
@@ -1459,7 +1466,7 @@ namespace BuildingUsage
             UISprite thumbnail = AddUIComponent<UISprite>();
             if (thumbnail == null)
             {
-                Debug.LogError($"Unable to create thumbnail sprite for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create thumbnail sprite for usage type [{usageType}].");
                 return;
             }
             thumbnail.name = groupName + "Thumbnail";
@@ -1472,7 +1479,7 @@ namespace BuildingUsage
                 case ThumbnailInfo.AtlasType.Thumbnails:    thumbnail.atlas = _thumbnailsAtlas; break;
                 case ThumbnailInfo.AtlasType.Expansion9:    thumbnail.atlas = _expansion9Atlas; break;
                 default:
-                    Debug.LogError($"Unhandled atlastype [{thumbnailInfo.atlasType}] when creating usage group for usage type [{usageType}].");
+                    LogUtil.LogError($"Unhandled atlastype [{thumbnailInfo.atlasType}] when creating usage group for usage type [{usageType}].");
                     return;
             }
             thumbnail.spriteName = thumbnailInfo.spriteNameDisabled;
@@ -1483,7 +1490,7 @@ namespace BuildingUsage
             UILabel description = AddUIComponent<UILabel>();
             if (description == null)
             {
-                Debug.LogError($"Unable to create description label for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create description label for usage type [{usageType}].");
                 return;
             }
             description.name = groupName + "Description";
@@ -1505,7 +1512,7 @@ namespace BuildingUsage
             UISprite detailButton = AddUIComponent<UISprite>();
             if (detailButton == null)
             {
-                Debug.LogError($"Unable to create detail button sprite for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create detail button sprite for usage type [{usageType}].");
                 return;
             }
             detailButton.name = groupName + "Detail";
@@ -1521,7 +1528,7 @@ namespace BuildingUsage
             UILabel percent = AddUIComponent<UILabel>();
             if (percent == null)
             {
-                Debug.LogError($"Unable to create percent label for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create percent label for usage type [{usageType}].");
                 return;
             }
             percent.name = groupName + "Usage";
@@ -1543,7 +1550,7 @@ namespace BuildingUsage
             UITextureSprite legend = AddUIComponent<UITextureSprite>();
             if (legend == null)
             {
-                Debug.LogError($"Unable to create legend sprite for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create legend sprite for usage type [{usageType}].");
                 return;
             }
             legend.name = groupName + "Legend";
@@ -1560,7 +1567,7 @@ namespace BuildingUsage
             UISprite indicator = legend.AddUIComponent<UISprite>();
             if (indicator == null)
             {
-                Debug.LogError($"Unable to create indicator sprite for usage type [{usageType.ToString()}].");
+                LogUtil.LogError($"Unable to create indicator sprite for usage type [{usageType}].");
                 return;
             }
             indicator.name = groupName + "Indicator";
@@ -1651,6 +1658,14 @@ namespace BuildingUsage
             where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI
         { if (IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9>()) { CreateUsageGroup(usageType); } }
 
+        protected void CreateUsageGroup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(UsageType usageType)
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI
+        { if (IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>()) { CreateUsageGroup(usageType); } }
+
+        protected void CreateUsageGroup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(UsageType usageType)
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI
+        { if (IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()) { CreateUsageGroup(usageType); } }
+
         /// <summary>
         /// return whether or not the specified building AI type is defined in the building prefabs
         /// </summary>
@@ -1722,6 +1737,14 @@ namespace BuildingUsage
             where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI
         { return IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8>() || IsBuildingAITypeDefined<T9>(); }
 
+        protected bool IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>()
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI
+        { return IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9>() || IsBuildingAITypeDefined<T10>(); }
+
+        protected bool IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI
+        { return IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>() || IsBuildingAITypeDefined<T11>(); }
+
         /// <summary>
         /// create a heading line above a set of usage groups
         /// </summary>
@@ -1730,7 +1753,7 @@ namespace BuildingUsage
             // check counter against the max
             if (_usageGroupCounter >= MaxUsageGroups)
             {
-                Debug.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
+                LogUtil.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
             }
 
             // compute some things
@@ -1743,7 +1766,7 @@ namespace BuildingUsage
             UILabel heading = AddUIComponent<UILabel>();
             if (heading == null)
             {
-                Debug.LogError($"Unable to create heading label for group heading [{headingText}].");
+                LogUtil.LogError($"Unable to create heading label for group heading [{headingText}].");
                 return;
             }
             heading.name = groupName + "Heading";
@@ -1761,7 +1784,7 @@ namespace BuildingUsage
             UISprite line = AddUIComponent<UISprite>();
             if (line == null)
             {
-                Debug.LogError($"Unable to create line sprite for group heading [{headingText}].");
+                LogUtil.LogError($"Unable to create line sprite for group heading [{headingText}].");
                 return;
             }
             line.name = groupName + "Line";
@@ -1898,7 +1921,7 @@ namespace BuildingUsage
                     else
                     {
                         // string building AI was found, but it is not valid
-                        Debug.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
+                        LogUtil.LogError($"Building AI [{buildingAI}] does not derive from CommonBuildingAI.");
                         return false;
                     }
                 }
@@ -2254,7 +2277,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++unitCounter > maximumCitizenUnits)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -2355,7 +2378,7 @@ namespace BuildingUsage
                     // check for error (e.g. circular reference)
                     if (++citizenCounter > maximumCitizenUnits)
                     {
-                        Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                        LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                         break;
                     }
                 }
@@ -2389,7 +2412,7 @@ namespace BuildingUsage
                 return buildingAI.m_parkType;
             }
 
-            Debug.LogError($"Unhandled building AI type [{data.Info.m_buildingAI.GetType().ToString()}] while trying to get park type.");
+            LogUtil.LogError($"Unhandled building AI type [{data.Info.m_buildingAI.GetType().ToString()}] while trying to get park type.");
             return DistrictPark.ParkType.None;
         }
 
@@ -2536,7 +2559,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++unitCounter > maximumCitizenUnits)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -2731,10 +2754,24 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++unitCounter > maximumCitizenUnits)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// get the usage count of a AirportBuildingAI or derived building
+        /// </summary>
+        protected void GetUsageCountVisitorsAirportArea<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : AirportBuildingAI
+        {
+            // get visitors used
+            // logic adapted from AirportBuildingAI.GetLocalizedStats
+            used = data.m_customBuffer2;
+
+            // allowed is sum of low, medium, and high wealth
+            T buildingAI = data.Info.m_buildingAI as T;
+            allowed = buildingAI.m_visitPlaceCount0 + buildingAI.m_visitPlaceCount1 + buildingAI.m_visitPlaceCount2;
         }
 
         /// <summary>
@@ -2820,7 +2857,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++unitCounter > maximumCitizenUnits)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -2857,7 +2894,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++unitCounter > maximumCitizenUnits)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -3582,7 +3619,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++vehicleCounter > maximumVehicles)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -3615,7 +3652,7 @@ namespace BuildingUsage
                 // check for error (e.g. circular reference)
                 if (++vehicleCounter > maximumVehicles)
                 {
-                    Debug.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
+                    LogUtil.LogError("Invalid list detected!" + Environment.NewLine + Environment.StackTrace);
                     break;
                 }
             }
@@ -3746,7 +3783,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
 
             // for any building AI type not handled above, use neutral color
@@ -3821,7 +3858,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
 
             // for any vehicle AI not handled above, use neutral color
@@ -3831,22 +3868,43 @@ namespace BuildingUsage
 
         #region "Transportation Building Usage Types"
 
-        // Here are the combinations of building AI and vehicle reason that define the usage type for each transportation building
+        // Here are the combinations of building AI together with AI name (case insensitive) that define the usage type for each transportation building
+        //
+        // Building AI                      Building Name                               AI Name Contains                        Metro Subbuilding   WorkersTransportation   VehiclesTransportation
+        // --------------------------       ------------------------------------------  ------------------                      ------------------  ----------------------  ----------------------
+        // AirportAuxBuildingAI        WV-- Parked Cargo Plane (2 variations)           Cargo                                   No                  AirCargo                None
+        //                                  Concourse Hub (3 styles)                    not Cargo                               Yes                 AirPeople               Metro
+        //                                  (all others, many)                          not Cargo                               No                  AirPeople               None
+
+
+        // Here are the combinations of building AI together with class level that define the usage type for each transportation building
+        //
+        // Building AI                      Building Name                               Class Level                             Metro Subbuilding   WorkersTransportation   VehiclesTransportation
+        // --------------------------       ------------------------------------------  ------------------                      ------------------  ----------------------  ----------------------
+        // AirportEntranceAI           WV-- Cargo Airport Terminal                      4                                       No                  AirCargo                None
+        //                                  Airport Terminal (3 styles)                 1                                       No                  AirPeople               None
+        //                                  Two-Story Terminal (3 styles)               1                                       Yes                 AirPeople               Metro
+        //                                  Large Terminal (3 styles)                   1                                       No                  AirPeople               None
+
+
+        // Here are the combinations of building AI together with vehicle reason that define the usage type for each transportation building
         //
         // Building AI                      Building Name                               Vehicle Reason 1    Vehicle Reason 2    Metro Subbuilding   WorkersTransportation   VehiclesTransportation
         // --------------------------       ------------------------------------------  ------------------  ------------------  ------------------  ----------------------  ----------------------
         // CargoStationAI              W--U Cargo Train Terminal                        PassengerTrain      null                                    TrainCargo              TrainCargo
+        //                                  Airport Cargo Train Station                 PassengerTrain      PassengerTrain                          TrainCargo              TrainCargo
         //                                  Cargo Airport                               PassengerPlane      null                                    AirCargo                AirCargo
         //                                  Cargo Airport Hub                           PassengerPlane      PassengerTrain                          AirCargo                AirCargo
+        //    AirportCargoGateAI            Cargo Aircraft Stand                        PassengerPlane      null                                    AirCargo                AirCargo
         //    CargoHarborAI            W--U Cargo Harbor                                PassengerShip       null                                    ShipCargo               ShipCargo
         //                                  Cargo Hub                                   PassengerTrain      PassengerShip                           ShipCargo               ShipCargo
         // DepotAI                     W--U Bus Depot                                   Bus                 null                                    Bus                     Bus
         //                                  Biofuel Bus Depot                           Bus                 null                                    Bus                     Bus
         //                                  Trolleybus Depot                            TrolleyBus          null                                    Trolleybus              TrolleyBus
         //                                  Tram Depot                                  Tram                null                                    Tram                    Tram
-        //                                  Ferry Depot                                 Ferry               null                                    ShipPeople              Ship
-        //                                  Helicopter Depot                            PassengerHelicopter null                                    AirPeople               Air
-        //                                  Blimp Depot                                 Blimp               null                                    AirPeople               Air
+        //                                  Ferry Depot                                 Ferry               null                                    ShipPeople              ShipPeople
+        //                                  Helicopter Depot                            PassengerHelicopter null                                    AirPeople               AirPeople
+        //                                  Blimp Depot                                 Blimp               null                                    AirPeople               AirPeople
         //                                  Sightseeing Bus Depot                       TouristBus          null                                    Tours                   Tours
         //                                  Taxi Depot                                  Taxi                null                                    Taxi                    Taxi
         //    CableCarStationAI        W--U Cable Car Stop                              CableCar            null                                    CableCar                CableCar
@@ -3866,16 +3924,16 @@ namespace BuildingUsage
         //                                  Elevated Island Platform Metro Station      MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
-        //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Old Market Station                          PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Ground Dual Island Platform Train Station   PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Ground Bypass Train Station                 PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             Train
-        //                                  Airport                                     PassengerPlane      null                No                  AirPeople               Air
+        //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Old Market Station                          PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Ground Dual Island Platform Train Station   PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Ground Bypass Train Station                 PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Airport                                     PassengerPlane      null                No                  AirPeople               AirPeople
         //                                  Monorail Station                            Monorail            null                                    Monorail                Monorail
         //                                  Monorail Station with Road                  Monorail            null                                    Monorail                Monorail
         //                                  Bus-Intercity Bus Hub                       Bus                 IntercityBus                            Hubs                    Hubs
@@ -3889,10 +3947,16 @@ namespace BuildingUsage
         //                                  Metropolitan Airport                        PassengerPlane      PassengerHelicopter Yes                 Hubs                    Hubs
         //                                  Monorail-Bus Hub                            Monorail            Bus                                     Hubs                    Hubs
         //                                  Metro-Monorail-Train Hub                    Monorail            PassengerTrain      Yes                 Hubs                    Hubs
+        //       AirportGateAI         W--- Airport Bus Station                         Bus                 null                                    Bus                     None
+        //       AirportGateAI         W--U Small Aircraft Stand                        PassengerPlane      null                                    AirPeople               AirPeople
+        //                                  Medium Aircraft Stand                       PassengerPlane      null                                    AirPeople               AirPeople
+        //                                  Large Aircraft Stand                        PassengerPlane      null                                    AirPeople               AirPeople
+        //                                  Elevated Airport Metro Station              MetroTrain          null                                    Metro                   Metro
+        //                                  Airport Train Station                       PassengerTrain      null                                    TrainPeople             TrainPeople
         //       HarborAI              W--- Ferry Stop                                  Ferry               null                                    ShipPeople              None
         //                                  Ferry Pier                                  Ferry               null                                    ShipPeople              None
         //                                  Ferry and Bus Exchange Stop                 Ferry               Bus                                     Hubs                    None
-        //       HarborAI              W--U Harbor                                      PassengerShip       null                                    ShipPeople              Ship
+        //       HarborAI              W--U Harbor                                      PassengerShip       null                                    ShipPeople              ShipPeople
         // SpaceElevatorAI             W--- Space Elevator (monument)                   ----                ----                                    SpaceElevator           None
         // TourBuildingAI              -V-U Hot Air Balloon Tours                       None                ----                                    None                    Tours
 
@@ -3902,13 +3966,25 @@ namespace BuildingUsage
         /// </summary>
         protected UsageType GetWorkersTransportationUsageType(BuildingInfo buildingInfo)
         {
-            // use building AI type and vehicle reasons to determine the usage type
+            // use building AI type together with AI name, class level, or vehicle reasons to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
-            if (buildingAIType == typeof(CargoStationAI))
+            if (buildingAIType == typeof(AirportAuxBuildingAI))
+            {
+                return (buildingInfo.m_buildingAI.name.ToUpper().Contains("CARGO") ? UsageType.WorkersTransportationAirCargo : UsageType.WorkersTransportationAirPeople);
+            }
+            else if (buildingAIType == typeof(AirportEntranceAI))
+            {
+                return (buildingInfo.m_class.m_level == ItemClass.Level.Level4 ? UsageType.WorkersTransportationAirCargo : UsageType.WorkersTransportationAirPeople);
+            }
+            else if (buildingAIType == typeof(CargoStationAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationTrainCargo;
                 if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.WorkersTransportationAirCargo;
+            }
+            else if (buildingAIType == typeof(AirportCargoGateAI))
+            {
+                return UsageType.WorkersTransportationAirCargo;
             }
             else if (buildingAIType == typeof(CargoHarborAI))
             {
@@ -3975,6 +4051,14 @@ namespace BuildingUsage
                     return UsageType.WorkersTransportationMonorail;
                 }
             }
+            else if (buildingAIType == typeof(AirportGateAI))
+            {
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
+                if (reason1 == TransferManager.TransferReason.Bus           ) return UsageType.WorkersTransportationBus;
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.WorkersTransportationAirPeople;
+                if (reason1 == TransferManager.TransferReason.MetroTrain    ) return UsageType.WorkersTransportationMetro;
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationTrainPeople;
+            }
             else if (buildingAIType == typeof(HarborAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
@@ -3996,15 +4080,42 @@ namespace BuildingUsage
         /// <summary>
         /// get the usage type for a vehicles transportation building
         /// </summary>
+        protected UsageType GetVehiclesTransportationUsageType(Building building)
+        {
+            // exclude usage type for subbuilding (i.e. integrated metro station)
+            if (building.m_parentBuilding != 0)
+            {
+                return UsageType.None;
+            }
+
+            // get usage type normally
+            return GetVehiclesTransportationUsageType(building.Info);
+        }
+
+        /// <summary>
+        /// get the usage type for a vehicles transportation building info
+        /// </summary>
         protected UsageType GetVehiclesTransportationUsageType(BuildingInfo buildingInfo)
         {
             // use building AI type and vehicle reasons to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
-            if (buildingAIType == typeof(CargoStationAI))
+            if (buildingAIType == typeof(AirportAuxBuildingAI))
+            {
+                return (HasMetroSubBuilding(buildingInfo) ? UsageType.VehiclesTransportationMetro : UsageType.None);
+            }
+            else if (buildingAIType == typeof(AirportEntranceAI))
+            {
+                return (HasMetroSubBuilding(buildingInfo) ? UsageType.VehiclesTransportationMetro : UsageType.None);
+            }
+            else if (buildingAIType == typeof(CargoStationAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
                 if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationTrainCargo;
                 if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.VehiclesTransportationAirCargo;
+            }
+            else if (buildingAIType == typeof(AirportCargoGateAI))
+            {
+                return UsageType.VehiclesTransportationAirCargo;
             }
             else if (buildingAIType == typeof(CargoHarborAI))
             {
@@ -4062,6 +4173,14 @@ namespace BuildingUsage
                     if (reason2 == TransferManager.TransferReason.Bus || reason2 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationHubs;
                     return UsageType.VehiclesTransportationMonorail;
                 }
+            }
+            else if (buildingAIType == typeof(AirportGateAI))
+            {
+                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
+                if (reason1 == TransferManager.TransferReason.Bus           ) return UsageType.None;
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.VehiclesTransportationAirPeople;
+                if (reason1 == TransferManager.TransferReason.MetroTrain    ) return UsageType.VehiclesTransportationMetro;
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationTrainPeople;
             }
             else if (buildingAIType == typeof(HarborAI))
             {
@@ -4122,9 +4241,10 @@ namespace BuildingUsage
             // check if any sub building is a metro station
             if (buildingInfo != null && buildingInfo.m_subBuildings != null)
             {
-                foreach (var subBuilding in buildingInfo.m_subBuildings)
+                foreach (BuildingInfo.SubInfo subBuilding in buildingInfo.m_subBuildings)
                 {
-                    if (subBuilding.m_buildingInfo != null && subBuilding.m_buildingInfo.m_buildingAI != null && subBuilding.m_buildingInfo.m_buildingAI.GetType() == typeof(TransportStationAI))
+                    // metro station subbuildings always have TransportStationAI
+                    if (subBuilding != null && subBuilding.m_buildingInfo != null && subBuilding.m_buildingInfo.m_buildingAI != null && subBuilding.m_buildingInfo.m_buildingAI.GetType() == typeof(TransportStationAI))
                     {
                         GetVehicleReasons(subBuilding.m_buildingInfo, out TransferManager.TransferReason subReason1, out TransferManager.TransferReason subReason2);
                         if (subReason1 == TransferManager.TransferReason.MetroTrain || subReason2 == TransferManager.TransferReason.MetroTrain)
@@ -4208,7 +4328,7 @@ namespace BuildingUsage
                 case "MonumentModderPack":          return UsageType.VisitorsParksPlazasContentCreator;
                 case "Default":                     return UsageType.None;      // the Train Stations CCP has one subbuilding with this category, so ignore this category
                 default:
-                    Debug.LogError($"Unhandled building category [{category}] when determining usage type for building [{name}].");
+                    LogUtil.LogError($"Unhandled building category [{category}] when determining usage type for building [{name}].");
                     return UsageType.None;
             }
         }
@@ -4227,7 +4347,7 @@ namespace BuildingUsage
                 case DistrictPark.ParkType.Zoo:             return UsageType.VisitorsParksPlazasZoo;
                 case DistrictPark.ParkType.NatureReserve:   return UsageType.VisitorsParksPlazasNatureReserve;
                 default:
-                    Debug.LogError($"Unhandled park type [{parkType.ToString()}] when determining usage type for building [{data.Info.name}].");
+                    LogUtil.LogError($"Unhandled park type [{parkType}] when determining usage type for building [{data.Info.name}].");
                     return UsageType.None;
             }
         }
@@ -4253,22 +4373,27 @@ namespace BuildingUsage
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
-                    case "MonumentLandmarks":  return UsageType.WorkersUniqueLandmark;
-                    case "MonumentExpansion1": return UsageType.WorkersUniqueTourismLeisure;
-                    case "MonumentExpansion2": return UsageType.WorkersUniqueWinterUnique;
-                    case "MonumentFootball":   return UsageType.WorkersUniqueFootball;
-                    case "MonumentConcerts":   return UsageType.WorkersUniqueConcert;
-                    case "MonumentCategory1":  return UsageType.WorkersUniqueLevel1;
-                    case "MonumentCategory2":  return UsageType.WorkersUniqueLevel2;
-                    case "MonumentCategory3":  return UsageType.WorkersUniqueLevel3;
-                    case "MonumentCategory4":  return UsageType.WorkersUniqueLevel4;
-                    case "MonumentCategory5":  return UsageType.WorkersUniqueLevel5;
-                    case "MonumentCategory6":  return UsageType.WorkersUniqueLevel6;
-                    case "MonumentModderPack": return UsageType.WorkersUniqueContentCreator;
+                    case "MonumentLandmarks":           return UsageType.WorkersUniqueLandmark;
+                    case "MonumentExpansion1":          return UsageType.WorkersUniqueTourismLeisure;
+                    case "MonumentExpansion2":          return UsageType.WorkersUniqueWinterUnique;
+                    case "MonumentFootball":            return UsageType.WorkersUniqueFootball;
+                    case "MonumentConcerts":            return UsageType.WorkersUniqueConcert;
+                    case "PublicTransportAirportArea":  return UsageType.WorkersUniqueAirports;
+                    case "MonumentCategory1":           return UsageType.WorkersUniqueLevel1;
+                    case "MonumentCategory2":           return UsageType.WorkersUniqueLevel2;
+                    case "MonumentCategory3":           return UsageType.WorkersUniqueLevel3;
+                    case "MonumentCategory4":           return UsageType.WorkersUniqueLevel4;
+                    case "MonumentCategory5":           return UsageType.WorkersUniqueLevel5;
+                    case "MonumentCategory6":           return UsageType.WorkersUniqueLevel6;
+                    case "MonumentModderPack":          return UsageType.WorkersUniqueContentCreator;
                     default:
-                        Debug.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
+                        LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                 }
+            }
+            else if (buildingAIType == typeof(AirlineHeadquartersAI))
+            {
+                return UsageType.WorkersUniqueAirports;
             }
             else if (buildingAIType == typeof(AnimalMonumentAI))
             {
@@ -4305,22 +4430,27 @@ namespace BuildingUsage
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
-                    case "MonumentLandmarks":  return UsageType.VisitorsUniqueLandmark;
-                    case "MonumentExpansion1": return UsageType.VisitorsUniqueTourismLeisure;
-                    case "MonumentExpansion2": return UsageType.VisitorsUniqueWinterUnique;
-                    case "MonumentFootball":   return UsageType.VisitorsUniqueFootball;
-                    case "MonumentConcerts":   return UsageType.VisitorsUniqueConcert;
-                    case "MonumentCategory1":  return UsageType.VisitorsUniqueLevel1;
-                    case "MonumentCategory2":  return UsageType.VisitorsUniqueLevel2;
-                    case "MonumentCategory3":  return UsageType.VisitorsUniqueLevel3;
-                    case "MonumentCategory4":  return UsageType.VisitorsUniqueLevel4;
-                    case "MonumentCategory5":  return UsageType.VisitorsUniqueLevel5;
-                    case "MonumentCategory6":  return UsageType.VisitorsUniqueLevel6;
-                    case "MonumentModderPack": return UsageType.VisitorsUniqueContentCreator;
+                    case "MonumentLandmarks":           return UsageType.VisitorsUniqueLandmark;
+                    case "MonumentExpansion1":          return UsageType.VisitorsUniqueTourismLeisure;
+                    case "MonumentExpansion2":          return UsageType.VisitorsUniqueWinterUnique;
+                    case "MonumentFootball":            return UsageType.VisitorsUniqueFootball;
+                    case "MonumentConcerts":            return UsageType.VisitorsUniqueConcert;
+                    case "PublicTransportAirportArea":  return UsageType.VisitorsUniqueAirports;
+                    case "MonumentCategory1":           return UsageType.VisitorsUniqueLevel1;
+                    case "MonumentCategory2":           return UsageType.VisitorsUniqueLevel2;
+                    case "MonumentCategory3":           return UsageType.VisitorsUniqueLevel3;
+                    case "MonumentCategory4":           return UsageType.VisitorsUniqueLevel4;
+                    case "MonumentCategory5":           return UsageType.VisitorsUniqueLevel5;
+                    case "MonumentCategory6":           return UsageType.VisitorsUniqueLevel6;
+                    case "MonumentModderPack":          return UsageType.VisitorsUniqueContentCreator;
                     default:
-                        Debug.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
+                        LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                 }
+            }
+            else if (buildingAIType == typeof(AirlineHeadquartersAI))
+            {
+                return UsageType.VisitorsUniqueAirports;
             }
             else if (buildingAIType == typeof(AnimalMonumentAI))
             {
@@ -4446,7 +4576,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
 
             // panel was not updated

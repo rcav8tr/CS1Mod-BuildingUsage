@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BuildingUsage
@@ -69,17 +68,21 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<DepotAI           >(UsageType.UseLogic1, GetUsageCountWorkersService<DepotAI           >);
-                AssociateBuildingAI<CableCarStationAI >(UsageType.UseLogic1, GetUsageCountWorkersService<CableCarStationAI >);
-                AssociateBuildingAI<TransportStationAI>(UsageType.UseLogic1, GetUsageCountWorkersService<TransportStationAI>);
-                AssociateBuildingAI<HarborAI          >(UsageType.UseLogic1, GetUsageCountWorkersService<HarborAI          >);
-                AssociateBuildingAI<SpaceElevatorAI   >(UsageType.UseLogic1, GetUsageCountWorkersService<SpaceElevatorAI   >);
-                AssociateBuildingAI<CargoStationAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoStationAI    >);
-                AssociateBuildingAI<CargoHarborAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoHarborAI     >);
+                AssociateBuildingAI<DepotAI             >(UsageType.UseLogic1, GetUsageCountWorkersService<DepotAI             >);
+                AssociateBuildingAI<CableCarStationAI   >(UsageType.UseLogic1, GetUsageCountWorkersService<CableCarStationAI   >);
+                AssociateBuildingAI<TransportStationAI  >(UsageType.UseLogic1, GetUsageCountWorkersService<TransportStationAI  >);
+                AssociateBuildingAI<HarborAI            >(UsageType.UseLogic1, GetUsageCountWorkersService<HarborAI            >);
+                AssociateBuildingAI<SpaceElevatorAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<SpaceElevatorAI     >);
+                AssociateBuildingAI<CargoStationAI      >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoStationAI      >);
+                AssociateBuildingAI<CargoHarborAI       >(UsageType.UseLogic1, GetUsageCountWorkersService<CargoHarborAI       >);
+                AssociateBuildingAI<AirportAuxBuildingAI>(UsageType.UseLogic1, GetUsageCountWorkersService<AirportAuxBuildingAI>);
+                AssociateBuildingAI<AirportEntranceAI   >(UsageType.UseLogic1, GetUsageCountWorkersService<AirportEntranceAI   >);
+                AssociateBuildingAI<AirportGateAI       >(UsageType.UseLogic1, GetUsageCountWorkersService<AirportGateAI       >);
+                AssociateBuildingAI<AirportCargoGateAI  >(UsageType.UseLogic1, GetUsageCountWorkersService<AirportCargoGateAI  >);
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -90,18 +93,22 @@ namespace BuildingUsage
         {
             // get the usage type for the prefab
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            if (buildingAIType == typeof(DepotAI            ) ||
-                buildingAIType == typeof(CableCarStationAI  ) ||
-                buildingAIType == typeof(TransportStationAI ) ||
-                buildingAIType == typeof(HarborAI           ) ||
-                buildingAIType == typeof(SpaceElevatorAI    ) ||
-                buildingAIType == typeof(CargoStationAI     ) ||
-                buildingAIType == typeof(CargoHarborAI      ))
+            if (buildingAIType == typeof(DepotAI             ) ||
+                buildingAIType == typeof(CableCarStationAI   ) ||
+                buildingAIType == typeof(TransportStationAI  ) ||
+                buildingAIType == typeof(HarborAI            ) ||
+                buildingAIType == typeof(SpaceElevatorAI     ) ||
+                buildingAIType == typeof(CargoStationAI      ) ||
+                buildingAIType == typeof(CargoHarborAI       ) ||
+                buildingAIType == typeof(AirportAuxBuildingAI) ||
+                buildingAIType == typeof(AirportEntranceAI   ) ||
+                buildingAIType == typeof(AirportGateAI       ) ||
+                buildingAIType == typeof(AirportCargoGateAI  ))
             {
                 return GetWorkersTransportationUsageType(data.Info);
             }
 
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -112,7 +119,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -122,7 +129,7 @@ namespace BuildingUsage
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

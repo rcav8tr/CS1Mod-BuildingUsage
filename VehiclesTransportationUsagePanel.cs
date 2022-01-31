@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BuildingUsage
@@ -74,6 +73,10 @@ namespace BuildingUsage
                 AssociateBuildingAI<TourBuildingAI      >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<CargoStationAI      >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<CargoHarborAI       >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
+                AssociateBuildingAI<AirportAuxBuildingAI>(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
+                AssociateBuildingAI<AirportEntranceAI   >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
+                AssociateBuildingAI<AirportCargoGateAI  >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
+                AssociateBuildingAI<AirportGateAI       >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
 
                 // associate each vehicle AI type with its usage type
                 // associate all vehicle AIs even if corresponding DLC is not installed (there will simply be no vehicles with that AI)
@@ -97,7 +100,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -108,19 +111,23 @@ namespace BuildingUsage
         {
             // get the usage type for the prefab
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            if (buildingAIType == typeof(DepotAI            ) ||
-                buildingAIType == typeof(CableCarStationAI  ) ||
-                buildingAIType == typeof(TransportStationAI ) ||
-                buildingAIType == typeof(HarborAI           ) ||
-                buildingAIType == typeof(TourBuildingAI     ) ||
-                buildingAIType == typeof(CargoStationAI     ) ||
-                buildingAIType == typeof(CargoHarborAI      ))
+            if (buildingAIType == typeof(DepotAI             ) ||
+                buildingAIType == typeof(CableCarStationAI   ) ||
+                buildingAIType == typeof(TransportStationAI  ) ||
+                buildingAIType == typeof(HarborAI            ) ||
+                buildingAIType == typeof(TourBuildingAI      ) ||
+                buildingAIType == typeof(CargoStationAI      ) ||
+                buildingAIType == typeof(CargoHarborAI       ) ||
+                buildingAIType == typeof(AirportCargoGateAI  ) ||
+                buildingAIType == typeof(AirportGateAI       ) ||
+                buildingAIType == typeof(AirportAuxBuildingAI) ||
+                buildingAIType == typeof(AirportEntranceAI   ))
             {
-                return GetVehiclesTransportationUsageType(data.Info);
+                return GetVehiclesTransportationUsageType(data);
             }
 
             // usage type not determined with above logic
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -131,7 +138,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -181,12 +188,12 @@ namespace BuildingUsage
                 else
                 {
                     // get usage type according to source building
-                    return GetVehiclesTransportationUsageType(buildingData.Info);
+                    return GetVehiclesTransportationUsageType(buildingData);
                 }
             }
 
             // usage type not determined with above logic
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

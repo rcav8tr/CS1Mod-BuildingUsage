@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using CitiesHarmony.API;
+﻿using CitiesHarmony.API;
 using HarmonyLib;
 using System.Reflection;
 using System;
@@ -37,7 +36,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
                 return false;
             }
 
@@ -60,7 +59,7 @@ namespace BuildingUsage
             MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, bindingFlags);
             if (originalMethod == null)
             {
-                Debug.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
+                LogUtil.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
                 return false;
             }
 
@@ -85,7 +84,7 @@ namespace BuildingUsage
             MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode) });
             if (originalMethod == null)
             {
-                Debug.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
+                LogUtil.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");
                 return false;
             }
 
@@ -106,7 +105,7 @@ namespace BuildingUsage
             MethodInfo prefixMethod = prefixType.GetMethod(prefixMethodName, BindingFlags.Static | BindingFlags.Public);
             if (prefixMethod == null)
             {
-                Debug.LogError($"Unable to find patch prefix method {prefixType.Name}.{prefixMethodName}.");
+                LogUtil.LogError($"Unable to find patch prefix method {prefixType.Name}.{prefixMethodName}.");
                 return false;
             }
 
@@ -131,7 +130,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
     }

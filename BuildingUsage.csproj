@@ -72,6 +72,7 @@
     <Compile Include="HarmonyPatcher.cs" />
     <Compile Include="LevelsDetailPanel.cs" />
     <Compile Include="LevelsInfoViewPanelPatch.cs" />
+    <Compile Include="LogUtil.cs" />
     <Compile Include="StorageIndustryUsagePanel.cs" />
     <Compile Include="VehiclesIndustryUsagePanel.cs" />
     <Compile Include="VehiclesTransportationUsagePanel.cs" />

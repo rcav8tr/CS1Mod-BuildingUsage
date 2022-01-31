@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BuildingUsage
@@ -52,6 +51,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueWinterUnique,      usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueFootball,          usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueConcert,           usageTypes);
+                CreateUsageGroupIfDefined(UsageType.WorkersUniqueAirports,          usageTypes);
 
                 CreateGroupHeading("Level Unique");
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueLevel1,            usageTypes);
@@ -67,14 +67,15 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<MonumentAI       >(UsageType.UseLogic1, GetUsageCountWorkersService<MonumentAI       >);
-                AssociateBuildingAI<AnimalMonumentAI >(UsageType.UseLogic1, GetUsageCountWorkersService<AnimalMonumentAI >);
-                AssociateBuildingAI<PrivateAirportAI >(UsageType.UseLogic1, GetUsageCountWorkersService<PrivateAirportAI >);
-                AssociateBuildingAI<ChirpwickCastleAI>(UsageType.UseLogic1, GetUsageCountWorkersService<ChirpwickCastleAI>);
+                AssociateBuildingAI<MonumentAI           >(UsageType.UseLogic1, GetUsageCountWorkersService<MonumentAI           >);
+                AssociateBuildingAI<AirlineHeadquartersAI>(UsageType.UseLogic1, GetUsageCountWorkersService<AirlineHeadquartersAI>);
+                AssociateBuildingAI<AnimalMonumentAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<AnimalMonumentAI     >);
+                AssociateBuildingAI<PrivateAirportAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<PrivateAirportAI     >);
+                AssociateBuildingAI<ChirpwickCastleAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<ChirpwickCastleAI    >);
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -85,15 +86,16 @@ namespace BuildingUsage
         {
             // logic depends on building AI type
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            if (buildingAIType == typeof(MonumentAI         ) ||
-                buildingAIType == typeof(AnimalMonumentAI   ) ||
-                buildingAIType == typeof(PrivateAirportAI   ) ||
-                buildingAIType == typeof(ChirpwickCastleAI  ))
+            if (buildingAIType == typeof(MonumentAI           ) ||
+                buildingAIType == typeof(AirlineHeadquartersAI) ||
+                buildingAIType == typeof(AnimalMonumentAI     ) ||
+                buildingAIType == typeof(PrivateAirportAI     ) ||
+                buildingAIType == typeof(ChirpwickCastleAI    ))
             {
                 return GetWorkersUniqueUsageType(data.Info);
             }
 
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -104,7 +106,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -114,7 +116,7 @@ namespace BuildingUsage
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

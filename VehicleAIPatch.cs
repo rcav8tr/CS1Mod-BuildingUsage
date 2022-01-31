@@ -37,7 +37,7 @@ namespace BuildingUsage
         //    BusAI                     GC  V   Small Emergency Shelter, Large Emergency Shelter,
         //                                      (unlimited:
         //                                          Bus Depot, Biofuel Bus Depot,
-        //                                          Intercity Bus Station, Intercity Bus Terminal, 
+        //                                          Intercity Bus Station, Intercity Bus Terminal,
         //                                          Sightseeing Bus Depots,
         //                                          Bus-Intercity Bus Hub, Metro-Intercity Bus Hub)
         //    CargoTruckAI              GC  V   All buildings for ExtractingFacilityAI, FishFarmingAI, FishFarmAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI.

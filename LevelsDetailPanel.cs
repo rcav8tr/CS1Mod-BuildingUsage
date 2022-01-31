@@ -69,7 +69,7 @@ namespace BuildingUsage
             LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
             if (levelsPanel == null)
             {
-                Debug.LogError("Unable to find LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to find LevelsInfoViewPanel.");
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace BuildingUsage
             }
             if (legend == null)
             {
-                Debug.LogError("Unable to find Legend on LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to find Legend on LevelsInfoViewPanel.");
                 return;
             }
 
@@ -98,7 +98,7 @@ namespace BuildingUsage
             UILabel fontTemplate = levelsPanel.Find<UILabel>("ResidentialLevel");
             if (fontTemplate == null)
             {
-                Debug.LogError("Unable to find ResidentialLevel.");
+                LogUtil.LogError("Unable to find ResidentialLevel.");
                 return;
             }
             _textFont = fontTemplate.font;
@@ -156,7 +156,7 @@ namespace BuildingUsage
             _total.Description.tooltip = "Total across all levels";
             _average.Description.tooltip = "Weighted average level";
         }
-        
+
         /// <summary>
         /// create a detail row
         /// </summary>
@@ -192,7 +192,7 @@ namespace BuildingUsage
             label = AddUIComponent<UILabel>();
             if (label == null)
             {
-                Debug.LogError("Unable to create detail row label on LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to create detail row label on LevelsInfoViewPanel.");
                 return false;
             }
             label.name = namePrefix + "Count";
@@ -220,7 +220,7 @@ namespace BuildingUsage
             UISprite line = AddUIComponent<UISprite>();
             if (line == null)
             {
-                Debug.LogError("Unable to create line on LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to create line on LevelsInfoViewPanel.");
                 return false;
             }
             line.name = label.name + "Line";
@@ -450,7 +450,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 

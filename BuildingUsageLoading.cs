@@ -25,7 +25,7 @@ namespace BuildingUsage
                     LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
                     if (levelsPanel == null)
                     {
-                        Debug.LogError("Unable to find LevelsInfoViewPanel.");
+                        LogUtil.LogError("Unable to find LevelsInfoViewPanel.");
                         return;
                     }
 
@@ -57,7 +57,7 @@ namespace BuildingUsage
                     UITabstrip tabStrip = levelsPanel.component.AddUIComponent<UITabstrip>();
                     if (tabStrip == null)
                     {
-                        Debug.LogError("Unable to create tab strip.");
+                        LogUtil.LogError("Unable to create tab strip.");
                         return;
                     }
                     tabStrip.name = "Tabstrip";
@@ -81,7 +81,7 @@ namespace BuildingUsage
                     BuildingUsage.levelsDetailPanel = (LevelsDetailPanel)levelsPanel.component.AddUIComponent(typeof(LevelsDetailPanel));
                     if (BuildingUsage.levelsDetailPanel == null)
                     {
-                        Debug.LogError("Unable to create LevelsDetailPanel.");
+                        LogUtil.LogError("Unable to create LevelsDetailPanel.");
                         return;
                     }
 
@@ -97,7 +97,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -111,7 +111,7 @@ namespace BuildingUsage
             UIButton tab = tabStrip.AddTab(tabText);
             if (tab == null)
             {
-                Debug.LogError($"Unable to create [{tabText}] tab.");
+                LogUtil.LogError($"Unable to create [{tabText}] tab.");
                 return false;
             }
 
@@ -147,7 +147,7 @@ namespace BuildingUsage
                 BuildingUsage.vehiclesUsagePanel.HidePanel();
 
                 // set visibility according to the selected tab
-                switch (BuildingUsage.selectedTab) 
+                switch (BuildingUsage.selectedTab)
                 {
                     case BuildingUsage.LevelsInfoViewTab.Levels:   SetLevelsVisibility(true);                    break;
                     case BuildingUsage.LevelsInfoViewTab.Workers:  BuildingUsage.workersUsagePanel.ShowPanel();  break;
@@ -158,20 +158,20 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
         /// <summary>
         /// set the visibility of the native components on the Levels info view
         /// </summary>
-        private void SetLevelsVisibility(bool visible) 
+        private void SetLevelsVisibility(bool visible)
         {
             // get the LevelsInfoViewPanel panel (displayed when the user clicks on the Levels info view button)
             LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
             if (levelsPanel == null)
             {
-                Debug.LogError("Unable to find LevelsInfoViewPanel.");
+                LogUtil.LogError("Unable to find LevelsInfoViewPanel.");
                 return;
             }
 
@@ -249,7 +249,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 

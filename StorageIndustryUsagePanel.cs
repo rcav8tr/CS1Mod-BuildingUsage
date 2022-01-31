@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 namespace BuildingUsage
 {
@@ -34,19 +33,19 @@ namespace BuildingUsage
                     CreateUsageGroup(UsageType.StorageIndustryForestryProcessorInput);
                     CreateUsageGroup(UsageType.StorageIndustryForestryProcessorOutput);
                     CreateUsageGroup(UsageType.StorageIndustryForestryStorage);
-                
+
                     CreateGroupHeading("Farming Industry");
                     CreateUsageGroup(UsageType.StorageIndustryFarmingExtractor);
                     CreateUsageGroup(UsageType.StorageIndustryFarmingProcessorInput);
                     CreateUsageGroup(UsageType.StorageIndustryFarmingProcessorOutput);
                     CreateUsageGroup(UsageType.StorageIndustryFarmingStorage);
-                
+
                     CreateGroupHeading("Ore Industry");
                     CreateUsageGroup(UsageType.StorageIndustryOreExtractor);
                     CreateUsageGroup(UsageType.StorageIndustryOreProcessorInput);
                     CreateUsageGroup(UsageType.StorageIndustryOreProcessorOutput);
                     CreateUsageGroup(UsageType.StorageIndustryOreStorage);
-                
+
                     CreateGroupHeading("Oil Industry");
                     CreateUsageGroup(UsageType.StorageIndustryOilExtractor);
                     CreateUsageGroup(UsageType.StorageIndustryOilProcessorInput);
@@ -67,7 +66,7 @@ namespace BuildingUsage
                     CreateGroupHeading("Unique Factory");
                     CreateUsageGroup(UsageType.StorageIndustryUniqueFactoryInput);
                     CreateUsageGroup(UsageType.StorageIndustryUniqueFactoryOutput);
-                
+
                     CreateGroupHeading("Warehouse");
                     CreateUsageGroup(UsageType.StorageIndustryWarehouseGeneric);
                 }
@@ -93,7 +92,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -148,7 +147,7 @@ namespace BuildingUsage
             }
 
             // usage type not determined with above logic
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -180,7 +179,7 @@ namespace BuildingUsage
             }
 
             // usage type not determined with above logic
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -190,7 +189,7 @@ namespace BuildingUsage
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

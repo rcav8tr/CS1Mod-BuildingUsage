@@ -1,5 +1,7 @@
 Display how much a building is being used as a percent of its capacity.  Display employment and unemployment data.
 
+[img=https://i.imgur.com/f2iRAPU.gif]
+
 [h1]Detailed Description[/h1]
 Building Usage is integrated into the Levels info view, which now has five tabs described below.
 
@@ -53,7 +55,7 @@ This mod does not alter the game mechanics in any way.  This mod only displays i
 
 This mod has been tested only on Windows.  User comments indicate it should work on Mac.  Should work on Linux.
 
-This mod is compatible with all Down Loadable Content (DLC) packages and all Content Creator Packs (CCP).  This mod does not require any DLC or CCP to work properly.
+This mod is compatible with all Down Loadable Content (DLC) packages thru Airports and all Content Creator Packs (CCP) thru Map Pack and Vehicles of the World.  This mod does not require any DLC or CCP to work properly.
 
 This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1420955187]Real Time[/url] mod.  Worker usage is still the number of workers assigned to the building, not the number of workers currently at the building.
 

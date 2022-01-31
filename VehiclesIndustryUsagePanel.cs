@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 namespace BuildingUsage
 {
@@ -33,17 +32,17 @@ namespace BuildingUsage
                     CreateUsageGroup(UsageType.VehiclesIndustryForestryExtractor);
                     CreateUsageGroup(UsageType.VehiclesIndustryForestryProcessor);
                     CreateUsageGroup(UsageType.VehiclesIndustryForestryStorage);
-                
+
                     CreateGroupHeading("Farming Industry Trucks");
                     CreateUsageGroup(UsageType.VehiclesIndustryFarmingExtractor);
                     CreateUsageGroup(UsageType.VehiclesIndustryFarmingProcessor);
                     CreateUsageGroup(UsageType.VehiclesIndustryFarmingStorage);
-                
+
                     CreateGroupHeading("Ore Industry Trucks");
                     CreateUsageGroup(UsageType.VehiclesIndustryOreExtractor);
                     CreateUsageGroup(UsageType.VehiclesIndustryOreProcessor);
                     CreateUsageGroup(UsageType.VehiclesIndustryOreStorage);
-                
+
                     CreateGroupHeading("Oil Industry Trucks");
                     CreateUsageGroup(UsageType.VehiclesIndustryOilExtractor);
                     CreateUsageGroup(UsageType.VehiclesIndustryOilProcessor);
@@ -80,7 +79,7 @@ namespace BuildingUsage
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                LogUtil.LogException(ex);
             }
         }
 
@@ -135,7 +134,7 @@ namespace BuildingUsage
             }
 
             // usage type not determined with above logic
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -146,7 +145,7 @@ namespace BuildingUsage
         {
             // usage type not determined with above logic
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            Debug.LogError($"Unhandled building AI type [{buildingAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 
@@ -230,7 +229,7 @@ namespace BuildingUsage
                 }
             }
 
-            Debug.LogError($"Unhandled vehicle AI type [{vehicleAIType.ToString()}] when getting usage type with logic.");
+            LogUtil.LogError($"Unhandled vehicle AI type [{vehicleAIType}] when getting usage type with logic.");
             return UsageType.None;
         }
 

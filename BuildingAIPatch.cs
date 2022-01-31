@@ -29,6 +29,7 @@ namespace BuildingUsage
         // IN = Industries              10/23/18 IndustryDLC
         // CA = Campus                  05/21/19 CampusDLC
         // SH = Sunset Harbor           03/26/20 UrbanDLC
+        // AP = Airports                01/25/22 AirportDLC
 
         // buildings introduced in CCP:
         // DE = Deluxe Edition          03/10/15 DeluxeDLC
@@ -41,6 +42,8 @@ namespace BuildingUsage
         // MJ = Modern Japan            03/26/20 ModderPack6
         // TS = Train Stations          05/21/21 ModderPack7
         // BP = Bridges & Piers         05/21/21 ModderPack8
+        // MP = Map Pack                01/25/22 ModderPack9 - no unique buildings, "8 new maps"
+        // VW = Vehicles of the World   01/25/22 ModderPack10 - no unique buildings, "set of 21 new vehicle assets"
 
 
 
@@ -79,11 +82,17 @@ namespace BuildingUsage
 
         // service building AIs are derived from PlayerBuildingAI
 
-        // CargoStationAI               GC W--U Cargo Train Terminal BG, Cargo Airport IN, Cargo Airport Hub IN
+        // AirportBuildingAI            GC ---- (base class with no buildings) AP
+        //    AirportAuxBuildingAI         WV-- Control Tower AP (3 styles), Concourse Hub AP (3 styles), Small Hangar AP, Large Hangar AP,
+        //                                      Budget Airport Hotel AP, Luxury Airport Hotel AP, Airline Lounge AP, Aviation Fuel Station AP,
+        //                                      Small Parked Plane AP (3 variations), Medium Parked Plane AP (3 variations), Large Parked Plane AP (2 variations), Parked Cargo Plane AP (2 variations)
+        //    AirportEntranceAI            WV-- Airport Terminal AP (3 styles), Two-Story Terminal AP (3 styles), Large Terminal AP (3 styles), Cargo Airport Terminal AP
+        // CargoStationAI               GC W--U Cargo Train Terminal BG, Cargo Airport IN, Cargo Airport Hub IN, Airport Cargo Train Station AP
+        //    AirportCargoGateAI        GC W--U Cargo Aircraft Stand AP
         //    CargoHarborAI                W--U Cargo Harbor BG, Cargo Hub AD
         // CemeteryAI                   GC WV-V Cemetery BG, Crematorium BG, Cryopreservatory HT (CCP)
         // ChildcareAI                  GC WV-- Child Health Center BG
-        // DepotAI                      GC W--V Taxi Depot AD (vehicle count can be deteremined, but Taxi Depot is treated like it has unlimited)
+        // DepotAI                      GC W--V Taxi Depot AD (vehicle count can be determined, but Taxi Depot is treated like it has unlimited)
         // DepotAI                      GC W--U Bus Depot BG, Biofuel Bus Depot GC, Trolleybus Depot SH, Tram Depot SF, Ferry Depot MT, Helicopter Depot SH, Blimp Depot MT, Sightseeing Bus Depot PL
         //    CableCarStationAI            W--U Cable Car Stop MT, End-of-Line Cable Car Stop MT
         //    TransportStationAI           W--- Bus Station AD, Helicopter Stop SH, Blimp Stop MT
@@ -94,11 +103,13 @@ namespace BuildingUsage
         //                                      Train Station BG, Crossover Train Station Hub TS (aka H_Hub03), Old Market Station TS (aka H_Hub04),
         //                                      Ground Island Platform Train Station TS, Ground Dual Island Platform Train Station TS, Ground Bypass Train Station TS,
         //                                      Elevated Island Platform Train Station TS, Elevated Dual Island Platform Train Station TS, Elevated Bypass Train Station TS,
-        //                                      Airport BG, Monorail Station MT, Monorail Station with Road MT, 
+        //                                      Airport BG, Monorail Station MT, Monorail Station with Road MT,
         //                                      Bus-Intercity Bus Hub SH (aka Transport Hub 02 A), Bus-Metro Hub SH (aka Transport Hub 05 A), Metro-Intercity Bus Hub SH (aka Transport Hub 01 A),
         //                                      Train-Metro Hub SH (aka Transport Hub 03 A), Glass Box Transport Hub TS (aka H_Hub01), Multiplatform End Station MT, Multiplatform Train Station MT,
         //                                      International Airport AD, Metropolitan Airport SH (aka Transport Hub 04 A),
-        //                                      Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT,
+        //                                      Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT
+        //       AirportGateAI          GC W--- Airport Bus Station AP
+        //       AirportGateAI          GC W--U Small Aircraft Stand AP, Medium Aircraft Stand AP, Large Aircraft Stand AP, Elevated Airport Metro Station AP, Airport Train Station AP
         //       HarborAI                  W--- Ferry Stop MT, Ferry Pier MT, Ferry and Bus Exchange Stop MT
         //       HarborAI                  W--U Harbor BG
         // DisasterResponseBuildingAI   GC W--V Disaster Response Unit ND
@@ -115,7 +126,7 @@ namespace BuildingUsage
         // HospitalAI                   GC WV-- Medical Laboratory HT (CCP)
         // HospitalAI                   GC WV-V Medical Clinic BG, Hospital BG, General Hospital SH (CCP)
         //    MedicalCenterAI              WV-V Medical Center BG (monument)
-        // IndustryBuildingAI           GC ---- (base clase with no buildings)
+        // IndustryBuildingAI           GC ---- (base class with no buildings) IN
         //    AuxiliaryBuildingAI       GC W--- Forestry:  IN: Forestry Workers’ Barracks, Forestry Maintenance Building
         //                                      Farming:   IN: Farm Workers’ Barracks, Farm Maintenance Building
         //                                      Ore:       IN: Ore Industry Workers’ Barracks, Ore Industry Maintenance Building
@@ -125,7 +136,7 @@ namespace BuildingUsage
         //                                      Ore:       IN: Small Ore Mine, Medium Ore Mine, Large Ore Mine, Small Ore Mine Underground, Large Ore Mine Underground, Seabed Mining Vessel
         //                                      Oil:       IN: Small Oil Pump, Large Oil Pump, Small Oil Drilling Rig, Large Oil Drilling Rig, Offshore Oil Drilling Platform
         //    ProcessingFacilityAI      GC W-SV Forestry:  IN: Sawmill, Biomass Pellet Plant, Engineered Wood Plant, Pulp Mill
-        //                                      Farming:   IN: Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor, 
+        //                                      Farming:   IN: Small Animal Pasture, Large Animal Pasture, Flour Mill, Cattle Shed, Milking Parlor,
         //                                      Ore:       IN: Ore Grinding Mill, Glass Manufacturing Plant, Rotary Kiln Plant, Fiberglass Plant
         //                                      Oil:       IN: Oil Sludge Pyrolysis Plant, Petrochemical Plant, Waste Oil Refining Plant, Naphtha Cracker Plant
         //                                      Fishing:   SH: Fish Factory
@@ -148,6 +159,7 @@ namespace BuildingUsage
         //                                      Winter Unique:      Ice Hockey Arena SF, Ski Resort SF, Snowcastle Restaurant SF, Spa Hotel SF, Sleigh Ride SF, Snowboard Arena SF, The Christmas Tree SF, Igloo Hotel SF
         //                                      Match Day:          Football Stadium MD
         //                                      Concerts:           Festival Area CO, Media Broadcast Building CO, Music Club CO, Fan Zone Park CO
+        //                                      Airports:           Aviation Museum AP
         //                                      Level 1 Unique:     Statue of Industry BG, Statue of Wealth BG, Lazaret Plaza BG, Statue of Shopping BG, Plaza of the Dead BG,
         //                                                          Meteorite Park ND, Bird and Bee Haven GC, City Arch PL
         //                                      Level 2 Unique:     Fountain of Life and Death BG, Friendly Neighborhood Park BG, Transport Tower BG, Mall of Moderation BG, Posh Mall BG,
@@ -166,6 +178,7 @@ namespace BuildingUsage
         //                                                          Service Station and Restaurant MJ, Small Office Building MJ, City Office Building MJ, District Office Building MJ,
         //                                                          Local Register Office MJ, Resort Hotel MJ, Downtown Hotel MJ, Temple MJ, High-rise Office Building MJ,
         //                                                          Company Headquarters MJ, Office Skyscraper MJ, The Station Department Store MJ, The Rail Yard Shopping Center MJ
+        //    AirlineHeadquartersAI        WV-- Airline Headquarters Building AP
         //    AnimalMonumentAI             WV-- Winter Unique:   Santa Claus' Workshop SF
         //    ChirpwickCastleAI            WV-- Castle Of Lord Chirpwick PL (monument)
         //    MuseumAI                     WV-- The Technology Museum CA, The Art Gallery CA, The Science Center CA
@@ -252,10 +265,13 @@ namespace BuildingUsage
             if (!CreateGetColorPatch<IndustrialExtractorAI>()) return false;
 
             // patch player building AIs
+            if (!CreateGetColorPatch<AirportBuildingAI           >()) return false;
             if (!CreateGetColorPatch<CargoStationAI              >()) return false;
+            if (!CreateGetColorPatch<AirportCargoGateAI          >()) return false;
             if (!CreateGetColorPatch<CemeteryAI                  >()) return false;
             if (!CreateGetColorPatch<ChildcareAI                 >()) return false;
             if (!CreateGetColorPatch<DepotAI                     >()) return false;
+            if (!CreateGetColorPatch<AirportGateAI               >()) return false;
             if (!CreateGetColorPatch<DisasterResponseBuildingAI  >()) return false;
             if (!CreateGetColorPatch<DoomsdayVaultAI             >()) return false;
             if (!CreateGetColorPatch<EarthquakeSensorAI          >()) return false;
