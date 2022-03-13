@@ -26,7 +26,7 @@ namespace BuildingUsage
         // AircraftAI                           (base class with no buildings)
         //    CargoPlaneAI              GC  V   (unlimited:  Cargo Airport, Cargo Airport Hub)
         //    PassengerPlaneAI          GC  V   (unlimited:  Airport, International Airport)
-        // BalloonAI                    GC  V   (unlimited:  Hot Air Balloon Tours)
+        // BalloonAI                    GC  V   (unlimited:  Chirper Balloon Tours, Hot Air Balloon Tours)
         // BicycleAI                            (not generated from a service building)
         // BlimpAI                      GC      (base class with no buildings)
         //    PassengerBlimpAI          GC  V   (unlimited:  Blimp Depot)

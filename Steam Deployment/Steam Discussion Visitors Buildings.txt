@@ -22,7 +22,7 @@ Campus administration buildings are not included because the buildings do not ha
     [table]
     [tr][td]Parks            [/td][td]Small Park, Small Playground, Park With Trees, Large Playground, Bouncy Castle Park, Botanical Garden, Dog Park, Carousel Park, Japanese Garden, Tropical Garden, Fishing Island, Floating Cafe[/td][/tr]
     [tr][td]Plazas           [/td][td]Plaza with Trees, Plaza with Picnic Tables, Paradox Plaza[/td][/tr]
-    [tr][td]Other Parks      [/td][td]Basketball Court, Tennis Court[/td][/tr]
+    [tr][td]Other Parks      [/td][td]Basketball Court, Tennis Court, Chirper Balloon Tours[/td][/tr]
     [tr][td]Tourism & Leisure[/td][td]Fishing Pier, Fishing Tours, Jet Ski Rental, Marina, Restaurant Pier, Beach Volleyball Court, Riding Stable, Skatepark, Snowmobile Track, Winter Fishing Pier, Ice Hockey Rink[/td][/tr]
     [tr][td]Winter Parks     [/td][td]Snowman Park, Ice Sculpture Park, Sledding Hill, Curling Park, Skating Rink, Ski Lodge, Cross-Country Skiing Park, Firepit Park[/td][/tr]
     [/table]

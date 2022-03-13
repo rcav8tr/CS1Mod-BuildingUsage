@@ -46,12 +46,12 @@ namespace BuildingUsage
                     }
                     else if (buildingAIType == typeof(ParkBuildingAI))
                     {
-                        // this building AI is handled specially by Parklife DLC
+                        // this building AI is handled by checking for Parklife DLC
                         usageType = UsageType.None;
                     }
                     else if (buildingAIType == typeof(TourBuildingAI))
                     {
-                        usageType = UsageType.VisitorsParksPlazasTours;
+                        usageType = GetVisitorsToursUsageType((TourBuildingAI)prefab.m_buildingAI);
                     }
 
                     // if not None and not already in the list, add it to the list
@@ -89,7 +89,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<ParkAI        >(UsageType.UseLogic1,                        GetUsageCountVisitorsPark<ParkAI>       );
                 AssociateBuildingAI<EdenProjectAI >(UsageType.VisitorsParksPlazasEdenProject,   GetUsageCountVisitorsPark<EdenProjectAI>);
                 AssociateBuildingAI<ParkBuildingAI>(UsageType.UseLogic1,                        GetUsageCountVisitorsParkBuilding       );
-                AssociateBuildingAI<TourBuildingAI>(UsageType.VisitorsParksPlazasTours,         GetUsageCountVisitorsTourBuilding       );
+                AssociateBuildingAI<TourBuildingAI>(UsageType.UseLogic1,                        GetUsageCountVisitorsTourBuilding       );
             }
             catch (Exception ex)
             {
@@ -111,6 +111,10 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(ParkBuildingAI))
             {
                 return GetVisitorsParksPlazasUsageType(ref data);
+            }
+            else if (buildingAIType == typeof(TourBuildingAI))
+            {
+                return GetVisitorsToursUsageType((TourBuildingAI)data.Info.m_buildingAI);
             }
 
             LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic");

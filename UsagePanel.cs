@@ -4351,6 +4351,23 @@ namespace BuildingUsage
                     return UsageType.None;
             }
         }
+
+        /// <summary>
+        /// return usage type for a TourBuildingAI building
+        /// </summary>
+        protected UsageType GetVisitorsToursUsageType(TourBuildingAI buildingAI)
+        {
+            // Chirper Balloon Tours building is Other Parks
+            if (buildingAI.m_isChirpyBirthdayBalloon)
+            {
+                return UsageType.VisitorsParksPlazasOtherParks;
+            }
+            // Hot Air Balloon Tours building is Tours
+            else
+            {
+                return UsageType.VisitorsParksPlazasTours;
+            }
+        }
         #endregion
 
         #region "Unique Building Usage Types"
