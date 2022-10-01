@@ -49,6 +49,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueLandmark,          usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueTourismLeisure,    usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueWinterUnique,      usageTypes);
+                CreateUsageGroupIfDefined(UsageType.WorkersUniquePedestrianArea,    usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueFootball,          usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueConcert,           usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueAirports,          usageTypes);

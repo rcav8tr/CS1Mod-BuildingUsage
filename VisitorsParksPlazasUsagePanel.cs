@@ -46,8 +46,11 @@ namespace BuildingUsage
                     }
                     else if (buildingAIType == typeof(ParkBuildingAI))
                     {
-                        // this building AI is handled by checking for Parklife DLC
-                        usageType = UsageType.None;
+                        usageType = GetVisitorsParksPlazasUsageType(prefab);
+                    }
+                    else if (buildingAIType == typeof(IceCreamStandAI))
+                    {
+                        usageType = UsageType.VisitorsParksPlazasPedestrianPlazas;
                     }
                     else if (buildingAIType == typeof(TourBuildingAI))
                     {
@@ -64,11 +67,12 @@ namespace BuildingUsage
                 // create the usage groups
                 // at least one of Basic and Other are in the base game, so there is no logic on those headings
                 CreateGroupHeading("Basic");
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasParks,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasPlazas,          usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasOtherParks,      usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasTourismLeisure,  usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasWinterkParks,    usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasParks,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasPlazas,              usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasOtherParks,          usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasTourismLeisure,      usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasWinterkParks,        usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasPedestrianPlazas,    usageTypes);
 
                 if (SteamHelper.IsDLCOwned(SteamHelper.DLC.ParksDLC))
                 {
@@ -81,15 +85,16 @@ namespace BuildingUsage
                 }
 
                 CreateGroupHeading("Other");
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasContentCreator,  usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasEdenProject,     usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasContentCreator,      usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasEdenProject,         usageTypes);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ParkAI        >(UsageType.UseLogic1,                        GetUsageCountVisitorsPark<ParkAI>       );
-                AssociateBuildingAI<EdenProjectAI >(UsageType.VisitorsParksPlazasEdenProject,   GetUsageCountVisitorsPark<EdenProjectAI>);
-                AssociateBuildingAI<ParkBuildingAI>(UsageType.UseLogic1,                        GetUsageCountVisitorsParkBuilding       );
-                AssociateBuildingAI<TourBuildingAI>(UsageType.UseLogic1,                        GetUsageCountVisitorsTourBuilding       );
+                AssociateBuildingAI<ParkAI         >(UsageType.UseLogic1,                           GetUsageCountVisitorsPark<ParkAI>                 );
+                AssociateBuildingAI<EdenProjectAI  >(UsageType.VisitorsParksPlazasEdenProject,      GetUsageCountVisitorsPark<EdenProjectAI>          );
+                AssociateBuildingAI<ParkBuildingAI >(UsageType.UseLogic1,                           GetUsageCountVisitorsParkBuilding<ParkBuildingAI> );
+                AssociateBuildingAI<IceCreamStandAI>(UsageType.VisitorsParksPlazasPedestrianPlazas, GetUsageCountVisitorsParkBuilding<IceCreamStandAI>);
+                AssociateBuildingAI<TourBuildingAI >(UsageType.UseLogic1,                           GetUsageCountVisitorsTourBuilding                 );
             }
             catch (Exception ex)
             {
@@ -110,7 +115,7 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(ParkBuildingAI))
             {
-                return GetVisitorsParksPlazasUsageType(ref data);
+                return GetVisitorsParksPlazasUsageType(data.Info);
             }
             else if (buildingAIType == typeof(TourBuildingAI))
             {

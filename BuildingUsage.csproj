@@ -106,7 +106,6 @@
     <None Include="Steam Deployment\Storage.jpg" />
     <None Include="Steam Deployment\Vehicles.jpg" />
     <None Include="Steam Deployment\Visitors.jpg" />
-    <None Include="Steam Deployment\Workers Old.jpg" />
     <None Include="Steam Deployment\Workers.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

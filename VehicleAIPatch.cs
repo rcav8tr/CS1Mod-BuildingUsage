@@ -33,7 +33,7 @@ namespace BuildingUsage
         // CableCarBaseAI                       (base class with no buildings)
         //    CableCarAI                GC  V   (unlimited:  Cable Car Stop, End-of-Line Cable Car Stop)
         // CarAI                        GC      (base class with no buildings)
-        //    AmbulanceAI               GC  V   Medical Clinic, Hospital, Medical Center (monument)
+        //    AmbulanceAI               GC  V   Medical Clinic, Hospital, High-Capacity Hospital, Medical Center (monument)
         //    BusAI                     GC  V   Small Emergency Shelter, Large Emergency Shelter,
         //                                      (unlimited:
         //                                          Bus Depot, Biofuel Bus Depot,
@@ -43,13 +43,13 @@ namespace BuildingUsage
         //    CargoTruckAI              GC  V   All buildings for ExtractingFacilityAI, FishFarmingAI, FishFarmAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI.
         //                                      (unlimited:  zoned industrial, Cargo Train Terminal, Cargo Harbor, Cargo Hub, Cargo Airport, Cargo Airport Hub)
         //    DisasterResponseVehicleAI GC  V   Disaster Response Unit
-        //    FireTruckAI               GC  V   Fire House, Fire Station
+        //    FireTruckAI               GC  V   Fire House, Fire Station, High-Capacity Fire Station, Historical Fire Station (CCP)
         //    GarbageTruckAI            GC  V   Landfill Site, Incineration Plant, Recycling Center, Ultimate Recycling Plant (monument)
         //    HearseAI                  GC  V   Cemetery, Crematorium, Cryopreservatory (CCP)
         //    MaintenanceTruckAI        GC  V   Road Maintenance Depot
         //    ParkMaintenanceVehicleAI  GC  V   Park Maintenance Building
         //    PassengerCarAI            GC      (not generated from a service building)
-        //    PoliceCarAI               GC  V   Police Station, Police Headquarters, Prison
+        //    PoliceCarAI               GC  V   Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP)
         //    PostVanAI                 GC  V   Post Office, Post Sorting Facility
         //    SnowTruckAI               GC  V   Snow Dump
         //    TaxiAI                    GC  V   Taxi Depot
@@ -64,7 +64,7 @@ namespace BuildingUsage
         //    DisasterResponseCopterAI  GC  V   Disaster Response Unit
         //    FireCopterAI              GC  V   Fire Helicopter Depot
         //    PoliceCopterAI            GC  V   Police Helicopter Depot
-        // HelicopterDanglingAI         GC      (TBD what is this?)
+        // HelicopterDanglingAI         GC      (TBD is this for the bucket hanging under fire copters?)
         // MeteorAI                             (for meteor strike)
         // PassengerHelicopterAI        GC  V   (unlimited:  Helicopter Depot)
         // PrivatePlaneAI               GC  V   Aviation Club
@@ -74,11 +74,8 @@ namespace BuildingUsage
         //    PassengerShipAI           GC  V   (unlimited:  Harbor)
         // TrainAI                      GC      (base class with no buildings)
         //    CargoTrainAI              GC  V   (unlimited:  Cargo Train Terminal, Cargo Hub, Cargo Airport Hub)
-        //    PassengerTrainAI          GC  V   (unlimited:  Train Station, Multiplatform End Station, Multiplatform Train Station,
-        //                                                   Monorail Station, Monorail Station with Road, Monorail-Bus Hub, Metro-Monorail-Train Hub,
-        //                                                   Train-Metro Hub)
-        //       MetroTrainAI               V   (unlimited:  Metro Station, Elevated Metro Station, Underground Metro Station,
-        //                                                   Bus-Metro Hub, Metro-Intercity Bus Hub, Train-Metro Hub, International Airport, Metro-Monorail-Train Hub)
+        //    PassengerTrainAI          GC  V   (unlimited:  All buildings with a passenger train or monorail station.)
+        //       MetroTrainAI               V   (unlimited:  All buildings with a metro station.)
         // TramBaseAI                   GC      (base class with no buildings)
         //    TramAI                    GC  V   (unlimited:  Tram Depot)
         // VortexAI                             (TBD for tornado?)

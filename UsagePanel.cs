@@ -104,6 +104,7 @@ namespace BuildingUsage
             WorkersUniqueLandmark,
             WorkersUniqueTourismLeisure,
             WorkersUniqueWinterUnique,
+            WorkersUniquePedestrianArea,
             WorkersUniqueFootball,
             WorkersUniqueConcert,
             WorkersUniqueAirports,
@@ -149,6 +150,7 @@ namespace BuildingUsage
             VisitorsParksPlazasOtherParks,
             VisitorsParksPlazasTourismLeisure,
             VisitorsParksPlazasWinterkParks,
+            VisitorsParksPlazasPedestrianPlazas,
             VisitorsParksPlazasCityPark,
             VisitorsParksPlazasAmusementPark,
             VisitorsParksPlazasZoo,
@@ -161,6 +163,7 @@ namespace BuildingUsage
             VisitorsUniqueLandmark,
             VisitorsUniqueTourismLeisure,
             VisitorsUniqueWinterUnique,
+            VisitorsUniquePedestrianArea,
             VisitorsUniqueFootball,
             VisitorsUniqueConcert,
             VisitorsUniqueAirports,
@@ -292,74 +295,76 @@ namespace BuildingUsage
         }
 
         // define the thumbnail images for usage groups
-        private static readonly ThumbnailInfo thumbnailInfoResidential          = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningResidentialLow",                 109f, 75f);
-        private static readonly ThumbnailInfo thumbnailInfoCommercial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningCommercialLow",                  109f, 75f);
-        private static readonly ThumbnailInfo thumbnailInfoOffice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningOffice",                         109f, 75f);
-        private static readonly ThumbnailInfo thumbnailInfoIndustrial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningIndustrial",                     109f, 75f);
-        private static readonly ThumbnailInfo thumbnailInfoRoadMaintenance      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarRoadsMaintenance",               32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoElectricy            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarElectricityDefault",             32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoWater                = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconWater",                        36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoGarbage              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconGarbage",                      36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoIndustry             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconGarbage",                   41f, 41f);
-        private static readonly ThumbnailInfo thumbnailInfoIndustryMainAux      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterIndustryMainAndAuxiliary",     36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoExtractor            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterExtractorBuildings",           36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoFishingExtractor     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterFishingExtractorBuildings",    36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoIndustryFishing      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryFishing",                32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoProcessing           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterProcessingBuildings",          36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoUniqueFactory        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryUniqueFactory",          36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoStorage              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterStorageBuildings",             36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoWarehouses           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryWarehouses",             36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoHealthCare           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarHealthcareDefault",              32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoFire                 = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentFire",             32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoDisaster             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentDisaster",         32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoPolice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPoliceDefault",                  32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoEducation            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarEducationDefault",               32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBigBuildings         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterBigBuildings",                 36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoEducationBuildings   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterEducationBuildings",           36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoFaculties            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterFaculties",                    36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoMusemum              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarCampusAreaMuseums",              32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoVarsitySports        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarCampusAreaVarsitySports",        32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportation       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconPublicTransport",              36f, 36f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportBus         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportBus",             32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportTrolleybus  = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTrolleybus",      32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportTram        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTram",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportMetro       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportMetro",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportTrain       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTrain",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportShip        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportShip",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportPlane       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportPlane",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportAirports    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportAirportArea",     32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportMonorail    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportMonorail",        32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportCableCar    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportCableCar",        32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportTaxi        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTaxi",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportTours       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTours",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportPost        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportPost",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoTransportHubs        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportHubs",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautification       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconBeautification",            41f, 41f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautParks           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationParks",            32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautPlazas          = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationPlazas",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautOtherParks      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationOthers",           32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautExpansion1      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationExpansion1",       32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautExpansion2      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationExpansion2",       32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautCityPark        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationCityPark",         32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautAmusementPark   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationAmusementPark",    32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautZoo             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationZoo",              32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoBeautNatureReserve   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationNatureReserve",    32f, 22f);
-        private static readonly ThumbnailInfo thumbnailInfoUniqueBuilding       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMonuments",                 41f, 41f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentLandmarks    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentLandmarks",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion1   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion1",             32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion2   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion2",             32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentFootball     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentFootball",               32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentConcerts     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentConcerts",               32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory1    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory1",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory2    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory2",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory3    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory3",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory4    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory4",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory5    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory5",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory6    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory6",              32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentModderPack   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentModderPack",             32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoWonders              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconWonders",                   41f, 41f);
-        private static readonly ThumbnailInfo thumbnailAviationClub             = new ThumbnailInfo(ThumbnailInfo.AtlasType.Expansion9, "Thumb_Aviation Club",                  109f, 100f);
-        private static readonly ThumbnailInfo thumbnailChirpXLaunchSite         = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ThumbChirpX",                          109f, 100f);
+        private static readonly ThumbnailInfo thumbnailInfoResidential          = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningResidentialLow",                     109f, 75f);
+        private static readonly ThumbnailInfo thumbnailInfoCommercial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningCommercialLow",                      109f, 75f);
+        private static readonly ThumbnailInfo thumbnailInfoOffice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningOffice",                             109f, 75f);
+        private static readonly ThumbnailInfo thumbnailInfoIndustrial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningIndustrial",                         109f, 75f);
+        private static readonly ThumbnailInfo thumbnailInfoRoadMaintenance      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarRoadsMaintenance",                   32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoElectricy            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarElectricityDefault",                 32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoWater                = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconWater",                            36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoGarbage              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconGarbage",                          36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoIndustry             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconGarbage",                       41f, 41f);
+        private static readonly ThumbnailInfo thumbnailInfoIndustryMainAux      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterIndustryMainAndAuxiliary",         36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoExtractor            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterExtractorBuildings",               36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoFishingExtractor     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterFishingExtractorBuildings",        36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoIndustryFishing      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryFishing",                    32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoProcessing           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterProcessingBuildings",              36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoUniqueFactory        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryUniqueFactory",              36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoStorage              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterStorageBuildings",                 36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoWarehouses           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarIndustryWarehouses",                 36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoHealthCare           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarHealthcareDefault",                  32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoFire                 = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentFire",                 32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoDisaster             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentDisaster",             32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoPolice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPoliceDefault",                      32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoEducation            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarEducationDefault",                   32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBigBuildings         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterBigBuildings",                     36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoEducationBuildings   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterEducationBuildings",               36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoFaculties            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterFaculties",                        36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoMusemum              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarCampusAreaMuseums",                  32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoVarsitySports        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarCampusAreaVarsitySports",            32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportation       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "InfoIconPublicTransport",                  36f, 36f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportBus         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportBus",                 32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportTrolleybus  = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTrolleybus",          32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportTram        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTram",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportMetro       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportMetro",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportTrain       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTrain",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportShip        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportShip",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportPlane       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportPlane",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportAirports    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportAirportArea",         32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportMonorail    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportMonorail",            32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportCableCar    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportCableCar",            32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportTaxi        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTaxi",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportTours       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportTours",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportPost        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportPost",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoTransportHubs        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPublicTransportHubs",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautification       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconBeautification",                41f, 41f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautParks           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationParks",                32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautPlazas          = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationPlazas",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautOtherParks      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationOthers",               32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautExpansion1      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationExpansion1",           32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautExpansion2      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationExpansion2",           32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautCityPark        = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationCityPark",             32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautAmusementPark   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationAmusementPark",        32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautZoo             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationZoo",                  32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautNatureReserve   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationNatureReserve",        32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautPedestrian      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationPedestrianZonePlazas", 32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoUniqueBuilding       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMonuments",                     41f, 41f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentLandmarks    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentLandmarks",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion1   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion1",                 32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion2   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion2",                 32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCupcake      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCupcake",                    32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentFootball     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentFootball",                   32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentConcerts     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentConcerts",                   32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory1    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory1",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory2    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory2",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory3    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory3",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory4    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory4",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory5    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory5",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentCategory6    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory6",                  32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentModderPack   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentModderPack",                 32f, 32f);
+        private static readonly ThumbnailInfo thumbnailInfoWonders              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconWonders",                       41f, 41f);
+        private static readonly ThumbnailInfo thumbnailAviationClub             = new ThumbnailInfo(ThumbnailInfo.AtlasType.Expansion9, "Thumb_Aviation Club",                      109f, 100f);
+        private static readonly ThumbnailInfo thumbnailChirpXLaunchSite         = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ThumbChirpX",                              109f, 100f);
 
         // deinfe a class to hold info for a usage type
         private class UsageTypeInfo
@@ -466,6 +471,7 @@ namespace BuildingUsage
             { UsageType.WorkersUniqueLandmark,                  new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.WorkersUniqueTourismLeisure,            new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.WorkersUniqueWinterUnique,              new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
+            { UsageType.WorkersUniquePedestrianArea,            new UsageTypeInfo("Pedestrian Area",    thumbnailInfoMonumentCupcake    ) },
             { UsageType.WorkersUniqueFootball,                  new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.WorkersUniqueConcert,                   new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
             { UsageType.WorkersUniqueAirports,                  new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
@@ -511,6 +517,7 @@ namespace BuildingUsage
             { UsageType.VisitorsParksPlazasOtherParks,          new UsageTypeInfo("Other Parks",        thumbnailInfoBeautOtherParks    ) },
             { UsageType.VisitorsParksPlazasTourismLeisure,      new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoBeautExpansion1    ) },
             { UsageType.VisitorsParksPlazasWinterkParks,        new UsageTypeInfo("Winter Parks",       thumbnailInfoBeautExpansion2    ) },
+            { UsageType.VisitorsParksPlazasPedestrianPlazas,    new UsageTypeInfo("Pedestrian Plazas",  thumbnailInfoBeautPedestrian    ) },
             { UsageType.VisitorsParksPlazasCityPark,            new UsageTypeInfo("City Park",          thumbnailInfoBeautCityPark      ) },
             { UsageType.VisitorsParksPlazasAmusementPark,       new UsageTypeInfo("Amusement Park",     thumbnailInfoBeautAmusementPark ) },
             { UsageType.VisitorsParksPlazasZoo,                 new UsageTypeInfo("Zoo",                thumbnailInfoBeautZoo           ) },
@@ -523,6 +530,7 @@ namespace BuildingUsage
             { UsageType.VisitorsUniqueLandmark,                 new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.VisitorsUniqueTourismLeisure,           new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.VisitorsUniqueWinterUnique,             new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
+            { UsageType.VisitorsUniquePedestrianArea,           new UsageTypeInfo("Pedestrian Area",    thumbnailInfoMonumentCupcake    ) },
             { UsageType.VisitorsUniqueFootball,                 new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.VisitorsUniqueConcert,                  new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
             { UsageType.VisitorsUniqueAirports,                 new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
@@ -2348,7 +2356,7 @@ namespace BuildingUsage
             // logic adapted from ParkGateAI and ParkBuildingAI private methods CountWorkers and TargetWorkers
 
             // only Amusement Park and Zoo have workers
-            DistrictPark.ParkType parkType = GetParkType(ref data);
+            DistrictPark.ParkType parkType = GetParkType(data.Info);
             if ((data.Info.m_doorMask & PropInfo.DoorType.HangAround) == PropInfo.DoorType.HangAround && (parkType == DistrictPark.ParkType.AmusementPark || parkType == DistrictPark.ParkType.Zoo))
             {
                 // get workers used
@@ -2398,21 +2406,21 @@ namespace BuildingUsage
         /// <summary>
         /// get the park type for the specified building
         /// </summary>
-        protected DistrictPark.ParkType GetParkType(ref Building data)
+        protected DistrictPark.ParkType GetParkType(BuildingInfo buildingInfo)
         {
-            if (data.Info.m_buildingAI.GetType() == typeof(ParkGateAI))
+            if (buildingInfo.m_buildingAI.GetType() == typeof(ParkGateAI))
             {
-                ParkGateAI buildingAI = data.Info.m_buildingAI as ParkGateAI;
+                ParkGateAI buildingAI = buildingInfo.m_buildingAI as ParkGateAI;
                 return buildingAI.m_parkType;
             }
 
-            if (data.Info.m_buildingAI.GetType() == typeof(ParkBuildingAI))
+            if (buildingInfo.m_buildingAI.GetType() == typeof(ParkBuildingAI))
             {
-                ParkBuildingAI buildingAI = data.Info.m_buildingAI as ParkBuildingAI;
+                ParkBuildingAI buildingAI = buildingInfo.m_buildingAI as ParkBuildingAI;
                 return buildingAI.m_parkType;
             }
 
-            LogUtil.LogError($"Unhandled building AI type [{data.Info.m_buildingAI.GetType().ToString()}] while trying to get park type.");
+            LogUtil.LogError($"Unhandled building AI type [{buildingInfo.m_buildingAI.GetType().ToString()}] while trying to get park type.");
             return DistrictPark.ParkType.None;
         }
 
@@ -2801,15 +2809,15 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// get the usage count of a ParkBuildingAI building
+        /// get the usage count of a ParkBuildingAI or derived building
         /// </summary>
-        protected void GetUsageCountVisitorsParkBuilding(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        protected void GetUsageCountVisitorsParkBuilding<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : ParkBuildingAI
         {
             // get citizens and tourists "visiting" the building who are not dead
             GetVisitorsUsedNotDead(ref data, ref used);
 
             // allowed is sum of low, medium, and high wealth
-            ParkBuildingAI buildingAI = data.Info.m_buildingAI as ParkBuildingAI;
+            T buildingAI = data.Info.m_buildingAI as T;
             allowed = buildingAI.m_visitPlaceCount0 + buildingAI.m_visitPlaceCount1 + buildingAI.m_visitPlaceCount2;
         }
 
@@ -3910,13 +3918,17 @@ namespace BuildingUsage
         //    CableCarStationAI        W--U Cable Car Stop                              CableCar            null                                    CableCar                CableCar
         //                                  End-of-Line Cable Car Stop                  CableCar            null                                    CableCar                CableCar
         //    TransportStationAI       W--- Bus Station                                 Bus                 null                                    Bus                     None
+        //                                  Compact Bus Station                         Bus                 null                                    Bus                     None
         //                                  Helicopter Stop                             PassengerHelicopter null                                    AirPeople               None
         //                                  Blimp Stop                                  Blimp               null                                    AirPeople               None
         //    TransportStationAI       W--U Intercity Bus Station                       IntercityBus        null                                    IntercityBus            IntercityBus
         //                                  Intercity Bus Terminal                      IntercityBus        null                                    IntercityBus            IntercityBus
         //                                  Metro Station                               MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Metro Station                      MetroTrain          null                                    Metro                   Metro
+        //                                  Elevated Metro Station With Shops           MetroTrain          null                                    Metro                   Metro
         //                                  Underground Metro Station                   MetroTrain          null                                    Metro                   Metro
+        //                                  Parallel Underground Metro Station          MetroTrain          null                                    Metro                   Metro
+        //                                  Large Underground Metro Station             MetroTrain          null                                    Metro                   Metro
         //                                  Metro Plaza Station                         MetroTrain          null                                    Metro                   Metro
         //                                  Sunken Island Platform Metro Station        MetroTrain          null                                    Metro                   Metro
         //                                  Sunken Dual Island Platform Metro Station   MetroTrain          null                                    Metro                   Metro
@@ -3925,6 +3937,7 @@ namespace BuildingUsage
         //                                  Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
         //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Elevated Train Station                      PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Old Market Station                          PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Ground Island Platform Train Station        PassengerTrain      null                No                  TrainPeople             TrainPeople
@@ -3933,6 +3946,7 @@ namespace BuildingUsage
         //                                  Elevated Island Platform Train Station      PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  Historical Train Station                    PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Airport                                     PassengerPlane      null                No                  AirPeople               AirPeople
         //                                  Monorail Station                            Monorail            null                                    Monorail                Monorail
         //                                  Monorail Station with Road                  Monorail            null                                    Monorail                Monorail
@@ -4316,6 +4330,16 @@ namespace BuildingUsage
             //                                      Rhine Pier                              MonumentModderPack          ContentCreator
             //                                      Biodome                                 MonumentModderPack          ContentCreator
             //                                      Vertical Farm                           MonumentModderPack          ContentCreator
+            //                                      Car Port 2 Slot                         MonumentModderPack          ContentCreator
+            //                                      Car Port 4 Slot                         MonumentModderPack          ContentCreator
+            //                                      Car Port 6 Slot                         MonumentModderPack          ContentCreator
+            //                                      Car Port 12 Slot                        MonumentModderPack          ContentCreator
+            //                                      Car Port 24 Slot                        MonumentModderPack          ContentCreator
+            //                                      Hotel Oasis A                           MonumentModderPack          ContentCreator
+            //                                      Hotel Oasis B                           MonumentModderPack          ContentCreator
+            //                                      Motel Palm Springs                      MonumentModderPack          ContentCreator
+            //                                      Roadside Diner                          MonumentModderPack          ContentCreator
+            //                                      Mothership                              MonumentModderPack          ContentCreator
 
             // usage type depends on category
             switch (category)
@@ -4336,18 +4360,19 @@ namespace BuildingUsage
         /// <summary>
         /// return the usage type for a ParkBuildingAI building
         /// </summary>
-        protected UsageType GetVisitorsParksPlazasUsageType(ref Building data)
+        protected UsageType GetVisitorsParksPlazasUsageType(BuildingInfo buildingInfo)
         {
             // usage type depends on park type
-            DistrictPark.ParkType parkType = GetParkType(ref data);
+            DistrictPark.ParkType parkType = GetParkType(buildingInfo);
             switch (parkType)
             {
                 case DistrictPark.ParkType.Generic:         return UsageType.VisitorsParksPlazasCityPark;
                 case DistrictPark.ParkType.AmusementPark:   return UsageType.VisitorsParksPlazasAmusementPark;
                 case DistrictPark.ParkType.Zoo:             return UsageType.VisitorsParksPlazasZoo;
                 case DistrictPark.ParkType.NatureReserve:   return UsageType.VisitorsParksPlazasNatureReserve;
+                case DistrictPark.ParkType.PedestrianZone:  return UsageType.VisitorsParksPlazasPedestrianPlazas;
                 default:
-                    LogUtil.LogError($"Unhandled park type [{parkType}] when determining usage type for building [{data.Info.name}].");
+                    LogUtil.LogError($"Unhandled park type [{parkType}] when determining usage type for building [{buildingInfo.name}].");
                     return UsageType.None;
             }
         }
@@ -4393,6 +4418,7 @@ namespace BuildingUsage
                     case "MonumentLandmarks":           return UsageType.WorkersUniqueLandmark;
                     case "MonumentExpansion1":          return UsageType.WorkersUniqueTourismLeisure;
                     case "MonumentExpansion2":          return UsageType.WorkersUniqueWinterUnique;
+                    case "MonumentCupcake":             return UsageType.WorkersUniquePedestrianArea;
                     case "MonumentFootball":            return UsageType.WorkersUniqueFootball;
                     case "MonumentConcerts":            return UsageType.WorkersUniqueConcert;
                     case "PublicTransportAirportArea":  return UsageType.WorkersUniqueAirports;
@@ -4450,6 +4476,7 @@ namespace BuildingUsage
                     case "MonumentLandmarks":           return UsageType.VisitorsUniqueLandmark;
                     case "MonumentExpansion1":          return UsageType.VisitorsUniqueTourismLeisure;
                     case "MonumentExpansion2":          return UsageType.VisitorsUniqueWinterUnique;
+                    case "MonumentCupcake":             return UsageType.VisitorsUniquePedestrianArea;
                     case "MonumentFootball":            return UsageType.VisitorsUniqueFootball;
                     case "MonumentConcerts":            return UsageType.VisitorsUniqueConcert;
                     case "PublicTransportAirportArea":  return UsageType.VisitorsUniqueAirports;

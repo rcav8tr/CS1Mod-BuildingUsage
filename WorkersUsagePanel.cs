@@ -464,7 +464,7 @@ namespace BuildingUsage
                 // logic adapted from ParkBuildingAI.TargetWorkers
                 if ((data.Info.m_doorMask & PropInfo.DoorType.HangAround) == PropInfo.DoorType.HangAround)
                 {
-                    DistrictPark.ParkType parkType = GetParkType(ref data);
+                    DistrictPark.ParkType parkType = GetParkType(data.Info);
                     switch (parkType)
                     {
                         case DistrictPark.ParkType.AmusementPark: return UsageType.WorkersAmusementPark;

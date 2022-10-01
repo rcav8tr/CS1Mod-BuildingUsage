@@ -1,11 +1,11 @@
 [h1]Visitors Buildings[/h1]
 [table]
 [tr][td]Fish Market     [/td][td]Fish Market[/td][/tr]
-[tr][td]Medical Patients[/td][td]Medical Clinic, Hospital, Child Health Center, Eldercare, General Hospital (CCP), Medical Laboratory (CCP), Medical Center (monument)[/td][/tr]
+[tr][td]Medical Patients[/td][td]Medical Clinic, Hospital, High-Capacity Hospital, Child Health Center, Eldercare, General Hospital (CCP), Medical Laboratory (CCP), Medical Center (monument)[/td][/tr]
 [tr][td]Medical Visitors[/td][td]Sauna, Sports Hall and Gymnasium, Community Pool, Yoga Garden[/td][/tr]
 [tr][td]Deceased        [/td][td]Cemetery, Crematorium, Cryopreservatory (CCP)[/td][/tr]
 [tr][td]Sheltered       [/td][td]Small Emergency Shelter, Large Emergency Shelter[/td][/tr]
-[tr][td]Criminals       [/td][td]Police Station, Police Headquarters, Prison, Intelligence Agency (CCP)[/td][/tr]
+[tr][td]Criminals       [/td][td]Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP), Intelligence Agency (CCP)[/td][/tr]
 [tr][td]Education       [/td][td]all buildings listed below in Visitors Buildings for Education[/td][/tr]
 [tr][td]Airport Area    [/td][td]Airport Terminal (3 styles), Two-Story Terminal (3 styles), Large Terminal (3 styles), Cargo Airport Terminal, Control Tower (3 styles), Concourse Hub (3 styles), Small Hangar, Large Hangar, Budget Airport Hotel, Luxury Airport Hotel, Airline Lounge, Aviation Fuel Station, Small Parked Plane (3 variations), Medium Parked Plane (3 variations), Large Parked Plane (2 variations)[/td][/tr]
 [tr][td]Parks & Plazas  [/td][td]all buildings listed below in Visitors Buildings for Parks & Plazas[/td][/tr]
@@ -25,6 +25,7 @@ Campus administration buildings are not included because the buildings do not ha
     [tr][td]Other Parks      [/td][td]Basketball Court, Tennis Court, Chirper Balloon Tours[/td][/tr]
     [tr][td]Tourism & Leisure[/td][td]Fishing Pier, Fishing Tours, Jet Ski Rental, Marina, Restaurant Pier, Beach Volleyball Court, Riding Stable, Skatepark, Snowmobile Track, Winter Fishing Pier, Ice Hockey Rink[/td][/tr]
     [tr][td]Winter Parks     [/td][td]Snowman Park, Ice Sculpture Park, Sledding Hill, Curling Park, Skating Rink, Ski Lodge, Cross-Country Skiing Park, Firepit Park[/td][/tr]
+    [tr][td]Pedestrian Plazas[/td][td]Small Food Truck Plaza, Small Ice Cream Stand Plaza, Small Fountain Plaza, Small Glass Roof Plaza, Statue Plaza, Large Food Truck Plaza, Large Ice Cream Stand Plaza, Flower Plaza, Large Fountain Plaza, Large Glass Roof Plaza[/td][/tr]
     [/table]
 
 [b]Parklife[/b]
@@ -38,7 +39,7 @@ Campus administration buildings are not included because the buildings do not ha
 
 [b]Other[/b]
     [table]
-    [tr][td]Content Creator[/td][td]Seine Pier, Rhine Pier, Biodome, Vertical Farm[/td][/tr]
+    [tr][td]Content Creator[/td][td]Seine Pier, Rhine Pier, Biodome, Vertical Farm, Car Port 2 Slot, Car Port 4 Slot, Car Port 6 Slot, Car Port 12 Slot, Car Port 24 Slot, Hotel Oasis A, Hotel Oasis B, Motel Palm Springs, Roadside Diner, Mothership[/td][/tr]
     [tr][td]Eden Project   [/td][td]Eden Project (monument)[/td][/tr]
     [/table]
 

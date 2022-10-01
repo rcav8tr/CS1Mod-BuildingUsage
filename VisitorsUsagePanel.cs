@@ -30,7 +30,7 @@ namespace BuildingUsage
                 CreateUsageGroup<PoliceStationAI                                                                         >(UsageType.VisitorsCriminals);
                 CreateUsageGroup<SchoolAI, LibraryAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI  >(UsageType.VisitorsEducation);
                 CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI                                                 >(UsageType.VisitorsAirportArea);
-                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, TourBuildingAI                                   >(UsageType.VisitorsParksPlazas);
+                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI                  >(UsageType.VisitorsParksPlazas);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI>(UsageType.VisitorsUnique);
 
                 // add detail panels
@@ -59,7 +59,8 @@ namespace BuildingUsage
                 AssociateBuildingAI<AirportEntranceAI    >(UsageType.VisitorsAirportArea,     GetUsageCountVisitorsAirportArea<AirportEntranceAI>   );
                 AssociateBuildingAI<ParkAI               >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<ParkAI>                     );
                 AssociateBuildingAI<EdenProjectAI        >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<EdenProjectAI>              );
-                AssociateBuildingAI<ParkBuildingAI       >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding                     );
+                AssociateBuildingAI<ParkBuildingAI       >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding<ParkBuildingAI>     );
+                AssociateBuildingAI<IceCreamStandAI      >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding<IceCreamStandAI>    );
                 AssociateBuildingAI<TourBuildingAI       >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsTourBuilding                     );
                 AssociateBuildingAI<MonumentAI           >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<MonumentAI>             );
                 AssociateBuildingAI<AirlineHeadquartersAI>(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<AirlineHeadquartersAI>  );

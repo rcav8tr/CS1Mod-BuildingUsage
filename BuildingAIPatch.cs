@@ -30,6 +30,7 @@ namespace BuildingUsage
         // CA = Campus                  05/21/19 CampusDLC
         // SH = Sunset Harbor           03/26/20 UrbanDLC
         // AP = Airports                01/25/22 AirportDLC
+        // PP = Plazas & Promenades     09/14/22 PlazasAndPromenadesDLC
 
         // buildings introduced in CCP:
         // DE = Deluxe Edition          03/10/15 DeluxeDLC
@@ -44,6 +45,8 @@ namespace BuildingUsage
         // BP = Bridges & Piers         05/21/21 ModderPack8
         // MP = Map Pack                01/25/22 ModderPack9 - no unique buildings, "8 new maps"
         // VW = Vehicles of the World   01/25/22 ModderPack10 - no unique buildings, "set of 21 new vehicle assets"
+        // MM = Mid-Century Modern      09/14/22 ModderPack11 - "pack of a whopping 147 residential growable buildings" + "District style for growables", "3 Hotels and 2 restaurants", "30+ additional decorations", "Car Ports"
+        // SR = Seaside Resorts         09/14/22 ModderPack12 - "pack contains 29 beautiful buildings"
 
 
 
@@ -61,9 +64,9 @@ namespace BuildingUsage
 
         // zoned building AIs are derived from PrivateBuildingAI
 
-        // ResidentialBuildingAI        GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Residential (Self-Sufficient Buildings GC)
-        // CommercialBuildingAI         GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Commercial (Tourism AD, Leisure AD, Organic and Local Produce GC)
-        // OfficeBuildingAI             GC W--- Zoned Generic Office BG, Zoned Specialized Office (IT Cluster GC)
+        // ResidentialBuildingAI        GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Residential (Self-Sufficient Buildings GC, Wall-to-Wall PP)
+        // CommercialBuildingAI         GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Commercial (Tourism AD, Wall-to-Wall PP, Leisure AD, Organic and Local Produce GC)
+        // OfficeBuildingAI             GC W--- Zoned Generic Office BG, Zoned Specialized Office (IT Cluster GC, Wall-to-Wall PP)
         // IndustrialBuildingAI         GC W--V Zoned Generic Industrial BG
         // IndustrialExtractorAI        GC W--V Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
         //    LivestockExtractorAI         W--V Zoned Specialized Industrial (Farming BG)
@@ -95,19 +98,22 @@ namespace BuildingUsage
         // DepotAI                      GC W--V Taxi Depot AD (vehicle count can be determined, but Taxi Depot is treated like it has unlimited)
         // DepotAI                      GC W--U Bus Depot BG, Biofuel Bus Depot GC, Trolleybus Depot SH, Tram Depot SF, Ferry Depot MT, Helicopter Depot SH, Blimp Depot MT, Sightseeing Bus Depot PL
         //    CableCarStationAI            W--U Cable Car Stop MT, End-of-Line Cable Car Stop MT
-        //    TransportStationAI           W--- Bus Station AD, Helicopter Stop SH, Blimp Stop MT
-        //    TransportStationAI           W--U Intercity Bus Station SH, Intercity Bus Terminal SH,
-        //                                      Metro Station BG, Elevated Metro Station BG, Underground Metro Station BG, Metro Plaza Station TS (aka H_Hub02_A),
-        //                                      Sunken Island Platform Metro Station TS, Sunken Dual Island Platform Metro Station TS, Sunken Bypass Metro Station TS,
-        //                                      Elevated Island Platform Metro Station TS, Elevated Dual Island Platform Metro Station TS, Elevated Bypass Metro Station TS,
-        //                                      Train Station BG, Crossover Train Station Hub TS (aka H_Hub03), Old Market Station TS (aka H_Hub04),
-        //                                      Ground Island Platform Train Station TS, Ground Dual Island Platform Train Station TS, Ground Bypass Train Station TS,
-        //                                      Elevated Island Platform Train Station TS, Elevated Dual Island Platform Train Station TS, Elevated Bypass Train Station TS,
-        //                                      Airport BG, Monorail Station MT, Monorail Station with Road MT,
-        //                                      Bus-Intercity Bus Hub SH (aka Transport Hub 02 A), Bus-Metro Hub SH (aka Transport Hub 05 A), Metro-Intercity Bus Hub SH (aka Transport Hub 01 A),
-        //                                      Train-Metro Hub SH (aka Transport Hub 03 A), Glass Box Transport Hub TS (aka H_Hub01), Multiplatform End Station MT, Multiplatform Train Station MT,
-        //                                      International Airport AD, Metropolitan Airport SH (aka Transport Hub 04 A),
-        //                                      Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT
+        //    TransportStationAI           W--- Bus Station AD, Compact Bus Station PP, Helicopter Stop SH, Blimp Stop MT
+        //    TransportStationAI           W--U Bus:       Intercity Bus Station SH, Intercity Bus Terminal SH
+        //                                      Metro:     Metro Station BG, Elevated Metro Station BG, Elevated Metro Station With Shops PP, Underground Metro Station BG,
+        //                                                 Parallel Underground Metro Station PP, Large Underground Metro Station PP, Metro Plaza Station TS (aka H_Hub02_A),
+        //                                                 Sunken Island Platform Metro Station TS, Sunken Dual Island Platform Metro Station TS, Sunken Bypass Metro Station TS,
+        //                                                 Elevated Island Platform Metro Station TS, Elevated Dual Island Platform Metro Station TS, Elevated Bypass Metro Station TS
+        //                                      Train:     Train Station BG, Elevated Train Station PP, Crossover Train Station Hub TS (aka H_Hub03), Old Market Station TS (aka H_Hub04),
+        //                                                 Ground Island Platform Train Station TS, Ground Dual Island Platform Train Station TS, Ground Bypass Train Station TS,
+        //                                                 Elevated Island Platform Train Station TS, Elevated Dual Island Platform Train Station TS, Elevated Bypass Train Station TS,
+        //                                                 Historical Train Station SR (CCP)
+        //                                      Air:       Airport BG
+        //                                      Monorail:  Monorail Station MT, Monorail Station with Road MT,
+        //                                      Hubs:      Bus-Intercity Bus Hub SH (aka Transport Hub 02 A), Bus-Metro Hub SH (aka Transport Hub 05 A), Metro-Intercity Bus Hub SH (aka Transport Hub 01 A),
+        //                                                 Train-Metro Hub SH (aka Transport Hub 03 A), Glass Box Transport Hub TS (aka H_Hub01), Multiplatform End Station MT, Multiplatform Train Station MT,
+        //                                                 International Airport AD, Metropolitan Airport SH (aka Transport Hub 04 A),
+        //                                                 Monorail-Bus Hub MT, Metro-Monorail-Train Hub MT
         //       AirportGateAI          GC W--- Airport Bus Station AP
         //       AirportGateAI          GC W--U Small Aircraft Stand AP, Medium Aircraft Stand AP, Large Aircraft Stand AP, Elevated Airport Metro Station AP, Airport Train Station AP
         //       HarborAI                  W--- Ferry Stop MT, Ferry Pier MT, Ferry and Bus Exchange Stop MT
@@ -116,7 +122,7 @@ namespace BuildingUsage
         // DoomsdayVaultAI              GC W--- Doomsday Vault ND (monument)
         // EarthquakeSensorAI           GC W--- Earthquake Sensor ND
         // EldercareAI                  GC WV-- Eldercare BG
-        // FireStationAI                GC W--V Fire House BG, Fire Station BG
+        // FireStationAI                GC W--V Fire House BG, Fire Station BG, High-Capacity Fire Station PP, Historical Fire Station SR (CCP)
         // FirewatchTowerAI             GC W--- Firewatch Tower ND
         // FishFarmAI                   GC W-SV Fish Farm SH, Algae Farm SH, Seaweed Farm SH
         // FishingHarborAI              GC W-SV Fishing Harbor SH, Anchovy Fishing Harbor SH, Salmon Fishing Harbor SH, Shellfish Fishing Harbor SH, Tuna Fishing Harbor SH
@@ -124,7 +130,7 @@ namespace BuildingUsage
         // HeatingPlantAI               GC W--- Boiler Station SF, Geothermal Heating Plant SF
         // HelicopterDepotAI            GC W--V Medical Helicopter Depot ND, Fire Helicopter Depot ND, Police Helicopter Depot ND
         // HospitalAI                   GC WV-- Medical Laboratory HT (CCP)
-        // HospitalAI                   GC WV-V Medical Clinic BG, Hospital BG, General Hospital SH (CCP)
+        // HospitalAI                   GC WV-V Medical Clinic BG, Hospital BG, High-Capacity Hospital PP, General Hospital SH (CCP)
         //    MedicalCenterAI              WV-V Medical Center BG (monument)
         // IndustryBuildingAI           GC ---- (base class with no buildings) IN
         //    AuxiliaryBuildingAI       GC W--- Forestry:  IN: Forestry Workers’ Barracks, Forestry Maintenance Building
@@ -144,7 +150,7 @@ namespace BuildingUsage
         //                                          Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard
         // LandfillSiteAI               GC W-SV Landfill Site BG, Incineration Plant BG, Recycling Center GC, Waste Transfer Facility SH, Waste Processing Complex SH, Waste Disposal Unit SH (CCP)
         //    UltimateRecyclingPlantAI     W-SV Ultimate Recycling Plant GC (monument)
-        // LibraryAI                    GC WV-- Public Library BG
+        // LibraryAI                    GC WV-- Public Library BG, Historical Library SR (CCP)
         // MainCampusBuildingAI         GC W--- Trade School Administration Building CA, Liberal Arts Administration Building CA, University Administration Building CA
         // MainIndustryBuildingAI       GC W--- Forestry Main Building IN, Farm Main Building IN, Ore Industry Main Building IN, Oil Industry Main Building IN
         // MaintenanceDepotAI           GC W--V Road Maintenance Depot SF, Park Maintenance Building PL
@@ -157,6 +163,8 @@ namespace BuildingUsage
         //                                      Deluxe Edition:     Statue of Liberty DE, Eiffel Tower DE, Grand Central Terminal DE, Arc de Triomphe DE, Brandenburg Gate DE
         //                                      Tourism & Leisure:  Icefishing Pond AD+SF, Casino AD, Driving Range AD, Fantastic Fountain AD, Frozen Fountain AD+SF, Luxury Hotel AD, Zoo AD
         //                                      Winter Unique:      Ice Hockey Arena SF, Ski Resort SF, Snowcastle Restaurant SF, Spa Hotel SF, Sleigh Ride SF, Snowboard Arena SF, The Christmas Tree SF, Igloo Hotel SF
+        //                                      Pedestrian Area:    Pedestrian Street Market Hall PP, Museum of Post-Modern Art PP, Sunken Plaza Shopping Mall PP,
+        //                                                          Commercial Zone Landmark PP, Residential Zone Landmark PP, Office Zone Landmark PP
         //                                      Match Day:          Football Stadium MD
         //                                      Concerts:           Festival Area CO, Media Broadcast Building CO, Music Club CO, Fan Zone Park CO
         //                                      Airports:           Aviation Museum AP
@@ -172,12 +180,17 @@ namespace BuildingUsage
         //                                                          Sphinx Of Scenarios ND, Ziggurat Garden GC, Observation Tower PL
         //                                      Level 6 Unique:     Cathedral of Plenitude BG, Stadium BG, MAM Modern Art Museum BG, Sea-and-Sky Scraper BG, Theater of Wonders BG,
         //                                                          Sparkly Unicorn Rainbow Park ND, Central Park GC, The Statue of Colossalus PL
-        //                                      Content Creator:    Eddie Kovanago AR, Pinoa Street AR, The Majesty AR, Electric Car Factory HT, Nanotechnology Center HT, Research Center HT,
-        //                                                          Robotics Institute HT, Semiconductor Plant HT, Software Development Studio HT, Space Shuttle Launch Site HT, Television Station HT,
-        //                                                          Drive-in Restaurant MJ, Drive-in Oriental Restaurant MJ, Oriental Market MJ, Noodle Restaurant MJ, Ramen Restaurant MJ,
+        //                                      Content Creator:    Drive-in Restaurant MJ, Drive-in Oriental Restaurant MJ, Oriental Market MJ, Noodle Restaurant MJ, Ramen Restaurant MJ,
         //                                                          Service Station and Restaurant MJ, Small Office Building MJ, City Office Building MJ, District Office Building MJ,
         //                                                          Local Register Office MJ, Resort Hotel MJ, Downtown Hotel MJ, Temple MJ, High-rise Office Building MJ,
-        //                                                          Company Headquarters MJ, Office Skyscraper MJ, The Station Department Store MJ, The Rail Yard Shopping Center MJ
+        //                                                          Company Headquarters MJ, Office Skyscraper MJ, The Station Department Store MJ, The Rail Yard Shopping Center MJ,
+        //                                                          Eddie Kovanago AR, Pinoa Street AR, The Majesty AR, Electric Car Factory HT, Nanotechnology Center HT, Research Center HT,
+        //                                                          Robotics Institute HT, Semiconductor Plant HT, Software Development Studio HT, Space Shuttle Launch Site HT, Television Station HT,
+        //                                                          Coast Guard Heritage Museum SR, The Abbott Hotel SR, Hotel Lafayette SR, Hotel New Linwood SR, The Empire House SR,
+        //                                                          Anchor House Inn SR, Hotel Lawrence SR, Hotel Colonial SR, Hotel Aldine SR, Ausable Chasm Hotel SR, Hotel Brunswick SR,
+        //                                                          Narragansett House SR, The Atlantic Hotel SR, Hotel Vesper SR, The Fabyan House SR, The Breakers Hotel SR, Ocean View Hotel SR,
+        //                                                          Spring House SR, Hotel Allaire SR, Asbury Park Pavilion SR, Gordon Park Pavilion SR, New Orchard Ocean Pier SR,
+        //                                                          Old Orchard House SR, Hotel Fiske SR, Isleworth Gardens SR
         //    AirlineHeadquartersAI        WV-- Airline Headquarters Building AP
         //    AnimalMonumentAI             WV-- Winter Unique:   Santa Claus' Workshop SF
         //    ChirpwickCastleAI            WV-- Castle Of Lord Chirpwick PL (monument)
@@ -192,7 +205,9 @@ namespace BuildingUsage
         //                                      Other Parks:        Basketball Court BG, Tennis Court BG
         //                                      Tourism & Leisure:  Fishing Pier AD, Fishing Tours AD, Jet Ski Rental AD, Marina AD, Restaurant Pier AD, Beach Volleyball Court AD, Riding Stable AD, Skatepark AD
         //                                      Winter Parks:       Snowman Park SF, Ice Sculpture Park SF, Sledding Hill SF, Curling Park SF, Skating Rink SF, Ski Lodge SF, Cross-Country Skiing Park SF, Firepit Park SF
-        //                                      Content Creator:    Seine Pier BP, Rhine Pier BP, Biodome HT, Vertical Farm HT
+        //                                      Content Creator:    Seine Pier BP, Rhine Pier BP, Biodome HT, Vertical Farm HT,
+        //                                                          Car Port 2 Slot MM, Car Port 4 Slot MM, Car Port 6 Slot MM, Car Port 12 Slot MM, Car Port 24 Slot MM,
+        //                                                          Hotel Oasis A MM, Hotel Oasis B MM, Motel Palm Springs MM, Roadside Diner MM, Mothership MM
         //    EdenProjectAI                -V-- Eden Project BG (monument)
         // ParkBuildingAI               GC WV-- Only Amusement Park and Zoo have workers.
         //                                      City Park:       PL: Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2
@@ -202,11 +217,14 @@ namespace BuildingUsage
         //                                                           {Insect, Amphibian and Reptile House}, Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure
         //                                      Nature Reserve:  PL: Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2,
         //                                                           Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1
+        //                                      Pedestrian:      PP: Small Food Truck Plaza, Small Fountain Plaza, Small Glass Roof Plaza, Statue Plaza, Large Food Truck Plaza,
+        //                                                           Flower Plaza, Large Fountain Plaza, Large Glass Roof Plaza
+        //    IceCreamStandAI              WV-- Pedestrian:      PP: Small Ice Cream Stand Plaza, Large Ice Cream Stand Plaza
         // ParkGateAI                   GC W--- City Park:       PL: Park Main Gate, Small Park Main Gate, Park Side Gate
         //                                      Amusement Park:  PL: Amusement Park Main Gate, Small Amusement Park Main Gate, Amusement Park Side Gate
         //                                      Zoo:             PL: Zoo Main Gate, Small Zoo Main Gate, Zoo Side Gate
         //                                      Nature Reserve:  PL: Nature Reserve Main Gate, Small Nature Reserve Main Gate, Nature Reserve Side Gate
-        // PoliceStationAI              GC WV-V Police Station BG, Police Headquarters BG, Prison AD, Intelligence Agency HT (CCP)
+        // PoliceStationAI              GC WV-V Police Station BG, Police Headquarters BG, High-Capacity Police Headquarters PP, Prison AD, Historical Police Station SR (CCP), Intelligence Agency HT (CCP)
         // PostOfficeAI                 GC W-SV Post Office IN, Post Sorting Facility IN
         // PowerPlantAI                 GC W--- Coal Power Plant BG, Oil Power Plant BG, Nuclear Power Plant BG, Geothermal Power Plant GC, Ocean Thermal Energy Conversion Plant GC
         //                                      (unlimited coal/oil reserves so cannot compute storage)
@@ -216,7 +234,8 @@ namespace BuildingUsage
         //    WindTurbineAI             GC W--- Wind Turbine BG, Advanced Wind Turbine BG, Wave Power Plant HT (CCP)
         // RadioMastAI                  GC W--- Short Radio Mast ND, Tall Radio Mast ND
         // SaunaAI                      GC WV-- Sauna SF, Sports Hall and Gymnasium GC, Community Pool GC, Yoga Garden GC
-        // SchoolAI                     GC WV-- Elementary School BG, High School BG, University BG, Community School GC, Institute of Creative Arts GC, Modern Technology Institute GC, Faculty HT (CCP)
+        // SchoolAI                     GC WV-- Elementary School BG, High-Capacity Elementary School PP, High School BG, High-Capacity High School PP, University BG, High-Capacity University PP,
+        //                                      Community School GC, Institute of Creative Arts GC, Modern Technology Institute GC, Faculty HT (CCP)
         //    CampusBuildingAI          GC WV-- Trade School:   CA: Trade School Dormitory, Trade School Study Hall, Trade School Groundskeeping, Book Club, Trade School Outdoor Study, Trade School Gymnasium, Trade School Cafeteria,
         //                                                          Trade School Fountain, Trade School Library, IT Club, Trade School Commencement Office, Trade School Academic Statue 1, Trade School Auditorium, Trade School Laboratories,
         //                                                          Trade School Bookstore, Trade School Media Lab, Beach Volleyball Club, Trade School Academic Statue 2
@@ -229,6 +248,8 @@ namespace BuildingUsage
         //       UniqueFacultyAI           WV-- Trade School:   CA: Police Academy, School of Tourism And Travel, School of Engineering
         //                                      Liberal Arts:   CA: School of Education, School of Environmental Studies, School of Economics
         //                                      University:     CA: School of Law, School of Medicine, School of Science
+        // ServicePointAI               GC ---- Small Pedestrian Area Service Point PP, Large Pedestrian Area Service Point PP, Small Cargo Service Point PP, Large Cargo Service Point PP,
+        //                                      Small Garbage Service Point PP, Large Garbage Service Point PP
         // ShelterAI                    GC WV-V Small Emergency Shelter ND, Large Emergency Shelter ND
         // SnowDumpAI                   GC W-SV Snow Dump SF
         // SpaceElevatorAI              GC W--- Space Elevator BG (monument)
