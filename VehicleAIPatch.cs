@@ -33,7 +33,7 @@ namespace BuildingUsage
         // CableCarBaseAI                       (base class with no buildings)
         //    CableCarAI                GC  V   (unlimited:  Cable Car Stop, End-of-Line Cable Car Stop)
         // CarAI                        GC      (base class with no buildings)
-        //    AmbulanceAI               GC  V   Medical Clinic, Hospital, High-Capacity Hospital, Medical Center (monument)
+        //    AmbulanceAI               GC  V   Medical Clinic, Hospital, High-Capacity Hospital, Plastic Surgery Center (CCP), Medical Center (monument)
         //    BusAI                     GC  V   Small Emergency Shelter, Large Emergency Shelter,
         //                                      (unlimited:
         //                                          Bus Depot, Biofuel Bus Depot,
@@ -43,13 +43,13 @@ namespace BuildingUsage
         //    CargoTruckAI              GC  V   All buildings for ExtractingFacilityAI, FishFarmingAI, FishFarmAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI.
         //                                      (unlimited:  zoned industrial, Cargo Train Terminal, Cargo Harbor, Cargo Hub, Cargo Airport, Cargo Airport Hub)
         //    DisasterResponseVehicleAI GC  V   Disaster Response Unit
-        //    FireTruckAI               GC  V   Fire House, Fire Station, High-Capacity Fire Station, Historical Fire Station (CCP)
-        //    GarbageTruckAI            GC  V   Landfill Site, Incineration Plant, Recycling Center, Ultimate Recycling Plant (monument)
-        //    HearseAI                  GC  V   Cemetery, Crematorium, Cryopreservatory (CCP)
+        //    FireTruckAI               GC  V   Fire House, Fire Station, High-Capacity Fire Station, Historical Fire Station (CCP), Fire Safety Center (CCP)
+        //    GarbageTruckAI            GC  V   Landfill Site, Incineration Plant, Recycling Center, Eco-Friendly Incinerator Plant (CCP), Ultimate Recycling Plant (monument)
+        //    HearseAI                  GC  V   Cemetery, Crematorium, Cryopreservatory (CCP), Crematorium Memorial Park (CCP)
         //    MaintenanceTruckAI        GC  V   Road Maintenance Depot
         //    ParkMaintenanceVehicleAI  GC  V   Park Maintenance Building
         //    PassengerCarAI            GC      (not generated from a service building)
-        //    PoliceCarAI               GC  V   Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP)
+        //    PoliceCarAI               GC  V   Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP), Police Security Center (CCP)
         //    PostVanAI                 GC  V   Post Office, Post Sorting Facility
         //    SnowTruckAI               GC  V   Snow Dump
         //    TaxiAI                    GC  V   Taxi Depot
