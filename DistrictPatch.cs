@@ -7,7 +7,6 @@ namespace BuildingUsage
     /// </summary>
     public class DistrictPatch
     {
-
         /// <summary>
         /// create patch for District.SimulationStep
         /// </summary>

@@ -11,6 +11,7 @@ namespace BuildingUsage
     public class WorkersUsagePanel : UsagePanel
     {
         // UI elements unique to Workers
+        private UIPanel _workerSummaryPanel;
         private class WorkerDataUI
         {
             public UILabel description;
@@ -29,6 +30,12 @@ namespace BuildingUsage
         private WorkerDataUI _unemploymentRate;
 
         private readonly Color32 EducationTextColor = new Color32(206, 248, 0, 255);
+
+        /// <summary>
+        /// the bottom position of the bottom-most UI element on this panel and any detail panels
+        /// need to check usage groups in case a detail panel has a greater bottom position than the worker summary panel
+        /// </summary>
+        public float BottomPosition { get { return Math.Max(relativePosition.y + _workerSummaryPanel.relativePosition.y + _workerSummaryPanel.size.y, GetUsageGroupBottomPosition()); } }
 
         /// <summary>
         /// Start is called once after the panel is created
@@ -62,6 +69,7 @@ namespace BuildingUsage
                 CreateUsageGroup<DisasterResponseBuildingAI, ShelterAI, RadioMastAI, EarthquakeSensorAI,
                                  DoomsdayVaultAI, WeatherRadarAI, SpaceRadarAI                                              >(UsageType.WorkersDisaster);
                 CreateUsageGroup<PoliceStationAI, HelicopterDepotAI                                                         >(UsageType.WorkersPoliceStation);
+                CreateUsageGroup<BankOfficeAI                                                                               >(UsageType.WorkersBank);
                 CreateUsageGroup<SchoolAI, LibraryAI, HadronColliderAI, MainCampusBuildingAI, CampusBuildingAI,
                                  UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI                                            >(UsageType.WorkersEducation);
                 CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI, AirportGateAI, AirportCargoGateAI,
@@ -70,7 +78,8 @@ namespace BuildingUsage
                 CreateUsageGroup<PostOfficeAI                                                                               >(UsageType.WorkersPost);
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersAmusementPark);
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersZoo);
-                CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI   >(UsageType.WorkersUnique);
+                CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
+                                 StockExchangeAI, InternationalTradeBuildingAI                                              >(UsageType.WorkersUnique);
 
                 // add detail panels
                 AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry      );
@@ -80,87 +89,90 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<ResidentialBuildingAI                 >(UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
-                AssociateBuildingAI("PloppableRICO.GrowableResidentialAI",  UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
-                AssociateBuildingAI("PloppableRICO.PloppableResidentialAI", UsageType.HouseholdsResidential, GetUsageCountHouseholds                                );
-                AssociateBuildingAI<CommercialBuildingAI                  >(UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",   UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",  UsageType.WorkersCommercial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI<OfficeBuildingAI                      >(UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.GrowableOfficeAI",       UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.PloppableOfficeAI",      UsageType.WorkersOffice,         GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI<IndustrialBuildingAI                  >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.GrowableIndustrialAI",   UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.PloppableIndustrialAI",  UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI<IndustrialExtractorAI                 >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI<LivestockExtractorAI                  >(UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.GrowableExtractorAI",    UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI("PloppableRICO.PloppableExtractorAI",   UsageType.WorkersIndustrial,     GetUsageCountWorkersZoned                              );
-                AssociateBuildingAI<MaintenanceDepotAI                    >(UsageType.WorkersMaintenance,    GetUsageCountWorkersService<MaintenanceDepotAI        >);
-                AssociateBuildingAI<SnowDumpAI                            >(UsageType.WorkersMaintenance,    GetUsageCountWorkersService<SnowDumpAI                >);
-                AssociateBuildingAI<WindTurbineAI                         >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<WindTurbineAI             >);
-                AssociateBuildingAI<PowerPlantAI                          >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<PowerPlantAI              >);
-                AssociateBuildingAI<DamPowerHouseAI                       >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<DamPowerHouseAI           >);
-                AssociateBuildingAI<SolarPowerPlantAI                     >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<SolarPowerPlantAI         >);
-                AssociateBuildingAI<FusionPowerPlantAI                    >(UsageType.WorkersPowerPlant,     GetUsageCountWorkersService<FusionPowerPlantAI        >);
-                AssociateBuildingAI<WaterFacilityAI                       >(UsageType.WorkersWaterSewage,    GetUsageCountWorkersService<WaterFacilityAI           >);
-                AssociateBuildingAI<HeatingPlantAI                        >(UsageType.WorkersHeatingPlant,   GetUsageCountWorkersService<HeatingPlantAI            >);
-                AssociateBuildingAI<LandfillSiteAI                        >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<LandfillSiteAI            >);
-                AssociateBuildingAI<WaterCleanerAI                        >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<WaterCleanerAI            >);
-                AssociateBuildingAI<UltimateRecyclingPlantAI              >(UsageType.WorkersGarbage,        GetUsageCountWorkersService<UltimateRecyclingPlantAI  >);
-                AssociateBuildingAI<MainIndustryBuildingAI                >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<MainIndustryBuildingAI    >);
-                AssociateBuildingAI<AuxiliaryBuildingAI                   >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<AuxiliaryBuildingAI       >);
-                AssociateBuildingAI<ExtractingFacilityAI                  >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<ExtractingFacilityAI      >);
-                AssociateBuildingAI<FishingHarborAI                       >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<FishingHarborAI           >);
-                AssociateBuildingAI<FishFarmAI                            >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<FishFarmAI                >);
-                AssociateBuildingAI<MarketAI                              >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<MarketAI                  >);
-                AssociateBuildingAI<ProcessingFacilityAI                  >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<ProcessingFacilityAI      >);
-                AssociateBuildingAI<UniqueFactoryAI                       >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<UniqueFactoryAI           >);
-                AssociateBuildingAI<WarehouseAI                           >(UsageType.WorkersIndustry,       GetUsageCountWorkersService<WarehouseAI               >);
-                AssociateBuildingAI<HospitalAI                            >(UsageType.WorkersMedical,        GetUsageCountWorkersService<HospitalAI                >);
-                AssociateBuildingAI<ChildcareAI                           >(UsageType.WorkersMedical,        GetUsageCountWorkersService<ChildcareAI               >);
-                AssociateBuildingAI<EldercareAI                           >(UsageType.WorkersMedical,        GetUsageCountWorkersService<EldercareAI               >);
-                AssociateBuildingAI<MedicalCenterAI                       >(UsageType.WorkersMedical,        GetUsageCountWorkersService<MedicalCenterAI           >);
-                AssociateBuildingAI<SaunaAI                               >(UsageType.WorkersMedical,        GetUsageCountWorkersService<SaunaAI                   >);
-                AssociateBuildingAI<HelicopterDepotAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<HelicopterDepotAI         >);
-                AssociateBuildingAI<CemeteryAI                            >(UsageType.WorkersCemetery,       GetUsageCountWorkersService<CemeteryAI                >);
-                AssociateBuildingAI<FireStationAI                         >(UsageType.WorkersFireStation,    GetUsageCountWorkersService<FireStationAI             >);
-                AssociateBuildingAI<FirewatchTowerAI                      >(UsageType.WorkersFireStation,    GetUsageCountWorkersService<FirewatchTowerAI          >);
-                AssociateBuildingAI<DisasterResponseBuildingAI            >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<DisasterResponseBuildingAI>);
-                AssociateBuildingAI<ShelterAI                             >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<ShelterAI                 >);
-                AssociateBuildingAI<RadioMastAI                           >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<RadioMastAI               >);
-                AssociateBuildingAI<EarthquakeSensorAI                    >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<EarthquakeSensorAI        >);
-                AssociateBuildingAI<DoomsdayVaultAI                       >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<DoomsdayVaultAI           >);
-                AssociateBuildingAI<WeatherRadarAI                        >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<WeatherRadarAI            >);
-                AssociateBuildingAI<SpaceRadarAI                          >(UsageType.WorkersDisaster,       GetUsageCountWorkersService<SpaceRadarAI              >);
-                AssociateBuildingAI<PoliceStationAI                       >(UsageType.WorkersPoliceStation,  GetUsageCountWorkersService<PoliceStationAI           >);
-                AssociateBuildingAI<SchoolAI                              >(UsageType.WorkersEducation,      GetUsageCountWorkersService<SchoolAI                  >);
-                AssociateBuildingAI<LibraryAI                             >(UsageType.WorkersEducation,      GetUsageCountWorkersService<LibraryAI                 >);
-                AssociateBuildingAI<HadronColliderAI                      >(UsageType.WorkersEducation,      GetUsageCountWorkersService<HadronColliderAI          >);
-                AssociateBuildingAI<MainCampusBuildingAI                  >(UsageType.WorkersEducation,      GetUsageCountWorkersService<MainCampusBuildingAI      >);
-                AssociateBuildingAI<CampusBuildingAI                      >(UsageType.WorkersEducation,      GetUsageCountWorkersService<CampusBuildingAI          >);
-                AssociateBuildingAI<UniqueFacultyAI                       >(UsageType.WorkersEducation,      GetUsageCountWorkersService<UniqueFacultyAI           >);
-                AssociateBuildingAI<MuseumAI                              >(UsageType.WorkersEducation,      GetUsageCountWorkersService<MuseumAI                  >);
-                AssociateBuildingAI<VarsitySportsArenaAI                  >(UsageType.WorkersEducation,      GetUsageCountWorkersService<VarsitySportsArenaAI      >);
-                AssociateBuildingAI<AirportAuxBuildingAI                  >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportAuxBuildingAI      >);
-                AssociateBuildingAI<AirportEntranceAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportEntranceAI         >);
-                AssociateBuildingAI<AirportGateAI                         >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportGateAI             >);
-                AssociateBuildingAI<AirportCargoGateAI                    >(UsageType.UseLogic1,             GetUsageCountWorkersService<AirportCargoGateAI        >);
-                AssociateBuildingAI<CargoStationAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoStationAI            >);
-                AssociateBuildingAI<CargoHarborAI                         >(UsageType.UseLogic1,             GetUsageCountWorkersService<CargoHarborAI             >);
-                AssociateBuildingAI<DepotAI                               >(UsageType.UseLogic1,             GetUsageCountWorkersService<DepotAI                   >);
-                AssociateBuildingAI<CableCarStationAI                     >(UsageType.UseLogic1,             GetUsageCountWorkersService<CableCarStationAI         >);
-                AssociateBuildingAI<TransportStationAI                    >(UsageType.UseLogic1,             GetUsageCountWorkersService<TransportStationAI        >);
-                AssociateBuildingAI<HarborAI                              >(UsageType.UseLogic1,             GetUsageCountWorkersService<HarborAI                  >);
-                AssociateBuildingAI<SpaceElevatorAI                       >(UsageType.UseLogic1,             GetUsageCountWorkersService<SpaceElevatorAI           >);
-                AssociateBuildingAI<PostOfficeAI                          >(UsageType.WorkersPost,           GetUsageCountWorkersService<PostOfficeAI              >);
-                AssociateBuildingAI<ParkGateAI                            >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
-                AssociateBuildingAI<ParkBuildingAI                        >(UsageType.UseLogic1,             GetUsageCountWorkersPark                               );
-                AssociateBuildingAI<MonumentAI                            >(UsageType.WorkersUnique,         GetUsageCountWorkersService<MonumentAI                >);
-                AssociateBuildingAI<AirlineHeadquartersAI                 >(UsageType.WorkersUnique,         GetUsageCountWorkersService<AirlineHeadquartersAI     >);
-                AssociateBuildingAI<AnimalMonumentAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<AnimalMonumentAI          >);
-                AssociateBuildingAI<PrivateAirportAI                      >(UsageType.WorkersUnique,         GetUsageCountWorkersService<PrivateAirportAI          >);
-                AssociateBuildingAI<ChirpwickCastleAI                     >(UsageType.WorkersUnique,         GetUsageCountWorkersService<ChirpwickCastleAI         >);
+                AssociateBuildingAI<ResidentialBuildingAI                   >(UsageType.HouseholdsResidential,  GetUsageCountHouseholds                                      );
+                AssociateBuildingAI("PloppableRICO.GrowableResidentialAI",    UsageType.HouseholdsResidential,  GetUsageCountHouseholds                                      );
+                AssociateBuildingAI("PloppableRICO.PloppableResidentialAI",   UsageType.HouseholdsResidential,  GetUsageCountHouseholds                                      );
+                AssociateBuildingAI<CommercialBuildingAI                    >(UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",     UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",    UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<OfficeBuildingAI                        >(UsageType.WorkersOffice,          GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.GrowableOfficeAI",         UsageType.WorkersOffice,          GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.PloppableOfficeAI",        UsageType.WorkersOffice,          GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<IndustrialBuildingAI                    >(UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.GrowableIndustrialAI",     UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.PloppableIndustrialAI",    UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<IndustrialExtractorAI                   >(UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<LivestockExtractorAI                    >(UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.GrowableExtractorAI",      UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI("PloppableRICO.PloppableExtractorAI",     UsageType.WorkersIndustrial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<MaintenanceDepotAI                      >(UsageType.WorkersMaintenance,     GetUsageCountWorkersService<MaintenanceDepotAI              >);
+                AssociateBuildingAI<SnowDumpAI                              >(UsageType.WorkersMaintenance,     GetUsageCountWorkersService<SnowDumpAI                      >);
+                AssociateBuildingAI<WindTurbineAI                           >(UsageType.WorkersPowerPlant,      GetUsageCountWorkersService<WindTurbineAI                   >);
+                AssociateBuildingAI<PowerPlantAI                            >(UsageType.WorkersPowerPlant,      GetUsageCountWorkersService<PowerPlantAI                    >);
+                AssociateBuildingAI<DamPowerHouseAI                         >(UsageType.WorkersPowerPlant,      GetUsageCountWorkersService<DamPowerHouseAI                 >);
+                AssociateBuildingAI<SolarPowerPlantAI                       >(UsageType.WorkersPowerPlant,      GetUsageCountWorkersService<SolarPowerPlantAI               >);
+                AssociateBuildingAI<FusionPowerPlantAI                      >(UsageType.WorkersPowerPlant,      GetUsageCountWorkersService<FusionPowerPlantAI              >);
+                AssociateBuildingAI<WaterFacilityAI                         >(UsageType.WorkersWaterSewage,     GetUsageCountWorkersService<WaterFacilityAI                 >);
+                AssociateBuildingAI<HeatingPlantAI                          >(UsageType.WorkersHeatingPlant,    GetUsageCountWorkersService<HeatingPlantAI                  >);
+                AssociateBuildingAI<LandfillSiteAI                          >(UsageType.WorkersGarbage,         GetUsageCountWorkersService<LandfillSiteAI                  >);
+                AssociateBuildingAI<WaterCleanerAI                          >(UsageType.WorkersGarbage,         GetUsageCountWorkersService<WaterCleanerAI                  >);
+                AssociateBuildingAI<UltimateRecyclingPlantAI                >(UsageType.WorkersGarbage,         GetUsageCountWorkersService<UltimateRecyclingPlantAI        >);
+                AssociateBuildingAI<MainIndustryBuildingAI                  >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<MainIndustryBuildingAI          >);
+                AssociateBuildingAI<AuxiliaryBuildingAI                     >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<AuxiliaryBuildingAI             >);
+                AssociateBuildingAI<ExtractingFacilityAI                    >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<ExtractingFacilityAI            >);
+                AssociateBuildingAI<FishingHarborAI                         >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<FishingHarborAI                 >);
+                AssociateBuildingAI<FishFarmAI                              >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<FishFarmAI                      >);
+                AssociateBuildingAI<MarketAI                                >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<MarketAI                        >);
+                AssociateBuildingAI<ProcessingFacilityAI                    >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<ProcessingFacilityAI            >);
+                AssociateBuildingAI<UniqueFactoryAI                         >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<UniqueFactoryAI                 >);
+                AssociateBuildingAI<WarehouseAI                             >(UsageType.WorkersIndustry,        GetUsageCountWorkersService<WarehouseAI                     >);
+                AssociateBuildingAI<HospitalAI                              >(UsageType.WorkersMedical,         GetUsageCountWorkersService<HospitalAI                      >);
+                AssociateBuildingAI<ChildcareAI                             >(UsageType.WorkersMedical,         GetUsageCountWorkersService<ChildcareAI                     >);
+                AssociateBuildingAI<EldercareAI                             >(UsageType.WorkersMedical,         GetUsageCountWorkersService<EldercareAI                     >);
+                AssociateBuildingAI<MedicalCenterAI                         >(UsageType.WorkersMedical,         GetUsageCountWorkersService<MedicalCenterAI                 >);
+                AssociateBuildingAI<SaunaAI                                 >(UsageType.WorkersMedical,         GetUsageCountWorkersService<SaunaAI                         >);
+                AssociateBuildingAI<HelicopterDepotAI                       >(UsageType.UseLogic1,              GetUsageCountWorkersService<HelicopterDepotAI               >);
+                AssociateBuildingAI<CemeteryAI                              >(UsageType.WorkersCemetery,        GetUsageCountWorkersService<CemeteryAI                      >);
+                AssociateBuildingAI<FireStationAI                           >(UsageType.WorkersFireStation,     GetUsageCountWorkersService<FireStationAI                   >);
+                AssociateBuildingAI<FirewatchTowerAI                        >(UsageType.WorkersFireStation,     GetUsageCountWorkersService<FirewatchTowerAI                >);
+                AssociateBuildingAI<DisasterResponseBuildingAI              >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<DisasterResponseBuildingAI      >);
+                AssociateBuildingAI<ShelterAI                               >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<ShelterAI                       >);
+                AssociateBuildingAI<RadioMastAI                             >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<RadioMastAI                     >);
+                AssociateBuildingAI<EarthquakeSensorAI                      >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<EarthquakeSensorAI              >);
+                AssociateBuildingAI<DoomsdayVaultAI                         >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<DoomsdayVaultAI                 >);
+                AssociateBuildingAI<WeatherRadarAI                          >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<WeatherRadarAI                  >);
+                AssociateBuildingAI<SpaceRadarAI                            >(UsageType.WorkersDisaster,        GetUsageCountWorkersService<SpaceRadarAI                    >);
+                AssociateBuildingAI<PoliceStationAI                         >(UsageType.WorkersPoliceStation,   GetUsageCountWorkersService<PoliceStationAI                 >);
+                AssociateBuildingAI<BankOfficeAI                            >(UsageType.WorkersBank,            GetUsageCountWorkersService<BankOfficeAI                    >);
+                AssociateBuildingAI<SchoolAI                                >(UsageType.WorkersEducation,       GetUsageCountWorkersService<SchoolAI                        >);
+                AssociateBuildingAI<LibraryAI                               >(UsageType.WorkersEducation,       GetUsageCountWorkersService<LibraryAI                       >);
+                AssociateBuildingAI<HadronColliderAI                        >(UsageType.WorkersEducation,       GetUsageCountWorkersService<HadronColliderAI                >);
+                AssociateBuildingAI<MainCampusBuildingAI                    >(UsageType.WorkersEducation,       GetUsageCountWorkersService<MainCampusBuildingAI            >);
+                AssociateBuildingAI<CampusBuildingAI                        >(UsageType.WorkersEducation,       GetUsageCountWorkersService<CampusBuildingAI                >);
+                AssociateBuildingAI<UniqueFacultyAI                         >(UsageType.WorkersEducation,       GetUsageCountWorkersService<UniqueFacultyAI                 >);
+                AssociateBuildingAI<MuseumAI                                >(UsageType.WorkersEducation,       GetUsageCountWorkersService<MuseumAI                        >);
+                AssociateBuildingAI<VarsitySportsArenaAI                    >(UsageType.WorkersEducation,       GetUsageCountWorkersService<VarsitySportsArenaAI            >);
+                AssociateBuildingAI<AirportAuxBuildingAI                    >(UsageType.UseLogic1,              GetUsageCountWorkersService<AirportAuxBuildingAI            >);
+                AssociateBuildingAI<AirportEntranceAI                       >(UsageType.UseLogic1,              GetUsageCountWorkersService<AirportEntranceAI               >);
+                AssociateBuildingAI<AirportGateAI                           >(UsageType.UseLogic1,              GetUsageCountWorkersService<AirportGateAI                   >);
+                AssociateBuildingAI<AirportCargoGateAI                      >(UsageType.UseLogic1,              GetUsageCountWorkersService<AirportCargoGateAI              >);
+                AssociateBuildingAI<CargoStationAI                          >(UsageType.UseLogic1,              GetUsageCountWorkersService<CargoStationAI                  >);
+                AssociateBuildingAI<CargoHarborAI                           >(UsageType.UseLogic1,              GetUsageCountWorkersService<CargoHarborAI                   >);
+                AssociateBuildingAI<DepotAI                                 >(UsageType.UseLogic1,              GetUsageCountWorkersService<DepotAI                         >);
+                AssociateBuildingAI<CableCarStationAI                       >(UsageType.UseLogic1,              GetUsageCountWorkersService<CableCarStationAI               >);
+                AssociateBuildingAI<TransportStationAI                      >(UsageType.UseLogic1,              GetUsageCountWorkersService<TransportStationAI              >);
+                AssociateBuildingAI<HarborAI                                >(UsageType.UseLogic1,              GetUsageCountWorkersService<HarborAI                        >);
+                AssociateBuildingAI<SpaceElevatorAI                         >(UsageType.UseLogic1,              GetUsageCountWorkersService<SpaceElevatorAI                 >);
+                AssociateBuildingAI<PostOfficeAI                            >(UsageType.WorkersPost,            GetUsageCountWorkersService<PostOfficeAI                    >);
+                AssociateBuildingAI<ParkGateAI                              >(UsageType.UseLogic1,              GetUsageCountWorkersPark                                     );
+                AssociateBuildingAI<ParkBuildingAI                          >(UsageType.UseLogic1,              GetUsageCountWorkersPark                                     );
+                AssociateBuildingAI<MonumentAI                              >(UsageType.WorkersUnique,          GetUsageCountWorkersService<MonumentAI                      >);
+                AssociateBuildingAI<AirlineHeadquartersAI                   >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AirlineHeadquartersAI           >);
+                AssociateBuildingAI<AnimalMonumentAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AnimalMonumentAI                >);
+                AssociateBuildingAI<PrivateAirportAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<PrivateAirportAI                >);
+                AssociateBuildingAI<ChirpwickCastleAI                       >(UsageType.WorkersUnique,          GetUsageCountWorkersService<ChirpwickCastleAI               >);
+                AssociateBuildingAI<StockExchangeAI                         >(UsageType.WorkersUnique,          GetUsageCountWorkersService<StockExchangeAI                 >);
+                AssociateBuildingAI<InternationalTradeBuildingAI            >(UsageType.WorkersUnique,          GetUsageCountWorkersService<InternationalTradeBuildingAI    >);
 
                 // associate nursing home building AI type with its usage type(s) and usage count routine(s)
                 // associate building AI even if corresponding mod is not installed (there will simply be no buildings with that AI)
@@ -175,33 +187,33 @@ namespace BuildingUsage
                 }
 
                 // create the worker summary panel under last usage group
-                UIPanel workerSummaryPanel = AddUIComponent<UIPanel>();
-                if (workerSummaryPanel == null)
+                _workerSummaryPanel = AddUIComponent<UIPanel>();
+                if (_workerSummaryPanel == null)
                 {
                     LogUtil.LogError($"Unable to create worker summary panel.");
                     return;
                 }
-                workerSummaryPanel.name = "WorkerSummaryPanel";
-                workerSummaryPanel.relativePosition = new Vector3(5f, lastUsageGroup.checkBox.relativePosition.y + lastUsageGroup.checkBox.size.y + 5f);
-                workerSummaryPanel.size = new Vector2(this.width - 10f, 138f);
-                workerSummaryPanel.atlas = _ingameAtlas;
-                workerSummaryPanel.backgroundSprite = "GenericPanel";
+                _workerSummaryPanel.name = "WorkerSummaryPanel";
+                _workerSummaryPanel.relativePosition = new Vector3(5f, lastUsageGroup.checkBox.relativePosition.y + lastUsageGroup.checkBox.size.y + 5f);
+                _workerSummaryPanel.size = new Vector2(this.width - 10f, 138f);
+                _workerSummaryPanel.atlas = _ingameAtlas;
+                _workerSummaryPanel.backgroundSprite = "GenericPanel";
 
                 // create employment heading and data rows
                 const float RowHeight = 14f;
                 float top = 2f;
-                if (!CreateHeading(workerSummaryPanel, top, "EmpHeading",   "Employment"                             )) return; top += RowHeight + 2f;
-                if (!CreateDataRow(workerSummaryPanel, top, "Employed",     "Employed",         out _employed        )) return; top += RowHeight;
-                if (!CreateDataRow(workerSummaryPanel, top, "TotalJobs",    "Total Jobs",       out _totalJobs       )) return; top += RowHeight;
-                if (!CreateDataRow(workerSummaryPanel, top, "UnfilledJobs", "Unfilled Jobs",    out _unfilledJobs    )) return; top += RowHeight;
-                if (!CreateDataRow(workerSummaryPanel, top, "OverEducated", "Over Educated",    out _overEducated    )) return; top += RowHeight;
+                if (!CreateHeading(top, "EmpHeading",   "Employment"                             )) return; top += RowHeight + 2f;
+                if (!CreateDataRow(top, "Employed",     "Employed",         out _employed        )) return; top += RowHeight;
+                if (!CreateDataRow(top, "TotalJobs",    "Total Jobs",       out _totalJobs       )) return; top += RowHeight;
+                if (!CreateDataRow(top, "UnfilledJobs", "Unfilled Jobs",    out _unfilledJobs    )) return; top += RowHeight;
+                if (!CreateDataRow(top, "OverEducated", "Over Educated",    out _overEducated    )) return; top += RowHeight;
 
                 // create unemployment heading and data rows
                 top += 5f;
-                if (!CreateHeading(workerSummaryPanel, top, "UnempHeading", "Unemployment"                           )) return; top += RowHeight + 2f;
-                if (!CreateDataRow(workerSummaryPanel, top, "Unemployed",   "Unemployed",       out _unemployed      )) return; top += RowHeight;
-                if (!CreateDataRow(workerSummaryPanel, top, "Eligible",     "Eligible Workers", out _eligible        )) return; top += RowHeight;
-                if (!CreateDataRow(workerSummaryPanel, top, "UnemplRate",   "Unemploy Rate",    out _unemploymentRate)) return; top += RowHeight;
+                if (!CreateHeading(top, "UnempHeading", "Unemployment"                           )) return; top += RowHeight + 2f;
+                if (!CreateDataRow(top, "Unemployed",   "Unemployed",       out _unemployed      )) return; top += RowHeight;
+                if (!CreateDataRow(top, "Eligible",     "Eligible Workers", out _eligible        )) return; top += RowHeight;
+                if (!CreateDataRow(top, "UnemplRate",   "Unemploy Rate",    out _unemploymentRate)) return; top += RowHeight;
 
                 // add tool tips to row descriptions
                 _employed.description.tooltip = "Citizens with a job";
@@ -226,10 +238,10 @@ namespace BuildingUsage
         /// <summary>
         /// create a heading row with lines under each heading
         /// </summary>
-        private bool CreateHeading(UIPanel workerSummaryPanel, float top, string namePrefix, string text)
+        private bool CreateHeading(float top, string namePrefix, string text)
         {
             // create a data row and then adjust properties
-            if (!CreateDataRow(workerSummaryPanel, top, namePrefix, "", out WorkerDataUI heading)) return false;
+            if (!CreateDataRow(top, namePrefix, "", out WorkerDataUI heading)) return false;
 
             // set texts
             heading.description.text = text;
@@ -264,12 +276,12 @@ namespace BuildingUsage
 
             // create a line under each heading
             top += 13f;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.description, out UISprite lineDescription)) return false;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel0,   out UISprite _              )) return false;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel1,   out UISprite _              )) return false;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel2,   out UISprite _              )) return false;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.eduLevel3,   out UISprite _              )) return false;
-            if (!CreateLineUnderHeading(workerSummaryPanel, top, heading.total,       out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(top, heading.description, out UISprite lineDescription)) return false;
+            if (!CreateLineUnderHeading(top, heading.eduLevel0,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(top, heading.eduLevel1,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(top, heading.eduLevel2,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(top, heading.eduLevel3,   out UISprite _              )) return false;
+            if (!CreateLineUnderHeading(top, heading.total,       out UISprite _              )) return false;
 
             // adjust description line size and position
             lineDescription.size = new Vector2(lineDescription.size.x + 4f, lineDescription.size.y);
@@ -282,12 +294,12 @@ namespace BuildingUsage
         /// <summary>
         /// create a line under a heading
         /// </summary>
-        private bool CreateLineUnderHeading(UIPanel workerSummaryPanel, float top, UILabel headingLabel, out UISprite line)
+        private bool CreateLineUnderHeading(float top, UILabel headingLabel, out UISprite line)
         {
-            line = workerSummaryPanel.AddUIComponent<UISprite>();
+            line = _workerSummaryPanel.AddUIComponent<UISprite>();
             if (line == null)
             {
-                LogUtil.LogError($"Unable to create line under [{headingLabel.name}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create line under [{headingLabel.name}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             line.name = headingLabel.name + "Line";
@@ -307,7 +319,7 @@ namespace BuildingUsage
         /// <summary>
         /// create a row for displaying data
         /// </summary>
-        private bool CreateDataRow(UIPanel workerSummaryPanel, float top, string namePrefix, string text, out WorkerDataUI workerData)
+        private bool CreateDataRow(float top, string namePrefix, string text, out WorkerDataUI workerData)
         {
             // create new worker data
             workerData = new WorkerDataUI();
@@ -318,10 +330,10 @@ namespace BuildingUsage
             const float LabelSpacing = 2f;
 
             // create label for description
-            workerData.description = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.description = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.description == null)
             {
-                LogUtil.LogError($"Unable to create description label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create description label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.description.name = namePrefix + "Description";
@@ -337,10 +349,10 @@ namespace BuildingUsage
             workerData.description.isVisible = true;
 
             // create label for education level 0
-            workerData.eduLevel0 = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.eduLevel0 = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel0 == null)
             {
-                LogUtil.LogError($"Unable to create education level 0 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 0 label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel0.name = namePrefix + "Level0";
@@ -356,10 +368,10 @@ namespace BuildingUsage
             workerData.eduLevel0.isVisible = true;
 
             // create label for education level 1
-            workerData.eduLevel1 = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.eduLevel1 = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel1 == null)
             {
-                LogUtil.LogError($"Unable to create education level 1 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 1 label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel1.name = namePrefix + "Level1";
@@ -375,10 +387,10 @@ namespace BuildingUsage
             workerData.eduLevel1.isVisible = true;
 
             // create label for education level 2
-            workerData.eduLevel2 = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.eduLevel2 = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel2 == null)
             {
-                LogUtil.LogError($"Unable to create education level 2 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 2 label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel2.name = namePrefix + "Level2";
@@ -394,10 +406,10 @@ namespace BuildingUsage
             workerData.eduLevel2.isVisible = true;
 
             // create label for education level 3
-            workerData.eduLevel3 = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.eduLevel3 = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.eduLevel3 == null)
             {
-                LogUtil.LogError($"Unable to create education level 3 label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create education level 3 label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.eduLevel3.name = namePrefix + "Level3";
@@ -413,10 +425,10 @@ namespace BuildingUsage
             workerData.eduLevel3.isVisible = true;
 
             // create label for total
-            workerData.total = workerSummaryPanel.AddUIComponent<UILabel>();
+            workerData.total = _workerSummaryPanel.AddUIComponent<UILabel>();
             if (workerData.total == null)
             {
-                LogUtil.LogError($"Unable to create total jobs label for [{namePrefix}] on panel [{workerSummaryPanel.name}].");
+                LogUtil.LogError($"Unable to create total jobs label for [{namePrefix}] on panel [{_workerSummaryPanel.name}].");
                 return false;
             }
             workerData.total.name = namePrefix + "Total";

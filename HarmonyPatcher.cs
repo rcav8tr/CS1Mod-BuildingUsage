@@ -81,7 +81,7 @@ namespace BuildingUsage
             // There is a GetColor routine in the derived AI classes which has Vehicle as a ref parameter.
             // There is a GetColor routine in the base class VehicleAI which has VehicleParked as a ref parameter.
             // The GetColor in the derived class is the one to be patched, so need to pass type Vehicle as a ref parameter.
-            MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode) });
+            MethodInfo originalMethod = originalClassType.GetMethod(originalMethodName, new Type[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(InfoManager.InfoMode), typeof(InfoManager.SubInfoMode) });
             if (originalMethod == null)
             {
                 LogUtil.LogError($"Unable to find original method {originalClassType.Name}.{originalMethodName}.");

@@ -4,6 +4,7 @@ using ColossalFramework.Math;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace BuildingUsage
 {
@@ -33,6 +34,7 @@ namespace BuildingUsage
             WorkersFireStation,
             WorkersDisaster,
             WorkersPoliceStation,
+            WorkersBank,
             WorkersEducation,
             WorkersTransportation,
             WorkersPost,
@@ -101,6 +103,7 @@ namespace BuildingUsage
             WorkersTransportationAirCargo,
 
             // workers unique building detail usage types
+            WorkersUniqueFinancial,
             WorkersUniqueLandmark,
             WorkersUniqueTourismLeisure,
             WorkersUniqueWinterUnique,
@@ -160,6 +163,7 @@ namespace BuildingUsage
             VisitorsParksPlazasEdenProject,
 
             // visitors unique building detail usage types
+            VisitorsUniqueFinancial,
             VisitorsUniqueLandmark,
             VisitorsUniqueTourismLeisure,
             VisitorsUniqueWinterUnique,
@@ -226,6 +230,7 @@ namespace BuildingUsage
             VehiclesPoliceCars,
             VehiclesPoliceHelis,
             VehiclesPrisonVans,
+            VehiclesBankCashVans,
             VehiclesPostVansTrucks,
             VehiclesPrivatePlanes,
             VehiclesRockets,
@@ -316,6 +321,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoFire                 = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentFire",                 32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoDisaster             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentDisaster",             32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoPolice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPoliceDefault",                      32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBanks                = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBanks",                              32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoEducation            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarEducationDefault",                   32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBigBuildings         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterBigBuildings",                     36f, 36f);
         private static readonly ThumbnailInfo thumbnailInfoEducationBuildings   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterEducationBuildings",               36f, 36f);
@@ -349,6 +355,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoBeautNatureReserve   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationNatureReserve",        32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBeautPedestrian      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationPedestrianZonePlazas", 32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoUniqueBuilding       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMonuments",                     41f, 41f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentPudding      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentPudding",                    32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentLandmarks    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentLandmarks",                  32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion1   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion1",                 32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion2   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion2",                 32f, 32f);
@@ -400,6 +407,7 @@ namespace BuildingUsage
             { UsageType.WorkersFireStation,                     new UsageTypeInfo("Fire Station",       thumbnailInfoFire               ) },
             { UsageType.WorkersDisaster,                        new UsageTypeInfo("Disaster",           thumbnailInfoDisaster           ) },
             { UsageType.WorkersPoliceStation,                   new UsageTypeInfo("Police Station",     thumbnailInfoPolice             ) },
+            { UsageType.WorkersBank,                            new UsageTypeInfo("Bank",               thumbnailInfoBanks              ) },
             { UsageType.WorkersEducation,                       new UsageTypeInfo("Education",          thumbnailInfoEducation          ) },
             { UsageType.WorkersTransportation,                  new UsageTypeInfo("Transportation",     thumbnailInfoTransportation     ) },
             { UsageType.WorkersPost,                            new UsageTypeInfo("Post",               thumbnailInfoTransportPost      ) },
@@ -468,6 +476,7 @@ namespace BuildingUsage
             { UsageType.WorkersTransportationAirCargo,          new UsageTypeInfo("Air",                thumbnailInfoTransportPlane     ) },
 
             // workers unique building usage types
+            { UsageType.WorkersUniqueFinancial,                 new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
             { UsageType.WorkersUniqueLandmark,                  new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.WorkersUniqueTourismLeisure,            new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.WorkersUniqueWinterUnique,              new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
@@ -527,6 +536,7 @@ namespace BuildingUsage
             { UsageType.VisitorsParksPlazasEdenProject,         new UsageTypeInfo("Eden Project",       thumbnailInfoWonders            ) },
 
             // visitors unique building usage types
+            { UsageType.VisitorsUniqueFinancial,                new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
             { UsageType.VisitorsUniqueLandmark,                 new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.VisitorsUniqueTourismLeisure,           new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.VisitorsUniqueWinterUnique,             new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
@@ -593,6 +603,7 @@ namespace BuildingUsage
             { UsageType.VehiclesPoliceCars,                     new UsageTypeInfo("Police Cars",        thumbnailInfoPolice             ) },
             { UsageType.VehiclesPoliceHelis,                    new UsageTypeInfo("Police Helicopters", thumbnailInfoPolice             ) },
             { UsageType.VehiclesPrisonVans,                     new UsageTypeInfo("Prison Vans",        thumbnailInfoPolice             ) },
+            { UsageType.VehiclesBankCashVans,                   new UsageTypeInfo("Bank Cash Vans",     thumbnailInfoBanks              ) },
             { UsageType.VehiclesPostVansTrucks,                 new UsageTypeInfo("Post Vans & Trucks", thumbnailInfoTransportPost      ) },
             { UsageType.VehiclesPrivatePlanes,                  new UsageTypeInfo("Private Planes",     thumbnailAviationClub           ) },
             { UsageType.VehiclesRockets,                        new UsageTypeInfo("Rockets",            thumbnailChirpXLaunchSite       ) },
@@ -714,11 +725,9 @@ namespace BuildingUsage
         protected Dictionary<UsageType, UsageGroup> _usageGroups = new Dictionary<UsageType, UsageGroup>();
 
         // for creating usage groups
-        private const int MaxUsageGroups = 29;          // maximum number of usage groups on a panel
         private int _usageGroupCounter;                 // counter while usage groups are being created
-        private const float TopSpace = 5f;              // blank height between buttons and top of first group
-        private const float BottomSpace = 5f;           // blank height after last group
         private const float SideSpace = 10f;            // blank space at each of left and right side of each group
+        private const float UsageGroupHeight = 19f;     // height of a usage group including space between usage groups
         private const float TextVerticalOffset = 2.5f;  // amount to offset text to make it appear centered vertically
         private const float DescriptionWidth = 135f;    // width of description text
         private const string CheckBoxNameSuffix = "CheckBox";
@@ -794,7 +803,7 @@ namespace BuildingUsage
         /// <summary>
         /// add a usage panel to the Levels info view panel
         /// </summary>
-        public static T AddUsagePanel<T>(UsagePanel mainPanel = null) where T : UsagePanel
+        public static T AddUsagePanel<T>() where T : UsagePanel
         {
             // get the LevelsInfoViewPanel panel (displayed when the user clicks on the Levels info view button)
             LevelsInfoViewPanel levelsPanel = UIView.library.Get<LevelsInfoViewPanel>(typeof(LevelsInfoViewPanel).Name);
@@ -811,9 +820,6 @@ namespace BuildingUsage
                 LogUtil.LogError($"Unable to create usage panel of type [{typeof(T).Name}].");
                 return null;
             }
-
-            // save the main panel, if any
-            usagePanel._mainPanel = mainPanel;
 
             // return the usage panel
             return usagePanel;
@@ -1186,7 +1192,7 @@ namespace BuildingUsage
         {
             foreach (UsageGroup usageGroup in _usageGroups.Values)
             {
-                if (usageGroup.thumbnail.name == component.name)
+                if (usageGroup.thumbnail == component)
                 {
                     CheckBox_eventClicked(usageGroup.checkBox, eventParam);
                     return;
@@ -1202,7 +1208,7 @@ namespace BuildingUsage
         {
             foreach (UsageGroup usageGroup in _usageGroups.Values)
             {
-                if (usageGroup.description.name == component.name)
+                if (usageGroup.description == component)
                 {
                     CheckBox_eventClicked(usageGroup.checkBox, eventParam);
                     return;
@@ -1439,14 +1445,8 @@ namespace BuildingUsage
                 return;
             }
 
-            // check counter against the max
-            if (_usageGroupCounter >= MaxUsageGroups)
-            {
-                LogUtil.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
-            }
-
-            // compute some things
-            ComputeGroupSizes(out float totalHeight, out float groupHeight, out float groupTop, out float groupCenter);
+            // get group top position
+            float groupTop = GroupTopPosition();
 
             // set prefix to use for component names for this group
             string groupName = usageType.ToString();
@@ -1462,7 +1462,7 @@ namespace BuildingUsage
             checkBox.name = groupName + CheckBoxNameSuffix;
             checkBox.autoSize = false;
             checkBox.size = new Vector2(CheckBoxHeight, CheckBoxHeight);    // width is same as height
-            checkBox.relativePosition = new Vector3(SideSpace, groupCenter - checkBox.size.y / 2);
+            checkBox.relativePosition = new Vector3(SideSpace, groupTop);
             checkBox.atlas = _ingameAtlas;
             SetCheckBox(checkBox, BuildingUsageConfig.GetCheckBoxSetting(usageType));
             checkBox.isVisible = true;
@@ -1480,7 +1480,7 @@ namespace BuildingUsage
             thumbnail.name = groupName + "Thumbnail";
             thumbnail.autoSize = false;
             thumbnail.size = new Vector2(CheckBoxHeight * thumbnailInfo.width / thumbnailInfo.height, CheckBoxHeight);   // make thumbnail same height as checkbox and compute proportional width
-            thumbnail.relativePosition = new Vector3(checkBox.relativePosition.x + checkBox.size.x + ThumbnailMaxWidth / 2 - thumbnail.size.x / 2, groupCenter - thumbnail.size.y / 2);
+            thumbnail.relativePosition = new Vector3(checkBox.relativePosition.x + checkBox.size.x + ThumbnailMaxWidth / 2 - thumbnail.size.x / 2, groupTop);
             switch (thumbnailInfo.atlasType)
             {
                 case ThumbnailInfo.AtlasType.InGame:        thumbnail.atlas = _ingameAtlas;     break;
@@ -1510,7 +1510,7 @@ namespace BuildingUsage
             description.textColor = _textColorDisabled;
             description.autoSize = false;
             description.size = new Vector2(DescriptionWidth, CheckBoxHeight);   // make same height as check box
-            description.relativePosition = new Vector3(checkBox.relativePosition.x + checkBox.size.x + ThumbnailMaxWidth, groupCenter - description.size.y / 2 + TextVerticalOffset);
+            description.relativePosition = new Vector3(checkBox.relativePosition.x + checkBox.size.x + ThumbnailMaxWidth, groupTop + TextVerticalOffset);
             description.isVisible = true;
             description.eventClicked += Description_eventClicked;
 
@@ -1526,7 +1526,7 @@ namespace BuildingUsage
             detailButton.name = groupName + "Detail";
             detailButton.autoSize = false;
             detailButton.size = new Vector2(CheckBoxHeight, CheckBoxHeight);    // make same height as check box
-            detailButton.relativePosition = new Vector3(description.relativePosition.x + description.size.x + SpaceBeforeAfter, groupCenter - detailButton.size.y / 2);
+            detailButton.relativePosition = new Vector3(description.relativePosition.x + description.size.x + SpaceBeforeAfter, groupTop);
             detailButton.atlas = _ingameAtlas;
             detailButton.spriteName = "CityInfoDisabled";
             detailButton.isVisible = false;     // hide the detail button until a detail panel is added
@@ -1549,7 +1549,7 @@ namespace BuildingUsage
             percent.textColor = _textColorDisabled;
             percent.autoSize = false;
             percent.size = new Vector2(40f, CheckBoxHeight);
-            percent.relativePosition = new Vector3(size.x - SideSpace - percent.size.x, groupCenter - percent.size.y / 2 + TextVerticalOffset);
+            percent.relativePosition = new Vector3(size.x - SideSpace - percent.size.x, groupTop + TextVerticalOffset);
             percent.isVisible = true;
             percent.eventTooltipHover += TooltipHover;
 
@@ -1565,7 +1565,7 @@ namespace BuildingUsage
             legend.tooltip = null;
             legend.autoSize = false;
             legend.size = new Vector2(percent.relativePosition.x - SpaceBeforeAfter - (detailButton.relativePosition.x + detailButton.size.x + SpaceBeforeAfter), 12f);
-            legend.relativePosition = new Vector3(detailButton.relativePosition.x + detailButton.size.x + SpaceBeforeAfter, groupCenter - legend.size.y / 2);
+            legend.relativePosition = new Vector3(detailButton.relativePosition.x + detailButton.size.x + SpaceBeforeAfter, groupTop + (CheckBoxHeight - legend.size.y) / 2);
             legend.material = _gradientMaterial;
             legend.texture = _gradientTexture;
             legend.isVisible = true;
@@ -1758,14 +1758,8 @@ namespace BuildingUsage
         /// </summary>
         protected void CreateGroupHeading(string headingText)
         {
-            // check counter against the max
-            if (_usageGroupCounter >= MaxUsageGroups)
-            {
-                LogUtil.LogError($"Attempt to create more usages groups than the maximum [{MaxUsageGroups}] allowed.");
-            }
-
-            // compute some things
-            ComputeGroupSizes(out float totalHeight, out float groupHeight, out float groupTop, out float groupCenter);
+            // get group top position
+            float groupTop = GroupTopPosition();
 
             // set prefix to use for component names for this group
             string groupName = headingText.Replace(" ", "");
@@ -1785,7 +1779,7 @@ namespace BuildingUsage
             heading.textScale = 0.75f;
             heading.textColor = _textColorNormal;
             heading.autoSize = true;
-            heading.relativePosition = new Vector3(SideSpace, groupCenter - heading.size.y / 2 + TextVerticalOffset);
+            heading.relativePosition = new Vector3(SideSpace, groupTop + TextVerticalOffset);
             heading.isVisible = true;
 
             // draw a line across the panel starting after the heading text
@@ -1798,7 +1792,7 @@ namespace BuildingUsage
             line.name = groupName + "Line";
             line.autoSize = false;
             line.size = new Vector2(size.x - 2 * SideSpace - heading.size.x, 5f);
-            line.relativePosition = new Vector3(heading.relativePosition.x + heading.size.x, groupCenter - line.size.y / 2);
+            line.relativePosition = new Vector3(heading.relativePosition.x + heading.size.x, groupTop + (heading.size.y - line.size.y) / 2);
             line.atlas = _ingameAtlas;
             line.spriteName = "ButtonMenuMain";
             line.isVisible = true;
@@ -1820,7 +1814,8 @@ namespace BuildingUsage
                 usageGroup.detailButton.eventClicked += DetailButton_eventClicked;
 
                 // create and save the detail panel
-                UsagePanel panel = AddUsagePanel<TDetailPanel>(this);
+                UsagePanel panel = AddUsagePanel<TDetailPanel>();
+                panel._mainPanel = this;
                 usageGroup.detailPanel = panel;
                 _detailPanels.Add(panel);
             }
@@ -1829,14 +1824,12 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// compute some sizes used by group or heading
+        /// return the top position for the group
         /// </summary>
-        private void ComputeGroupSizes(out float totalHeight, out float groupHeight, out float groupTop, out float groupCenter)
+        private float GroupTopPosition()
         {
-            totalHeight = size.y - ButtonHeight - TopSpace - BottomSpace;               // total height available for all groups
-            groupHeight = totalHeight / MaxUsageGroups;                                 // height of each group
-            groupTop = ButtonHeight + TopSpace + _usageGroupCounter * groupHeight;      // position of top of this group
-            groupCenter = groupTop + groupHeight / 2;                                   // position of center height of this group, all components are centered vertically on this value
+            // 5 is space between button and first usage group
+            return _selectAll.relativePosition.y + _selectAll.size.y + 5f + _usageGroupCounter * UsageGroupHeight;
         }
 
         /// <summary>
@@ -1971,6 +1964,29 @@ namespace BuildingUsage
         {
             // the tool tip text gets set in UpdatePanel, just refresh the tool tip
             component.RefreshTooltip();
+        }
+
+        /// <summary>
+        /// return the bottom position of the bottom-most usage group on this panel and any detail panels
+        /// </summary>
+        protected float GetUsageGroupBottomPosition()
+        {
+            // get the bottom position of the bottom-most usage group on this panel
+            float bottomPosition = 0f;
+            foreach (UsageGroup usageGroup in _usageGroups.Values)
+            {
+                bottomPosition = Math.Max(bottomPosition, relativePosition.y + usageGroup.checkBox.relativePosition.y + usageGroup.checkBox.size.y);
+            }
+
+            // check all the detail panels (if any)
+            foreach (UsagePanel usagePanel in _detailPanels)
+            {
+                // this is a recursive call, but to a different panel
+                bottomPosition = Math.Max(bottomPosition, usagePanel.GetUsageGroupBottomPosition());
+            }
+
+            // return the bottom position
+            return bottomPosition;
         }
 
         #endregion
@@ -3375,11 +3391,7 @@ namespace BuildingUsage
             CalculateOwnVehicles(ref data, TransferManager.TransferReason.Sick, ref used);
 
             // compute vehicles allowed
-            // cannot use CalculateAllowedVehicles because AmbulanceCount includes a bonus modifier
-            T buildingAI = data.Info.m_buildingAI as T;
-            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
-            int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-            allowed = (productionRate * buildingAI.AmbulanceCount + 99) / 100;
+            CalculateAllowedVehicles<T>(ref data, "AmbulanceCount", ref allowed);
         }
 
         /// <summary>
@@ -3491,11 +3503,19 @@ namespace BuildingUsage
             }
 
             // compute vehicles allowed
-            // cannot use CalculateAllowedVehicles because PoliceCarCount includes a bonus modifier
-            PoliceStationAI buildingAI = data.Info.m_buildingAI as PoliceStationAI;
-            int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
-            int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-            allowed = (productionRate * buildingAI.PoliceCarCount + 99) / 100;
+            CalculateAllowedVehicles<PoliceStationAI>(ref data, "PoliceCarCount", ref allowed);
+        }
+
+        /// <summary>
+        /// get the usage count of a BankOfficeAI building
+        /// </summary>
+        protected void GetUsageCountVehiclesBank(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        {
+            // compute vehicles used
+            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Cash, ref used);
+
+            // compute vehicles allowed
+            CalculateAllowedVehicles<BankOfficeAI>(ref data, "CollectingVanCount", ref allowed);
         }
 
         /// <summary>
@@ -3669,18 +3689,42 @@ namespace BuildingUsage
         /// <summary>
         /// return the number of vehicles allowed for the building
         /// </summary>
-        private void CalculateAllowedVehicles<T>(ref Building data, string vehicleCountFieldName, ref int allowed) where T : PlayerBuildingAI
+        private void CalculateAllowedVehicles<T>(ref Building data, string vehicleCountFieldPropertyName, ref int allowed) where T : PlayerBuildingAI
         {
             // The number vehicles allowed are displayed on the CityServiceWorldInfoPanel or WarehouseWorldInfoPanel.
             // For both info panels, UpdateBindings gets the vehicle info by calling GetLocalizedStats method of the building AI associated with the building.
             // The logic below is a copy (using ILSpy) of [building AI].GetLocalizedStats used by most of the building AIs.
             // The logic was then simplified to include only the parts for computing vehicle info.
 
-            // compute vehicles allowed
+            // get the vehicle count value, try field first
+            int value;
             T buildingAI = data.Info.m_buildingAI as T;
+            FieldInfo field = typeof(T).GetField(vehicleCountFieldPropertyName);
+            if (field != null)
+            {
+                // field found, get its value
+                value = (int)field.GetValue(buildingAI);
+            }
+            else
+            {
+                // field not found, get property
+                PropertyInfo property = typeof(T).GetProperty(vehicleCountFieldPropertyName);
+                if (property != null)
+                {
+                    // property found, get its value
+                    value = (int)property.GetValue(buildingAI, null);
+                }
+                else
+                {
+                    LogUtil.LogError($"Unable to get field or property [{vehicleCountFieldPropertyName}] for building AI [{typeof(T).Name}].");
+                    return;
+                }
+            }
+
+            // do final calculation, which is the same for all cases
             int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
-            allowed += (productionRate * (int)typeof(T).GetField(vehicleCountFieldName).GetValue(buildingAI) + 99) / 100;
+            allowed += (productionRate * value + 99) / 100;
         }
         #endregion
 
@@ -4415,6 +4459,7 @@ namespace BuildingUsage
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
+                    case "MonumentPudding":             return UsageType.WorkersUniqueFinancial;
                     case "MonumentLandmarks":           return UsageType.WorkersUniqueLandmark;
                     case "MonumentExpansion1":          return UsageType.WorkersUniqueTourismLeisure;
                     case "MonumentExpansion2":          return UsageType.WorkersUniqueWinterUnique;
@@ -4450,6 +4495,10 @@ namespace BuildingUsage
             {
                 return UsageType.WorkersUniqueCastle;
             }
+            else if (buildingAIType == typeof(StockExchangeAI) || buildingAIType == typeof(InternationalTradeBuildingAI))
+            {
+                return UsageType.WorkersUniqueFinancial;
+            }
 
             // usage type not found, not an error
             return UsageType.None;
@@ -4473,6 +4522,7 @@ namespace BuildingUsage
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
+                    case "MonumentPudding":             return UsageType.VisitorsUniqueFinancial;
                     case "MonumentLandmarks":           return UsageType.VisitorsUniqueLandmark;
                     case "MonumentExpansion1":          return UsageType.VisitorsUniqueTourismLeisure;
                     case "MonumentExpansion2":          return UsageType.VisitorsUniqueWinterUnique;
@@ -4507,6 +4557,10 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(ChirpwickCastleAI))
             {
                 return UsageType.VisitorsUniqueCastle;
+            }
+            else if (buildingAIType == typeof(StockExchangeAI) || buildingAIType == typeof(InternationalTradeBuildingAI))
+            {
+                return UsageType.VisitorsUniqueFinancial;
             }
 
             // usage type not found, not an error

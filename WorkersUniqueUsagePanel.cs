@@ -46,6 +46,7 @@ namespace BuildingUsage
                 // create the usage groups
                 // at least one of Basic and Level are in the base game, so there is no logic on those headings
                 CreateGroupHeading("Basic Unique");
+                CreateUsageGroupIfDefined(UsageType.WorkersUniqueFinancial,         usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueLandmark,          usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueTourismLeisure,    usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueWinterUnique,      usageTypes);
@@ -68,11 +69,13 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<MonumentAI           >(UsageType.UseLogic1, GetUsageCountWorkersService<MonumentAI           >);
-                AssociateBuildingAI<AirlineHeadquartersAI>(UsageType.UseLogic1, GetUsageCountWorkersService<AirlineHeadquartersAI>);
-                AssociateBuildingAI<AnimalMonumentAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<AnimalMonumentAI     >);
-                AssociateBuildingAI<PrivateAirportAI     >(UsageType.UseLogic1, GetUsageCountWorkersService<PrivateAirportAI     >);
-                AssociateBuildingAI<ChirpwickCastleAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<ChirpwickCastleAI    >);
+                AssociateBuildingAI<MonumentAI                      >(UsageType.UseLogic1, GetUsageCountWorkersService<MonumentAI                   >);
+                AssociateBuildingAI<AirlineHeadquartersAI           >(UsageType.UseLogic1, GetUsageCountWorkersService<AirlineHeadquartersAI        >);
+                AssociateBuildingAI<AnimalMonumentAI                >(UsageType.UseLogic1, GetUsageCountWorkersService<AnimalMonumentAI             >);
+                AssociateBuildingAI<PrivateAirportAI                >(UsageType.UseLogic1, GetUsageCountWorkersService<PrivateAirportAI             >);
+                AssociateBuildingAI<ChirpwickCastleAI               >(UsageType.UseLogic1, GetUsageCountWorkersService<ChirpwickCastleAI            >);
+                AssociateBuildingAI<StockExchangeAI                 >(UsageType.UseLogic1, GetUsageCountWorkersService<StockExchangeAI              >);
+                AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<InternationalTradeBuildingAI >);
             }
             catch (Exception ex)
             {
@@ -87,11 +90,13 @@ namespace BuildingUsage
         {
             // logic depends on building AI type
             Type buildingAIType = data.Info.m_buildingAI.GetType();
-            if (buildingAIType == typeof(MonumentAI           ) ||
-                buildingAIType == typeof(AirlineHeadquartersAI) ||
-                buildingAIType == typeof(AnimalMonumentAI     ) ||
-                buildingAIType == typeof(PrivateAirportAI     ) ||
-                buildingAIType == typeof(ChirpwickCastleAI    ))
+            if (buildingAIType == typeof(MonumentAI                  ) ||
+                buildingAIType == typeof(AirlineHeadquartersAI       ) ||
+                buildingAIType == typeof(AnimalMonumentAI            ) ||
+                buildingAIType == typeof(PrivateAirportAI            ) ||
+                buildingAIType == typeof(ChirpwickCastleAI           ) ||
+                buildingAIType == typeof(StockExchangeAI             ) ||
+                buildingAIType == typeof(InternationalTradeBuildingAI))
             {
                 return GetWorkersUniqueUsageType(data.Info);
             }

@@ -8,6 +8,11 @@ namespace BuildingUsage
     public class VisitorsUsagePanel : UsagePanel
     {
         /// <summary>
+        /// the bottom position of the bottom-most UI element on this panel and any detail panels
+        /// </summary>
+        public float BottomPosition { get { return GetUsageGroupBottomPosition(); } }
+
+        /// <summary>
         /// Start is called once after the panel is created
         /// set up and populate the panel with UI components
         /// </summary>
@@ -22,16 +27,17 @@ namespace BuildingUsage
                 name = GetType().ToString();
 
                 // create the usage groups
-                CreateUsageGroup<MarketAI                                                                                >(UsageType.VisitorsFishMarket);
-                CreateUsageGroup<HospitalAI, ChildcareAI, EldercareAI, MedicalCenterAI                                   >(UsageType.VisitorsMedicalPatients);
-                CreateUsageGroup<SaunaAI                                                                                 >(UsageType.VisitorsMedicalVisitors);
-                CreateUsageGroup<CemeteryAI                                                                              >(UsageType.VisitorsDeceased);
-                CreateUsageGroup<ShelterAI                                                                               >(UsageType.VisitorsShelter);
-                CreateUsageGroup<PoliceStationAI                                                                         >(UsageType.VisitorsCriminals);
-                CreateUsageGroup<SchoolAI, LibraryAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI  >(UsageType.VisitorsEducation);
-                CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI                                                 >(UsageType.VisitorsAirportArea);
-                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI                  >(UsageType.VisitorsParksPlazas);
-                CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI>(UsageType.VisitorsUnique);
+                CreateUsageGroup<MarketAI                                                                                   >(UsageType.VisitorsFishMarket);
+                CreateUsageGroup<HospitalAI, ChildcareAI, EldercareAI, MedicalCenterAI                                      >(UsageType.VisitorsMedicalPatients);
+                CreateUsageGroup<SaunaAI                                                                                    >(UsageType.VisitorsMedicalVisitors);
+                CreateUsageGroup<CemeteryAI                                                                                 >(UsageType.VisitorsDeceased);
+                CreateUsageGroup<ShelterAI                                                                                  >(UsageType.VisitorsShelter);
+                CreateUsageGroup<PoliceStationAI                                                                            >(UsageType.VisitorsCriminals);
+                CreateUsageGroup<SchoolAI, LibraryAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI     >(UsageType.VisitorsEducation);
+                CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI                                                    >(UsageType.VisitorsAirportArea);
+                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI                     >(UsageType.VisitorsParksPlazas);
+                CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
+                                 StockExchangeAI, InternationalTradeBuildingAI                                              >(UsageType.VisitorsUnique);
 
                 // add detail panels
                 AddDetailPanel<VisitorsEducationUsagePanel  >(UsageType.VisitorsEducation  );
@@ -40,33 +46,35 @@ namespace BuildingUsage
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<MarketAI             >(UsageType.VisitorsFishMarket,      GetUsageCountVisitorsMarket                           );
-                AssociateBuildingAI<HospitalAI           >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsHospital<HospitalAI>             );
-                AssociateBuildingAI<MedicalCenterAI      >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsHospital<MedicalCenterAI>        );
-                AssociateBuildingAI<ChildcareAI          >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsChildcare                        );
-                AssociateBuildingAI<EldercareAI          >(UsageType.VisitorsMedicalPatients, GetUsageCountVisitorsEldercare                        );
-                AssociateBuildingAI<SaunaAI              >(UsageType.VisitorsMedicalVisitors, GetUsageCountVisitorsSauna                            );
-                AssociateBuildingAI<CemeteryAI           >(UsageType.VisitorsDeceased,        GetUsageCountVisitorsCemetery                         );
-                AssociateBuildingAI<ShelterAI            >(UsageType.VisitorsShelter,         GetUsageCountVisitorsShelter                          );
-                AssociateBuildingAI<PoliceStationAI      >(UsageType.VisitorsCriminals,       GetUsageCountVisitorsPoliceStation                    );
-                AssociateBuildingAI<SchoolAI             >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<SchoolAI>                 );
-                AssociateBuildingAI<LibraryAI            >(UsageType.VisitorsEducation,       GetUsageCountVisitorsLibrary                          );
-                AssociateBuildingAI<CampusBuildingAI     >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<CampusBuildingAI>         );
-                AssociateBuildingAI<UniqueFacultyAI      >(UsageType.VisitorsEducation,       GetUsageCountVisitorsSchool<UniqueFacultyAI>          );
-                AssociateBuildingAI<MuseumAI             >(UsageType.VisitorsEducation,       GetUsageCountVisitorsMonument<MuseumAI>               );
-                AssociateBuildingAI<VarsitySportsArenaAI >(UsageType.VisitorsEducation,       GetUsageCountVisitorsVarsitySportsArena               );
-                AssociateBuildingAI<AirportAuxBuildingAI >(UsageType.VisitorsAirportArea,     GetUsageCountVisitorsAirportArea<AirportAuxBuildingAI>);
-                AssociateBuildingAI<AirportEntranceAI    >(UsageType.VisitorsAirportArea,     GetUsageCountVisitorsAirportArea<AirportEntranceAI>   );
-                AssociateBuildingAI<ParkAI               >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<ParkAI>                     );
-                AssociateBuildingAI<EdenProjectAI        >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsPark<EdenProjectAI>              );
-                AssociateBuildingAI<ParkBuildingAI       >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding<ParkBuildingAI>     );
-                AssociateBuildingAI<IceCreamStandAI      >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsParkBuilding<IceCreamStandAI>    );
-                AssociateBuildingAI<TourBuildingAI       >(UsageType.VisitorsParksPlazas,     GetUsageCountVisitorsTourBuilding                     );
-                AssociateBuildingAI<MonumentAI           >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<MonumentAI>             );
-                AssociateBuildingAI<AirlineHeadquartersAI>(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<AirlineHeadquartersAI>  );
-                AssociateBuildingAI<AnimalMonumentAI     >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<AnimalMonumentAI>       );
-                AssociateBuildingAI<PrivateAirportAI     >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<PrivateAirportAI>       );
-                AssociateBuildingAI<ChirpwickCastleAI    >(UsageType.VisitorsUnique,          GetUsageCountVisitorsMonument<ChirpwickCastleAI>      );
+                AssociateBuildingAI<MarketAI                        >(UsageType.VisitorsFishMarket,         GetUsageCountVisitorsMarket                                 );
+                AssociateBuildingAI<HospitalAI                      >(UsageType.VisitorsMedicalPatients,    GetUsageCountVisitorsHospital<HospitalAI>                   );
+                AssociateBuildingAI<MedicalCenterAI                 >(UsageType.VisitorsMedicalPatients,    GetUsageCountVisitorsHospital<MedicalCenterAI>              );
+                AssociateBuildingAI<ChildcareAI                     >(UsageType.VisitorsMedicalPatients,    GetUsageCountVisitorsChildcare                              );
+                AssociateBuildingAI<EldercareAI                     >(UsageType.VisitorsMedicalPatients,    GetUsageCountVisitorsEldercare                              );
+                AssociateBuildingAI<SaunaAI                         >(UsageType.VisitorsMedicalVisitors,    GetUsageCountVisitorsSauna                                  );
+                AssociateBuildingAI<CemeteryAI                      >(UsageType.VisitorsDeceased,           GetUsageCountVisitorsCemetery                               );
+                AssociateBuildingAI<ShelterAI                       >(UsageType.VisitorsShelter,            GetUsageCountVisitorsShelter                                );
+                AssociateBuildingAI<PoliceStationAI                 >(UsageType.VisitorsCriminals,          GetUsageCountVisitorsPoliceStation                          );
+                AssociateBuildingAI<SchoolAI                        >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<SchoolAI>                       );
+                AssociateBuildingAI<LibraryAI                       >(UsageType.VisitorsEducation,          GetUsageCountVisitorsLibrary                                );
+                AssociateBuildingAI<CampusBuildingAI                >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<CampusBuildingAI>               );
+                AssociateBuildingAI<UniqueFacultyAI                 >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<UniqueFacultyAI>                );
+                AssociateBuildingAI<MuseumAI                        >(UsageType.VisitorsEducation,          GetUsageCountVisitorsMonument<MuseumAI>                     );
+                AssociateBuildingAI<VarsitySportsArenaAI            >(UsageType.VisitorsEducation,          GetUsageCountVisitorsVarsitySportsArena                     );
+                AssociateBuildingAI<AirportAuxBuildingAI            >(UsageType.VisitorsAirportArea,        GetUsageCountVisitorsAirportArea<AirportAuxBuildingAI>      );
+                AssociateBuildingAI<AirportEntranceAI               >(UsageType.VisitorsAirportArea,        GetUsageCountVisitorsAirportArea<AirportEntranceAI>         );
+                AssociateBuildingAI<ParkAI                          >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsPark<ParkAI>                           );
+                AssociateBuildingAI<EdenProjectAI                   >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsPark<EdenProjectAI>                    );
+                AssociateBuildingAI<ParkBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<ParkBuildingAI>           );
+                AssociateBuildingAI<IceCreamStandAI                 >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<IceCreamStandAI>          );
+                AssociateBuildingAI<TourBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsTourBuilding                           );
+                AssociateBuildingAI<MonumentAI                      >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<MonumentAI>                   );
+                AssociateBuildingAI<AirlineHeadquartersAI           >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<AirlineHeadquartersAI>        );
+                AssociateBuildingAI<AnimalMonumentAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<AnimalMonumentAI>             );
+                AssociateBuildingAI<PrivateAirportAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<PrivateAirportAI>             );
+                AssociateBuildingAI<ChirpwickCastleAI               >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<ChirpwickCastleAI>            );
+                AssociateBuildingAI<StockExchangeAI                 >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<StockExchangeAI>              );
+                AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<InternationalTradeBuildingAI> );
             }
             catch (Exception ex)
             {

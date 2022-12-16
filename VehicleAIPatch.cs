@@ -34,6 +34,7 @@ namespace BuildingUsage
         //    CableCarAI                GC  V   (unlimited:  Cable Car Stop, End-of-Line Cable Car Stop)
         // CarAI                        GC      (base class with no buildings)
         //    AmbulanceAI               GC  V   Medical Clinic, Hospital, High-Capacity Hospital, Plastic Surgery Center (CCP), Medical Center (monument)
+        //    BankVanAI                 GC  V   Small Bank, Large Bank, Skyscraper Bank
         //    BusAI                     GC  V   Small Emergency Shelter, Large Emergency Shelter,
         //                                      (unlimited:
         //                                          Bus Depot, Biofuel Bus Depot,
@@ -94,6 +95,7 @@ namespace BuildingUsage
             if (!CreateGetColorPatch<PassengerBlimpAI            >()) return false;
             if (!CreateGetColorPatch<CableCarAI                  >()) return false;
             if (!CreateGetColorPatch<AmbulanceAI                 >()) return false;
+            if (!CreateGetColorPatch<BankVanAI                   >()) return false;
             if (!CreateGetColorPatch<BusAI                       >()) return false;
             if (!CreateGetColorPatch<CargoTruckAI                >()) return false;
             if (!CreateGetColorPatch<DisasterResponseVehicleAI   >()) return false;
@@ -140,7 +142,7 @@ namespace BuildingUsage
         /// return the color of the vehicle
         /// </summary>
         /// <returns>whether or not to do base processing</returns>
-        public static bool VehicleAIGetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, ref Color __result)
+        public static bool VehicleAIGetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode, ref Color __result)
         {
             // do processing for this mod only for Levels info view
             bool doBaseProcessing = true;

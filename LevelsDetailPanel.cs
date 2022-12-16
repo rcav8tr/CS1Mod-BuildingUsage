@@ -57,6 +57,11 @@ namespace BuildingUsage
         private bool _initialDataObtained;
 
         /// <summary>
+        /// the bottom position of the bottom-most UI element on this panel
+        /// </summary>
+        public float BottomPosition { get { return relativePosition.y + size.y; } }
+
+        /// <summary>
         /// Start is called once after the panel is created
         /// set up and populate the panel
         /// </summary>
@@ -89,10 +94,12 @@ namespace BuildingUsage
                 return;
             }
 
-            // move panel to fill bottom of LevelsInfoViewPanel below the legend
+            // move this panel below the legend panel
             relativePosition = new Vector3(legend.relativePosition.x, legend.relativePosition.y + legend.size.y + legend.relativePosition.x);
+
+            // size this panel's width to same as legend panel
             autoSize = false;
-            size = new Vector2(legend.size.x, levelsPanel.component.size.y - relativePosition.y - legend.relativePosition.x);
+            size = new Vector2(legend.size.x, size.y);
 
             // get text font from the existing label
             UILabel fontTemplate = levelsPanel.Find<UILabel>("ResidentialLevel");
@@ -104,7 +111,7 @@ namespace BuildingUsage
             _textFont = fontTemplate.font;
 
             // create heading row
-            if (!CreateDetailRow("Heading", "", 10f, out _heading)) return;
+            if (!CreateDetailRow("Heading", "", 0f, out _heading)) return;
 
             // adjust heading text size
             const float HeadingTextScale = 0.625f;
@@ -155,6 +162,10 @@ namespace BuildingUsage
             // set tool tips
             _total.Description.tooltip = "Total across all levels";
             _average.Description.tooltip = "Weighted average level";
+
+            // size this panel's height to just hold components
+            autoSize = false;
+            size = new Vector2(size.x, _average.Description.relativePosition.y + _average.Description.size.y);
         }
 
         /// <summary>
@@ -427,8 +438,8 @@ namespace BuildingUsage
                         // continue only if initial data was obtained
                         if (_initialDataObtained)
                         {
-                                // compute total and average (average is weighted by level)
-                                uint total = _industrialLevel1 + _industrialLevel2 + _industrialLevel3;
+                            // compute total and average (average is weighted by level)
+                            uint total = _industrialLevel1 + _industrialLevel2 + _industrialLevel3;
                             float average = 0f;
                             if (total != 0)
                             {

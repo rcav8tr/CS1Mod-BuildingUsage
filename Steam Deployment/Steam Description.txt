@@ -1,6 +1,6 @@
 Display how much a building is being used as a percent of its capacity.  Display employment and unemployment data.
 
-[img=https://i.imgur.com/sgP8i4s.png]
+[img=https://i.imgur.com/O3ujMsj.png]
 
 [h1]Detailed Description[/h1]
 Building Usage is integrated into the Levels info view, which now has five tabs described below.

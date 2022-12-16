@@ -23,6 +23,7 @@ Although IT Cluster (i.e. High Tech) office buildings produce goods, such goods 
 [tr][td]Police Cars        [/td][td]Police Station, Police Headquarters, High-Capacity Police Headquarters, Historical Police Station (CCP), Intelligence Agency (CCP), Police Security Center (CCP)[/td][/tr]
 [tr][td]Police Helicopters [/td][td]Police Helicopter Depot[/td][/tr]
 [tr][td]Prison Vans        [/td][td]Prison[/td][/tr]
+[tr][td]Bank Cash Vans     [/td][td]Small Bank, Large Bank, Skyscraper Bank[/td][/tr]
 [tr][td]Post Vans & Trucks [/td][td]Post Office, Post Sorting Facility[/td][/tr]
 [tr][td]Private Planes     [/td][td]Aviation Club[/td][/tr]
 [tr][td]Rockets            [/td][td]ChirpX Launch Site (usage is 100% when a rocket is ready to launch)[/td][/tr]

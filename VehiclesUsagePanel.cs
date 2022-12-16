@@ -8,6 +8,11 @@ namespace BuildingUsage
     public class VehiclesUsagePanel : UsagePanel
     {
         /// <summary>
+        /// the bottom position of the bottom-most UI element on this panel and any detail panels
+        /// </summary>
+        public float BottomPosition { get { return GetUsageGroupBottomPosition(); } }
+
+        /// <summary>
         /// Start is called once after the panel is created
         /// set up and populate the panel with UI components
         /// </summary>
@@ -47,6 +52,7 @@ namespace BuildingUsage
                 {
                     CreateUsageGroup<PoliceStationAI                            >(UsageType.VehiclesPrisonVans);
                 }
+                CreateUsageGroup<BankOfficeAI                                   >(UsageType.VehiclesBankCashVans);
                 CreateUsageGroup<PostOfficeAI                                   >(UsageType.VehiclesPostVansTrucks);
                 CreateUsageGroup<PrivateAirportAI                               >(UsageType.VehiclesPrivatePlanes);
                 // there are many MonumentAI buildings, but only the ChirpX Launch Site should be included
@@ -88,6 +94,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<DisasterResponseBuildingAI           >(UsageType.VehiclesDisasterVehicles,  GetUsageCountVehiclesDisasterResponseBuilding                );
                 AssociateBuildingAI<ShelterAI                            >(UsageType.VehiclesEvacuationBuses,   GetUsageCountVehiclesShelter                                 );
                 AssociateBuildingAI<PoliceStationAI                      >(UsageType.UseLogic1,                 GetUsageCountVehiclesPoliceStation                           );
+                AssociateBuildingAI<BankOfficeAI                         >(UsageType.VehiclesBankCashVans,      GetUsageCountVehiclesBank                                    );
                 AssociateBuildingAI<PostOfficeAI                         >(UsageType.VehiclesPostVansTrucks,    GetUsageCountVehiclesPostVansTrucks                          );
                 AssociateBuildingAI<PrivateAirportAI                     >(UsageType.VehiclesPrivatePlanes,     GetUsageCountVehiclesPrivatePlanes                           );
                 AssociateBuildingAI<MonumentAI                           >(UsageType.UseLogic1,                 GetUsageCountVehiclesChirpXLaunchSite                        );
@@ -122,6 +129,7 @@ namespace BuildingUsage
                 AssociateVehicleAI<BusAI                    >(UsageType.UseLogic1);
                 AssociateVehicleAI<PoliceCarAI              >(UsageType.UseLogic1);
                 AssociateVehicleAI<PoliceCopterAI           >(UsageType.VehiclesPoliceHelis);
+                AssociateVehicleAI<BankVanAI                >(UsageType.VehiclesBankCashVans);
                 AssociateVehicleAI<PostVanAI                >(UsageType.VehiclesPostVansTrucks);
                 AssociateVehicleAI<PrivatePlaneAI           >(UsageType.VehiclesPrivatePlanes);
                 AssociateVehicleAI<RocketAI                 >(UsageType.VehiclesRockets);

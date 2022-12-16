@@ -39,10 +39,9 @@ namespace BuildingUsage
                         }
                     }
 
-                    // resize the Levels panel taller to make room for the tab strip and more info
+                    // tab strip constants
                     const float TabStripHeight = 26f;
                     const float TabStripSpace = TabStripHeight + 8f;
-                    levelsPanel.component.size = new Vector2(levelsPanel.component.size.x, levelsPanel.component.size.y + TabStripSpace + 200f);
 
                     // move existing panels and legend down to make room for the tab strip
                     foreach (UIComponent comp in levelsPanel.component.components)

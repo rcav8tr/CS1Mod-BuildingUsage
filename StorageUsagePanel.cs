@@ -8,6 +8,11 @@ namespace BuildingUsage
     public class StorageUsagePanel : UsagePanel
     {
         /// <summary>
+        /// the bottom position of the bottom-most UI element on this panel and any detail panels
+        /// </summary>
+        public float BottomPosition { get { return GetUsageGroupBottomPosition(); } }
+
+        /// <summary>
         /// Start is called once after the panel is created
         /// set up and populate the panel with UI components
         /// </summary>
