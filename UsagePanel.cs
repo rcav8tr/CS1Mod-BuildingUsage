@@ -188,6 +188,7 @@ namespace BuildingUsage
             StorageIndustry,
             StoragePostUnsorted,
             StoragePostSorted,
+            StorageCommercialCash,
 
             // storage industry usage types
             StorageIndustryForestryExtractor,
@@ -284,7 +285,7 @@ namespace BuildingUsage
             }
             public AtlasType atlasType;
             public string spriteNameNormal;
-            public string spriteNameDisabled => spriteNameNormal + ((spriteNameNormal == "SubBarFireDepartmentFire") ? "Focused" : "Disabled");
+            public string spriteNameDisabled => (spriteNameNormal == "SubBarFireDepartmentFire") ? "SubBarFireDepartmentFireFocused" : spriteNameNormal + "Disabled";
             public float width;
             public float height;
 
@@ -322,6 +323,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoDisaster             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarFireDepartmentDisaster",             32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoPolice               = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarPoliceDefault",                      32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBanks                = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBanks",                              32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoMoney                = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMoney",                         41f, 41f);
         private static readonly ThumbnailInfo thumbnailInfoEducation            = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarEducationDefault",                   32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBigBuildings         = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterBigBuildings",                     36f, 36f);
         private static readonly ThumbnailInfo thumbnailInfoEducationBuildings   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "UIFilterEducationBuildings",               36f, 36f);
@@ -561,6 +563,7 @@ namespace BuildingUsage
             { UsageType.StorageIndustry,                        new UsageTypeInfo("Industry",           thumbnailInfoIndustry           ) },
             { UsageType.StoragePostUnsorted,                    new UsageTypeInfo("Unsorted Mail",      thumbnailInfoTransportPost      ) },
             { UsageType.StoragePostSorted,                      new UsageTypeInfo("Sorted Mail",        thumbnailInfoTransportPost      ) },
+            { UsageType.StorageCommercialCash,                  new UsageTypeInfo("Commercial Cash",    thumbnailInfoMoney              ) },
 
             // storage industry usage types
             { UsageType.StorageIndustryForestryExtractor,       new UsageTypeInfo("Extractor Output",   thumbnailInfoExtractor          ) },
@@ -3182,6 +3185,45 @@ namespace BuildingUsage
 
             // get sorted allowed
             allowed = ComputePostAllowed(ref data);
+        }
+
+        /// <summary>
+        /// get the cash usage count of a Commercial building
+        /// </summary>
+        protected void GetUsageCountStorageCommercialCash(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        {
+            // initialize
+            used = 0;
+            allowed = 0;
+
+            // building must be created
+            Building building = BuildingManager.instance.m_buildings.m_buffer[buildingID];
+            if ((building.m_flags & Building.Flags.Created) != 0)
+            {
+                // building AI must be defined
+                if (building.Info != null && building.Info.m_buildingAI != null)
+                {
+                    // building AI must be CommercialBuildingAI or derived from it
+                    // this will include PloppableRICO.PloppableCommercialAI and PloppableRICO.GrowableCommercialAI which derive from CommercialBuildingAI
+                    BuildingAI buildingAI = building.Info.m_buildingAI;
+                    Type buildingAIType = buildingAI.GetType();
+                    if (buildingAIType == typeof(CommercialBuildingAI) || buildingAIType.IsSubclassOf(typeof(CommercialBuildingAI)))
+                    {
+                        // get the method info for the cash capacity function
+                        MethodInfo getCashCapacity = typeof(CommercialBuildingAI).GetMethod("GetCashCapacity", BindingFlags.Instance | BindingFlags.NonPublic);
+                        if (getCashCapacity == null)
+                        {
+                            LogUtil.LogError("Unable to get method [CommercialBuildingAI.GetCashCapacity]");
+                            return;
+                        }
+
+                        // get the building cash amount and capacity
+                        // logic adapted from CommercialBuildingAI.GetDebugString
+                        used = building.m_cashBuffer / 10;
+                        allowed = (int)getCashCapacity.Invoke((CommercialBuildingAI)buildingAI, new object[] { buildingID, building }) / 10;
+                    }
+                }
+            }
         }
 
         /// <summary>

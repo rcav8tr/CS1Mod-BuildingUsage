@@ -70,7 +70,7 @@ namespace BuildingUsage
 
         // ResidentialBuildingAI            GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Residential (Self-Sufficient Buildings GC, Wall-to-Wall PP)
         // CommercialBuildingAI             GC W--- Zoned Generic Low Density BG, Zoned Generic High Density BG, Zoned Specialized Commercial (Tourism AD, Wall-to-Wall PP, Leisure AD, Organic and Local Produce GC)
-        // OfficeBuildingAI                 GC W--- Zoned Generic Office BG, Zoned Specialized Office (IT Cluster GC, Wall-to-Wall PP)
+        // OfficeBuildingAI                 GC W--- Zoned Generic Office BG, Zoned Specialized Office (IT Cluster GC, Wall-to-Wall PP, Financial FD)
         // IndustrialBuildingAI             GC W--V Zoned Generic Industrial BG
         // IndustrialExtractorAI            GC W--V Zoned Specialized Industrial (Forest BG, Farming BG, Ore BG, Oil BG)
         //    LivestockExtractorAI             W--V Zoned Specialized Industrial (Farming BG)

@@ -10,9 +10,9 @@ Some buildings normally have no workers, but with a mod like [url=https://steamc
 A Nursing Home from the [url=https://steamcommunity.com/workshop/filedetails/?id=554232266]Nursing Homes for Senior Citizens[/url] mod has both residents and workers.  Households (i.e. number of rooms) are included in Residential Zone.  Workers are included in Medical.  If both Residential Zone and Medical are selected, Nursing Home buildings are colored according to Medical workers.
 
 [table]
-[tr][td]Residential Zone[/td][td]Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Self-Sufficient Buildings), Nursing Home (mod)[/td][/tr]
-[tr][td]Commercial Zone [/td][td]Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Tourism, Leisure, Organic and Local Produce)[/td][/tr]
-[tr][td]Office Zone     [/td][td]Zoned Generic, Zoned Specialized (IT Cluster)[/td][/tr]
+[tr][td]Residential Zone[/td][td]Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Self-Sufficient Buildings, Wall-To-Wall), Nursing Home (mod)[/td][/tr]
+[tr][td]Commercial Zone [/td][td]Zoned Generic Low Density, Zoned Generic High Density, Zoned Specialized (Tourism, Wall-To-Wall, Leisure, Organic and Local Produce)[/td][/tr]
+[tr][td]Office Zone     [/td][td]Zoned Generic, Zoned Specialized (IT Cluster, Wall-To-Wall, Financial)[/td][/tr]
 [tr][td]Industrial Zone [/td][td]Zoned Generic, Zoned Specialized (Forest, Farming, Ore, Oil)[/td][/tr]
 [tr][td]Maintenance     [/td][td]Road Maintenance Depot, Snow Dump, Park Maintenance Building[/td][/tr]
 [tr][td]Power Plant     [/td][td]Wind Turbine, Advanced Wind Turbine, Coal Power Plant, Oil Power Plant, Hydro Power Plant, Solar Power Plant, Nuclear Power Plant, Geothermal Power Plant, Solar Updraft Tower, Ocean Thermal Energy Conversion Plant, Wave Power Plant (CCP), Fusion Power Plant (monument)[/td][/tr]

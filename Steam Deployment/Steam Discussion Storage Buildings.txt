@@ -2,12 +2,13 @@
 Unsorted Mail and Sorted Mail cannot be selected at the same time because they are stored in the same building.
 
 [table]
-[tr][td]Snow         [/td][td]Snow Dump[/td][/tr]
-[tr][td]Water        [/td][td]Tank Reservoir, Pumping Service[/td][/tr]
-[tr][td]Garbage      [/td][td]Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP), Ultimate Recycling Plant (monument)[/td][/tr]
-[tr][td]Industry     [/td][td]all buildings listed below in Storage Buildings for Industry[/td][/tr]
-[tr][td]Unsorted Mail[/td][td]Post Office, Post Sorting Facility[/td][/tr]
-[tr][td]Sorted Mail  [/td][td](same buildings as Unsorted Mail)[/td][/tr]
+[tr][td]Snow           [/td][td]Snow Dump[/td][/tr]
+[tr][td]Water          [/td][td]Tank Reservoir, Pumping Service[/td][/tr]
+[tr][td]Garbage        [/td][td]Landfill Site, Incineration Plant, Recycling Center, Waste Transfer Facility, Waste Processing Complex, Waste Disposal Unit (CCP), Ultimate Recycling Plant (monument)[/td][/tr]
+[tr][td]Industry       [/td][td]all buildings listed below in Storage Buildings for Industry[/td][/tr]
+[tr][td]Unsorted Mail  [/td][td]Post Office, Post Sorting Facility[/td][/tr]
+[tr][td]Sorted Mail    [/td][td](same buildings as Unsorted Mail)[/td][/tr]
+[tr][td]Commercial Cash[/td][td](same buildings as Workers - Commercial Zone)[/td][/tr]
 [/table]
 
 [h1]Storage Buildings for Industry[/h1]

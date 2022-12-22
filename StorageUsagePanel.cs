@@ -41,24 +41,32 @@ namespace BuildingUsage
                 CreateUsageGroup<ExtractingFacilityAI, FishingHarborAI, FishFarmAI, ProcessingFacilityAI, UniqueFactoryAI, WarehouseAI>(UsageType.StorageIndustry);
                 CreateUsageGroup<PostOfficeAI                               >(UsageType.StoragePostUnsorted);
                 CreateUsageGroup<PostOfficeAI                               >(UsageType.StoragePostSorted);
+                // CommercialBuildingAI is in the base game, but Commercial Cash is only for FinancialDistrictsDLC
+                if (SteamHelper.IsDLCOwned(SteamHelper.DLC.FinancialDistrictsDLC))
+                {
+                    CreateUsageGroup<CommercialBuildingAI                    >(UsageType.StorageCommercialCash);
+                }
 
                 // add detail panel
                 AddDetailPanel<StorageIndustryUsagePanel>(UsageType.StorageIndustry);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
-                AssociateBuildingAI<SnowDumpAI              >(UsageType.StorageSnow,            GetUsageCountStorageSnowDump                              );
-                AssociateBuildingAI<WaterFacilityAI         >(UsageType.UseLogic1,              GetUsageCountStorageWaterFacility                         );
-                AssociateBuildingAI<LandfillSiteAI          >(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<LandfillSiteAI>          );
-                AssociateBuildingAI<UltimateRecyclingPlantAI>(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<UltimateRecyclingPlantAI>);
-                AssociateBuildingAI<ExtractingFacilityAI    >(UsageType.StorageIndustry,        GetUsageCountStorageExtractingFacility                    );
-                AssociateBuildingAI<FishingHarborAI         >(UsageType.StorageIndustry,        GetUsageCountStorageFishingHarbor                         );
-                AssociateBuildingAI<FishFarmAI              >(UsageType.StorageIndustry,        GetUsageCountStorageFishFarm                              );
-                AssociateBuildingAI<ProcessingFacilityAI    >(UsageType.StorageIndustry,        GetUsageCountStorageProcessingFacilityTotal               );
-                AssociateBuildingAI<UniqueFactoryAI         >(UsageType.StorageIndustry,        GetUsageCountStorageUniqueFactoryTotal                    );
-                AssociateBuildingAI<WarehouseAI             >(UsageType.StorageIndustry,        GetUsageCountStorageWarehouse                             );
-                AssociateBuildingAI<PostOfficeAI            >(UsageType.StoragePostUnsorted,    GetUsageCountStoragePostOfficeUnsorted                    ,
-                                                              UsageType.StoragePostSorted,      GetUsageCountStoragePostOfficeSorted                      );
+                AssociateBuildingAI<SnowDumpAI                              >(UsageType.StorageSnow,            GetUsageCountStorageSnowDump                                );
+                AssociateBuildingAI<WaterFacilityAI                         >(UsageType.UseLogic1,              GetUsageCountStorageWaterFacility                           );
+                AssociateBuildingAI<LandfillSiteAI                          >(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<LandfillSiteAI>            );
+                AssociateBuildingAI<UltimateRecyclingPlantAI                >(UsageType.StorageGarbage,         GetUsageCountStorageLandfillSite<UltimateRecyclingPlantAI>  );
+                AssociateBuildingAI<ExtractingFacilityAI                    >(UsageType.StorageIndustry,        GetUsageCountStorageExtractingFacility                      );
+                AssociateBuildingAI<FishingHarborAI                         >(UsageType.StorageIndustry,        GetUsageCountStorageFishingHarbor                           );
+                AssociateBuildingAI<FishFarmAI                              >(UsageType.StorageIndustry,        GetUsageCountStorageFishFarm                                );
+                AssociateBuildingAI<ProcessingFacilityAI                    >(UsageType.StorageIndustry,        GetUsageCountStorageProcessingFacilityTotal                 );
+                AssociateBuildingAI<UniqueFactoryAI                         >(UsageType.StorageIndustry,        GetUsageCountStorageUniqueFactoryTotal                      );
+                AssociateBuildingAI<WarehouseAI                             >(UsageType.StorageIndustry,        GetUsageCountStorageWarehouse                               );
+                AssociateBuildingAI<PostOfficeAI                            >(UsageType.StoragePostUnsorted,    GetUsageCountStoragePostOfficeUnsorted                      ,
+                                                                              UsageType.StoragePostSorted,      GetUsageCountStoragePostOfficeSorted                        );
+                AssociateBuildingAI<CommercialBuildingAI                    >(UsageType.StorageCommercialCash,  GetUsageCountStorageCommercialCash                          );
+                AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",     UsageType.StorageCommercialCash,  GetUsageCountStorageCommercialCash                          );
+                AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",    UsageType.StorageCommercialCash,  GetUsageCountStorageCommercialCash                          );
 
                 // set mutually exclusive check boxes
                 MakeCheckBoxesMutuallyExclusive(UsageType.StoragePostUnsorted, UsageType.StoragePostSorted);
