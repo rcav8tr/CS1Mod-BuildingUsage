@@ -79,7 +79,7 @@ namespace BuildingUsage
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersAmusementPark);
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersZoo);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
-                                 StockExchangeAI, InternationalTradeBuildingAI                                              >(UsageType.WorkersUnique);
+                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI, HadronColliderAI            >(UsageType.WorkersUnique);
 
                 // add detail panels
                 AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry      );
@@ -146,7 +146,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<BankOfficeAI                            >(UsageType.WorkersBank,            GetUsageCountWorkersService<BankOfficeAI                    >);
                 AssociateBuildingAI<SchoolAI                                >(UsageType.WorkersEducation,       GetUsageCountWorkersService<SchoolAI                        >);
                 AssociateBuildingAI<LibraryAI                               >(UsageType.WorkersEducation,       GetUsageCountWorkersService<LibraryAI                       >);
-                AssociateBuildingAI<HadronColliderAI                        >(UsageType.WorkersEducation,       GetUsageCountWorkersService<HadronColliderAI                >);
+                AssociateBuildingAI<HadronColliderAI                        >(UsageType.UseLogic1,              GetUsageCountWorkersService<HadronColliderAI                >);
                 AssociateBuildingAI<MainCampusBuildingAI                    >(UsageType.WorkersEducation,       GetUsageCountWorkersService<MainCampusBuildingAI            >);
                 AssociateBuildingAI<CampusBuildingAI                        >(UsageType.WorkersEducation,       GetUsageCountWorkersService<CampusBuildingAI                >);
                 AssociateBuildingAI<UniqueFacultyAI                         >(UsageType.WorkersEducation,       GetUsageCountWorkersService<UniqueFacultyAI                 >);
@@ -171,6 +171,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<AnimalMonumentAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AnimalMonumentAI                >);
                 AssociateBuildingAI<PrivateAirportAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<PrivateAirportAI                >);
                 AssociateBuildingAI<ChirpwickCastleAI                       >(UsageType.WorkersUnique,          GetUsageCountWorkersService<ChirpwickCastleAI               >);
+                AssociateBuildingAI<FestivalAreaAI                          >(UsageType.WorkersUnique,          GetUsageCountWorkersService<FestivalAreaAI                  >);
                 AssociateBuildingAI<StockExchangeAI                         >(UsageType.WorkersUnique,          GetUsageCountWorkersService<StockExchangeAI                 >);
                 AssociateBuildingAI<InternationalTradeBuildingAI            >(UsageType.WorkersUnique,          GetUsageCountWorkersService<InternationalTradeBuildingAI    >);
 
@@ -468,6 +469,18 @@ namespace BuildingUsage
                 if (data.Info.m_class.m_service == ItemClass.Service.PoliceDepartment)
                 {
                     return UsageType.WorkersPoliceStation;
+                }
+            }
+            else if (buildingAIType == typeof(HadronColliderAI))
+            {
+                // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
+                if (data.Info.m_class.m_service == ItemClass.Service.Education)
+                {
+                    return UsageType.WorkersEducation;
+                }
+                else
+                {
+                    return UsageType.WorkersUnique;
                 }
             }
             else if (buildingAIType == typeof(ParkGateAI) || buildingAIType == typeof(ParkBuildingAI))

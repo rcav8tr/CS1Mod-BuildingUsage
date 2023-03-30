@@ -35,9 +35,9 @@ namespace BuildingUsage
                 CreateUsageGroup<PoliceStationAI                                                                            >(UsageType.VisitorsCriminals);
                 CreateUsageGroup<SchoolAI, LibraryAI, CampusBuildingAI, UniqueFacultyAI, MuseumAI, VarsitySportsArenaAI     >(UsageType.VisitorsEducation);
                 CreateUsageGroup<AirportAuxBuildingAI, AirportEntranceAI                                                    >(UsageType.VisitorsAirportArea);
-                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI                     >(UsageType.VisitorsParksPlazas);
+                CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI, ChirperTourAI      >(UsageType.VisitorsParksPlazas);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
-                                 StockExchangeAI, InternationalTradeBuildingAI                                              >(UsageType.VisitorsUnique);
+                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI                              >(UsageType.VisitorsUnique);
 
                 // add detail panels
                 AddDetailPanel<VisitorsEducationUsagePanel  >(UsageType.VisitorsEducation  );
@@ -67,12 +67,14 @@ namespace BuildingUsage
                 AssociateBuildingAI<EdenProjectAI                   >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsPark<EdenProjectAI>                    );
                 AssociateBuildingAI<ParkBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<ParkBuildingAI>           );
                 AssociateBuildingAI<IceCreamStandAI                 >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<IceCreamStandAI>          );
-                AssociateBuildingAI<TourBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsTourBuilding                           );
+                AssociateBuildingAI<TourBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsTourBuilding<TourBuildingAI>           );
+                AssociateBuildingAI<ChirperTourAI                   >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsTourBuilding<ChirperTourAI>            );
                 AssociateBuildingAI<MonumentAI                      >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<MonumentAI>                   );
                 AssociateBuildingAI<AirlineHeadquartersAI           >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<AirlineHeadquartersAI>        );
                 AssociateBuildingAI<AnimalMonumentAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<AnimalMonumentAI>             );
                 AssociateBuildingAI<PrivateAirportAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<PrivateAirportAI>             );
                 AssociateBuildingAI<ChirpwickCastleAI               >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<ChirpwickCastleAI>            );
+                AssociateBuildingAI<FestivalAreaAI                  >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<FestivalAreaAI>               );
                 AssociateBuildingAI<StockExchangeAI                 >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<StockExchangeAI>              );
                 AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<InternationalTradeBuildingAI> );
             }

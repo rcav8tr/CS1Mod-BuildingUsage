@@ -26,6 +26,7 @@ namespace BuildingUsage
                 CreateReturnFromDetailButton("Return to Visitors");
 
                 // define list of usage types for this panel that are on building prefabs
+                bool contentCreatorPack = false;
                 List<UsageType> usageTypes = new List<UsageType>();
                 int buildingPrefabCount = PrefabCollection<BuildingInfo>.LoadedCount();
                 for (uint index = 0; index < buildingPrefabCount; index++)
@@ -38,7 +39,8 @@ namespace BuildingUsage
                     Type buildingAIType = prefab.m_buildingAI.GetType();
                     if (buildingAIType == typeof(ParkAI))
                     {
-                        usageType = GetVisitorsParksPlazasUsageType(prefab.category, prefab.name);
+                        usageType = GetVisitorsParksPlazasUsageType(prefab, out bool ccp);
+                        contentCreatorPack |= ccp;
                     }
                     else if (buildingAIType == typeof(EdenProjectAI))
                     {
@@ -54,7 +56,11 @@ namespace BuildingUsage
                     }
                     else if (buildingAIType == typeof(TourBuildingAI))
                     {
-                        usageType = GetVisitorsToursUsageType((TourBuildingAI)prefab.m_buildingAI);
+                        usageType = UsageType.VisitorsParksPlazasTours;
+                    }
+                    else if (buildingAIType == typeof(ChirperTourAI))
+                    {
+                        usageType = UsageType.VisitorsParksPlazasOtherParks;
                     }
 
                     // if not None and not already in the list, add it to the list
@@ -73,6 +79,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasTourismLeisure,      usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasWinterkParks,        usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasPedestrianPlazas,    usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasEdenProject,         usageTypes);
 
                 if (SteamHelper.IsDLCOwned(SteamHelper.DLC.ParksDLC))
                 {
@@ -84,9 +91,12 @@ namespace BuildingUsage
                     CreateUsageGroup(UsageType.VisitorsParksPlazasTours);
                 }
 
-                CreateGroupHeading("Other");
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasContentCreator,      usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasEdenProject,         usageTypes);
+                if (contentCreatorPack) { CreateGroupHeading("Content Creator Pack"); }
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPHighTech,         usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPBridgesPiers,     usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPMidCenturyModern, usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPSportsVenues,     usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPAfricaInMiniature,usageTypes);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
@@ -94,7 +104,8 @@ namespace BuildingUsage
                 AssociateBuildingAI<EdenProjectAI  >(UsageType.VisitorsParksPlazasEdenProject,      GetUsageCountVisitorsPark<EdenProjectAI>          );
                 AssociateBuildingAI<ParkBuildingAI >(UsageType.UseLogic1,                           GetUsageCountVisitorsParkBuilding<ParkBuildingAI> );
                 AssociateBuildingAI<IceCreamStandAI>(UsageType.VisitorsParksPlazasPedestrianPlazas, GetUsageCountVisitorsParkBuilding<IceCreamStandAI>);
-                AssociateBuildingAI<TourBuildingAI >(UsageType.UseLogic1,                           GetUsageCountVisitorsTourBuilding                 );
+                AssociateBuildingAI<TourBuildingAI >(UsageType.VisitorsParksPlazasTours,            GetUsageCountVisitorsTourBuilding<TourBuildingAI> );
+                AssociateBuildingAI<ChirperTourAI  >(UsageType.VisitorsParksPlazasOtherParks,       GetUsageCountVisitorsTourBuilding<ChirperTourAI>  );
             }
             catch (Exception ex)
             {
@@ -111,15 +122,11 @@ namespace BuildingUsage
             Type buildingAIType = data.Info.m_buildingAI.GetType();
             if (buildingAIType == typeof(ParkAI))
             {
-                return GetVisitorsParksPlazasUsageType(data.Info.category, data.Info.name);
+                return GetVisitorsParksPlazasUsageType(data.Info, out bool _);
             }
             else if (buildingAIType == typeof(ParkBuildingAI))
             {
                 return GetVisitorsParksPlazasUsageType(data.Info);
-            }
-            else if (buildingAIType == typeof(TourBuildingAI))
-            {
-                return GetVisitorsToursUsageType((TourBuildingAI)data.Info.m_buildingAI);
             }
 
             LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic");

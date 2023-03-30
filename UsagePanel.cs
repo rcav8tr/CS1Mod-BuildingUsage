@@ -111,14 +111,22 @@ namespace BuildingUsage
             WorkersUniqueFootball,
             WorkersUniqueConcert,
             WorkersUniqueAirports,
+            WorkersUniqueChirpwickCastle,
             WorkersUniqueLevel1,
             WorkersUniqueLevel2,
             WorkersUniqueLevel3,
             WorkersUniqueLevel4,
             WorkersUniqueLevel5,
             WorkersUniqueLevel6,
-            WorkersUniqueContentCreator,
-            WorkersUniqueCastle,
+            WorkersUniqueCCPArtDeco,
+            WorkersUniqueCCPHighTech,
+            WorkersUniqueCCPModernJapan,
+            WorkersUniqueCCPSeasideResorts,
+            WorkersUniqueCCPSkyscrapers,
+            WorkersUniqueCCPHeartOfKorea,
+            WorkersUniqueCCPShoppingMalls,
+            WorkersUniqueCCPSportsVenues,
+            WorkersUniqueCCPAfricaInMiniature,
 
 
             // visitors usage types
@@ -154,13 +162,17 @@ namespace BuildingUsage
             VisitorsParksPlazasTourismLeisure,
             VisitorsParksPlazasWinterkParks,
             VisitorsParksPlazasPedestrianPlazas,
+            VisitorsParksPlazasEdenProject,
             VisitorsParksPlazasCityPark,
             VisitorsParksPlazasAmusementPark,
             VisitorsParksPlazasZoo,
             VisitorsParksPlazasNatureReserve,
             VisitorsParksPlazasTours,
-            VisitorsParksPlazasContentCreator,
-            VisitorsParksPlazasEdenProject,
+            VisitorsParksPlazasCCPHighTech,
+            VisitorsParksPlazasCCPBridgesPiers,
+            VisitorsParksPlazasCCPMidCenturyModern,
+            VisitorsParksPlazasCCPSportsVenues,
+            VisitorsParksPlazasCCPAfricaInMiniature,
 
             // visitors unique building detail usage types
             VisitorsUniqueFinancial,
@@ -171,14 +183,22 @@ namespace BuildingUsage
             VisitorsUniqueFootball,
             VisitorsUniqueConcert,
             VisitorsUniqueAirports,
+            VisitorsUniqueChirpwickCastle,
             VisitorsUniqueLevel1,
             VisitorsUniqueLevel2,
             VisitorsUniqueLevel3,
             VisitorsUniqueLevel4,
             VisitorsUniqueLevel5,
             VisitorsUniqueLevel6,
-            VisitorsUniqueContentCreator,
-            VisitorsUniqueCastle,
+            VisitorsUniqueCCPArtDeco,
+            VisitorsUniqueCCPHighTech,
+            VisitorsUniqueCCPModernJapan,
+            VisitorsUniqueCCPSeasideResorts,
+            VisitorsUniqueCCPSkyscrapers,
+            VisitorsUniqueCCPHeartOfKorea,
+            VisitorsUniqueCCPShoppingMalls,
+            VisitorsUniqueCCPSportsVenues,
+            VisitorsUniqueCCPAfricaInMiniature,
 
 
             // storage usage types
@@ -370,10 +390,20 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoMonumentCategory4    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory4",                  32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentCategory5    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory5",                  32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentCategory6    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentCategory6",                  32f, 32f);
-        private static readonly ThumbnailInfo thumbnailInfoMonumentModderPack   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentModderPack",                 32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoWonders              = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconWonders",                       41f, 41f);
-        private static readonly ThumbnailInfo thumbnailAviationClub             = new ThumbnailInfo(ThumbnailInfo.AtlasType.Expansion9, "Thumb_Aviation Club",                      109f, 100f);
-        private static readonly ThumbnailInfo thumbnailChirpXLaunchSite         = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ThumbChirpX",                              109f, 100f);
+        private static readonly ThumbnailInfo thumbnailInfoAviationClub         = new ThumbnailInfo(ThumbnailInfo.AtlasType.Expansion9, "Thumb_Aviation Club",                      109f, 100f);
+        private static readonly ThumbnailInfo thumbnailInfoChirpXLaunchSite     = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ThumbChirpX",                              109f, 100f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyArtDeco           = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ArtDecoBuyButton",                         52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyHighTech          = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "HighTechBuyButton",                        52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyModernJapan       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "Modderpack6BuyButton",                     52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyBridgesPiers      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "Modderpack8BuyButton",                     52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyMidCenturyModern  = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "MidCenturyModernBuyButton",                52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuySeasideResorts    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SeasideResortsBuyButton",                  52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuySkyscrapers       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ProjectSkyscrapersBuyButton",              52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyHeartOfKorea      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "HeartOfKoreaBuyButton",                    52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyShoppingMalls     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack16BuyButton",                    52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuySportsVenues      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack17BuyButton",                    52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyAfricaMiniature   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack18BuyButton",                    52f, 52f);
 
         // deinfe a class to hold info for a usage type
         private class UsageTypeInfo
@@ -486,14 +516,22 @@ namespace BuildingUsage
             { UsageType.WorkersUniqueFootball,                  new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.WorkersUniqueConcert,                   new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
             { UsageType.WorkersUniqueAirports,                  new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
+            { UsageType.WorkersUniqueChirpwickCastle,           new UsageTypeInfo("Chirpwick Castle",   thumbnailInfoWonders            ) },
             { UsageType.WorkersUniqueLevel1,                    new UsageTypeInfo("Level 1 Unique",     thumbnailInfoMonumentCategory1  ) },
             { UsageType.WorkersUniqueLevel2,                    new UsageTypeInfo("Level 2 Unique",     thumbnailInfoMonumentCategory2  ) },
             { UsageType.WorkersUniqueLevel3,                    new UsageTypeInfo("Level 3 Unique",     thumbnailInfoMonumentCategory3  ) },
             { UsageType.WorkersUniqueLevel4,                    new UsageTypeInfo("Level 4 Unique",     thumbnailInfoMonumentCategory4  ) },
             { UsageType.WorkersUniqueLevel5,                    new UsageTypeInfo("Level 5 Unique",     thumbnailInfoMonumentCategory5  ) },
             { UsageType.WorkersUniqueLevel6,                    new UsageTypeInfo("Level 6 Unique",     thumbnailInfoMonumentCategory6  ) },
-            { UsageType.WorkersUniqueContentCreator,            new UsageTypeInfo("Content Creator",    thumbnailInfoMonumentModderPack ) },
-            { UsageType.WorkersUniqueCastle,                    new UsageTypeInfo("Chirpwick Castle",   thumbnailInfoWonders            ) },
+            { UsageType.WorkersUniqueCCPArtDeco,                new UsageTypeInfo("Art Deco",           thumbnailInfoBuyArtDeco         ) },
+            { UsageType.WorkersUniqueCCPHighTech,               new UsageTypeInfo("High-Tech",          thumbnailInfoBuyHighTech        ) },
+            { UsageType.WorkersUniqueCCPModernJapan,            new UsageTypeInfo("Modern Japan",       thumbnailInfoBuyModernJapan     ) },
+            { UsageType.WorkersUniqueCCPSeasideResorts,         new UsageTypeInfo("Seaside Resorts",    thumbnailInfoBuySeasideResorts  ) },
+            { UsageType.WorkersUniqueCCPSkyscrapers,            new UsageTypeInfo("Skyscrapers",        thumbnailInfoBuySkyscrapers     ) },
+            { UsageType.WorkersUniqueCCPHeartOfKorea,           new UsageTypeInfo("Heart of Korea",     thumbnailInfoBuyHeartOfKorea    ) },
+            { UsageType.WorkersUniqueCCPShoppingMalls,          new UsageTypeInfo("Shopping Malls",     thumbnailInfoBuyShoppingMalls   ) },
+            { UsageType.WorkersUniqueCCPSportsVenues,           new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
+            { UsageType.WorkersUniqueCCPAfricaInMiniature,      new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
 
 
             // visitors usage types
@@ -529,13 +567,17 @@ namespace BuildingUsage
             { UsageType.VisitorsParksPlazasTourismLeisure,      new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoBeautExpansion1    ) },
             { UsageType.VisitorsParksPlazasWinterkParks,        new UsageTypeInfo("Winter Parks",       thumbnailInfoBeautExpansion2    ) },
             { UsageType.VisitorsParksPlazasPedestrianPlazas,    new UsageTypeInfo("Pedestrian Plazas",  thumbnailInfoBeautPedestrian    ) },
+            { UsageType.VisitorsParksPlazasEdenProject,         new UsageTypeInfo("Eden Project",       thumbnailInfoWonders            ) },
             { UsageType.VisitorsParksPlazasCityPark,            new UsageTypeInfo("City Park",          thumbnailInfoBeautCityPark      ) },
             { UsageType.VisitorsParksPlazasAmusementPark,       new UsageTypeInfo("Amusement Park",     thumbnailInfoBeautAmusementPark ) },
             { UsageType.VisitorsParksPlazasZoo,                 new UsageTypeInfo("Zoo",                thumbnailInfoBeautZoo           ) },
             { UsageType.VisitorsParksPlazasNatureReserve,       new UsageTypeInfo("Nature Reserve",     thumbnailInfoBeautNatureReserve ) },
             { UsageType.VisitorsParksPlazasTours,               new UsageTypeInfo("Tours",              thumbnailInfoTransportTours     ) },
-            { UsageType.VisitorsParksPlazasContentCreator,      new UsageTypeInfo("Content Creator",    thumbnailInfoMonumentModderPack ) },
-            { UsageType.VisitorsParksPlazasEdenProject,         new UsageTypeInfo("Eden Project",       thumbnailInfoWonders            ) },
+            { UsageType.VisitorsParksPlazasCCPHighTech,         new UsageTypeInfo("High-Tech",          thumbnailInfoBuyHighTech        ) },
+            { UsageType.VisitorsParksPlazasCCPBridgesPiers,     new UsageTypeInfo("Bridges & Piers",    thumbnailInfoBuyBridgesPiers    ) },
+            { UsageType.VisitorsParksPlazasCCPMidCenturyModern, new UsageTypeInfo("Mid-Century Modern", thumbnailInfoBuyMidCenturyModern) },
+            { UsageType.VisitorsParksPlazasCCPSportsVenues,     new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
+            { UsageType.VisitorsParksPlazasCCPAfricaInMiniature,new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
 
             // visitors unique building usage types
             { UsageType.VisitorsUniqueFinancial,                new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
@@ -546,14 +588,22 @@ namespace BuildingUsage
             { UsageType.VisitorsUniqueFootball,                 new UsageTypeInfo("Football",           thumbnailInfoMonumentFootball   ) },
             { UsageType.VisitorsUniqueConcert,                  new UsageTypeInfo("Concerts",           thumbnailInfoMonumentConcerts   ) },
             { UsageType.VisitorsUniqueAirports,                 new UsageTypeInfo("Airports",           thumbnailInfoTransportAirports  ) },
+            { UsageType.VisitorsUniqueChirpwickCastle,          new UsageTypeInfo("Chirpwick Castle",   thumbnailInfoWonders            ) },
             { UsageType.VisitorsUniqueLevel1,                   new UsageTypeInfo("Level 1 Unique",     thumbnailInfoMonumentCategory1  ) },
             { UsageType.VisitorsUniqueLevel2,                   new UsageTypeInfo("Level 2 Unique",     thumbnailInfoMonumentCategory2  ) },
             { UsageType.VisitorsUniqueLevel3,                   new UsageTypeInfo("Level 3 Unique",     thumbnailInfoMonumentCategory3  ) },
             { UsageType.VisitorsUniqueLevel4,                   new UsageTypeInfo("Level 4 Unique",     thumbnailInfoMonumentCategory4  ) },
             { UsageType.VisitorsUniqueLevel5,                   new UsageTypeInfo("Level 5 Unique",     thumbnailInfoMonumentCategory5  ) },
             { UsageType.VisitorsUniqueLevel6,                   new UsageTypeInfo("Level 6 Unique",     thumbnailInfoMonumentCategory6  ) },
-            { UsageType.VisitorsUniqueContentCreator,           new UsageTypeInfo("Content Creator",    thumbnailInfoMonumentModderPack ) },
-            { UsageType.VisitorsUniqueCastle,                   new UsageTypeInfo("Chirpwick Castle",   thumbnailInfoWonders            ) },
+            { UsageType.VisitorsUniqueCCPArtDeco,               new UsageTypeInfo("Art Deco",           thumbnailInfoBuyArtDeco         ) },
+            { UsageType.VisitorsUniqueCCPHighTech,              new UsageTypeInfo("High-Tech",          thumbnailInfoBuyHighTech        ) },
+            { UsageType.VisitorsUniqueCCPModernJapan,           new UsageTypeInfo("Modern Japan",       thumbnailInfoBuyModernJapan     ) },
+            { UsageType.VisitorsUniqueCCPSeasideResorts,        new UsageTypeInfo("Seaside Resorts",    thumbnailInfoBuySeasideResorts  ) },
+            { UsageType.VisitorsUniqueCCPSkyscrapers,           new UsageTypeInfo("Skyscrapers",        thumbnailInfoBuySkyscrapers     ) },
+            { UsageType.VisitorsUniqueCCPHeartOfKorea,          new UsageTypeInfo("Heart of Korea",     thumbnailInfoBuyHeartOfKorea    ) },
+            { UsageType.VisitorsUniqueCCPShoppingMalls,         new UsageTypeInfo("Shopping Malls",     thumbnailInfoBuyShoppingMalls   ) },
+            { UsageType.VisitorsUniqueCCPSportsVenues,          new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
+            { UsageType.VisitorsUniqueCCPAfricaInMiniature,     new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
 
 
             // storage usage types
@@ -608,8 +658,8 @@ namespace BuildingUsage
             { UsageType.VehiclesPrisonVans,                     new UsageTypeInfo("Prison Vans",        thumbnailInfoPolice             ) },
             { UsageType.VehiclesBankCashVans,                   new UsageTypeInfo("Bank Cash Vans",     thumbnailInfoBanks              ) },
             { UsageType.VehiclesPostVansTrucks,                 new UsageTypeInfo("Post Vans & Trucks", thumbnailInfoTransportPost      ) },
-            { UsageType.VehiclesPrivatePlanes,                  new UsageTypeInfo("Private Planes",     thumbnailAviationClub           ) },
-            { UsageType.VehiclesRockets,                        new UsageTypeInfo("Rockets",            thumbnailChirpXLaunchSite       ) },
+            { UsageType.VehiclesPrivatePlanes,                  new UsageTypeInfo("Private Planes",     thumbnailInfoAviationClub       ) },
+            { UsageType.VehiclesRockets,                        new UsageTypeInfo("Rockets",            thumbnailInfoChirpXLaunchSite   ) },
             { UsageType.VehiclesTransportation,                 new UsageTypeInfo("Transportation",     thumbnailInfoTransportation     ) },
 
             // vehicles industry usage types
@@ -803,6 +853,9 @@ namespace BuildingUsage
         private static Color _gradientColorDisabled0 = Color.clear;
         private static Color _gradientColorDisabled1 = Color.clear;
 
+        // Hubs category
+        private const string CategoryHubs = "PublicTransportHubs";
+
         /// <summary>
         /// add a usage panel to the Levels info view panel
         /// </summary>
@@ -934,6 +987,7 @@ namespace BuildingUsage
             _deselectAll.eventClicked += DeselectAll_eventClicked;
 
             // determine if Hadron Collider is completed
+            // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
             if (!_hadronColliderDetected)
             {
                 _hadronColliderBuilt = false;
@@ -941,7 +995,11 @@ namespace BuildingUsage
                 for (ushort buildingID = 1; buildingID < buffer.Length; buildingID++)
                 {
                     Building building = buffer[buildingID];
-                    if (building.Info != null && building.Info.m_buildingAI != null && building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI) && ((building.m_flags & Building.Flags.Completed) == Building.Flags.Completed))
+                    if (building.Info != null &&
+                        building.Info.m_buildingAI != null &&
+                        building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI) &&
+                        ((building.m_flags & Building.Flags.Completed) == Building.Flags.Completed) &&
+                        building.Info.m_class.m_service == ItemClass.Service.Education)
                     {
                         _hadronColliderBuilt = true;
                         break;
@@ -2176,9 +2234,13 @@ namespace BuildingUsage
                     usageGroup.usageCounts.Remove(buildingID);
 
                     // check if removed building is Hadron Collider
+                    // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
                     BuildingManager instance = BuildingManager.instance;
                     Building building = instance.m_buildings.m_buffer[buildingID];
-                    if (building.Info != null && building.Info.m_buildingAI != null && building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI))
+                    if (building.Info != null &&
+                        building.Info.m_buildingAI != null &&
+                        building.Info.m_buildingAI.GetType() == typeof(HadronColliderAI) &&
+                        building.Info.m_class.m_service == ItemClass.Service.Education)
                     {
                         // not built
                         _hadronColliderBuilt = false;
@@ -2516,7 +2578,10 @@ namespace BuildingUsage
                 allowed = totalJobs.level0 + totalJobs.level1 + totalJobs.level2 + totalJobs.level3;
 
                 // check for Hadron Collider completed
-                if (buildingAI.GetType() == typeof(HadronColliderAI) && ((data.m_flags & Building.Flags.Completed) == Building.Flags.Completed))
+                // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
+                if (buildingAI.GetType() == typeof(HadronColliderAI) &&
+                   ((data.m_flags & Building.Flags.Completed) == Building.Flags.Completed) &&
+                   data.Info.m_class.m_service == ItemClass.Service.Education)
                 {
                     if (!_hadronColliderBuilt)
                     {
@@ -2815,15 +2880,15 @@ namespace BuildingUsage
         }
 
         /// <summary>
-        /// get the usage count of a TourBuildingAI building
+        /// get the usage count of a TourBuildingAI or derived building
         /// </summary>
-        protected void GetUsageCountVisitorsTourBuilding(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        protected void GetUsageCountVisitorsTourBuilding<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : TourBuildingAI
         {
             // get citizens and tourists "visiting" the building who are not dead
             GetVisitorsUsedNotDead(ref data, ref used);
 
             // allowed is sum of low, medium, and high wealth
-            TourBuildingAI buildingAI = data.Info.m_buildingAI as TourBuildingAI;
+            T buildingAI = data.Info.m_buildingAI as T;
             allowed = buildingAI.m_visitPlaceCount0 + buildingAI.m_visitPlaceCount1 + buildingAI.m_visitPlaceCount2;
         }
 
@@ -3962,7 +4027,7 @@ namespace BuildingUsage
 
         #region "Transportation Building Usage Types"
 
-        // Here are the combinations of building AI together with AI name (case insensitive) that define the usage type for each transportation building
+        // Here are the combinations of building AI, AI name (case insensitive), and/or metro presence that define the usage type for each transportation building
         //
         // Building AI                      Building Name                               AI Name Contains                        Metro Subbuilding   WorkersTransportation   VehiclesTransportation
         // --------------------------       ------------------------------------------  ------------------                      ------------------  ----------------------  ----------------------
@@ -3971,7 +4036,7 @@ namespace BuildingUsage
         //                                  (all others, many)                          not Cargo                               No                  AirPeople               None
 
 
-        // Here are the combinations of building AI together with class level that define the usage type for each transportation building
+        // Here are the combinations of building AI, class level, and/or metro presence that define the usage type for each transportation building
         //
         // Building AI                      Building Name                               Class Level                             Metro Subbuilding   WorkersTransportation   VehiclesTransportation
         // --------------------------       ------------------------------------------  ------------------                      ------------------  ----------------------  ----------------------
@@ -3981,7 +4046,7 @@ namespace BuildingUsage
         //                                  Large Terminal (3 styles)                   1                                       No                  AirPeople               None
 
 
-        // Here are the combinations of building AI together with vehicle reason that define the usage type for each transportation building
+        // Here are the combinations of building AI, vehicle reasons, and/or metro presence that define the usage type for each transportation building
         //
         // Building AI                      Building Name                               Vehicle Reason 1    Vehicle Reason 2    Metro Subbuilding   WorkersTransportation   VehiclesTransportation
         // --------------------------       ------------------------------------------  ------------------  ------------------  ------------------  ----------------------  ----------------------
@@ -4022,6 +4087,7 @@ namespace BuildingUsage
         //                                  Elevated Island Platform Metro Station      MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
+        //                                  Stadium Station                             MetroTrain          null                                    Metro                   Metro
         //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Train Station                      PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             TrainPeople
@@ -4033,32 +4099,45 @@ namespace BuildingUsage
         //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Historical Train Station                    PassengerTrain      null                No                  TrainPeople             TrainPeople
-        //                                  Airport                                     PassengerPlane      null                No                  AirPeople               AirPeople
+        //                                  Glass Box Transport Hub                     PassengerTrain      null                Yes                 Hubs                    Hubs
+        //                                  Airport                                     PassengerPlane      null                                    AirPeople               AirPeople
         //                                  Monorail Station                            Monorail            null                                    Monorail                Monorail
         //                                  Monorail Station with Road                  Monorail            null                                    Monorail                Monorail
-        //                                  Bus-Intercity Bus Hub                       Bus                 IntercityBus                            Hubs                    Hubs
-        //                                  Bus-Metro Hub                               Bus                 null                Yes                 Hubs                    Hubs
-        //                                  Metro-Intercity Bus Hub                     IntercityBus        MetroTrain          Yes                 Hubs                    Hubs
-        //                                  Train-Metro Hub                             PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Glass Box Transport Hub                     PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Multiplatform End Station                   PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  Multiplatform Train Station                 PassengerTrain      null                Yes                 Hubs                    Hubs
-        //                                  International Airport                       PassengerPlane      null                Yes                 Hubs                    Hubs
-        //                                  Metropolitan Airport                        PassengerPlane      PassengerHelicopter Yes                 Hubs                    Hubs
-        //                                  Monorail-Bus Hub                            Monorail            Bus                                     Hubs                    Hubs
-        //                                  Metro-Monorail-Train Hub                    Monorail            PassengerTrain      Yes                 Hubs                    Hubs
-        //       AirportGateAI         W--- Airport Bus Station                         Bus                 null                                    Bus                     None
-        //       AirportGateAI         W--U Small Aircraft Stand                        PassengerPlane      null                                    AirPeople               AirPeople
-        //                                  Medium Aircraft Stand                       PassengerPlane      null                                    AirPeople               AirPeople
-        //                                  Large Aircraft Stand                        PassengerPlane      null                                    AirPeople               AirPeople
-        //                                  Elevated Airport Metro Station              MetroTrain          null                                    Metro                   Metro
-        //                                  Airport Train Station                       PassengerTrain      null                                    TrainPeople             TrainPeople
+        //                              None of the above TransportStationAI have category PublicTransportHubs.
+        //                              All  of the below TransportStationAI have category PublicTransportHubs.
+        //                              Therefore, first category is used to identify Hubs below, then reason and metro are used for all above.
+        //                                  Bus-Intercity Bus Hub                                                                                   Hubs                    Hubs
+        //                                  Bus-Metro Hub                                                                                           Hubs                    Hubs
+        //                                  Bus-Train-Tram Hub                                                                                      Hubs                    Hubs
+        //                                  Metro-Intercity Bus Hub                                                                                 Hubs                    Hubs
+        //                                  Metro-Tram Hub with Road                                                                                Hubs                    Hubs
+        //                                  Multi-level Metro Hub                                                                                   Hubs                    Hubs
+        //                                  Train-Metro Hub                                                                                         Hubs                    Hubs
+        //                                  Multiplatform End Station                                                                               Hubs                    Hubs
+        //                                  Multiplatform Train Station                                                                             Hubs                    Hubs
+        //                                  International Airport                                                                                   Hubs                    Hubs
+        //                                  Metropolitan Airport                                                                                    Hubs                    Hubs
+        //                                  Monorail-Bus Hub                                                                                        Hubs                    Hubs
+        //                                  Monorail-Tram Hub with Road                                                                             Hubs                    Hubs
+        //                                  Metro-Monorail-Train Hub                                                                                Hubs                    Hubs
+        //                                  Metro-Train-Monorail-Tram Hub with Road                                                                 Hubs                    Hubs
+        //       AirportGateAI         W--- Airport Bus Station                         Bus                                                         Bus                     None
+        //       AirportGateAI         W--U Small Aircraft Stand                        PassengerPlane                                              AirPeople               AirPeople
+        //                                  Medium Aircraft Stand                       PassengerPlane                                              AirPeople               AirPeople
+        //                                  Large Aircraft Stand                        PassengerPlane                                              AirPeople               AirPeople
+        //                                  Elevated Airport Metro Station              MetroTrain                                                  Metro                   Metro
+        //                                  Airport Train Station                       PassengerTrain                                              TrainPeople             TrainPeople
         //       HarborAI              W--- Ferry Stop                                  Ferry               null                                    ShipPeople              None
         //                                  Ferry Pier                                  Ferry               null                                    ShipPeople              None
-        //                                  Ferry and Bus Exchange Stop                 Ferry               Bus                                     Hubs                    None
+        //                                  Ferry and Bus Exchange Stop                 Ferry               Bus                                     Hubs                    None        category PublicTransportHubs
+        //                                  Ferry-Tram Hub                              Ferry               null                                    Hubs                    None        category PublicTransportHubs
         //       HarborAI              W--U Harbor                                      PassengerShip       null                                    ShipPeople              ShipPeople
+        //                                  Harbor-Ferry Hub                            PassengerShip       null                                    Hubs                    Hubs        category PublicTransportHubs
+        //                                  Harbor-Bus Hub                              PassengerShip       Bus                                     Hubs                    Hubs        category PublicTransportHubs
+        //                                  Harbor-Bus-Monorail Hub                     PassengerShip       Bus                                     Hubs                    Hubs        category PublicTransportHubs
         // SpaceElevatorAI             W--- Space Elevator (monument)                   ----                ----                                    SpaceElevator           None
         // TourBuildingAI              -V-U Hot Air Balloon Tours                       None                ----                                    None                    Tours
+        //    ChiperTourAI             -V-U Chirper Balloon Tours                       None                ----                                    None                    Tours
 
 
         /// <summary>
@@ -4066,7 +4145,7 @@ namespace BuildingUsage
         /// </summary>
         protected UsageType GetWorkersTransportationUsageType(BuildingInfo buildingInfo)
         {
-            // use building AI type together with AI name, class level, or vehicle reasons to determine the usage type
+            // use building AI type, AI name, class level, vehicle reasons, and/or metro presence to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(AirportAuxBuildingAI))
             {
@@ -4079,8 +4158,8 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(CargoStationAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationTrainCargo;
-                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.WorkersTransportationAirCargo;
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) { return UsageType.WorkersTransportationTrainCargo; }
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) { return UsageType.WorkersTransportationAirCargo;   }
             }
             else if (buildingAIType == typeof(AirportCargoGateAI))
             {
@@ -4093,14 +4172,14 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(DepotAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.Bus                   ) return UsageType.WorkersTransportationBus;
-                if (reason1 == TransferManager.TransferReason.Trolleybus            ) return UsageType.WorkersTransportationTrolleybus;
-                if (reason1 == TransferManager.TransferReason.Tram                  ) return UsageType.WorkersTransportationTram;
-                if (reason1 == TransferManager.TransferReason.Ferry                 ) return UsageType.WorkersTransportationShipPeople;
-                if (reason1 == TransferManager.TransferReason.PassengerHelicopter   ) return UsageType.WorkersTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.Blimp                 ) return UsageType.WorkersTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.TouristBus            ) return UsageType.WorkersTransportationTours;
-                if (reason1 == TransferManager.TransferReason.Taxi                  ) return UsageType.WorkersTransportationTaxi;
+                if (reason1 == TransferManager.TransferReason.Bus                ) { return UsageType.WorkersTransportationBus;        }
+                if (reason1 == TransferManager.TransferReason.Trolleybus         ) { return UsageType.WorkersTransportationTrolleybus; }
+                if (reason1 == TransferManager.TransferReason.Tram               ) { return UsageType.WorkersTransportationTram;       }
+                if (reason1 == TransferManager.TransferReason.Ferry              ) { return UsageType.WorkersTransportationShipPeople; }
+                if (reason1 == TransferManager.TransferReason.PassengerHelicopter) { return UsageType.WorkersTransportationAirPeople;  }
+                if (reason1 == TransferManager.TransferReason.Blimp              ) { return UsageType.WorkersTransportationAirPeople;  }
+                if (reason1 == TransferManager.TransferReason.TouristBus         ) { return UsageType.WorkersTransportationTours;      }
+                if (reason1 == TransferManager.TransferReason.Taxi               ) { return UsageType.WorkersTransportationTaxi;       }
             }
             else if (buildingAIType == typeof(CableCarStationAI))
             {
@@ -4108,65 +4187,36 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(TransportStationAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
-                if (reason1 == TransferManager.TransferReason.Bus)
+                // check first for Hubs
+                if (buildingInfo.category == CategoryHubs)
                 {
-                    if (reason2 == TransferManager.TransferReason.IntercityBus || HasMetroSubBuilding(buildingInfo)) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationBus;
+                    return UsageType.WorkersTransportationHubs;
                 }
-                if (reason1 == TransferManager.TransferReason.IntercityBus)
+                else
                 {
-                    if (reason2 == TransferManager.TransferReason.MetroTrain) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationIntercityBus;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerHelicopter)
-                {
-                    return UsageType.WorkersTransportationAirPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.Blimp)
-                {
-                    return UsageType.WorkersTransportationAirPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.IntercityBus)
-                {
-                    return UsageType.WorkersTransportationIntercityBus;
-                }
-                if (reason1 == TransferManager.TransferReason.MetroTrain)
-                {
-                    return UsageType.WorkersTransportationMetro;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerTrain)
-                {
-                    if (HasMetroSubBuilding(buildingInfo)) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationTrainPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerPlane)
-                {
-                    if (HasMetroSubBuilding(buildingInfo)) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationAirPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.Monorail)
-                {
-                    if (reason2 == TransferManager.TransferReason.Bus || reason2 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationHubs;
-                    return UsageType.WorkersTransportationMonorail;
+                    // not a Hub, check reason and metro
+                    GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
+                    if (reason1 == TransferManager.TransferReason.Bus                ) { return UsageType.WorkersTransportationBus;          }
+                    if (reason1 == TransferManager.TransferReason.PassengerHelicopter) { return UsageType.WorkersTransportationAirPeople;    }
+                    if (reason1 == TransferManager.TransferReason.Blimp              ) { return UsageType.WorkersTransportationAirPeople;    }
+                    if (reason1 == TransferManager.TransferReason.IntercityBus       ) { return UsageType.WorkersTransportationIntercityBus; }
+                    if (reason1 == TransferManager.TransferReason.MetroTrain         ) { return UsageType.WorkersTransportationMetro;        }
+                    if (reason1 == TransferManager.TransferReason.PassengerTrain     ) { return HasMetroSubBuilding(buildingInfo) ? UsageType.WorkersTransportationHubs : UsageType.WorkersTransportationTrainPeople; }
+                    if (reason1 == TransferManager.TransferReason.PassengerPlane     ) { return UsageType.WorkersTransportationAirPeople;    }
+                    if (reason1 == TransferManager.TransferReason.Monorail           ) { return UsageType.WorkersTransportationMonorail;     }
                 }
             }
             else if (buildingAIType == typeof(AirportGateAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.Bus           ) return UsageType.WorkersTransportationBus;
-                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.WorkersTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.MetroTrain    ) return UsageType.WorkersTransportationMetro;
-                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.WorkersTransportationTrainPeople;
+                if (reason1 == TransferManager.TransferReason.Bus           ) { return UsageType.WorkersTransportationBus;         }
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) { return UsageType.WorkersTransportationAirPeople;   }
+                if (reason1 == TransferManager.TransferReason.MetroTrain    ) { return UsageType.WorkersTransportationMetro;       }
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) { return UsageType.WorkersTransportationTrainPeople; }
             }
             else if (buildingAIType == typeof(HarborAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
-                if (reason1 == TransferManager.TransferReason.Ferry && reason2 == TransferManager.TransferReason.Bus)
-                {
-                    return UsageType.WorkersTransportationHubs;
-                }
-                return UsageType.WorkersTransportationShipPeople;
+                return buildingInfo.category == CategoryHubs ? UsageType.WorkersTransportationHubs : UsageType.WorkersTransportationShipPeople;
             }
             else if (buildingAIType == typeof(SpaceElevatorAI))
             {
@@ -4197,7 +4247,7 @@ namespace BuildingUsage
         /// </summary>
         protected UsageType GetVehiclesTransportationUsageType(BuildingInfo buildingInfo)
         {
-            // use building AI type and vehicle reasons to determine the usage type
+            // use building AI type, vehicle reasons, and/or metro presence to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(AirportAuxBuildingAI))
             {
@@ -4210,8 +4260,8 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(CargoStationAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationTrainCargo;
-                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.VehiclesTransportationAirCargo;
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) { return UsageType.VehiclesTransportationTrainCargo; }
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) { return UsageType.VehiclesTransportationAirCargo;   }
             }
             else if (buildingAIType == typeof(AirportCargoGateAI))
             {
@@ -4224,14 +4274,14 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(DepotAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.Bus                   ) return UsageType.VehiclesTransportationBus;
-                if (reason1 == TransferManager.TransferReason.Trolleybus            ) return UsageType.VehiclesTransportationTrolleybus;
-                if (reason1 == TransferManager.TransferReason.Tram                  ) return UsageType.VehiclesTransportationTram;
-                if (reason1 == TransferManager.TransferReason.Ferry                 ) return UsageType.VehiclesTransportationShipPeople;
-                if (reason1 == TransferManager.TransferReason.PassengerHelicopter   ) return UsageType.VehiclesTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.Blimp                 ) return UsageType.VehiclesTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.TouristBus            ) return UsageType.VehiclesTransportationTours;
-                if (reason1 == TransferManager.TransferReason.Taxi                  ) return UsageType.VehiclesTransportationTaxi;
+                if (reason1 == TransferManager.TransferReason.Bus                ) { return UsageType.VehiclesTransportationBus;        }
+                if (reason1 == TransferManager.TransferReason.Trolleybus         ) { return UsageType.VehiclesTransportationTrolleybus; }
+                if (reason1 == TransferManager.TransferReason.Tram               ) { return UsageType.VehiclesTransportationTram;       }
+                if (reason1 == TransferManager.TransferReason.Ferry              ) { return UsageType.VehiclesTransportationShipPeople; }
+                if (reason1 == TransferManager.TransferReason.PassengerHelicopter) { return UsageType.VehiclesTransportationAirPeople;  }
+                if (reason1 == TransferManager.TransferReason.Blimp              ) { return UsageType.VehiclesTransportationAirPeople;  }
+                if (reason1 == TransferManager.TransferReason.TouristBus         ) { return UsageType.VehiclesTransportationTours;      }
+                if (reason1 == TransferManager.TransferReason.Taxi               ) { return UsageType.VehiclesTransportationTaxi;       }
             }
             else if (buildingAIType == typeof(CableCarStationAI))
             {
@@ -4239,56 +4289,42 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(TransportStationAI))
             {
-                GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason reason2);
-                if (reason1 == TransferManager.TransferReason.Bus)
+                // check first for Hubs
+                if (buildingInfo.category == CategoryHubs)
                 {
-                    if (reason2 == TransferManager.TransferReason.IntercityBus || HasMetroSubBuilding(buildingInfo)) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.None;
+                    return UsageType.VehiclesTransportationHubs;
                 }
-                if (reason1 == TransferManager.TransferReason.IntercityBus)
+                else
                 {
-                    if (reason2 == TransferManager.TransferReason.MetroTrain) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.VehiclesTransportationIntercityBus;
-                }
-                if (reason1 == TransferManager.TransferReason.MetroTrain)
-                {
-                    return UsageType.VehiclesTransportationMetro;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerTrain)
-                {
-                    if (HasMetroSubBuilding(buildingInfo)) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.VehiclesTransportationTrainPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerShip)
-                {
-                    return UsageType.VehiclesTransportationShipPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.PassengerPlane)
-                {
-                    if (HasMetroSubBuilding(buildingInfo)) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.VehiclesTransportationAirPeople;
-                }
-                if (reason1 == TransferManager.TransferReason.Monorail)
-                {
-                    if (reason2 == TransferManager.TransferReason.Bus || reason2 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationHubs;
-                    return UsageType.VehiclesTransportationMonorail;
+                    // not a Hub, check reason and metro
+                    GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
+                    if (reason1 == TransferManager.TransferReason.Bus                ) { return UsageType.None;                               }
+                    if (reason1 == TransferManager.TransferReason.PassengerHelicopter) { return UsageType.None;                               }
+                    if (reason1 == TransferManager.TransferReason.Blimp              ) { return UsageType.None;                               }
+                    if (reason1 == TransferManager.TransferReason.IntercityBus       ) { return UsageType.VehiclesTransportationIntercityBus; }
+                    if (reason1 == TransferManager.TransferReason.MetroTrain         ) { return UsageType.VehiclesTransportationMetro;        }
+                    if (reason1 == TransferManager.TransferReason.PassengerTrain     ) { return HasMetroSubBuilding(buildingInfo) ? UsageType.VehiclesTransportationHubs : UsageType.VehiclesTransportationTrainPeople; }
+                    if (reason1 == TransferManager.TransferReason.PassengerShip      ) { return UsageType.VehiclesTransportationShipPeople;   }
+                    if (reason1 == TransferManager.TransferReason.PassengerPlane     ) { return UsageType.VehiclesTransportationAirPeople;    }
+                    if (reason1 == TransferManager.TransferReason.Monorail           ) { return UsageType.VehiclesTransportationMonorail;     }
                 }
             }
             else if (buildingAIType == typeof(AirportGateAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.Bus           ) return UsageType.None;
-                if (reason1 == TransferManager.TransferReason.PassengerPlane) return UsageType.VehiclesTransportationAirPeople;
-                if (reason1 == TransferManager.TransferReason.MetroTrain    ) return UsageType.VehiclesTransportationMetro;
-                if (reason1 == TransferManager.TransferReason.PassengerTrain) return UsageType.VehiclesTransportationTrainPeople;
+                if (reason1 == TransferManager.TransferReason.Bus           ) { return UsageType.None;                              }
+                if (reason1 == TransferManager.TransferReason.PassengerPlane) { return UsageType.VehiclesTransportationAirPeople;   }
+                if (reason1 == TransferManager.TransferReason.MetroTrain    ) { return UsageType.VehiclesTransportationMetro;       }
+                if (reason1 == TransferManager.TransferReason.PassengerTrain) { return UsageType.VehiclesTransportationTrainPeople; }
             }
             else if (buildingAIType == typeof(HarborAI))
             {
                 GetVehicleReasons(buildingInfo, out TransferManager.TransferReason reason1, out TransferManager.TransferReason _);
-                if (reason1 == TransferManager.TransferReason.PassengerShip) return UsageType.VehiclesTransportationShipPeople;
-                return UsageType.None;
+                if (reason1 == TransferManager.TransferReason.Ferry) { return UsageType.None;                       }
+                if (buildingInfo.category == CategoryHubs)  { return UsageType.VehiclesTransportationHubs; }
+                return UsageType.VehiclesTransportationShipPeople;
             }
-            else if (buildingAIType == typeof(TourBuildingAI))
+            else if (buildingAIType == typeof(TourBuildingAI) || buildingAIType == typeof(ChirperTourAI))
             {
                 return UsageType.VehiclesTransportationTours;
             }
@@ -4335,6 +4371,7 @@ namespace BuildingUsage
 
         /// <summary>
         /// return whether or not the building has a subbuilding that is a metro station
+        /// the metro station may be underground integrated, at ground level, or above ground
         /// </summary>
         private bool HasMetroSubBuilding(BuildingInfo buildingInfo)
         {
@@ -4366,79 +4403,109 @@ namespace BuildingUsage
         /// <summary>
         /// return the usage type for a ParkAI building
         /// </summary>
-        protected UsageType GetVisitorsParksPlazasUsageType(string category, string name)
+        protected UsageType GetVisitorsParksPlazasUsageType(BuildingInfo buildingInfo, out bool contentCreatorPack)
         {
-            // Building AI                      Building                                    Category                    Usage Type
-            // --------------------------       ------------------------------------------  --------------------------  --------------
+            // Building AI                      Building                                    Category                    Modder Pack     Usage Type
+            // --------------------------       ------------------------------------------  --------------------------  --------------  --------------
             // ParkAI                      -V-- Parks:
-            //                                      Small Park                              BeautificationParks         Parks
-            //                                      Small Playground                        BeautificationParks         Parks
-            //                                      Park With Trees                         BeautificationParks         Parks
-            //                                      Large Playground                        BeautificationParks         Parks
-            //                                      Bouncy Castle Park                      BeautificationParks         Parks
-            //                                      Botanical Garden                        BeautificationParks         Parks
-            //                                      Dog Park                                BeautificationParks         Parks
-            //                                      Carousel Park                           BeautificationParks         Parks
-            //                                      Japanese Garden                         BeautificationParks         Parks
-            //                                      Tropical Garden                         BeautificationParks         Parks
-            //                                      Fishing Island                          BeautificationParks         Parks
-            //                                      Floating Cafe                           BeautificationParks         Parks
+            //                                      Small Park                              BeautificationParks                         Parks
+            //                                      Small Playground                        BeautificationParks                         Parks
+            //                                      Park With Trees                         BeautificationParks                         Parks
+            //                                      Large Playground                        BeautificationParks                         Parks
+            //                                      Bouncy Castle Park                      BeautificationParks                         Parks
+            //                                      Botanical Garden                        BeautificationParks                         Parks
+            //                                      Dog Park                                BeautificationParks                         Parks
+            //                                      Carousel Park                           BeautificationParks                         Parks
+            //                                      Japanese Garden                         BeautificationParks                         Parks
+            //                                      Tropical Garden                         BeautificationParks                         Parks
+            //                                      Fishing Island                          BeautificationParks                         Parks
+            //                                      Floating Cafe                           BeautificationParks                         Parks
             //                                  Plazas:
-            //                                      Plaza with Trees                        BeautificationPlazas        Plazas
-            //                                      Plaza with Picnic Tables                BeautificationPlazas        Plazas
-            //                                      Paradox Plaza                           BeautificationPlazas        Plazas
+            //                                      Plaza with Trees                        BeautificationPlazas                        Plazas
+            //                                      Plaza with Picnic Tables                BeautificationPlazas                        Plazas
+            //                                      Paradox Plaza                           BeautificationPlazas                        Plazas
             //                                  Other Parks:
-            //                                      Basketball Court                        BeautificationOthers        OtherParks
-            //                                      Tennis Court                            BeautificationOthers        OtherParks
+            //                                      Basketball Court                        BeautificationOthers                        OtherParks
+            //                                      Tennis Court                            BeautificationOthers                        OtherParks
+            //                                      Birthday Plaza                          BeautificationOthers                        OtherParks
+            //                                      Small Decorative Parking Lot            BeautificationOthers                        OtherParks
+            //                                      Large Decorative Parking Lot            BeautificationOthers                        OtherParks
+            //                                      Multistory Decorative Parking Lot       BeautificationOthers                        OtherParks
             //                                  Tourism & Leisure:
-            //                                      Fishing Pier                            BeautificationExpansion1    TourismLeisure
-            //                                      Fishing Tours                           BeautificationExpansion1    TourismLeisure
-            //                                      Jet Ski Rental                          BeautificationExpansion1    TourismLeisure
-            //                                      Marina                                  BeautificationExpansion1    TourismLeisure
-            //                                      Restaurant Pier                         BeautificationExpansion1    TourismLeisure
-            //                                      Beach Volleyball Court                  BeautificationExpansion1    TourismLeisure
-            //                                      Riding Stable                           BeautificationExpansion1    TourismLeisure
-            //                                      Skatepark                               BeautificationExpansion1    TourismLeisure
-            //                                      Snowmobile Track                        BeautificationExpansion1    TourismLeisure
-            //                                      Winter Fishing Pier                     BeautificationExpansion1    TourismLeisure
-            //                                      Ice Hockey Rink                         BeautificationExpansion1    TourismLeisure
+            //                                      Fishing Pier                            BeautificationExpansion1                    TourismLeisure
+            //                                      Fishing Tours                           BeautificationExpansion1                    TourismLeisure
+            //                                      Jet Ski Rental                          BeautificationExpansion1                    TourismLeisure
+            //                                      Marina                                  BeautificationExpansion1                    TourismLeisure
+            //                                      Restaurant Pier                         BeautificationExpansion1                    TourismLeisure
+            //                                      Beach Volleyball Court                  BeautificationExpansion1                    TourismLeisure
+            //                                      Riding Stable                           BeautificationExpansion1                    TourismLeisure
+            //                                      Skatepark                               BeautificationExpansion1                    TourismLeisure
+            //                                      Snowmobile Track                        BeautificationExpansion1                    TourismLeisure
+            //                                      Winter Fishing Pier                     BeautificationExpansion1                    TourismLeisure
+            //                                      Ice Hockey Rink                         BeautificationExpansion1                    TourismLeisure
             //                                  Winter Parks:
-            //                                      Snowman Park                            BeautificationExpansion2    WinterParks
-            //                                      Ice Sculpture Park                      BeautificationExpansion2    WinterParks
-            //                                      Sledding Hill                           BeautificationExpansion2    WinterParks
-            //                                      Curling Park                            BeautificationExpansion2    WinterParks
-            //                                      Skating Rink                            BeautificationExpansion2    WinterParks
-            //                                      Ski Lodge                               BeautificationExpansion2    WinterParks
-            //                                      Cross-Country Skiing Park               BeautificationExpansion2    WinterParks
-            //                                      Firepit Park                            BeautificationExpansion2    WinterParks
+            //                                      Snowman Park                            BeautificationExpansion2                    WinterParks
+            //                                      Ice Sculpture Park                      BeautificationExpansion2                    WinterParks
+            //                                      Sledding Hill                           BeautificationExpansion2                    WinterParks
+            //                                      Curling Park                            BeautificationExpansion2                    WinterParks
+            //                                      Skating Rink                            BeautificationExpansion2                    WinterParks
+            //                                      Ski Lodge                               BeautificationExpansion2                    WinterParks
+            //                                      Cross-Country Skiing Park               BeautificationExpansion2                    WinterParks
+            //                                      Firepit Park                            BeautificationExpansion2                    WinterParks
             //                                  Content Creator:
-            //                                      Seine Pier                              MonumentModderPack          ContentCreator
-            //                                      Rhine Pier                              MonumentModderPack          ContentCreator
-            //                                      Biodome                                 MonumentModderPack          ContentCreator
-            //                                      Vertical Farm                           MonumentModderPack          ContentCreator
-            //                                      Car Port 2 Slot                         MonumentModderPack          ContentCreator
-            //                                      Car Port 4 Slot                         MonumentModderPack          ContentCreator
-            //                                      Car Port 6 Slot                         MonumentModderPack          ContentCreator
-            //                                      Car Port 12 Slot                        MonumentModderPack          ContentCreator
-            //                                      Car Port 24 Slot                        MonumentModderPack          ContentCreator
-            //                                      Hotel Oasis A                           MonumentModderPack          ContentCreator
-            //                                      Hotel Oasis B                           MonumentModderPack          ContentCreator
-            //                                      Motel Palm Springs                      MonumentModderPack          ContentCreator
-            //                                      Roadside Diner                          MonumentModderPack          ContentCreator
-            //                                      Mothership                              MonumentModderPack          ContentCreator
+            //                                      Biodome                                 MonumentModderPack          Pack2           CCPHighTech
+            //                                      Vertical Farm                           MonumentModderPack          Pack2           CCPHighTech
+            //                                      Seine Pier                              MonumentModderPack          Pack8           CCPBridgesPiers
+            //                                      Rhine Pier                              MonumentModderPack          Pack8           CCPBridgesPiers
+            //                                      Car Port 2 Slot                         MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Car Port 4 Slot                         MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Car Port 6 Slot                         MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Car Port 12 Slot                        MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Car Port 24 Slot                        MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Hotel Oasis A                           MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Hotel Oasis B                           MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Motel Palm Springs                      MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Roadside Diner                          MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Roadside Diner (subbuildings)           BeautificationModderPack    Pack11          CCPMidCenturyModern
+            //                                      Mothership                              MonumentModderPack          Pack11          CCPMidCenturyModern
+            //                                      Mothership (subbuildings)               BeautificationModderPack    Pack11          CCPMidCenturyModern
+            //                                      Small Soccer Field                      MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Soccer Park                   MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Australian Football Field     MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Australian Football Park      MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Baseball Field                MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Baseball Complex              MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Suburban American Football Field        MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community American Football Park        MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Suburban Cricket Pitch                  MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      Community Cricket Pitch                 MonumentModderPack          Pack17          CCPSportsVenues
+            //                                      The Botanical Museum                    MonumentModderPack          Pack18          CCPAfricaInMiniature
+
+            // initialize
+            contentCreatorPack = false;
 
             // usage type depends on category
-            switch (category)
+            switch (buildingInfo.category)
             {
                 case "BeautificationParks":         return UsageType.VisitorsParksPlazasParks;
                 case "BeautificationPlazas":        return UsageType.VisitorsParksPlazasPlazas;
                 case "BeautificationOthers":        return UsageType.VisitorsParksPlazasOtherParks;
                 case "BeautificationExpansion1":    return UsageType.VisitorsParksPlazasTourismLeisure;
                 case "BeautificationExpansion2":    return UsageType.VisitorsParksPlazasWinterkParks;
-                case "MonumentModderPack":          return UsageType.VisitorsParksPlazasContentCreator;
+                case "MonumentModderPack":
+                case "BeautificationModderPack":
+                        contentCreatorPack = true;
+                        SteamHelper.ModderPackBitMask requiredModderPack = buildingInfo.m_requiredModderPack;
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack2 ) != 0) { return UsageType.VisitorsParksPlazasCCPHighTech;          }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack8 ) != 0) { return UsageType.VisitorsParksPlazasCCPBridgesPiers;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack11) != 0) { return UsageType.VisitorsParksPlazasCCPMidCenturyModern;  }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.VisitorsParksPlazasCCPSportsVenues;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.VisitorsParksPlazasCCPAfricaInMiniature; }
+                        LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
+                        return UsageType.None;
                 case "Default":                     return UsageType.None;      // the Train Stations CCP has one subbuilding with this category, so ignore this category
                 default:
-                    LogUtil.LogError($"Unhandled building category [{category}] when determining usage type for building [{name}].");
+                    LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
                     return UsageType.None;
             }
         }
@@ -4462,23 +4529,6 @@ namespace BuildingUsage
                     return UsageType.None;
             }
         }
-
-        /// <summary>
-        /// return usage type for a TourBuildingAI building
-        /// </summary>
-        protected UsageType GetVisitorsToursUsageType(TourBuildingAI buildingAI)
-        {
-            // Chirper Balloon Tours building is Other Parks
-            if (buildingAI.m_isChirpyBirthdayBalloon)
-            {
-                return UsageType.VisitorsParksPlazasOtherParks;
-            }
-            // Hot Air Balloon Tours building is Tours
-            else
-            {
-                return UsageType.VisitorsParksPlazasTours;
-            }
-        }
         #endregion
 
         #region "Unique Building Usage Types"
@@ -4486,18 +4536,15 @@ namespace BuildingUsage
         /// <summary>
         /// get the usage type for a workers unique building
         /// </summary>
-        protected UsageType GetWorkersUniqueUsageType(BuildingInfo buildingInfo)
+        protected UsageType GetWorkersUniqueUsageType(BuildingInfo buildingInfo, out bool contentCreatorPack)
         {
+            // initialize
+            contentCreatorPack = false;
+
             // use building AI type and category to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(MonumentAI))
             {
-                // Festival Area building has category "Default", so need to check for it specially
-                if (buildingInfo.name.StartsWith("Festival Area"))
-                {
-                    return UsageType.WorkersUniqueConcert;
-                }
-
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
@@ -4515,11 +4562,28 @@ namespace BuildingUsage
                     case "MonumentCategory4":           return UsageType.WorkersUniqueLevel4;
                     case "MonumentCategory5":           return UsageType.WorkersUniqueLevel5;
                     case "MonumentCategory6":           return UsageType.WorkersUniqueLevel6;
-                    case "MonumentModderPack":          return UsageType.WorkersUniqueContentCreator;
+                    case "MonumentModderPack":
+                        contentCreatorPack = true;
+                        SteamHelper.ModderPackBitMask requiredModderPack = buildingInfo.m_requiredModderPack;
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack1 ) != 0) { return UsageType.WorkersUniqueCCPArtDeco;           }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack2 ) != 0) { return UsageType.WorkersUniqueCCPHighTech;          }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack6 ) != 0) { return UsageType.WorkersUniqueCCPModernJapan;       }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack12) != 0) { return UsageType.WorkersUniqueCCPSeasideResorts;    }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack13) != 0) { return UsageType.WorkersUniqueCCPSkyscrapers;       }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack14) != 0) { return UsageType.WorkersUniqueCCPHeartOfKorea;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack16) != 0) { return UsageType.WorkersUniqueCCPShoppingMalls;     }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.WorkersUniqueCCPSportsVenues;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.WorkersUniqueCCPAfricaInMiniature; }
+                        LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
+                        return UsageType.None;
                     default:
                         LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                 }
+            }
+            else if (buildingAIType == typeof(FestivalAreaAI))
+            {
+                return UsageType.WorkersUniqueConcert;
             }
             else if (buildingAIType == typeof(AirlineHeadquartersAI))
             {
@@ -4535,11 +4599,24 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(ChirpwickCastleAI))
             {
-                return UsageType.WorkersUniqueCastle;
+                return UsageType.WorkersUniqueChirpwickCastle;
             }
             else if (buildingAIType == typeof(StockExchangeAI) || buildingAIType == typeof(InternationalTradeBuildingAI))
             {
                 return UsageType.WorkersUniqueFinancial;
+            }
+            else if (buildingAIType == typeof(HadronColliderAI))
+            {
+                // there are two monuments in Africa in Miniature CCP that have HadronColliderAI
+                if (buildingInfo.m_class.m_service == ItemClass.Service.Education)
+                {
+                    // not an error, just don't include the education building
+                    return UsageType.None;
+                }
+                else
+                {
+                    return UsageType.WorkersUniqueCCPAfricaInMiniature;
+                }
             }
 
             // usage type not found, not an error
@@ -4549,18 +4626,15 @@ namespace BuildingUsage
         /// <summary>
         /// get the usage type for a visitors unique building
         /// </summary>
-        protected UsageType GetVisitorsUniqueUsageType(BuildingInfo buildingInfo)
+        protected UsageType GetVisitorsUniqueUsageType(BuildingInfo buildingInfo, out bool contentCreatorPack)
         {
+            // initialize
+            contentCreatorPack = false;
+
             // use building AI type and category to determine the usage type
             Type buildingAIType = buildingInfo.m_buildingAI.GetType();
             if (buildingAIType == typeof(MonumentAI))
             {
-                // Festival Area building has category "Default", so need to check for it specially
-                if (buildingInfo.name.StartsWith("Festival Area"))
-                {
-                    return UsageType.VisitorsUniqueConcert;
-                }
-
                 // use category to determine usage type
                 switch (buildingInfo.category)
                 {
@@ -4578,11 +4652,28 @@ namespace BuildingUsage
                     case "MonumentCategory4":           return UsageType.VisitorsUniqueLevel4;
                     case "MonumentCategory5":           return UsageType.VisitorsUniqueLevel5;
                     case "MonumentCategory6":           return UsageType.VisitorsUniqueLevel6;
-                    case "MonumentModderPack":          return UsageType.VisitorsUniqueContentCreator;
+                    case "MonumentModderPack":
+                        contentCreatorPack = true;
+                        SteamHelper.ModderPackBitMask requiredModderPack = buildingInfo.m_requiredModderPack;
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack1 ) != 0) { return UsageType.VisitorsUniqueCCPArtDeco;           }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack2 ) != 0) { return UsageType.VisitorsUniqueCCPHighTech;          }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack6 ) != 0) { return UsageType.VisitorsUniqueCCPModernJapan;       }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack12) != 0) { return UsageType.VisitorsUniqueCCPSeasideResorts;    }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack13) != 0) { return UsageType.VisitorsUniqueCCPSkyscrapers;       }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack14) != 0) { return UsageType.VisitorsUniqueCCPHeartOfKorea;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack16) != 0) { return UsageType.VisitorsUniqueCCPShoppingMalls;     }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.VisitorsUniqueCCPSportsVenues;      }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.VisitorsUniqueCCPAfricaInMiniature; }
+                        LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
+                        return UsageType.None;
                     default:
                         LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                 }
+            }
+            else if (buildingAIType == typeof(FestivalAreaAI))
+            {
+                return UsageType.VisitorsUniqueConcert;
             }
             else if (buildingAIType == typeof(AirlineHeadquartersAI))
             {
@@ -4598,7 +4689,7 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(ChirpwickCastleAI))
             {
-                return UsageType.VisitorsUniqueCastle;
+                return UsageType.VisitorsUniqueChirpwickCastle;
             }
             else if (buildingAIType == typeof(StockExchangeAI) || buildingAIType == typeof(InternationalTradeBuildingAI))
             {

@@ -55,7 +55,7 @@ namespace BuildingUsage
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
                 AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      GetUsageCountWorkersService<SchoolAI            >);
                 AssociateBuildingAI<LibraryAI           >(UsageType.WorkersEducationLibrary,        GetUsageCountWorkersService<LibraryAI           >);
-                AssociateBuildingAI<HadronColliderAI    >(UsageType.WorkersEducationHadronCollider, GetUsageCountWorkersService<HadronColliderAI    >);
+                AssociateBuildingAI<HadronColliderAI    >(UsageType.UseLogic1,                      GetUsageCountWorkersService<HadronColliderAI    >);
                 AssociateBuildingAI<MainCampusBuildingAI>(UsageType.UseLogic1,                      GetUsageCountWorkersService<MainCampusBuildingAI>);
                 AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      GetUsageCountWorkersService<CampusBuildingAI    >);
                 AssociateBuildingAI<UniqueFacultyAI     >(UsageType.UseLogic1,                      GetUsageCountWorkersService<UniqueFacultyAI     >);
@@ -90,6 +90,19 @@ namespace BuildingUsage
                 if (level == ItemClass.Level.Level3)
                 {
                     return UsageType.WorkersEducationUniversity;
+                }
+            }
+            else if (buildingAIType == typeof(HadronColliderAI))
+            {
+                // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
+                if (data.Info.m_class.m_service == ItemClass.Service.Education)
+                {
+                    return UsageType.WorkersEducationHadronCollider;
+                }
+                else
+                {
+                    // not an error, just don't include the buildings
+                    return UsageType.None;
                 }
             }
             else if (buildingAIType == typeof(MainCampusBuildingAI))

@@ -71,6 +71,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<TransportStationAI  >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<HarborAI            >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<TourBuildingAI      >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
+                AssociateBuildingAI<ChirperTourAI       >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<CargoStationAI      >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<CargoHarborAI       >(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
                 AssociateBuildingAI<AirportAuxBuildingAI>(UsageType.UseLogic1,  GetUsageCountVehiclesTransportation);
@@ -116,6 +117,7 @@ namespace BuildingUsage
                 buildingAIType == typeof(TransportStationAI  ) ||
                 buildingAIType == typeof(HarborAI            ) ||
                 buildingAIType == typeof(TourBuildingAI      ) ||
+                buildingAIType == typeof(ChirperTourAI       ) ||
                 buildingAIType == typeof(CargoStationAI      ) ||
                 buildingAIType == typeof(CargoHarborAI       ) ||
                 buildingAIType == typeof(AirportCargoGateAI  ) ||

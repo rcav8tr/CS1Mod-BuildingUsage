@@ -26,6 +26,7 @@ namespace BuildingUsage
                 CreateReturnFromDetailButton("Return to Visitors");
 
                 // define list of usage types for this panel that are on building prefabs
+                bool contentCreatorPack = false;
                 List<UsageType> usageTypes = new List<UsageType>();
                 int buildingPrefabCount = PrefabCollection<BuildingInfo>.LoadedCount();
                 for (uint index = 0; index < buildingPrefabCount; index++)
@@ -34,7 +35,8 @@ namespace BuildingUsage
                     BuildingInfo prefab = PrefabCollection<BuildingInfo>.GetLoaded(index);
 
                     // get the usage type for the prefab
-                    UsageType usageType = GetVisitorsUniqueUsageType(prefab);
+                    UsageType usageType = GetVisitorsUniqueUsageType(prefab, out bool ccp);
+                    contentCreatorPack |= ccp;
 
                     // if not None and not already in the list, add it to the list
                     if (usageType != UsageType.None && !usageTypes.Contains(usageType))
@@ -46,26 +48,34 @@ namespace BuildingUsage
                 // create the usage groups
                 // at least one of Basic and Level are in the base game, so there is no logic on those headings
                 CreateGroupHeading("Basic Unique");
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueFinancial,        usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLandmark,         usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueTourismLeisure,   usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueWinterUnique,     usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniquePedestrianArea,   usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueFootball,         usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueConcert,          usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueAirports,         usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueFinancial,            usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLandmark,             usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueTourismLeisure,       usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueWinterUnique,         usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniquePedestrianArea,       usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueFootball,             usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueConcert,              usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueAirports,             usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueChirpwickCastle,      usageTypes);
 
                 CreateGroupHeading("Level Unique");
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel1,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel2,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel3,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel4,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel5,           usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel6,           usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel1,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel2,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel3,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel4,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel5,               usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLevel6,               usageTypes);
 
-                if (usageTypes.Contains(UsageType.VisitorsUniqueContentCreator) || usageTypes.Contains(UsageType.VisitorsUniqueCastle)) CreateGroupHeading("Other Unique");
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueContentCreator,   usageTypes);
-                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCastle,           usageTypes);
+                if (contentCreatorPack) { CreateGroupHeading("Content Creator Pack"); }
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPArtDeco,           usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPHighTech,          usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPModernJapan,       usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPSeasideResorts,    usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPSkyscrapers,       usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPHeartOfKorea,      usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPShoppingMalls,     usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPSportsVenues,      usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueCCPAfricaInMiniature, usageTypes);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
@@ -74,6 +84,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<AnimalMonumentAI                >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<AnimalMonumentAI               >);
                 AssociateBuildingAI<PrivateAirportAI                >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<PrivateAirportAI               >);
                 AssociateBuildingAI<ChirpwickCastleAI               >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<ChirpwickCastleAI              >);
+                AssociateBuildingAI<FestivalAreaAI                  >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<FestivalAreaAI                 >);
                 AssociateBuildingAI<StockExchangeAI                 >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<StockExchangeAI                >);
                 AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<InternationalTradeBuildingAI   >);
             }
@@ -95,10 +106,11 @@ namespace BuildingUsage
                 buildingAIType == typeof(AnimalMonumentAI            ) ||
                 buildingAIType == typeof(PrivateAirportAI            ) ||
                 buildingAIType == typeof(ChirpwickCastleAI           ) ||
+                buildingAIType == typeof(FestivalAreaAI              ) ||
                 buildingAIType == typeof(StockExchangeAI             ) ||
                 buildingAIType == typeof(InternationalTradeBuildingAI))
             {
-                return GetVisitorsUniqueUsageType(data.Info);
+                return GetVisitorsUniqueUsageType(data.Info, out bool _);
             }
 
             LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");

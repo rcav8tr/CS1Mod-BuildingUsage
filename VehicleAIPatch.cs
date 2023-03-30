@@ -57,6 +57,7 @@ namespace BuildingUsage
         //    TrolleybusAI              GC  V   Trolleybus Depot
         //    WaterTruckAI              GC  V   Pumping Service
         // CarTrailerAI                 GC      (the trailer for:  some CargoTruckAI, maybe others)
+        //    TrolleybusTrailerAI               (there are no vehicle prefabs with this AI, so just ignore it
         // FerryAI                      GC      (base class with no buildings)
         //    FishingBoatAI             GC  V   Fishing Harbor, Anchovy Fishing Harbor, Salmon Fishing Harbor, Shellfish Fishing Harbor, Tuna Fishing Harbor
         //    PassengerFerryAI          GC  V   (unlimited:  Ferry Depot)

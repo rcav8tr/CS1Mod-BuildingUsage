@@ -109,6 +109,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<AirportGateAI                        >(UsageType.UseLogic1,                 GetUsageCountVehiclesTransportation                          );
                 AssociateBuildingAI<HarborAI                             >(UsageType.UseLogic1,                 GetUsageCountVehiclesTransportation                          );
                 AssociateBuildingAI<TourBuildingAI                       >(UsageType.UseLogic1,                 GetUsageCountVehiclesTransportation                          );
+                AssociateBuildingAI<ChirperTourAI                        >(UsageType.UseLogic1,                 GetUsageCountVehiclesTransportation                          );
 
                 // associate each vehicle AI type with its usage type
                 // associate all vehicle AIs even if corresponding DLC is not installed (there will simply be no vehicles with that AI)
@@ -228,7 +229,8 @@ namespace BuildingUsage
                      buildingAIType == typeof(TransportStationAI  ) ||
                      buildingAIType == typeof(AirportGateAI       ) ||
                      buildingAIType == typeof(HarborAI            ) ||
-                     buildingAIType == typeof(TourBuildingAI      ))
+                     buildingAIType == typeof(TourBuildingAI      ) ||
+                     buildingAIType == typeof(ChirperTourAI       ))
             {
                 if (GetVehiclesTransportationUsageType(data) == UsageType.None)
                 {
