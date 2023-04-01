@@ -4400,6 +4400,10 @@ namespace BuildingUsage
 
         #region "Parks Plazas Usage Types"
 
+        // NOTE:
+        // The Parkify mod replaces ParkAI with ParkBuildingAI for most (all?) ParkAI building prefabs.
+        // Buildings that would have gotten UsageType based on ParkAI will instead get UsageType based on ParkBuildingAI.
+
         /// <summary>
         /// return the usage type for a ParkAI building
         /// </summary>
