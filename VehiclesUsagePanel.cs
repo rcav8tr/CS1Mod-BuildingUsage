@@ -334,6 +334,11 @@ namespace BuildingUsage
                 {
                     return UsageType.None;
                 }
+                // train from "Warehouse with Railway Connection" is industry vehicle
+                else if (vehicleAIType == typeof(CargoTrainAI) && buildingAIType == typeof(WarehouseStationAI))
+                {
+                    return UsageType.VehiclesIndustryVehicles;
+                }
                 else
                 {
                     return UsageType.VehiclesTransportation;

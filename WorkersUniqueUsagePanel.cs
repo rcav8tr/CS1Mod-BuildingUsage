@@ -76,6 +76,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueCCPShoppingMalls,     usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueCCPSportsVenues,      usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueCCPAfricaInMiniature, usageTypes);
+                CreateUsageGroupIfDefined(UsageType.WorkersUniqueCCPRailroadsOfJapan,  usageTypes);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)

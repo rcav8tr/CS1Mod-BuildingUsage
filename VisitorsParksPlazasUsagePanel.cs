@@ -54,6 +54,10 @@ namespace BuildingUsage
                     {
                         usageType = UsageType.VisitorsParksPlazasPedestrianPlazas;
                     }
+                    else if (buildingAIType == typeof(HotelAI))
+                    {
+                        usageType = UsageType.VisitorsParksPlazasHotels;
+                    }
                     else if (buildingAIType == typeof(TourBuildingAI))
                     {
                         usageType = UsageType.VisitorsParksPlazasTours;
@@ -79,6 +83,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasTourismLeisure,      usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasWinterkParks,        usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasPedestrianPlazas,    usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasHotels,              usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasEdenProject,         usageTypes);
 
                 if (SteamHelper.IsDLCOwned(SteamHelper.DLC.ParksDLC))
@@ -97,6 +102,7 @@ namespace BuildingUsage
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPMidCenturyModern, usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPSportsVenues,     usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPAfricaInMiniature,usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsParksPlazasCCPRailroadsOfJapan, usageTypes);
 
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
@@ -104,6 +110,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<EdenProjectAI  >(UsageType.VisitorsParksPlazasEdenProject,      GetUsageCountVisitorsPark<EdenProjectAI>          );
                 AssociateBuildingAI<ParkBuildingAI >(UsageType.UseLogic1,                           GetUsageCountVisitorsParkBuilding<ParkBuildingAI> );
                 AssociateBuildingAI<IceCreamStandAI>(UsageType.VisitorsParksPlazasPedestrianPlazas, GetUsageCountVisitorsParkBuilding<IceCreamStandAI>);
+                AssociateBuildingAI<HotelAI        >(UsageType.VisitorsParksPlazasHotels,           GetUsageCountVisitorsHotel                        );
                 AssociateBuildingAI<TourBuildingAI >(UsageType.VisitorsParksPlazasTours,            GetUsageCountVisitorsTourBuilding<TourBuildingAI> );
                 AssociateBuildingAI<ChirperTourAI  >(UsageType.VisitorsParksPlazasOtherParks,       GetUsageCountVisitorsTourBuilding<ChirperTourAI>  );
             }

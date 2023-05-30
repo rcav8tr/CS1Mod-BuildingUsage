@@ -55,11 +55,11 @@ Processor Input and Processor Output cannot be selected at the same time because
 
 [b]Unique Factory[/b]
     [table]
-    [tr][td]Input [/td][td]Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory, Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard[/td][/tr]
+    [tr][td]Input [/td][td]Seafood Factory, Furniture Factory, Bakery, Industrial Steel Plant, Household Plastic Factory, Toy Factory, Printing Press, Lemonade Factory, Electronics Factory, Clothing Factory, Petroleum Refinery, Soft Paper Factory, Car Factory, Food Factory, Sneaker Factory, Modular House Factory, Shipyard[/td][/tr]
     [tr][td]Output[/td][td](same buildings as Unique Factory Input)[/td][/tr]
     [/table]
 
 [b]Warehouse[/b]
     [table]
-    [tr][td]Generic[/td][td]Warehouse Yard, Small Warehouse, Medium Warehouse, Large Warehouse[/td][/tr]
+    [tr][td]Generic[/td][td]Warehouse Yard, Small Warehouse, Medium Warehouse, Warehouse with Railway Connection, Large Warehouse[/td][/tr]
     [/table]

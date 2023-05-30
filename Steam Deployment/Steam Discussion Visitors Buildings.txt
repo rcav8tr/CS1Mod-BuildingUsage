@@ -5,7 +5,7 @@
 [tr][td]Medical Visitors[/td][td]Sauna, Sports Hall and Gymnasium, Community Pool, Yoga Garden[/td][/tr]
 [tr][td]Deceased        [/td][td]Cemetery, Crematorium, Cryopreservatory (CCP)[/td][/tr]
 [tr][td]Sheltered       [/td][td]Small Emergency Shelter, Large Emergency Shelter[/td][/tr]
-[tr][td]Criminals       [/td][td]Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP), Intelligence Agency (CCP)[/td][/tr]
+[tr][td]Criminals       [/td][td]Police Station, Police Headquarters, High-Capacity Police Headquarters, Prison, Historical Police Station (CCP), Intelligence Agency (CCP), Police Security Center (CCP), Police Department (CCP), ROJ Police Box (CCP)[/td][/tr]
 [tr][td]Education       [/td][td]all buildings listed below in Visitors Buildings for Education[/td][/tr]
 [tr][td]Airport Area    [/td][td]Airport Terminal (3 styles), Two-Story Terminal (3 styles), Large Terminal (3 styles), Cargo Airport Terminal, Control Tower (3 styles), Concourse Hub (3 styles), Small Hangar, Large Hangar, Budget Airport Hotel, Luxury Airport Hotel, Airline Lounge, Aviation Fuel Station, Small Parked Plane (3 variations), Medium Parked Plane (3 variations), Large Parked Plane (2 variations)[/td][/tr]
 [tr][td]Parks & Plazas  [/td][td]all buildings listed below in Visitors Buildings for Parks & Plazas[/td][/tr]
@@ -18,6 +18,7 @@ Hadron Collider is not included because students do not go to the building to ge
 Campus administration buildings are not included because the buildings do not have students.
 
 [h1]Visitors Buildings for Parks & Plazas[/h1]
+For Hotels, used is the number of guests and allowed is the number of rooms.
 [b]Basic[/b]
     [table]
     [tr][td]Parks            [/td][td]Small Park, Small Playground, Park With Trees, Large Playground, Bouncy Castle Park, Botanical Garden, Dog Park, Carousel Park, Japanese Garden, Tropical Garden, Fishing Island, Floating Cafe[/td][/tr]
@@ -26,15 +27,16 @@ Campus administration buildings are not included because the buildings do not ha
     [tr][td]Tourism & Leisure[/td][td]Fishing Pier, Fishing Tours, Jet Ski Rental, Marina, Restaurant Pier, Beach Volleyball Court, Riding Stable, Skatepark, Snowmobile Track, Winter Fishing Pier, Ice Hockey Rink[/td][/tr]
     [tr][td]Winter Parks     [/td][td]Snowman Park, Ice Sculpture Park, Sledding Hill, Curling Park, Skating Rink, Ski Lodge, Cross-Country Skiing Park, Firepit Park[/td][/tr]
     [tr][td]Pedestrian Plazas[/td][td]Small Food Truck Plaza, Small Ice Cream Stand Plaza, Small Fountain Plaza, Small Glass Roof Plaza, Statue Plaza, Large Food Truck Plaza, Large Ice Cream Stand Plaza, Flower Plaza, Large Fountain Plaza, Large Glass Roof Plaza[/td][/tr]
+    [tr][td]Hotels           [/td][td]Budget Hotel, Rental Cabin, Town Hostel, Small Hotel, Old Inn, Roadside Motel, City Hotel, Mountain Lodge, Boat Hotel, Conference Hotel, Spa Resort, Ocean Resort, Heritage Hotel, Deluxe Hotel, Design Hotel[/td][/tr]
     [tr][td]Eden Project     [/td][td]Eden Project (monument)[/td][/tr]
     [/table]
 
 [b]Parklife[/b]
     [table]
     [tr][td]City Park     [/td][td]Park Plaza, Park Cafe #1, Park Restrooms #1, Park Info Booth #1, Park Chess Board #1, Park Pier #1, Park Pier #2[/td][/tr]
-    [tr][td]Amusement Park[/td][td]Amusement Park Plaza, Amusement Park Cafe #1, Amusement Park Souvenir Shop #1, Amusement Park Restrooms #1, Game Booth #1, Game Booth #2, Carousel, Piggy Train, Rotating Tea Cups, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Ferris Wheel, Rollercoaster[/td][/tr]
-    [tr][td]Zoo           [/td][td]Zoo Plaza, Zoo Cafe #1, Zoo Souvenir Shop #1, Zoo Restrooms #1, Moose And Reindeer Enclosure, Bird House, Antelope Enclosure, Bison Enclosure, "Insect, Amphibian and Reptile House", Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure[/td][/tr]
-    [tr][td]Nature Reserve[/td][td]Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2, Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1[/td][/tr]
+    [tr][td]Amusement Park[/td][td]Amusement Park Plaza, Amusement Park Cafe #1, Amusement Park Souvenir Shop #1, Amusement Park Restrooms #1, Game Booth #1, Game Booth #2, Carousel, Piggy Train, Rotating Tea Cups, Swinging Boat, House Of Horrors, Bumper Cars, Drop Tower Ride, Pendulum Ride, Log Ride, Ferris Wheel, Rollercoaster[/td][/tr]
+    [tr][td]Zoo           [/td][td]Zoo Plaza, Zoo Cafe #1, Zoo Souvenir Shop #1, Zoo Restrooms #1, Moose And Reindeer Enclosure, Bird House, Antelope Enclosure, Bison Enclosure, "Insect, Amphibian and Reptile House", Tarsier House, Flamingo Enclosure, Elephant Enclosure, Sealife Enclosure, Giraffe Enclosure, Monkey Palace, Rhino Enclosure, Lion Enclosure[/td][/tr]
+    [tr][td]Nature Reserve[/td][td]Campfire Site #1, Campfire Site #2, Tent #1, Tent #2, Tent #3, Viewing Deck #1, Viewing Deck #2, Tent Camping Site #1, Lean-To Shelter #1, Lean-To Shelter #2, Lookout Tower #1, Lookout Tower #2, Camping Site #1, Fishing Cabin #1, Fishing Cabin #2, Hunting Cabin #1, Hunting Cabin #2, Bouldering Site #1, Nature Reserve Museum[/td][/tr]
     [tr][td]Tours         [/td][td]Hot Air Balloon Tours[/td][/tr]
     [/table]
 
@@ -45,6 +47,7 @@ Campus administration buildings are not included because the buildings do not ha
     [tr][td]Mid-Century Modern [/td][td]Car Port 2 Slot, Car Port 4 Slot, Car Port 6 Slot, Car Port 12 Slot, Car Port 24 Slot, Hotel Oasis A, Hotel Oasis B, Motel Palm Springs, Roadside Diner, Mothership[/td][/tr]
     [tr][td]Sports Venues      [/td][td]Small Soccer Field, Community Soccer Park, Community Australian Football Field, Community Australian Football Park, Community Baseball Field, Community Baseball Complex, Suburban American Football Field, Community American Football Park, Suburban Cricket Pitch, Community Cricket Pitch[/td][/tr]
     [tr][td]Africa in Miniature[/td][td]The Botanical Museum[/td][/tr]
+    [tr][td]Railroads of Japan [/td][td]ROJ Paid Parking Small, ROJ Paid Parking Large, ROJ Small Station Front Plaza, ROJ Large Station Front Plaza, ROJ Small Station Market[/td][/tr]
     [/table]
 
 [h1]Visitors Buildings for Unique Buildings[/h1]

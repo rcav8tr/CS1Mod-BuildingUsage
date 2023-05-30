@@ -40,6 +40,7 @@ namespace BuildingUsage
             WorkersPost,
             WorkersAmusementPark,
             WorkersZoo,
+            WorkersHotels,
             WorkersUnique,
 
             // workers industry detail usage types
@@ -127,6 +128,7 @@ namespace BuildingUsage
             WorkersUniqueCCPShoppingMalls,
             WorkersUniqueCCPSportsVenues,
             WorkersUniqueCCPAfricaInMiniature,
+            WorkersUniqueCCPRailroadsOfJapan,
 
 
             // visitors usage types
@@ -162,6 +164,7 @@ namespace BuildingUsage
             VisitorsParksPlazasTourismLeisure,
             VisitorsParksPlazasWinterkParks,
             VisitorsParksPlazasPedestrianPlazas,
+            VisitorsParksPlazasHotels,
             VisitorsParksPlazasEdenProject,
             VisitorsParksPlazasCityPark,
             VisitorsParksPlazasAmusementPark,
@@ -173,6 +176,7 @@ namespace BuildingUsage
             VisitorsParksPlazasCCPMidCenturyModern,
             VisitorsParksPlazasCCPSportsVenues,
             VisitorsParksPlazasCCPAfricaInMiniature,
+            VisitorsParksPlazasCCPRailroadsOfJapan,
 
             // visitors unique building detail usage types
             VisitorsUniqueFinancial,
@@ -199,6 +203,7 @@ namespace BuildingUsage
             VisitorsUniqueCCPShoppingMalls,
             VisitorsUniqueCCPSportsVenues,
             VisitorsUniqueCCPAfricaInMiniature,
+            VisitorsUniqueCCPRailroadsOfJapan,
 
 
             // storage usage types
@@ -320,6 +325,7 @@ namespace BuildingUsage
             }
         }
 
+        #region Thumbnails
         // define the thumbnail images for usage groups
         private static readonly ThumbnailInfo thumbnailInfoResidential          = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningResidentialLow",                     109f, 75f);
         private static readonly ThumbnailInfo thumbnailInfoCommercial           = new ThumbnailInfo(ThumbnailInfo.AtlasType.Thumbnails, "ZoningCommercialLow",                      109f, 75f);
@@ -376,6 +382,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoBeautZoo             = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationZoo",                  32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBeautNatureReserve   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationNatureReserve",        32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoBeautPedestrian      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationPedestrianZonePlazas", 32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoBeautHotels          = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationHotels",               32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoUniqueBuilding       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMonuments",                     41f, 41f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentPudding      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentPudding",                    32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentLandmarks    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentLandmarks",                  32f, 32f);
@@ -404,6 +411,8 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoBuyShoppingMalls     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack16BuyButton",                    52f, 52f);
         private static readonly ThumbnailInfo thumbnailInfoBuySportsVenues      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack17BuyButton",                    52f, 52f);
         private static readonly ThumbnailInfo thumbnailInfoBuyAfricaMiniature   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack18BuyButton",                    52f, 52f);
+        private static readonly ThumbnailInfo thumbnailInfoBuyRailroadsOfJapan  = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ModderPack19BuyButton",                    52f, 52f);
+        #endregion
 
         // deinfe a class to hold info for a usage type
         private class UsageTypeInfo
@@ -445,6 +454,7 @@ namespace BuildingUsage
             { UsageType.WorkersPost,                            new UsageTypeInfo("Post",               thumbnailInfoTransportPost      ) },
             { UsageType.WorkersAmusementPark,                   new UsageTypeInfo("Amusement Park",     thumbnailInfoBeautAmusementPark ) },
             { UsageType.WorkersZoo,                             new UsageTypeInfo("Zoo",                thumbnailInfoBeautZoo           ) },
+            { UsageType.WorkersHotels,                          new UsageTypeInfo("Hotels",             thumbnailInfoBeautHotels        ) },
             { UsageType.WorkersUnique,                          new UsageTypeInfo("Unique Buildings",   thumbnailInfoUniqueBuilding     ) },
 
             // workers industry usage types
@@ -532,6 +542,7 @@ namespace BuildingUsage
             { UsageType.WorkersUniqueCCPShoppingMalls,          new UsageTypeInfo("Shopping Malls",     thumbnailInfoBuyShoppingMalls   ) },
             { UsageType.WorkersUniqueCCPSportsVenues,           new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
             { UsageType.WorkersUniqueCCPAfricaInMiniature,      new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
+            { UsageType.WorkersUniqueCCPRailroadsOfJapan,       new UsageTypeInfo("Railroads of Japan", thumbnailInfoBuyRailroadsOfJapan) },
 
 
             // visitors usage types
@@ -567,6 +578,7 @@ namespace BuildingUsage
             { UsageType.VisitorsParksPlazasTourismLeisure,      new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoBeautExpansion1    ) },
             { UsageType.VisitorsParksPlazasWinterkParks,        new UsageTypeInfo("Winter Parks",       thumbnailInfoBeautExpansion2    ) },
             { UsageType.VisitorsParksPlazasPedestrianPlazas,    new UsageTypeInfo("Pedestrian Plazas",  thumbnailInfoBeautPedestrian    ) },
+            { UsageType.VisitorsParksPlazasHotels,              new UsageTypeInfo("Hotels",             thumbnailInfoBeautHotels        ) },
             { UsageType.VisitorsParksPlazasEdenProject,         new UsageTypeInfo("Eden Project",       thumbnailInfoWonders            ) },
             { UsageType.VisitorsParksPlazasCityPark,            new UsageTypeInfo("City Park",          thumbnailInfoBeautCityPark      ) },
             { UsageType.VisitorsParksPlazasAmusementPark,       new UsageTypeInfo("Amusement Park",     thumbnailInfoBeautAmusementPark ) },
@@ -578,6 +590,7 @@ namespace BuildingUsage
             { UsageType.VisitorsParksPlazasCCPMidCenturyModern, new UsageTypeInfo("Mid-Century Modern", thumbnailInfoBuyMidCenturyModern) },
             { UsageType.VisitorsParksPlazasCCPSportsVenues,     new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
             { UsageType.VisitorsParksPlazasCCPAfricaInMiniature,new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
+            { UsageType.VisitorsParksPlazasCCPRailroadsOfJapan, new UsageTypeInfo("Railroads of Japan", thumbnailInfoBuyRailroadsOfJapan) },
 
             // visitors unique building usage types
             { UsageType.VisitorsUniqueFinancial,                new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
@@ -604,6 +617,7 @@ namespace BuildingUsage
             { UsageType.VisitorsUniqueCCPShoppingMalls,         new UsageTypeInfo("Shopping Malls",     thumbnailInfoBuyShoppingMalls   ) },
             { UsageType.VisitorsUniqueCCPSportsVenues,          new UsageTypeInfo("Sports Venues",      thumbnailInfoBuySportsVenues    ) },
             { UsageType.VisitorsUniqueCCPAfricaInMiniature,     new UsageTypeInfo("Africa in Miniature",thumbnailInfoBuyAfricaMiniature ) },
+            { UsageType.VisitorsUniqueCCPRailroadsOfJapan,      new UsageTypeInfo("Railroads of Japan", thumbnailInfoBuyRailroadsOfJapan) },
 
 
             // storage usage types
@@ -2893,6 +2907,23 @@ namespace BuildingUsage
         }
 
         /// <summary>
+        /// get the usage count of a HotelAI
+        /// logic adapted from HotelWorldInfoPanel.UpdateBindings
+        /// </summary>
+        protected void GetUsageCountVisitorsHotel(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        {
+            // all guests are considered "visiting"
+            used = HotelAI.GetCurrentGuests(ref data);
+
+            // allowed is number of rooms
+            HotelAI buildingAI = data.Info.m_buildingAI as HotelAI;
+            allowed = buildingAI.m_rooms;
+
+            // don't understand why HotelAI allocates 1 CitizenUnit for each room
+            // seems like a waste of CitizenUnits when each CitizenUnit can hold 5 Citizens (i.e. 5 guests)
+        }
+
+        /// <summary>
         /// get the usage count of a ParkBuildingAI or derived building
         /// </summary>
         protected void GetUsageCountVisitorsParkBuilding<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : ParkBuildingAI
@@ -4057,8 +4088,10 @@ namespace BuildingUsage
         //    AirportCargoGateAI            Cargo Aircraft Stand                        PassengerPlane      null                                    AirCargo                AirCargo
         //    CargoHarborAI            W--U Cargo Harbor                                PassengerShip       null                                    ShipCargo               ShipCargo
         //                                  Cargo Hub                                   PassengerTrain      PassengerShip                           ShipCargo               ShipCargo
+        //    WarehouseStationAI       ---- Warehouse with Railway Connection           ----                ----                                    None                    None
         // DepotAI                     W--U Bus Depot                                   Bus                 null                                    Bus                     Bus
         //                                  Biofuel Bus Depot                           Bus                 null                                    Bus                     Bus
+        //                                  ROJ Japanese Bus Depot                      Bus                 null                                    Bus                     Bus
         //                                  Trolleybus Depot                            TrolleyBus          null                                    Trolleybus              TrolleyBus
         //                                  Tram Depot                                  Tram                null                                    Tram                    Tram
         //                                  Ferry Depot                                 Ferry               null                                    ShipPeople              ShipPeople
@@ -4088,6 +4121,12 @@ namespace BuildingUsage
         //                                  Elevated Dual Island Platform Metro Station MetroTrain          null                                    Metro                   Metro
         //                                  Elevated Bypass Metro Station               MetroTrain          null                                    Metro                   Metro
         //                                  Stadium Station                             MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Metro Ground Station                    MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Metro Entrance                          MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Metro Elevated Station                  MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Modern Metro Terminal                   MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Small Metro Terminal                    MetroTrain          null                                    Metro                   Metro
+        //                                  ROJ Classic Metro Terminal                  MetroTrain          null                                    Metro                   Metro
         //                                  Train Station                               PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Train Station                      PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Crossover Train Station Hub                 PassengerTrain      null                No                  TrainPeople             TrainPeople
@@ -4099,6 +4138,10 @@ namespace BuildingUsage
         //                                  Elevated Dual Island Platform Train Station PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Elevated Bypass Train Station               PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Historical Train Station                    PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  ROJ Small Elevated Station                  PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  ROJ Small Ground Station                    PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  ROJ Large Ground Station                    PassengerTrain      null                No                  TrainPeople             TrainPeople
+        //                                  ROJ Large Elevated Station                  PassengerTrain      null                No                  TrainPeople             TrainPeople
         //                                  Glass Box Transport Hub                     PassengerTrain      null                Yes                 Hubs                    Hubs
         //                                  Airport                                     PassengerPlane      null                                    AirPeople               AirPeople
         //                                  Monorail Station                            Monorail            null                                    Monorail                Monorail
@@ -4484,6 +4527,11 @@ namespace BuildingUsage
             //                                      Suburban Cricket Pitch                  MonumentModderPack          Pack17          CCPSportsVenues
             //                                      Community Cricket Pitch                 MonumentModderPack          Pack17          CCPSportsVenues
             //                                      The Botanical Museum                    MonumentModderPack          Pack18          CCPAfricaInMiniature
+            //                                      ROJ Paid Parking Small                  MonumentModderPack          Pack19          CCPRailroadsOfJapan
+            //                                      ROJ Paid Parking Large                  MonumentModderPack          Pack19          CCPRailroadsOfJapan
+            //                                      ROJ Small Station Front Plaza           MonumentModderPack          Pack19          CCPRailroadsOfJapan
+            //                                      ROJ Large Station Front Plaza           MonumentModderPack          Pack19          CCPRailroadsOfJapan
+            //                                      ROJ Small Station Market                MonumentModderPack          Pack19          CCPRailroadsOfJapan
 
             // initialize
             contentCreatorPack = false;
@@ -4505,6 +4553,7 @@ namespace BuildingUsage
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack11) != 0) { return UsageType.VisitorsParksPlazasCCPMidCenturyModern;  }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.VisitorsParksPlazasCCPSportsVenues;      }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.VisitorsParksPlazasCCPAfricaInMiniature; }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack19) != 0) { return UsageType.VisitorsParksPlazasCCPRailroadsOfJapan;  }
                         LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                 case "Default":                     return UsageType.None;      // the Train Stations CCP has one subbuilding with this category, so ignore this category
@@ -4578,6 +4627,7 @@ namespace BuildingUsage
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack16) != 0) { return UsageType.WorkersUniqueCCPShoppingMalls;     }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.WorkersUniqueCCPSportsVenues;      }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.WorkersUniqueCCPAfricaInMiniature; }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack19) != 0) { return UsageType.WorkersUniqueCCPRailroadsOfJapan;  }
                         LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                     default:
@@ -4668,6 +4718,7 @@ namespace BuildingUsage
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack16) != 0) { return UsageType.VisitorsUniqueCCPShoppingMalls;     }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack17) != 0) { return UsageType.VisitorsUniqueCCPSportsVenues;      }
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack18) != 0) { return UsageType.VisitorsUniqueCCPAfricaInMiniature; }
+                        if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack19) != 0) { return UsageType.VisitorsUniqueCCPRailroadsOfJapan;  }
                         LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
                     default:
@@ -4856,7 +4907,6 @@ namespace BuildingUsage
                         // check box must be checked
                         if (IsCheckBoxChecked(usageGroup.checkBox))
                         {
-                            // return color based on the usage percent
                             return Color.Lerp(usageGroup.color0, usageGroup.color1, ComputeUsageRatio(used, allowed));
                         }
                     }

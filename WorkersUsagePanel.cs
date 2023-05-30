@@ -78,6 +78,7 @@ namespace BuildingUsage
                 CreateUsageGroup<PostOfficeAI                                                                               >(UsageType.WorkersPost);
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersAmusementPark);
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersZoo);
+                CreateUsageGroup<HotelAI                                                                                    >(UsageType.WorkersHotels);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
                                  FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI, HadronColliderAI            >(UsageType.WorkersUnique);
 
@@ -166,6 +167,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<PostOfficeAI                            >(UsageType.WorkersPost,            GetUsageCountWorkersService<PostOfficeAI                    >);
                 AssociateBuildingAI<ParkGateAI                              >(UsageType.UseLogic1,              GetUsageCountWorkersPark                                     );
                 AssociateBuildingAI<ParkBuildingAI                          >(UsageType.UseLogic1,              GetUsageCountWorkersPark                                     );
+                AssociateBuildingAI<HotelAI                                 >(UsageType.WorkersHotels,          GetUsageCountWorkersService<HotelAI                         >);
                 AssociateBuildingAI<MonumentAI                              >(UsageType.WorkersUnique,          GetUsageCountWorkersService<MonumentAI                      >);
                 AssociateBuildingAI<AirlineHeadquartersAI                   >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AirlineHeadquartersAI           >);
                 AssociateBuildingAI<AnimalMonumentAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AnimalMonumentAI                >);

@@ -76,7 +76,8 @@ namespace BuildingUsage
                 // associate all vehicle AIs even if corresponding DLC is not installed (there will simply be no vehicles with that AI)
                 AssociateVehicleAI<CargoTruckAI >(UsageType.UseLogic1                       );
                 AssociateVehicleAI<FishingBoatAI>(UsageType.VehiclesIndustryFishingExtractor);
-            }
+                AssociateVehicleAI<CargoTrainAI >(UsageType.UseLogic1                       );
+    }
             catch (Exception ex)
             {
                 LogUtil.LogException(ex);
@@ -154,22 +155,22 @@ namespace BuildingUsage
         /// </summary>
         protected override UsageType GetUsageTypeForVehicle(ushort vehicleID, ref Vehicle data)
         {
+            // get first vehicle
+            ushort firstVehicle = data.GetFirstVehicle(vehicleID);
+            if (firstVehicle == 0)
+            {
+                firstVehicle = vehicleID;
+            }
+
+            // get source building type
+            Vehicle firstVehicleData = VehicleManager.instance.m_vehicles.m_buffer[firstVehicle];
+            ushort buildingID = firstVehicleData.m_sourceBuilding;
+            Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
+
             // logic depends on vehicle AI type
             Type vehicleAIType = data.Info.m_vehicleAI.GetType();
             if (vehicleAIType == typeof(CargoTruckAI))
             {
-                // get first vehicle
-                ushort firstVehicle = data.GetFirstVehicle(vehicleID);
-                if (firstVehicle == 0)
-                {
-                    firstVehicle = vehicleID;
-                }
-
-                // get source building type
-                Vehicle firstVehicleData = VehicleManager.instance.m_vehicles.m_buffer[firstVehicle];
-                ushort buildingID = firstVehicleData.m_sourceBuilding;
-                Building buildingData = BuildingManager.instance.m_buildings.m_buffer[buildingID];
-
                 // usage type determined by looking at building AI type and subservice of the source building
                 Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
                 ItemClass.SubService subService = buildingData.Info.m_class.m_subService;
@@ -211,6 +212,10 @@ namespace BuildingUsage
                         }
                     }
                 }
+                else if (buildingAIType == typeof(UniqueFactoryAI))
+                {
+                    return UsageType.VehiclesIndustryUniqueFactory;
+                }
                 else if (buildingAIType == typeof(WarehouseAI))
                 {
                     // convert building subservice to usage type
@@ -222,6 +227,19 @@ namespace BuildingUsage
                         case ItemClass.SubService.PlayerIndustryOil:        return UsageType.VehiclesIndustryOilStorage;
                         case ItemClass.SubService.None:                     return UsageType.VehiclesIndustryWarehouseGeneric;
                     }
+                }
+                else
+                {
+                    return UsageType.None;
+                }
+            }
+            else if (vehicleAIType == typeof(CargoTrainAI))
+            {
+                // usage type determined by looking at building AI type of the source building
+                Type buildingAIType = buildingData.Info.m_buildingAI.GetType();
+                if (buildingAIType == typeof(WarehouseStationAI))
+                {
+                    return UsageType.VehiclesIndustryWarehouseGeneric;
                 }
                 else
                 {
