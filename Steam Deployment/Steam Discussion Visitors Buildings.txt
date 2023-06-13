@@ -51,4 +51,5 @@ For Hotels, used is the number of guests and allowed is the number of rooms.
     [/table]
 
 [h1]Visitors Buildings for Unique Buildings[/h1]
-Same as Workers Buildings for Unique Buildings.
+Same as Workers Buildings for Unique Buildings except:
+Plaza of the Future (which can have no workers) is included in Treasure Hunt visitors.

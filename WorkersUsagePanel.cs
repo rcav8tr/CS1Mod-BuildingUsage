@@ -80,7 +80,8 @@ namespace BuildingUsage
                 CreateUsageGroup<ParkGateAI, ParkBuildingAI                                                                 >(UsageType.WorkersZoo);
                 CreateUsageGroup<HotelAI                                                                                    >(UsageType.WorkersHotels);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
-                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI, HadronColliderAI            >(UsageType.WorkersUnique);
+                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI, HadronColliderAI,
+                                 LibraryAI, SpaceElevatorAI                                                                 >(UsageType.WorkersUnique);
 
                 // add detail panels
                 AddDetailPanel<WorkersIndustryUsagePanel      >(UsageType.WorkersIndustry      );
@@ -146,7 +147,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<PoliceStationAI                         >(UsageType.WorkersPoliceStation,   GetUsageCountWorkersService<PoliceStationAI                 >);
                 AssociateBuildingAI<BankOfficeAI                            >(UsageType.WorkersBank,            GetUsageCountWorkersService<BankOfficeAI                    >);
                 AssociateBuildingAI<SchoolAI                                >(UsageType.WorkersEducation,       GetUsageCountWorkersService<SchoolAI                        >);
-                AssociateBuildingAI<LibraryAI                               >(UsageType.WorkersEducation,       GetUsageCountWorkersService<LibraryAI                       >);
+                AssociateBuildingAI<LibraryAI                               >(UsageType.UseLogic1,              GetUsageCountWorkersService<LibraryAI                       >);
                 AssociateBuildingAI<HadronColliderAI                        >(UsageType.UseLogic1,              GetUsageCountWorkersService<HadronColliderAI                >);
                 AssociateBuildingAI<MainCampusBuildingAI                    >(UsageType.WorkersEducation,       GetUsageCountWorkersService<MainCampusBuildingAI            >);
                 AssociateBuildingAI<CampusBuildingAI                        >(UsageType.WorkersEducation,       GetUsageCountWorkersService<CampusBuildingAI                >);
@@ -173,6 +174,7 @@ namespace BuildingUsage
                 AssociateBuildingAI<AnimalMonumentAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<AnimalMonumentAI                >);
                 AssociateBuildingAI<PrivateAirportAI                        >(UsageType.WorkersUnique,          GetUsageCountWorkersService<PrivateAirportAI                >);
                 AssociateBuildingAI<ChirpwickCastleAI                       >(UsageType.WorkersUnique,          GetUsageCountWorkersService<ChirpwickCastleAI               >);
+                AssociateBuildingAI<CountdownAI                             >(UsageType.WorkersUnique,          GetUsageCountWorkersService<CountdownAI                     >);
                 AssociateBuildingAI<FestivalAreaAI                          >(UsageType.WorkersUnique,          GetUsageCountWorkersService<FestivalAreaAI                  >);
                 AssociateBuildingAI<StockExchangeAI                         >(UsageType.WorkersUnique,          GetUsageCountWorkersService<StockExchangeAI                 >);
                 AssociateBuildingAI<InternationalTradeBuildingAI            >(UsageType.WorkersUnique,          GetUsageCountWorkersService<InternationalTradeBuildingAI    >);
@@ -473,6 +475,18 @@ namespace BuildingUsage
                     return UsageType.WorkersPoliceStation;
                 }
             }
+            else if (buildingAIType == typeof(LibraryAI))
+            {
+                // The Creator's Library from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.WorkersUnique;
+                }
+                else
+                {
+                    return UsageType.WorkersEducation;
+                }
+            }
             else if (buildingAIType == typeof(HadronColliderAI))
             {
                 // there are two monuments in Africa in Miniature CCP that have HadronColliderAI, so need to check service
@@ -513,10 +527,25 @@ namespace BuildingUsage
                      buildingAIType == typeof(DepotAI             ) ||
                      buildingAIType == typeof(CableCarStationAI   ) ||
                      buildingAIType == typeof(TransportStationAI  ) ||
-                     buildingAIType == typeof(HarborAI            ) ||
-                     buildingAIType == typeof(SpaceElevatorAI     ))
+                     buildingAIType == typeof(HarborAI            ))
             {
                 if (GetWorkersTransportationUsageType(data.Info) == UsageType.None)
+                {
+                    return UsageType.None;
+                }
+                else
+                {
+                    return UsageType.WorkersTransportation;
+                }
+            }
+            else if (buildingAIType == typeof(SpaceElevatorAI))
+            {
+                // Plaza of Transference from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.WorkersUnique;
+                }
+                else if (GetWorkersTransportationUsageType(data.Info) == UsageType.None)
                 {
                     return UsageType.None;
                 }

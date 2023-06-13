@@ -177,6 +177,7 @@ Eligible Workers is normally Young Adults plus Adults.  But when the Hadron Coll
 [b]Basic Unique[/b]
     [table]
     [tr][td]Financial        [/td][td]Stock Exchange, Bronze Cow, Bronze Panda, Elevated Plaza, Underground Garden Plaza, International Trade Building[/td][/tr]
+    [tr][td]Treasure Hunt    [/td][td]The Creator's Library, Plaza of Transference (normally has no workers), Countdown Clock (normally has no workers)[/td][/tr]
     [tr][td]Landmarks        [/td][td]Hypermarket, Government Offices, The Gherkin, London Eye, Sports Arena, Theatre, Shopping Center, Cathedral, Amsterdam Palace, Winter Market, Department Store, City Hall, Cinema, ChirpX Launch Site, Panda Sanctuary, Oriental Pearl Tower, Temple Complex, Traffic Park, Boat Museum, Locomotive Halls, Statue of Liberty, Eiffel Tower, Grand Central Terminal, Arc de Triomphe, Brandenburg Gate[/td][/tr]
     [tr][td]Tourism & Leisure[/td][td]Icefishing Pond, Casino, Frozen Fountain, Driving Range, Fantastic Fountain, Luxury Hotel, Zoo[/td][/tr]
     [tr][td]Winter Unique    [/td][td]Ice Hockey Arena, Ski Resort, Snowcastle Restaurant, Spa Hotel, Sleigh Ride, Snowboard Arena, Santa Claus' Workshop, The Christmas Tree, Igloo Hotel[/td][/tr]

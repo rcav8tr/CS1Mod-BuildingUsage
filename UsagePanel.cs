@@ -105,6 +105,7 @@ namespace BuildingUsage
 
             // workers unique building detail usage types
             WorkersUniqueFinancial,
+            WorkersUniqueTreasureHunt,
             WorkersUniqueLandmark,
             WorkersUniqueTourismLeisure,
             WorkersUniqueWinterUnique,
@@ -180,6 +181,7 @@ namespace BuildingUsage
 
             // visitors unique building detail usage types
             VisitorsUniqueFinancial,
+            VisitorsUniqueTreasureHunt,
             VisitorsUniqueLandmark,
             VisitorsUniqueTourismLeisure,
             VisitorsUniqueWinterUnique,
@@ -385,6 +387,7 @@ namespace BuildingUsage
         private static readonly ThumbnailInfo thumbnailInfoBeautHotels          = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarBeautificationHotels",               32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoUniqueBuilding       = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "ToolbarIconMonuments",                     41f, 41f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentPudding      = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentPudding",                    32f, 22f);
+        private static readonly ThumbnailInfo thumbnailInfoMonumentTreasure     = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentTreasureHunt",               32f, 22f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentLandmarks    = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentLandmarks",                  32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion1   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion1",                 32f, 32f);
         private static readonly ThumbnailInfo thumbnailInfoMonumentExpansion2   = new ThumbnailInfo(ThumbnailInfo.AtlasType.InGame,     "SubBarMonumentExpansion2",                 32f, 32f);
@@ -519,6 +522,7 @@ namespace BuildingUsage
 
             // workers unique building usage types
             { UsageType.WorkersUniqueFinancial,                 new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
+            { UsageType.WorkersUniqueTreasureHunt,              new UsageTypeInfo("Treasure Hunt",      thumbnailInfoMonumentTreasure   ) },
             { UsageType.WorkersUniqueLandmark,                  new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.WorkersUniqueTourismLeisure,            new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.WorkersUniqueWinterUnique,              new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
@@ -594,6 +598,7 @@ namespace BuildingUsage
 
             // visitors unique building usage types
             { UsageType.VisitorsUniqueFinancial,                new UsageTypeInfo("Financial",          thumbnailInfoMonumentPudding    ) },
+            { UsageType.VisitorsUniqueTreasureHunt,             new UsageTypeInfo("Treasure Hunt",      thumbnailInfoMonumentTreasure   ) },
             { UsageType.VisitorsUniqueLandmark,                 new UsageTypeInfo("Landmarks",          thumbnailInfoMonumentLandmarks  ) },
             { UsageType.VisitorsUniqueTourismLeisure,           new UsageTypeInfo("Tourism & Leisure",  thumbnailInfoMonumentExpansion1 ) },
             { UsageType.VisitorsUniqueWinterUnique,             new UsageTypeInfo("Winter Unique",      thumbnailInfoMonumentExpansion2 ) },
@@ -1749,6 +1754,10 @@ namespace BuildingUsage
             where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI
         { if (IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()) { CreateUsageGroup(usageType); } }
 
+        protected void CreateUsageGroup<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(UsageType usageType)
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI where T12 : CommonBuildingAI
+        { if (IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>()) { CreateUsageGroup(usageType); } }
+
         /// <summary>
         /// return whether or not the specified building AI type is defined in the building prefabs
         /// </summary>
@@ -1827,6 +1836,10 @@ namespace BuildingUsage
         protected bool IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>()
             where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI
         { return IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>() || IsBuildingAITypeDefined<T11>(); }
+
+        protected bool IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>()
+            where T1 : CommonBuildingAI where T2 : CommonBuildingAI where T3 : CommonBuildingAI where T4 : CommonBuildingAI where T5 : CommonBuildingAI where T6 : CommonBuildingAI where T7 : CommonBuildingAI where T8 : CommonBuildingAI where T9 : CommonBuildingAI where T10 : CommonBuildingAI where T11 : CommonBuildingAI where T12 : CommonBuildingAI
+        { return IsBuildingAITypeDefined<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>() || IsBuildingAITypeDefined<T12>(); }
 
         /// <summary>
         /// create a heading line above a set of usage groups
@@ -2820,6 +2833,36 @@ namespace BuildingUsage
             int budget = EconomyManager.instance.GetBudget(buildingAI.m_info.m_class);
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
             allowed = Mathf.Min((productionRate * buildingAI.VisitorCount + 99) / 100, buildingAI.VisitorCount * 5 / 4);
+        }
+
+        /// <summary>
+        /// get the usage count of a SpaceElevatorAI building being used as the Plaza of Transference
+        /// </summary>
+        protected void GetUsageCountVisitorsPlazaTransference(ushort buildingID, ref Building data, ref int used, ref int allowed)
+        {
+            // make sure this is the Plaza of Transference
+            if (data.Info.m_buildingAI.GetType() == typeof(SpaceElevatorAI) && data.Info.m_isTreasure)
+            {
+                // do each subbuilding
+                Building[] buildings = BuildingManager.instance.m_buildings.m_buffer;
+                ushort subBuildingID = data.m_subBuilding;
+                while (subBuildingID != 0)
+                {
+                    // identify the subbuilding that is ParkAI
+                    Building subBuilding = buildings[subBuildingID];
+                    if (subBuilding.Info.m_buildingAI.GetType() == typeof(ParkAI))
+                    {
+                        // get used and allowed using normal ParkAI logic for the subbuilding
+                        GetUsageCountVisitorsPark<ParkAI>(subBuildingID, ref subBuilding, ref used, ref allowed);
+
+                        // done checking subbuildings
+                        break;
+                    }
+
+                    // get next subbuilding in the chain
+                    subBuildingID = subBuilding.m_subBuilding;
+                }
+            }
         }
 
         /// <summary>
@@ -4179,6 +4222,7 @@ namespace BuildingUsage
         //                                  Harbor-Bus Hub                              PassengerShip       Bus                                     Hubs                    Hubs        category PublicTransportHubs
         //                                  Harbor-Bus-Monorail Hub                     PassengerShip       Bus                                     Hubs                    Hubs        category PublicTransportHubs
         // SpaceElevatorAI             W--- Space Elevator (monument)                   ----                ----                                    SpaceElevator           None
+        //                                  Plaza of Transference (has no workers)      ----                ----                                    None                    None
         // TourBuildingAI              -V-U Hot Air Balloon Tours                       None                ----                                    None                    Tours
         //    ChiperTourAI             -V-U Chirper Balloon Tours                       None                ----                                    None                    Tours
 
@@ -4263,7 +4307,15 @@ namespace BuildingUsage
             }
             else if (buildingAIType == typeof(SpaceElevatorAI))
             {
-                return UsageType.WorkersTransportationSpaceElevator;
+                // Plaza of Transference from Treasure Hunt is Unique
+                if (buildingInfo.m_isTreasure)
+                {
+                    return UsageType.None;
+                }
+                else
+                {
+                    return UsageType.WorkersTransportationSpaceElevator;
+                }
             }
 
             // usage type not found above, not an error
@@ -4532,6 +4584,9 @@ namespace BuildingUsage
             //                                      ROJ Small Station Front Plaza           MonumentModderPack          Pack19          CCPRailroadsOfJapan
             //                                      ROJ Large Station Front Plaza           MonumentModderPack          Pack19          CCPRailroadsOfJapan
             //                                      ROJ Small Station Market                MonumentModderPack          Pack19          CCPRailroadsOfJapan
+            //                                  Not a Park:
+            //                                      Plaza of Transference (subbuilding)     MonumentLandmarks                           None
+            //                                      Plaza of the Future                     MonumentTreasureHunt                        None
 
             // initialize
             contentCreatorPack = false;
@@ -4556,6 +4611,8 @@ namespace BuildingUsage
                         if ((requiredModderPack & SteamHelper.ModderPackBitMask.Pack19) != 0) { return UsageType.VisitorsParksPlazasCCPRailroadsOfJapan;  }
                         LogUtil.LogError($"Unhandled required modder pack [0x{requiredModderPack:X}] when determining usage type for building [{buildingInfo.name}].");
                         return UsageType.None;
+                case "MonumentLandmarks":           return UsageType.None;      // the Plaza of Transference has a subbuilding with this category, but the main building is considered Unique, not Park, so ignore this category
+                case "MonumentTreasureHunt":        return UsageType.None;      // the Plaza of the Future is considered Unique, not Park, so ignore this category
                 case "Default":                     return UsageType.None;      // the Train Stations CCP has one subbuilding with this category, so ignore this category
                 default:
                     LogUtil.LogError($"Unhandled building category [{buildingInfo.category}] when determining usage type for building [{buildingInfo.name}].");
@@ -4659,6 +4716,20 @@ namespace BuildingUsage
             {
                 return UsageType.WorkersUniqueFinancial;
             }
+            else if (buildingAIType == typeof(LibraryAI) && buildingInfo.m_isTreasure)
+            {
+                // The Creator's Library from Treasure Hunt is Unique
+                return UsageType.WorkersUniqueTreasureHunt;
+            }
+            else if (buildingAIType == typeof(SpaceElevatorAI) && buildingInfo.m_isTreasure)
+            {
+                // Plaza of Transference from Treasure Hunt is Unique
+                return UsageType.WorkersUniqueTreasureHunt;
+            }
+            else if (buildingAIType == typeof(CountdownAI))
+            {
+                return UsageType.WorkersUniqueTreasureHunt;
+            }
             else if (buildingAIType == typeof(HadronColliderAI))
             {
                 // there are two monuments in Africa in Miniature CCP that have HadronColliderAI
@@ -4749,6 +4820,24 @@ namespace BuildingUsage
             else if (buildingAIType == typeof(StockExchangeAI) || buildingAIType == typeof(InternationalTradeBuildingAI))
             {
                 return UsageType.VisitorsUniqueFinancial;
+            }
+            else if (buildingAIType == typeof(LibraryAI) && buildingInfo.m_isTreasure)
+            {
+                // The Creator's Library from Treasure Hunt is Unique
+                return UsageType.VisitorsUniqueTreasureHunt;
+            }
+            else if (buildingAIType == typeof(SpaceElevatorAI) && buildingInfo.m_isTreasure)
+            {
+                // Plaza of Transference from Treasure Hunt is Unique
+                return UsageType.VisitorsUniqueTreasureHunt;
+            }
+            else if (buildingAIType == typeof(CountdownAI))
+            {
+                return UsageType.VisitorsUniqueTreasureHunt;
+            }
+            else if (buildingAIType == typeof(ParkAI) && buildingInfo.m_isTreasure)
+            {
+                return UsageType.VisitorsUniqueTreasureHunt;
             }
 
             // usage type not found, not an error

@@ -49,6 +49,7 @@ namespace BuildingUsage
                 // at least one of Basic and Level are in the base game, so there is no logic on those headings
                 CreateGroupHeading("Basic Unique");
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueFinancial,            usageTypes);
+                CreateUsageGroupIfDefined(UsageType.WorkersUniqueTreasureHunt,         usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueLandmark,             usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueTourismLeisure,       usageTypes);
                 CreateUsageGroupIfDefined(UsageType.WorkersUniqueWinterUnique,         usageTypes);
@@ -89,6 +90,9 @@ namespace BuildingUsage
                 AssociateBuildingAI<StockExchangeAI                 >(UsageType.UseLogic1, GetUsageCountWorkersService<StockExchangeAI              >);
                 AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.UseLogic1, GetUsageCountWorkersService<InternationalTradeBuildingAI >);
                 AssociateBuildingAI<HadronColliderAI                >(UsageType.UseLogic1, GetUsageCountWorkersService<HadronColliderAI             >);
+                AssociateBuildingAI<LibraryAI                       >(UsageType.UseLogic1, GetUsageCountWorkersService<LibraryAI                    >);
+                AssociateBuildingAI<SpaceElevatorAI                 >(UsageType.UseLogic1, GetUsageCountWorkersService<SpaceElevatorAI              >);
+                AssociateBuildingAI<CountdownAI                     >(UsageType.UseLogic1, GetUsageCountWorkersService<CountdownAI                  >);
             }
             catch (Exception ex)
             {
@@ -111,7 +115,10 @@ namespace BuildingUsage
                 buildingAIType == typeof(FestivalAreaAI              ) ||
                 buildingAIType == typeof(StockExchangeAI             ) ||
                 buildingAIType == typeof(InternationalTradeBuildingAI) ||
-                buildingAIType == typeof(HadronColliderAI            ))
+                buildingAIType == typeof(HadronColliderAI            ) ||
+                buildingAIType == typeof(LibraryAI                   ) ||
+                buildingAIType == typeof(SpaceElevatorAI             ) ||
+                buildingAIType == typeof(CountdownAI                 ))
             {
                 return GetWorkersUniqueUsageType(data.Info, out bool _);
             }

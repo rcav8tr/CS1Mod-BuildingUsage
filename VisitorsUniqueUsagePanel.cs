@@ -49,6 +49,7 @@ namespace BuildingUsage
                 // at least one of Basic and Level are in the base game, so there is no logic on those headings
                 CreateGroupHeading("Basic Unique");
                 CreateUsageGroupIfDefined(UsageType.VisitorsUniqueFinancial,            usageTypes);
+                CreateUsageGroupIfDefined(UsageType.VisitorsUniqueTreasureHunt,         usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsUniqueLandmark,             usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsUniqueTourismLeisure,       usageTypes);
                 CreateUsageGroupIfDefined(UsageType.VisitorsUniqueWinterUnique,         usageTypes);
@@ -88,6 +89,10 @@ namespace BuildingUsage
                 AssociateBuildingAI<FestivalAreaAI                  >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<FestivalAreaAI                 >);
                 AssociateBuildingAI<StockExchangeAI                 >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<StockExchangeAI                >);
                 AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<InternationalTradeBuildingAI   >);
+                AssociateBuildingAI<LibraryAI                       >(UsageType.UseLogic1, GetUsageCountVisitorsLibrary                                  );
+                AssociateBuildingAI<SpaceElevatorAI                 >(UsageType.UseLogic1, GetUsageCountVisitorsPlazaTransference                        );
+                AssociateBuildingAI<CountdownAI                     >(UsageType.UseLogic1, GetUsageCountVisitorsMonument<CountdownAI                    >);
+                AssociateBuildingAI<ParkAI                          >(UsageType.UseLogic1, GetUsageCountVisitorsPark<ParkAI                             >);
             }
             catch (Exception ex)
             {
@@ -109,7 +114,11 @@ namespace BuildingUsage
                 buildingAIType == typeof(ChirpwickCastleAI           ) ||
                 buildingAIType == typeof(FestivalAreaAI              ) ||
                 buildingAIType == typeof(StockExchangeAI             ) ||
-                buildingAIType == typeof(InternationalTradeBuildingAI))
+                buildingAIType == typeof(InternationalTradeBuildingAI) ||
+                buildingAIType == typeof(LibraryAI                   ) ||
+                buildingAIType == typeof(SpaceElevatorAI             ) ||
+                buildingAIType == typeof(CountdownAI                 ) ||
+                buildingAIType == typeof(ParkAI                      ))
             {
                 return GetVisitorsUniqueUsageType(data.Info, out bool _);
             }

@@ -38,7 +38,8 @@ namespace BuildingUsage
                 CreateUsageGroup<ParkAI, EdenProjectAI, ParkBuildingAI, IceCreamStandAI, TourBuildingAI, ChirperTourAI,
                                  HotelAI                                                                                    >(UsageType.VisitorsParksPlazas);
                 CreateUsageGroup<MonumentAI, AirlineHeadquartersAI, AnimalMonumentAI, PrivateAirportAI, ChirpwickCastleAI,
-                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI                              >(UsageType.VisitorsUnique);
+                                 FestivalAreaAI, StockExchangeAI, InternationalTradeBuildingAI, LibraryAI, SpaceElevatorAI,
+                                 CountdownAI, ParkAI                                                                        >(UsageType.VisitorsUnique);
 
                 // add detail panels
                 AddDetailPanel<VisitorsEducationUsagePanel  >(UsageType.VisitorsEducation  );
@@ -57,14 +58,14 @@ namespace BuildingUsage
                 AssociateBuildingAI<ShelterAI                       >(UsageType.VisitorsShelter,            GetUsageCountVisitorsShelter                                );
                 AssociateBuildingAI<PoliceStationAI                 >(UsageType.VisitorsCriminals,          GetUsageCountVisitorsPoliceStation                          );
                 AssociateBuildingAI<SchoolAI                        >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<SchoolAI>                       );
-                AssociateBuildingAI<LibraryAI                       >(UsageType.VisitorsEducation,          GetUsageCountVisitorsLibrary                                );
+                AssociateBuildingAI<LibraryAI                       >(UsageType.UseLogic1,                  GetUsageCountVisitorsLibrary                                );
                 AssociateBuildingAI<CampusBuildingAI                >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<CampusBuildingAI>               );
                 AssociateBuildingAI<UniqueFacultyAI                 >(UsageType.VisitorsEducation,          GetUsageCountVisitorsSchool<UniqueFacultyAI>                );
                 AssociateBuildingAI<MuseumAI                        >(UsageType.VisitorsEducation,          GetUsageCountVisitorsMonument<MuseumAI>                     );
                 AssociateBuildingAI<VarsitySportsArenaAI            >(UsageType.VisitorsEducation,          GetUsageCountVisitorsVarsitySportsArena                     );
                 AssociateBuildingAI<AirportAuxBuildingAI            >(UsageType.VisitorsAirportArea,        GetUsageCountVisitorsAirportArea<AirportAuxBuildingAI>      );
                 AssociateBuildingAI<AirportEntranceAI               >(UsageType.VisitorsAirportArea,        GetUsageCountVisitorsAirportArea<AirportEntranceAI>         );
-                AssociateBuildingAI<ParkAI                          >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsPark<ParkAI>                           );
+                AssociateBuildingAI<ParkAI                          >(UsageType.UseLogic1,                  GetUsageCountVisitorsPark<ParkAI>                           );
                 AssociateBuildingAI<EdenProjectAI                   >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsPark<EdenProjectAI>                    );
                 AssociateBuildingAI<ParkBuildingAI                  >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<ParkBuildingAI>           );
                 AssociateBuildingAI<IceCreamStandAI                 >(UsageType.VisitorsParksPlazas,        GetUsageCountVisitorsParkBuilding<IceCreamStandAI>          );
@@ -76,9 +77,11 @@ namespace BuildingUsage
                 AssociateBuildingAI<AnimalMonumentAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<AnimalMonumentAI>             );
                 AssociateBuildingAI<PrivateAirportAI                >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<PrivateAirportAI>             );
                 AssociateBuildingAI<ChirpwickCastleAI               >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<ChirpwickCastleAI>            );
+                AssociateBuildingAI<CountdownAI                     >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<CountdownAI>                  );
                 AssociateBuildingAI<FestivalAreaAI                  >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<FestivalAreaAI>               );
                 AssociateBuildingAI<StockExchangeAI                 >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<StockExchangeAI>              );
                 AssociateBuildingAI<InternationalTradeBuildingAI    >(UsageType.VisitorsUnique,             GetUsageCountVisitorsMonument<InternationalTradeBuildingAI> );
+                AssociateBuildingAI<SpaceElevatorAI                 >(UsageType.UseLogic1,                  GetUsageCountVisitorsPlazaTransference                      );
             }
             catch (Exception ex)
             {
@@ -91,8 +94,46 @@ namespace BuildingUsage
         /// </summary>
         protected override UsageType GetUsageType1ForBuilding(ushort buildingID, ref Building data)
         {
-            // usage type not determined with above logic
+            // logic depends on building AI type
             Type buildingAIType = data.Info.m_buildingAI.GetType();
+            if (buildingAIType == typeof(LibraryAI))
+            {
+                // The Creator's Library from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.VisitorsUnique;
+                }
+                else
+                {
+                    return UsageType.VisitorsEducation;
+                }
+            }
+            if (buildingAIType == typeof(ParkAI))
+            {
+                // Plaza of the Future from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.VisitorsUnique;
+                }
+                else
+                {
+                    return UsageType.VisitorsParksPlazas;
+                }
+            }
+            if (buildingAIType == typeof(SpaceElevatorAI))
+            {
+                // Plaza of Transference from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.VisitorsUnique;
+                }
+                else
+                {
+                    return UsageType.None;
+                }
+            }
+
+            // usage type not determined with above logic
             LogUtil.LogError($"Unhandled building AI type [{buildingAIType}] when getting usage type with logic.");
             return UsageType.None;
         }

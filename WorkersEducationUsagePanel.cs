@@ -54,7 +54,7 @@ namespace BuildingUsage
                 // associate each building AI type with its usage type(s) and usage count routine(s)
                 // associate building AIs even if corresponding DLC is not installed (there will simply be no buildings with that AI)
                 AssociateBuildingAI<SchoolAI            >(UsageType.UseLogic1,                      GetUsageCountWorkersService<SchoolAI            >);
-                AssociateBuildingAI<LibraryAI           >(UsageType.WorkersEducationLibrary,        GetUsageCountWorkersService<LibraryAI           >);
+                AssociateBuildingAI<LibraryAI           >(UsageType.UseLogic1,                      GetUsageCountWorkersService<LibraryAI           >);
                 AssociateBuildingAI<HadronColliderAI    >(UsageType.UseLogic1,                      GetUsageCountWorkersService<HadronColliderAI    >);
                 AssociateBuildingAI<MainCampusBuildingAI>(UsageType.UseLogic1,                      GetUsageCountWorkersService<MainCampusBuildingAI>);
                 AssociateBuildingAI<CampusBuildingAI    >(UsageType.UseLogic1,                      GetUsageCountWorkersService<CampusBuildingAI    >);
@@ -90,6 +90,18 @@ namespace BuildingUsage
                 if (level == ItemClass.Level.Level3)
                 {
                     return UsageType.WorkersEducationUniversity;
+                }
+            }
+            if (buildingAIType == typeof(LibraryAI))
+            {
+                // The Creator's Library from Treasure Hunt is Unique
+                if (data.Info.m_isTreasure)
+                {
+                    return UsageType.None;
+                }
+                else
+                {
+                    return UsageType.WorkersEducationLibrary;
                 }
             }
             else if (buildingAIType == typeof(HadronColliderAI))
