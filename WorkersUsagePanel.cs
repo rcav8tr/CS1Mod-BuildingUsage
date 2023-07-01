@@ -53,7 +53,7 @@ namespace BuildingUsage
 
                 // create the usage groups
                 CreateUsageGroup<ResidentialBuildingAI                                                                      >(UsageType.HouseholdsResidential);     // includes PloppableRICO
-                CreateUsageGroup<CommercialBuildingAI                                                                       >(UsageType.WorkersCommercial);         // includes PloppableRICO
+                CreateUsageGroup<CommercialBuildingAI, GameStoreAI                                                          >(UsageType.WorkersCommercial);         // includes PloppableRICO
                 CreateUsageGroup<OfficeBuildingAI                                                                           >(UsageType.WorkersOffice);             // includes PloppableRICO
                 CreateUsageGroup<IndustrialBuildingAI, IndustrialExtractorAI, LivestockExtractorAI                          >(UsageType.WorkersIndustrial);         // includes PloppableRICO
                 CreateUsageGroup<MaintenanceDepotAI, SnowDumpAI                                                             >(UsageType.WorkersMaintenance);
@@ -95,6 +95,7 @@ namespace BuildingUsage
                 AssociateBuildingAI("PloppableRICO.GrowableResidentialAI",    UsageType.HouseholdsResidential,  GetUsageCountHouseholds                                      );
                 AssociateBuildingAI("PloppableRICO.PloppableResidentialAI",   UsageType.HouseholdsResidential,  GetUsageCountHouseholds                                      );
                 AssociateBuildingAI<CommercialBuildingAI                    >(UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
+                AssociateBuildingAI<GameStoreAI                             >(UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
                 AssociateBuildingAI("PloppableRICO.GrowableCommercialAI",     UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
                 AssociateBuildingAI("PloppableRICO.PloppableCommercialAI",    UsageType.WorkersCommercial,      GetUsageCountWorkersZoned                                    );
                 AssociateBuildingAI<OfficeBuildingAI                        >(UsageType.WorkersOffice,          GetUsageCountWorkersZoned                                    );
