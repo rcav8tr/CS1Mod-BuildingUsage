@@ -2351,7 +2351,7 @@ namespace BuildingUsage
                                 // exclude residents of nursing home who should never be unemployed but are sometimes marked as unemployed
                                 if (citizen.Unemployed != 0 && !isNursingHome)
                                 {
-                                    switch (instance.m_citizens.m_buffer[citizenID].EducationLevel)
+                                    switch (citizen.EducationLevel)
                                     {
                                         case Citizen.Education.Uneducated:   unemployed.level0++; break;
                                         case Citizen.Education.OneSchool:    unemployed.level1++; break;
@@ -2462,6 +2462,7 @@ namespace BuildingUsage
             }
 
             // logic adapted from ParkGateAI and ParkBuildingAI private methods CountWorkers and TargetWorkers
+            // except include only age groups that are eligible to be employed
 
             // only Amusement Park and Zoo have workers
             DistrictPark.ParkType parkType = GetParkType(data.Info);
@@ -2471,25 +2472,33 @@ namespace BuildingUsage
                 int citizenCounter = 0;
                 CitizenManager instance = CitizenManager.instance;
                 uint maximumCitizenUnits = instance.m_units.m_size;
-                uint citizen = data.m_sourceCitizens;
-                while (citizen != 0)
+                uint citizenID = data.m_sourceCitizens;
+                while (citizenID != 0)
                 {
                     // exclude animals
-                    CitizenInfo info = instance.m_instances.m_buffer[citizen].Info;
+                    CitizenInstance citizenInstance = instance.m_instances.m_buffer[citizenID];
+                    CitizenInfo info = citizenInstance.Info;
                     if (!info.m_citizenAI.IsAnimal() && info.m_class.m_service == ItemClass.Service.Beautification)
                     {
-                        // count by education level
-                        switch (instance.m_citizens.m_buffer[citizen].EducationLevel)
+                        // include only Young Adults and Adults
+                        // if Hadron Collider is built, then include teens
+                        Citizen citizen = instance.m_citizens.m_buffer[citizenID];
+                        Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(citizen.Age);
+                        if (ageGroup == Citizen.AgeGroup.Young || ageGroup == Citizen.AgeGroup.Adult || (_hadronColliderBuilt && ageGroup == Citizen.AgeGroup.Teen))
                         {
-                            case Citizen.Education.Uneducated:   employed.level0++; break;
-                            case Citizen.Education.OneSchool:    employed.level1++; break;
-                            case Citizen.Education.TwoSchools:   employed.level2++; break;
-                            case Citizen.Education.ThreeSchools: employed.level3++; break;
+                            // count by education level
+                            switch (citizen.EducationLevel)
+                            {
+                                case Citizen.Education.Uneducated:   employed.level0++; break;
+                                case Citizen.Education.OneSchool:    employed.level1++; break;
+                                case Citizen.Education.TwoSchools:   employed.level2++; break;
+                                case Citizen.Education.ThreeSchools: employed.level3++; break;
+                            }
                         }
                     }
 
                     // get the next citizen
-                    citizen = instance.m_instances.m_buffer[citizen].m_nextSourceInstance;
+                    citizenID = citizenInstance.m_nextSourceInstance;
 
                     // check for error (e.g. circular reference)
                     if (++citizenCounter > maximumCitizenUnits)

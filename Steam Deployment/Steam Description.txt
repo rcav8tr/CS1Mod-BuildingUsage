@@ -59,9 +59,11 @@ This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedeta
 
 This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2016920607]Ploppable RICO Revisited[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=554232266]Nursing Homes for Senior Citizens[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1764208250]More Vehicles[/url], and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2654364627]More CitizenUnits[/url] mods.
 
+This mod is compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2027161563]Lifecycle Rebalance Revisited[/url] mod and its altered calculations for age group.
+
 This mod is compatible with mods that alter the number of workers, visitors, storage, or vehicles a building allows (e.g. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1806759255]Customize It Extended[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1562650024]Rebalanced Industries[/url]).
 
-This mod may or may not work correctly if another mod is enabled that alters the Levels info view panel or the logic that gets building or vehicle color.
+This mod may or may not work correctly if another mod is enabled that alters the Levels info view panel or the logic that gets building or vehicle color when the Levels info view is displayed.
 
 When the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1393452031]Parkify[/url] mod is enabled, "parkified" parks are categorized according to the Parkify logic, not according to the original park type.  This is not an error, it is simply a change in categorization that you choose to accept when using Parkify with this mod.
 
