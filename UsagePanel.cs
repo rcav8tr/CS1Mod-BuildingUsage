@@ -3411,8 +3411,10 @@ namespace BuildingUsage
         // In all the GetUsageCountVehicles* routines below:
         // The number of vehicles being used and the number vehicles allowed are displayed on the CityServiceWorldInfoPanel or WarehouseWorldInfoPanel.
         // For both info panels, UpdateBindings gets the vehicle info by calling GetLocalizedStats method of the building AI associated with the building.
-        // The logic in each routine is a copy (using ILSpy) of [building AI].GetLocalizedStats.
-        // The logic was then simplified to include only the parts for computing vehicle info.
+        // In most of the [building AI].GetLocalizedStats routines, the calculation gets only the owned vehicles that have a specific transfer reason.
+        // But in most cases, the vehicle transfer reason looked for is unique to the building AI anyway.
+        // Furthermore, most of the GetUsageCountVehicles* routines called below are specific to a building AI.
+        // Therefore, most of the GetUsageCountVehicles* routines below consider all vehicles owned by the building to be used regardless of the vehicle's transfer reason.
 
 
         /// <summary>
@@ -3420,20 +3422,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesMaintenanceDepot(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // determine transfer reason from service
-            TransferManager.TransferReason transferReason = TransferManager.TransferReason.None;
-            ItemClass.Service service = data.Info.m_class.m_service;
-            if (service == ItemClass.Service.Road)
-            {
-                transferReason = TransferManager.TransferReason.RoadMaintenance;
-            }
-            else if (service == ItemClass.Service.Beautification)
-            {
-                transferReason = TransferManager.TransferReason.ParkMaintenance;
-            }
-
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, transferReason, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // get production rate
             MaintenanceDepotAI buildingAI = data.Info.m_buildingAI as MaintenanceDepotAI;
@@ -3441,7 +3431,7 @@ namespace BuildingUsage
             int productionRate = PlayerBuildingAI.GetProductionRate(100, budget);
 
             // check for park maintenance boost
-            if (transferReason == TransferManager.TransferReason.ParkMaintenance)
+            if (data.Info.m_class.m_service == ItemClass.Service.Beautification)
             {
                 DistrictManager instance = DistrictManager.instance;
                 byte district = instance.GetDistrict(data.m_position);
@@ -3461,15 +3451,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesSnowDump(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            if ((data.m_flags & Building.Flags.Downgrading) != 0)
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.SnowMove, ref used);
-            }
-            else
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Snow, ref used);
-            }
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<SnowDumpAI>(ref data, "m_snowTruckCount", ref allowed);
@@ -3480,8 +3463,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesWaterFacility(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.FloodWater, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<WaterFacilityAI>(ref data, "m_pumpingVehicles", ref allowed);
@@ -3492,7 +3475,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesLandfillSite<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : LandfillSiteAI
         {
-            // compute vehicles used
+            // compute vehicles used based on transfer reason
+            // necessary because landfills have vehicles with transfer reasons other than garbage
             if ((data.m_flags & Building.Flags.Downgrading) != 0)
             {
                 CalculateOwnVehicles(ref data, TransferManager.TransferReason.GarbageMove, ref used);
@@ -3511,9 +3495,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesExtractingFacility(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            ExtractingFacilityAI buildingAI = data.Info.m_buildingAI as ExtractingFacilityAI;
-            CalculateOwnVehicles(ref data, buildingAI.m_outputResource, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<ExtractingFacilityAI>(ref data, "m_outputVehicleCount", ref allowed);
@@ -3524,7 +3507,7 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesFishingHarbor(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute boats and vehicles used
+            // every vehicle (including boats) owned by the building is considered used, regardless of the transfer reason of the vehicle
             CalculateOwnVehicles(ref data, ref used);
 
             // compute boats and vehicles allowed
@@ -3537,9 +3520,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesFishFarm(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            FishFarmAI buildingAI = data.Info.m_buildingAI as FishFarmAI;
-            CalculateOwnVehicles(ref data, buildingAI.m_outputResource, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<FishFarmAI>(ref data, "m_outputVehicleCount", ref allowed);
@@ -3550,9 +3532,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesProcessingFacility<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : ProcessingFacilityAI
         {
-            // compute vehicles used
-            T buildingAI = data.Info.m_buildingAI as T;
-            CalculateOwnVehicles(ref data, buildingAI.m_outputResource, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<T>(ref data, "m_outputVehicleCount", ref allowed);
@@ -3563,10 +3544,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesWarehouse(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            WarehouseAI buildingAI = data.Info.m_buildingAI as WarehouseAI;
-            TransferManager.TransferReason actualTransferReason = buildingAI.GetActualTransferReason(buildingID, ref data);
-            CalculateOwnVehicles(ref data, actualTransferReason, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<WarehouseAI>(ref data, "m_truckCount", ref allowed);
@@ -3577,8 +3556,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesHospital<T>(ushort buildingID, ref Building data, ref int used, ref int allowed) where T : HospitalAI
         {
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Sick, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<T>(ref data, "AmbulanceCount", ref allowed);
@@ -3589,23 +3568,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesHelicopterDepot(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // convert building service to transfer reason(s)
-            if (data.Info.m_class.m_service == ItemClass.Service.HealthCare)
-            {
-                // VehiclesMedicalHelis
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Sick2, ref used);
-            }
-            else if (data.Info.m_class.m_service == ItemClass.Service.FireDepartment)
-            {
-                // VehiclesFireHelis
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Fire2, ref used);
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.ForestFire, ref used);
-            }
-            else if (data.Info.m_class.m_service == ItemClass.Service.PoliceDepartment)
-            {
-                // VehiclesPoliceHelis
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Crime, ref used);
-            }
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<HelicopterDepotAI>(ref data, "m_helicopterCount", ref allowed);
@@ -3616,15 +3580,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesCemetery(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            if ((data.m_flags & Building.Flags.Downgrading) != 0)
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.DeadMove, ref used);
-            }
-            else
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Dead, ref used);
-            }
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<CemeteryAI>(ref data, "m_hearseCount", ref allowed);
@@ -3635,8 +3592,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesFireStation(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Fire, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<FireStationAI>(ref data, "m_fireTruckCount", ref allowed);
@@ -3647,11 +3604,9 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesDisasterResponseBuilding(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
             // vehicles and helis are combined because they come from the same building
-
-            // compute vehicles and helicopters used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Collapsed,  ref used);   // vehicles
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Collapsed2, ref used);   // helicopters
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles and helicopters allowed
             CalculateAllowedVehicles<DisasterResponseBuildingAI>(ref data, "m_vehicleCount",    ref allowed);
@@ -3663,15 +3618,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesShelter(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateA,    ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateB,    ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateC,    ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateD,    ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateVipA, ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateVipB, ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateVipC, ref used);
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.EvacuateVipD, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<ShelterAI>(ref data, "m_evacuationBusCount", ref allowed);
@@ -3682,15 +3630,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesPoliceStation(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used based on usage type
-            if (GetUsageType1ForBuilding(buildingID, ref data) == UsageType.VehiclesPrisonVans)
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.CriminalMove, ref used);      // prison vans
-            }
-            else
-            {
-                CalculateOwnVehicles(ref data, TransferManager.TransferReason.Crime, ref used);             // police cars
-            }
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<PoliceStationAI>(ref data, "PoliceCarCount", ref allowed);
@@ -3701,8 +3642,8 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesBank(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Cash, ref used);
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<BankOfficeAI>(ref data, "CollectingVanCount", ref allowed);
@@ -3713,14 +3654,9 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesPostVansTrucks(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
             // vans and trucks are combined because they can come from the same building
-
-            // compute vehicles used
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.Mail,         ref used);   // van
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.UnsortedMail, ref used);   // truck
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.SortedMail,   ref used);   // truck
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.OutgoingMail, ref used);   // truck
-            CalculateOwnVehicles(ref data, TransferManager.TransferReason.IncomingMail, ref used);   // truck
+            CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
             CalculateAllowedVehicles<PostOfficeAI>(ref data, "m_postVanCount", ref allowed);
@@ -3733,7 +3669,7 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesPrivatePlanes(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
             CalculateOwnVehicles(ref data, ref used);
 
             // compute vehicles allowed
@@ -3765,7 +3701,7 @@ namespace BuildingUsage
                 if (buildingAIType == typeof(MonumentAI))
                 {
                     // check if building AI supports the launch event
-                    MonumentAI buildingAI = (MonumentAI)prefab.m_buildingAI as MonumentAI;
+                    MonumentAI buildingAI = prefab.m_buildingAI as MonumentAI;
                     if (buildingAI.m_supportEvents == EventManager.EventType.RocketLaunch)
                     {
                         return true;
@@ -3784,7 +3720,7 @@ namespace BuildingUsage
         protected void GetUsageCountVehiclesChirpXLaunchSite(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
             // check if building AI supports the launch event
-            MonumentAI buildingAI = (MonumentAI)data.Info.m_buildingAI as MonumentAI;
+            MonumentAI buildingAI = data.Info.m_buildingAI as MonumentAI;
             if (buildingAI.m_supportEvents == EventManager.EventType.RocketLaunch)
             {
                 // if rocket is ready to launch, then used is 1
@@ -3806,7 +3742,7 @@ namespace BuildingUsage
         /// </summary>
         protected void GetUsageCountVehiclesTransportation(ushort buildingID, ref Building data, ref int used, ref int allowed)
         {
-            // compute vehicles used, regardless of vehicle type
+            // every vehicle owned by the building is considered used, regardless of the transfer reason of the vehicle
             CalculateOwnVehicles(ref data, ref used);
 
             // for transportation buildings, always 1 allowed
@@ -3828,7 +3764,7 @@ namespace BuildingUsage
             ushort vehicleID = data.m_ownVehicles;
             while (vehicleID != 0)
             {
-                // every vehicle owned by the building is considered used
+                // every vehicle owned by the building is considered used regardless of transfer reason
                 used++;
 
                 // get the next vehicle
@@ -3858,14 +3794,15 @@ namespace BuildingUsage
             ushort vehicleID = data.m_ownVehicles;
             while (vehicleID != 0)
             {
-                // check if vehicle should be counted
-                if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[vehicleID].m_transferType == transferReason)
+                // check if vehicle should be counted based on transfer reason
+                Vehicle vehicle = instance.m_vehicles.m_buffer[vehicleID];
+                if ((TransferManager.TransferReason)vehicle.m_transferType == transferReason)
                 {
                     used++;
                 }
 
                 // get the next vehicle
-                vehicleID = instance.m_vehicles.m_buffer[vehicleID].m_nextOwnVehicle;
+                vehicleID = vehicle.m_nextOwnVehicle;
 
                 // check for error (e.g. circular reference)
                 if (++vehicleCounter > maximumVehicles)
