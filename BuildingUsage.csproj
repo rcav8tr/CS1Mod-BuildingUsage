@@ -107,6 +107,7 @@
     <None Include="Steam Deployment\Vehicles.jpg" />
     <None Include="Steam Deployment\Visitors.jpg" />
     <None Include="Steam Deployment\Workers.jpg" />
+    <None Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
